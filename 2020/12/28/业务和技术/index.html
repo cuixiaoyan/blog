@@ -1,0 +1,649 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>业务和技术 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/blog/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="业务和技术">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-28 19:58" pubdate>
+        2020年12月28日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      61
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">业务和技术</h1>
+            
+            <div class="markdown-body">
+              <p> 身处业务的我们，技术上如何自拔？</p>
+<p>文章目录概述自我回顾业务与技术的困扰带着问题思考什么是技术和业务业务技术技术和业务的关系业务与为解决业务而衍生的业务对待业务的态度因你在团队的角色不同而不同从所谓的业务代码中跳出如何轻松、漂亮的搞定业务……</p>
+<p>看了网上的学习方法，也综合了一下他人的意见，总结下来，想来自我学习以及自我提升的方式，大抵就是如下三种了</p>
+<ol>
+<li> 从文字视图中学习</li>
+<li> 向身边的人学习</li>
+<li> 向自己学习</li>
+</ol>
+<p>其中向自己学习最为靠谱。</p>
+<p>而向自己学习最有效的方法，就是自省。</p>
+<p>“曾子曰: 吾日三省吾身，为人谋而不忠乎? 与朋友交而不信乎? 传不习乎?”</p>
+<p>“古人诚不我欺”。总结，是自省反馈出来的一种结果。写这篇文章，希望不只是自己能够学到东西，进行成长，也希望能将自己的思考和经验传播出来，与大家共勉。</p>
+<p>从年初到年末，从一个技术人员 仅 3 人的小手游公司到了如今开发团队近 200 人的中大型公司。</p>
+<p>下面从工作和个人成长两个方面进行入手，剖析一下自己。</p>
+<p>工作上，从一个人埋头干活，到主导跨 4，5 个小部门共同协作的技术经理以及现在作为一个小组的 leader，作为员工，如何在业务中继续成长下去以及如何在公司体现出自己的不可替代性（技术和业务上的），也让公司看到你的潜力（你的成长能为公司为团队带来的收益）；作为小组 leader，如何更好的带好自己的小组（这点在后面并没有讲到，明年见）；</p>
+<p>另外，自己技术上的成长。也许我扯一大堆的技术名词，并不是很直观，简单粗暴的讲，就是从一个日流量不到万级的游戏到如今日流量亿级的项目以及其他大大小小高流量项目的开发。</p>
+<p>稍微从技术层面说就是 Java 的单体 SpringBoot 项目发展到基于 Dubbo、SpringBoot 的，使用到分布式事务，分布式锁，分布式数据分片，负载、限流、熔断、降级、链路追踪、elasticsearch、消息队列、缓存 redis、自动化部署、apollo、Sentinel 等一大堆名词和技术搭建的高并发高可用服务化项目；</p>
+<p>凭我这浅薄的知识，至少目前不可能用自己理解的概念来把上面列到的一些知识点的原理来进行讲解，自己对其也只是懂个大概，更不想误人子弟，仅仅讲点自己也似懂非懂的概念。自己目前对其理解的，就是很多开发所处的，调用接口使用的这个层次。原理知识，以后会慢慢道来。余生漫漫，请君勿急。</p>
+<p>篇幅有限，开始想着能写很多，但是思考下来，关于技术和业务就能写一大篇的文字。</p>
+<p>相信很多开发经常会被业务代码所困扰，绝大多数都是有梦想的程序猿，大家都有着一个想使用代码改变世界的梦，当初我选择软件工程这个专业，原因之一就是我觉得我哥使用代码开发一个网站出来是一件牛逼哄哄的事情。</p>
+<p>现在倒是觉得，比如开发一个 GitHub 开源项目的 star 几千上万才是牛逼哄哄的事情了。</p>
+<p>在工作中，天天写业务代码，自己如何在技术上进步？大家是不是也经常心生疑惑，我以前也困扰过（自己的老大在总结中点醒了我，对技术有追求，但是并没有很好的结合业务。自己也好好进行了反省，搜集了很多资料，也询问了另外的大佬，如何更好的处理业务和技术），现在倒是觉得贴合业务更加能够提升打磨自己的技术以及增加自己在公司的不可替代性。</p>
+<p>看到有文章这样比喻业务与技术，写业务代码学习的技术就像游戏中升级打怪一样，开始打小怪，经验值很高，越到后面经验值越少，打小怪已经不能提升经验值了。这个时候就需要打一些更高级的怪，刷一些有挑战的副本了，没看到哪个游戏只要一直打小怪就能升到顶级的。 成为技术大牛的路也是类似的，你要不断的提升自己的水平，然后面临更大的挑战，通过应对这些挑战从而使自己水平更上一级，然后如此往复，最终达到技术大牛甚至业界大牛的境界，写业务代码只是这个打怪升级路上的一个挑战而已。业务代码都写不好的程序员肯定无法成为技术大牛，但只把业务代码写好的程序员也还不能成为技术大牛。对应自己所处的角色，更好的挖掘出自己的潜力与提升实力，创造出更多的价值。</p>
+<p>再说一个现实中的问题，工作都是基于业务来驱动的，国内基本所有公司（抛开研究不讲，广义上来说，所有的技术都是为业务服务的）都是业务来驱动的。 阿里的中间件团队，也是业务驱动而成立的团队（为了解决阿里内部复杂的业务场景、飞速的业务增长、高并发的大促洪峰、层出不穷的稳定性问题而成立的团队），只是做的事情比我们的高大上（高分布式 RPC 服务框架、高可靠分布式消息中间件、分布式数据层、海量数据存储、实时计算、系统性能优化、架构高可用等），后面会介绍到因业务需要而衍生高深技术。</p>
+<h2 id="带着问题思考"><a href="#带着问题思考" class="headerlink" title="带着问题思考"></a>带着问题思考</h2><p>作为开发人员，如何面对 “CRUD，天天写业务代码” 这个事情，可以思考下面的几个问题</p>
+<ol>
+<li> 什么是技术和业务</li>
+<li> 业务和技术的关系</li>
+<li> 业务与为解决业务而衍生的业务</li>
+<li> 对待业务的态度因你在团队的角色不同而不同</li>
+<li> 如何从所谓的业务代码中学习深入</li>
+</ol>
+<h3 id="什么是技术和业务"><a href="#什么是技术和业务" class="headerlink" title="什么是技术和业务"></a>什么是技术和业务</h3><p>接下来就从业务和技术来入手进行分析了。</p>
+<p>回归到这两个词的定义。</p>
+<p>维基百科是这么解释的：</p>
+<h4 id="业务"><a href="#业务" class="headerlink" title="业务"></a>业务</h4><p><strong>业务是指某种有目的的工作或工作项目。</strong> 考虑到企业已经成为现代社会最常见的活动主体，故可为业务作现实定义，即企业运用科学方法和生产工艺生产出可交付用户使用的产品与服务，并以此为企业带来利益的行为。</p>
+<p>不只是为企业，能为人类本身带来利益的需求，都可以称之为业务。</p>
+<h4 id="技术"><a href="#技术" class="headerlink" title="技术"></a>技术</h4><p><strong>技术可以指人类对机器、硬件或人造器皿的运用，但它也可以包含更广的架构，如系统、组织方法学和技巧</strong></p>
+<p>它是知识进化的主体，由社会形塑或形塑社会。如电脑等新技术的增生使人们相信技术是社会进化的决定性力量，换句话说，它是驱动改变的自发性动力。</p>
+<p>通过人为创造条件，让指定的事件能够按照人类的意愿发生，这就是技术。</p>
+<p>比如取火，最早人类只能靠打雷等自然现象产生火。</p>
+<p>取火其实就是一个业务目标，要解决的是人类自己的问题，这就是业务，实际就是人类的利益。这个时候人类并没有生火的技术，只能靠不断的加木材，保持火不熄灭。</p>
+<p>后来人们发现了钻木取火：只要用一个干的木棍，在另一个干木表面快速的转动，就可以生火。这个办法让人类可以自行创造火源，就产生了钻木取火的技术。</p>
+<p>但是双手快速转动木棍钻木取火，并不是所有人都能够做得到的，需要很多力量和速度，对人的要求太高。为了解决快速转动的问题，就有人采用弓弦来提升木棍转动的速度。</p>
+<p>业务目标是为了取火，钻木取火这个技术的出现解决了这个问题。</p>
+<p>钻木取火的效率不高，影响了业务（取火）的效率，就有了进一步改进的动机，改进转动木棍的方式，产生了弓弦转动木棍的技术。</p>
+<p>再用比较现代化的业务来进行说明一下</p>
+<p>比如取款就是一种业务，ATM 机内运转的软件，要解决的业务就是取款。（取款是为了交易，当初交易不方便，于是便有了移动支付，聚合支付等等） 比如买火车票也是业务，12306 这个网站就是为解决买车票的业务服务的。（春运买票不易，于是出现了抢票软件，加速软件等等）</p>
+<p>实现软件 / 网站功能的系统，架构，框架等便是技术（而技术本身又可能是建立在其他技术之上的）。</p>
+<p>从上面的定义以及例子中，可以知道，业务是具有强目的性的，比如说我的业务就是为了取款，而 12306 网站的业务就是为了解决买车票的业务服务，是为某个具体特定的问题而生的；但是业务就具有弱目的性，普遍性和通用性，比如前面实现取款的技术框架，可能在 12306 中的框架还能复用等等。</p>
+<p>技术存在演变，也是为了更方便的服务于业务本身。</p>
+<h3 id="技术和业务的关系"><a href="#技术和业务的关系" class="headerlink" title="技术和业务的关系"></a>技术和业务的关系</h3><p>接下来以取火为例吧。</p>
+<p>前面说到最开始是通过雷电获取火源，接下来是火石、钻木取火，然后渐渐演变到弓弦加速转动木棍取火，随着科技的发展，渐渐的生成火源便成为了一种业务，并且可以出售带来另外的利益，这个时候，生成火柴、打火机便是业务。而其中业务中使用的剧烈氧化还原反应、汽油制作、物理化学知识、工业制作等便是技术。</p>
+<p>简单的可以得出如下几个结论</p>
+<ol>
+<li> 技术是为了解决业务的问题而产生的，没有了业务，技术就没有了存在的前提</li>
+<li> 有了更好的技术，效率更差的技术，就会慢慢的被淘汰，消失，一切都遵从人类的利益诉求 – 也就是业务</li>
+</ol>
+<p>有人会问，不用钻木取火了，但是弓弦加速转动木棍还可以用啊？ 没错，因为弓弦转动木棍这个技术，不是来生火的，是用来加速木棍转动的，所解决的问题不一样（引出了后面因解决业务而衍生出来的业务）。但是多种不同的技术，合理结合起来，会更好更有效率的解决业务问题。</p>
+<p>所以技术与技术之间，有如下的两种关系：</p>
+<ol>
+<li> 在解决同一个业务问题的前提下，更高效，更低成本的技术，会淘汰低效，高成本的技术。这是人类利益诉求所决定的。</li>
+<li> 一般刚开始解决根本问题的技术（钻木取火）的效率是比较低的，只是把不可能变成了可能（从这一点上来说，技术才是业务的 促成者）。然后就会有提高效率的需求出现，要求改进这个技术。这个技术的低效率部分就会被其他人（或者技术发明人自己）加以改进，这部分就会形成新的技术。</li>
+</ol>
+<p>当更好的技术发生的时候，必定会形成一个切分，新技术会通过某种方式和原有的技术连接在一起形成一个整体，让这个新的技术可以和原有技术共同工作，使得原有的技术可以用更高的效率解决问题。因为要解决的主要业务（生火）并没有发生改变，分拆所形成的是一个树状的结构。</p>
+<p>这个时候其实已经产生了架构。也就是说，一般是先有技术，才会有架构。这些其他技术（弓弦拉动木棍、氧化还原反应生火等），是从直接解决问题的初始主要技术中分拆出来形成的，并通过树状结构和主要技术（钻木取火）组合在一起。在解决主要问题（生火）之后，再开始逐渐的分拆为更为细粒度的技术（弓弦转木棍）</p>
+<p>而这个细粒度的技术（弓弦转动木棍）往往不会和业务的主要目标（生火）发生直接的关系。不同的技术，通过树状结构，组合在一起，形成了一个完整的架构解决方案，共同完成业务的目标。这就是技术，业务和架构之间的关系。（分析火柴与打火机原理生成火源类似）</p>
+<p>很多人把这个过程称为架构的进化，我更愿意把这个过程称为技术的进步所导致的新的架构分拆，因为这个过程内在的动力，更多的是来自技术对解决业务问题的解决。</p>
+<p>我们回到开发者身上来看，写业务代码多一些，还是所谓的技术代码多一些，没有高下之分，只有个人取向和组织分工的不同。</p>
+<h3 id="业务与为解决业务而衍生的业务"><a href="#业务与为解决业务而衍生的业务" class="headerlink" title="业务与为解决业务而衍生的业务"></a>业务与为解决业务而衍生的业务</h3><p>打开淘宝首页，随便浏览一个商品详情页面。</p>
+<p>是不是有人会第一眼觉得商品封面，优惠券等相关信息的代码是没有什么技术含量的，因为那些是业务代码。</p>
+<p>是不是觉得写商品页面的框架，分布式架构，分布式缓存，JMQ，Redis 或者说是 等技术才是有技术含量的。</p>
+<p>但实际上，所谓的业务代码和技术代码，它们的区别，仅仅是和业务的距离远近不同而已：业务代码离业务更近，技术代码离业务稍远。它们最终都是指向业务实现的。</p>
+<p>而且，可以考虑换一种视角来看业务，就会发现，其实每一层代码，都服务于它的上一层代码，上一层代码，就是它的业务！</p>
+<p>![](data:;base64,&lt;?xml version=)” alt=”img” data-src=”<a target="_blank" rel="noopener" href="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/901f02baa8e24b23abc9cf09be674f41~tplv-k3u1fbpfcp-zoom-1.image&quot;">https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/901f02baa8e24b23abc9cf09be674f41~tplv-k3u1fbpfcp-zoom-1.image&quot;</a> data-width=”800” data-height=”600” /&gt;</p>
+<p>比如详情页架构的第 2 层 “对外提供 API” 中的“商品介绍” ，它的服务对象，就是前端页面，要解决的业务，就是“响应前端页面的查询，提供商品介绍”</p>
+<p>而第 2 层底部的前端数据集群（JIMDB），它的服务对象，就是商品介绍，要解决的业务，就是 “存储商品或代理商品介绍信息”。</p>
+<p>简单说，每一层技术实现，都服务于上一层，都以上一层的需求为业务。 从这个角度讲，现实中的业务在被虚拟化的过程中，会在技术实现层面引发分层，产生中间性、对用户不可见的新业务。</p>
+<p>但是为什么很多开发者又觉得所做的技术实现越接近现实业务越没技术含量呢？</p>
+<p>这是因为，你越接近用户业务：</p>
+<ol>
+<li> 细节越多，繁琐度越高，越不容易做好，越容易因为一点小瑕疵而被否定，让人觉得自己的劳动没价值</li>
+<li> 现实性越强，变化几率越高，越容易来回修改代码，越让人觉得自己的掌控感低下</li>
+<li> 实现的代码可迁移性越差，劳动成果被复用的概率越低</li>
+</ol>
+<p>而当你远离用户业务时：</p>
+<ol>
+<li> 你用到的技术，多数都是被高度抽象过的、用来解决从用户业务衍生出的技术性业务的，它们比具体的用户业务稳定，它们的适用面更广，也更容易被迁移到其它的业务领域</li>
+<li> 你的劳动成果因为具有抽象属性，被复用的概率会更高，你会更愿意打磨它，会更有成就感</li>
+<li> 你受到压力，经过距离用户近的几层同事的传递，得到了衰减，没那么大</li>
+<li> 你打交道的对象，多数时候是内部同事、是技术人群，更容易达成一致</li>
+</ol>
+<h3 id="对待业务的态度因你在团队的角色不同而不同"><a href="#对待业务的态度因你在团队的角色不同而不同" class="headerlink" title="对待业务的态度因你在团队的角色不同而不同"></a>对待业务的态度因你在团队的角色不同而不同</h3><p>你对业务的态度，会因你在团队中承担的角色不同而不同。这是由开发团队的组织结构和职责分工导致的。</p>
+<p>下面是 “团队结构、能力与职责” 图：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/7e6220e13c624ca3852ac1cad0528ec2~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>在一个开发团队中，架构师这个角色，会负责业务拆分和软件架构的工作，并且领导团队来实现满足业务的软件。</p>
+<ul>
+<li>  注 1 ：有的研发团队里有业务架构师和软件架构师两种角色，业务拆分由业务架构师或业务分析师完成。</li>
+<li>  注 2 ：软件架构师和业务架构师这两个角色也可能由没有架构师头衔的研发经理兼任。 架构师一定是要以业务为导向的，要搞懂业务的。所以，在架构师这个阶段，在团队管理者这个阶段，业务的重要性，往往是高于技术的，在他们的眼中，业务统领技术，技术是用来实现业务的。</li>
+</ul>
+<p>当团队完成业务架构和软件架构之后，就会选择不同的开发者来负责不同功能模块的实现。</p>
+<p>负责不同功能模块实现的开发者，必须能够理解业务，并且要熟悉某个技术栈，能够进行模块设计和任务拆分，我称这样的开发者为 “熟练开发者”。</p>
+<p>熟练开发者会承接由架构师分派的子业务，负责模块设计和拆分，把拆分后的小任务，交给普通程序员来完成。</p>
+<p>当你是一个熟练开发者时，业务和技术几乎同等重要，因为：</p>
+<p>你不理解业务，就很难将子业务模块映射到软件实现上，也很难做进一步的业务拆分。</p>
+<p>你不具备完整的技术栈和相应的知识体系，就很难找到合适的技术来实现业务，也很难做软件模块的拆分。</p>
+<p>熟练开发者完成了子业务和软件模块的拆分，会形成一系列的叶子型任务，并把它们分派给具备特定专项技术能力的普通程序员。</p>
+<p>普通程序员要做的事情比较简单，就是接受别人分派的任务，实现特定的业务细节。</p>
+<p>注意当你是一个普通程序员的时候，团队要求你具备一定的专项技术能力，能够完成任务即可，你的角色，就拿把螺丝刀拧螺丝，拧好螺丝就 Ok 。</p>
+<p>这个时候，你内心是痛苦的，对不停地写业务代码是拒绝的，因为你要再找工作时，别的组织看重你的专项技术能力甚于业务能力（他们有人做业务拆分，你过去了能拧螺丝即可），而你在现有组织中，却因为深陷业务代码的编写而无法持续淬炼你的技能能力。</p>
+<p>而开发中普通程序员是占比最大的，所以经常能看到文章或者有人提问纠结写业务代码这件事！</p>
+<p>那么，该如何才能解脱呢？</p>
+<h3 id="从所谓的业务代码中跳出"><a href="#从所谓的业务代码中跳出" class="headerlink" title="从所谓的业务代码中跳出"></a>从所谓的业务代码中跳出</h3><p>首先，很遗憾的告诉各位，这不是一蹴而就的，是一个技术深度和业务层次积累的过程，这需要时间。</p>
+<p>作为一名技术人员，一方面要认识到技术只是用来解决特定问题的工具，所以一定要从问题出发，提出解决方案，而不能一味的追求技术的完美。</p>
+<p>另一方面，也要认识到技术本身也可能成为一项业务，只要它足够通用，能够给其他人、组织提供有价值的解决方案。</p>
+<p>但是，公司业务代码太多，总是 “沉迷业务无法自拔”，如何更好的提升自己，让自己发光发亮，能够提供更多有价值的东西。</p>
+<p>也看到很多文章说的是，需要自己挤出时间出来进行学习，也就是在工作之余进行提升，自己认真的想一想，在业务上真的是无法提升自己吗？ 当我们轻松、漂亮的搞定业务后，能不能再从下面的方面入手进行思考呢。 例如</p>
+<ul>
+<li>  熟悉业务相关的更多业务和代码，不管业务是不是你负责的，不管代码是不是你写的；这样的好处太多，不列举，有兴趣的可以搜索</li>
+<li>  这个业务有没有优化的点；</li>
+<li>  重复代码太多，是不是可以考虑使用设计模式进行优化</li>
+<li>  系统中业务是不是庞大，能不能进行解耦成几个服务或者模块</li>
+<li>  开源框架中的一些功能正好能够用到，可不可以引进</li>
+<li>  代码中性能有没有需要优化的地方</li>
+<li>  在高并发情况下，有没有潜在 Bug</li>
+<li>  能不能使用缓存，减少数据库压力，增加访问性能</li>
+<li>  思考一下这个系统的架构，该系统使用了些什么技术，我还有哪些不知道的</li>
+<li>  系统为什么使用这个技术，为什么使用这种架构</li>
+<li>  下次类似的业务，我能不能抽出相关代码，进行复用，或者直接开发成服务，暴露出来</li>
+<li>  … …</li>
+</ul>
+<p>很多普通程序员天天抱怨老写业务代码没长进，可手上的任务却总是敷衍了事，完成得凑凑合合，甚至还出现频现线上 Bug，那是很难摆重复简单业务任务的泥沼的。</p>
+<h4 id="如何轻松、漂亮的搞定业务"><a href="#如何轻松、漂亮的搞定业务" class="headerlink" title="如何轻松、漂亮的搞定业务"></a>如何轻松、漂亮的搞定业务</h4><p>可以从这四方面进行入手：</p>
+<ol>
+<li> 在深度（研究领域中非常具有代表性的某几个框架的原理链）和广度（开源的框架这么多，至少要认识吧）两个方面提升技术能力（如果当下任务繁重，就利用业余时间练习）</li>
+<li> 把自己的做的事情放在全局理解，提升业务理解能力</li>
+<li> 培养好的工作习惯，比如计划、回顾、总结等</li>
+<li> 做好汇报和展示，让领导知道你的能力</li>
+</ol>
+<p>当你慢慢做了上面 4 点之后，每次拿到任务，都能轻松又漂亮地搞定，超出领导的预期，还有未发挥完的火力，那团队就一定会给你复杂一点的任务。</p>
+<p>如果你还能轻松、漂亮地搞定并且还有余力，那团队就会给你复杂度再高一些的任务。</p>
+<p>往复循环，你就可以跳出最简单的业务代码编写，做越来越重要的事情，你的不可替代性也变得越来越强。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/%E6%84%9F%E6%82%9F/">感悟</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E5%AD%A6%E4%B9%A0/">学习</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E6%84%9F%E6%82%9F/">感悟</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2020/12/27/hexo%E9%83%A8%E7%BD%B2%E5%88%B0gitee/">
+                        <span class="hidden-mobile">hexo部署到gitee</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
