@@ -4,6 +4,90 @@
   
   
   <entry>
+    <title>Centos7安装mysql5.7</title>
+    <link href="/blog/2021/01/05/%E6%9C%AA%E5%91%BD%E5%90%8D/"/>
+    <url>/blog/2021/01/05/%E6%9C%AA%E5%91%BD%E5%90%8D/</url>
+    
+    <content type="html"><![CDATA[<h2 id="先检查系统是否装有mysql"><a href="#先检查系统是否装有mysql" class="headerlink" title="先检查系统是否装有mysql"></a>先检查系统是否装有mysql</h2><p>rpm -qa | grep mysql 这里执行安装命令是无效的，因为centos-7默认是Mariadb，所以执行以下命令只是更新Mariadb数据库 yum install mysql 删除 yum remove mysql</p><h2 id="下载mysql的repo源"><a href="#下载mysql的repo源" class="headerlink" title="下载mysql的repo源"></a>下载mysql的repo源</h2><p>wget <a href="http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm">http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm</a></p><h2 id="安装mysql-community-release-el7-5-noarch-rpm包"><a href="#安装mysql-community-release-el7-5-noarch-rpm包" class="headerlink" title="安装mysql-community-release-el7-5.noarch.rpm包"></a>安装mysql-community-release-el7-5.noarch.rpm包</h2><p>sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm</p><h2 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h2><p>sudo yum install mysql-server</p><h3 id="这里可能会报错-请注意"><a href="#这里可能会报错-请注意" class="headerlink" title="这里可能会报错 请注意"></a>这里可能会报错 请注意</h3><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs subunit"><span class="hljs-keyword">Error: </span>Package: mysql-community-libs<span class="hljs-string">-5</span>.6.35<span class="hljs-string">-2</span>.el7.x86_64 (mysql56-community)<br>           Requires: libc.so.6(GLIBC_2.17)(64bit)<br><span class="hljs-keyword">Error: </span>Package: mysql-community-server<span class="hljs-string">-5</span>.6.35<span class="hljs-string">-2</span>.el7.x86_64 (mysql56-community)<br>           Requires: libc.so.6(GLIBC_2.17)(64bit)<br><span class="hljs-keyword">Error: </span>Package: mysql-community-server<span class="hljs-string">-5</span>.6.35<span class="hljs-string">-2</span>.el7.x86_64 (mysql56-community)<br>           Requires: systemd<br><span class="hljs-keyword">Error: </span>Package: mysql-community-server<span class="hljs-string">-5</span>.6.35<span class="hljs-string">-2</span>.el7.x86_64 (mysql56-community)<br>           Requires: libstdc++.so.6(GLIBCXX_3.4.15)(64bit)<br><span class="hljs-keyword">Error: </span>Package: mysql-community-client<span class="hljs-string">-5</span>.6.35<span class="hljs-string">-2</span>.el7.x86_64 (mysql56-community)<br>           Requires: libc.so.6(GLIBC_2.17)(64bit)<br> You could try using --skip-broken to work around the problem<br> You could try running: rpm -Va --nofiles --nodigest<br> <br></code></pre></td></tr></table></figure><h3 id="解决方法如下："><a href="#解决方法如下：" class="headerlink" title="解决方法如下："></a>解决方法如下：</h3><p>yum install glibc.i686 yum list libstdc++*</p><p>然后登陆 没有密码直接回车跳过 mysql -u root -p</p><h3 id="登录时有可能报这样的错：ERROR-2002-HY000-Can’t-connect-to-local-MySQL-server-through-socket-‘-var-lib-mysql-mysql-sock’-2-，原因是-var-lib-mysql的访问权限问题。下面的命令把-var-lib-mysql的拥有者改为当前用户："><a href="#登录时有可能报这样的错：ERROR-2002-HY000-Can’t-connect-to-local-MySQL-server-through-socket-‘-var-lib-mysql-mysql-sock’-2-，原因是-var-lib-mysql的访问权限问题。下面的命令把-var-lib-mysql的拥有者改为当前用户：" class="headerlink" title="登录时有可能报这样的错：ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2)，原因是/var/lib/mysql的访问权限问题。下面的命令把/var/lib/mysql的拥有者改为当前用户："></a>登录时有可能报这样的错：ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2)，原因是/var/lib/mysql的访问权限问题。下面的命令把/var/lib/mysql的拥有者改为当前用户：</h3><p>sudo chown -R openscanner:openscanner /var/lib/mysql</p><p>重启mysql service mysqld restart</p><p>这里密码设置的为root</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">mysql &gt; use mysql;<br>mysql &gt; update user set password=password(<span class="hljs-string">&#x27;root&#x27;</span>) where user=<span class="hljs-string">&#x27;root&#x27;</span>;<br>mysql &gt; <span class="hljs-keyword">exit</span>;<br> <br></code></pre></td></tr></table></figure><p>再重启 登陆mysql 加上远程访问权限 为root添加远程连接的能力。链接密码为 “root”（不包括双引号）</p><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">mysql&gt; <span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> <span class="hljs-keyword">PRIVILEGES</span> <span class="hljs-keyword">ON</span> *.* <span class="hljs-keyword">TO</span> root@&quot;%&quot; IDENTIFIED <span class="hljs-keyword">BY</span> &quot;root&quot;;　　<br></code></pre></td></tr></table></figure><h1 id="最后最后-非常重要-查询不区分大小写表名"><a href="#最后最后-非常重要-查询不区分大小写表名" class="headerlink" title="最后最后 非常重要 查询不区分大小写表名"></a>最后最后 非常重要 查询不区分大小写表名</h1><p>vim /etc/my.cnf 在[mysqld]节点下，加入一行： lower_case_table_names=1<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190710-151220@2x_1562742772778.png" alt="WX20190710-151220@2x">重启数据库 连接工具测试连接<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/5E7E7FBB-4F4B-4C82-83E0-F98203469C7A_1562742912107.png" alt="5E7E7FBB-4F4B-4C82-83E0-F98203469C7A"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>部署</tag>
+      
+      <tag>服务器</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Centos7安装tomcat9</title>
+    <link href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85tomcat9/"/>
+    <url>/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85tomcat9/</url>
+    
+    <content type="html"><![CDATA[<h2 id="首先检查是否安装好jdk-和配置好运行环境-还有就是名字和路径"><a href="#首先检查是否安装好jdk-和配置好运行环境-还有就是名字和路径" class="headerlink" title="首先检查是否安装好jdk 和配置好运行环境 还有就是名字和路径"></a>首先检查是否安装好jdk 和配置好运行环境 还有就是名字和路径</h2><p>输入命令：Java -version，如果显示JDK版本号，则证明已经安装了JDK。</p><p>输入命令：echo $JAVA_HOME，如果显示路径，则证明配置了环境变量。</p><p>如果没有参考 <a href="http://47.100.236.144:888/archives/centos7-jdk">安装jdk</a> tomcat 下载地址 [tomcat9]( <a href="https://pan.baidu.com/s/171M_rXvsyKNI5jAY8nwd1Q">https://pan.baidu.com/s/171M_rXvsyKNI5jAY8nwd1Q</a> 提取码: 3r8q )</p><ol><li>cd /usr/local/ 进入此目录下面 创建 mkdir tomcat</li><li>进入tomcat 文件夹下面 将云盘安装包放入 解压</li><li>tar -zxvf apache-tomcat-9.0.21.tar.gz</li><li>再进入 cd apache-tomcat-9.0.21/bin/startup.sh 启动tomcat</li><li>启动 /usr/local/tomcat/apache-tomcat-9.0.21/bin/startup.sh</li><li>关闭 /usr/local/tomcat/apache-tomcat-9.0.21/bin/shutdown.sh</li><li>重启 建议 ps -ef | grep tomcat 查询 tomcat 占用的pid</li><li>kill -9 pid 再启动</li><li>ip 加端口能访问到 就成功了</li></ol>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>部署</tag>
+      
+      <tag>服务器</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Centos7安装jdk</title>
+    <link href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85jdk/"/>
+    <url>/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85jdk/</url>
+    
+    <content type="html"><![CDATA[<p>请注意版本和文件名 是否一致 按照你的地址来!</p><ol><li>先进入 cd /usr/local/</li><li>创建一个放jdk的文件夹 mkdir java</li><li>进入 cd java</li><li>通过工具 finalshell 直接把安装包放到Java文件夹下</li><li>tar -zxv -f jdk-8u211-linux-x64.tar.gz 解压出来 [jdk 下载地址](链接: <a href="https://pan.baidu.com/s/1KjBBvHRxj4QHWkAnsIQGbQ">https://pan.baidu.com/s/1KjBBvHRxj4QHWkAnsIQGbQ</a> 提取码: n1bp 复制这段内容后打开百度网盘手机App，操作更方便哦)</li></ol><p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/1562571285905_1562571317802.jpg" alt="1562571285905"></p><h2 id="上面步骤已经安装完成了-下面配置环境变量"><a href="#上面步骤已经安装完成了-下面配置环境变量" class="headerlink" title="上面步骤已经安装完成了 下面配置环境变量"></a>上面步骤已经安装完成了 下面配置环境变量</h2><p>vim /etc/profile 打开之后按键盘【i】键进入编辑模式，将下面的内容复制到底部：</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">JAVA_HOME=<span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/java/</span>jdk1.<span class="hljs-number">8.0</span>_211<br>PATH=<span class="hljs-variable">$JAVA_HOME</span>/bin:<span class="hljs-variable">$PATH</span><br>CLASSPATH=<span class="hljs-variable">$JAVA_HOME</span><span class="hljs-regexp">/jre/</span>lib<span class="hljs-regexp">/ext:$JAVA_HOME/</span>lib/tools.jar<br>export PATH JAVA_HOME CLASSPATH<br> <br></code></pre></td></tr></table></figure><p>配置完成后，最重要的一步就是使文件立即生效。命令如下： source /etc/profile</p><h2 id="验证是否安装成功"><a href="#验证是否安装成功" class="headerlink" title="验证是否安装成功"></a>验证是否安装成功</h2><p>java -version echo $JAVA_HOME<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190708-154036@2x_1562571647150.png" alt="WX20190708-154036@2x">说明安装成功，环境变量也配置成功！</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>部署</tag>
+      
+      <tag>服务器</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>阿里云服务器</title>
+    <link href="/blog/2021/01/05/%E9%98%BF%E9%87%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <url>/blog/2021/01/05/%E9%98%BF%E9%87%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
+    
+    <content type="html"><![CDATA[<p>24岁以下自动获取学生身份 所以入手一年用来部署自己的博客和项目 经过比较几个大厂的vps 推荐阿里云 <a href="https://promotion.aliyun.com/ntms/act/campus2018.html">购买地址</a></p><p>这里我买的是第二款<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190707-140757@2x_1562479700993.png" alt="WX20190707-140757@2x">购买完成之后在控制台 查看自己的ECS 云服务器<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190707-141000@2x_1562479814153.png" alt="WX20190707-141000@2x">在网络与安全中 安全组 配置 下面还需要添加安全组 用来后面在外部访问各种端口 这里我比较懒 就直接将全部端口开放 当然这是不太安全的<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190707-141206@2x_1562480012754.png" alt="WX20190707-141206@2x"></p><p>再回到实例 加入安全组<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190707-141549@2x_1562480182400.png" alt="WX20190707-141549@2x"></p><p>最后用远程连接工具连接上之后 就开始云服务之旅啦</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>部署</tag>
+      
+      <tag>服务器</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Mybatis经典9种设计模式</title>
     <link href="/blog/2021/01/04/Mybatis%E7%BB%8F%E5%85%B89%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     <url>/blog/2021/01/04/Mybatis%E7%BB%8F%E5%85%B89%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>

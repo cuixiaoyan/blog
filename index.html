@@ -186,6 +186,191 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/01/05/%E6%9C%AA%E5%91%BD%E5%90%8D/">Centos7安装mysql5.7</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/01/05/%E6%9C%AA%E5%91%BD%E5%90%8D/">
+          
+          
+            
+          
+          先检查系统是否装有mysqlrpm -qa | grep mysql 这里执行安装命令是无效的，因为centos-7默认是Mariadb，所以执行以下命令只是更新Mariadb数据库 yum install mysql 删除 yum remove mysql
+下载mysql的repo源wget http://repo.mysql.com/mysql-community-release-el7-5.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-05 20:30" pubdate>
+              2021-01-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E9%83%A8%E7%BD%B2/">部署</a>
+            
+              <a href="/blog/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85tomcat9/">Centos7安装tomcat9</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85tomcat9/">
+          
+          
+            
+          
+          首先检查是否安装好jdk 和配置好运行环境 还有就是名字和路径输入命令：Java -version，如果显示JDK版本号，则证明已经安装了JDK。
+输入命令：echo $JAVA_HOME，如果显示路径，则证明配置了环境变量。
+如果没有参考 安装jdk tomcat 下载地址 [tomcat9]( https://pan.baidu.com/s/171M_rXvsyKNI5jAY8nwd1Q 提取
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-05 20:20" pubdate>
+              2021-01-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E9%83%A8%E7%BD%B2/">部署</a>
+            
+              <a href="/blog/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85jdk/">Centos7安装jdk</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85jdk/">
+          
+          
+            
+          
+          请注意版本和文件名 是否一致 按照你的地址来!
+
+先进入 cd /usr/local/
+创建一个放jdk的文件夹 mkdir java
+进入 cd java
+通过工具 finalshell 直接把安装包放到Java文件夹下
+tar -zxv -f jdk-8u211-linux-x64.tar.gz 解压出来 [jdk 下载地址](链接: https://pan.baidu.com/s/1KjBB
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-05 20:10" pubdate>
+              2021-01-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E9%83%A8%E7%BD%B2/">部署</a>
+            
+              <a href="/blog/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/01/05/%E9%98%BF%E9%87%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">阿里云服务器</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/01/05/%E9%98%BF%E9%87%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+          
+          
+            
+          
+          24岁以下自动获取学生身份 所以入手一年用来部署自己的博客和项目 经过比较几个大厂的vps 推荐阿里云 购买地址
+这里我买的是第二款购买完成之后在控制台 查看自己的ECS 云服务器在网络与安全中 安全组 配置 下面还需要添加安全组 用来后面在外部访问各种端口 这里我比较懒 就直接将全部端口开放 当然这是不太安全的
+再回到实例 加入安全组
+最后用远程连接工具连接上之后 就开始云服务之旅啦
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-05 20:00" pubdate>
+              2021-01-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E9%83%A8%E7%BD%B2/">部署</a>
+            
+              <a href="/blog/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/01/04/Mybatis%E7%BB%8F%E5%85%B89%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">Mybatis经典9种设计模式</a>
       </h1>
 
