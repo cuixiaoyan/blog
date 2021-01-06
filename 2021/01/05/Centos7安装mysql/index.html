@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>Centos7安装tomcat9 - 崔笑颜的博客</title>
+  <title>Centos7安装mysql5.7 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Centos7安装tomcat9">
+            <span class="h2" id="subtitle" title="Centos7安装mysql5.7">
               
             </span>
 
@@ -181,7 +181,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-05 20:20" pubdate>
+      <time datetime="2021-01-05 20:30" pubdate>
         2021年1月5日 晚上
       </time>
     </span>
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      212 字
+      457 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      7
        分钟
     </span>
   
@@ -233,23 +233,23 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Centos7安装tomcat9</h1>
+            <h1 style="display: none">Centos7安装mysql5.7</h1>
             
             <div class="markdown-body">
-              <h2 id="首先检查是否安装好jdk-和配置好运行环境-还有就是名字和路径"><a href="#首先检查是否安装好jdk-和配置好运行环境-还有就是名字和路径" class="headerlink" title="首先检查是否安装好jdk 和配置好运行环境 还有就是名字和路径"></a>首先检查是否安装好jdk 和配置好运行环境 还有就是名字和路径</h2><p>输入命令：Java -version，如果显示JDK版本号，则证明已经安装了JDK。</p>
-<p>输入命令：echo $JAVA_HOME，如果显示路径，则证明配置了环境变量。</p>
-<p>如果没有参考 <a target="_blank" rel="noopener" href="http://47.100.236.144:888/archives/centos7-jdk">安装jdk</a> tomcat 下载地址 [tomcat9]( <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/171M_rXvsyKNI5jAY8nwd1Q">https://pan.baidu.com/s/171M_rXvsyKNI5jAY8nwd1Q</a> 提取码: 3r8q )</p>
-<ol>
-<li>cd /usr/local/ 进入此目录下面 创建 mkdir tomcat</li>
-<li>进入tomcat 文件夹下面 将云盘安装包放入 解压</li>
-<li>tar -zxvf apache-tomcat-9.0.21.tar.gz</li>
-<li>再进入 cd apache-tomcat-9.0.21/bin/startup.sh 启动tomcat</li>
-<li>启动 /usr/local/tomcat/apache-tomcat-9.0.21/bin/startup.sh</li>
-<li>关闭 /usr/local/tomcat/apache-tomcat-9.0.21/bin/shutdown.sh</li>
-<li>重启 建议 ps -ef | grep tomcat 查询 tomcat 占用的pid</li>
-<li>kill -9 pid 再启动</li>
-<li>ip 加端口能访问到 就成功了</li>
-</ol>
+              <h2 id="先检查系统是否装有mysql"><a href="#先检查系统是否装有mysql" class="headerlink" title="先检查系统是否装有mysql"></a>先检查系统是否装有mysql</h2><p>rpm -qa | grep mysql 这里执行安装命令是无效的，因为centos-7默认是Mariadb，所以执行以下命令只是更新Mariadb数据库 yum install mysql 删除 yum remove mysql</p>
+<h2 id="下载mysql的repo源"><a href="#下载mysql的repo源" class="headerlink" title="下载mysql的repo源"></a>下载mysql的repo源</h2><p>wget <a target="_blank" rel="noopener" href="http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm">http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm</a></p>
+<h2 id="安装mysql-community-release-el7-5-noarch-rpm包"><a href="#安装mysql-community-release-el7-5-noarch-rpm包" class="headerlink" title="安装mysql-community-release-el7-5.noarch.rpm包"></a>安装mysql-community-release-el7-5.noarch.rpm包</h2><p>sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm</p>
+<h2 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h2><p>sudo yum install mysql-server</p>
+<h3 id="这里可能会报错-请注意"><a href="#这里可能会报错-请注意" class="headerlink" title="这里可能会报错 请注意"></a>这里可能会报错 请注意</h3><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs subunit"><span class="hljs-keyword">Error: </span>Package: mysql-community-libs<span class="hljs-string">-5</span>.6.35<span class="hljs-string">-2</span>.el7.x86_64 (mysql56-community)<br>           Requires: libc.so.6(GLIBC_2.17)(64bit)<br><span class="hljs-keyword">Error: </span>Package: mysql-community-server<span class="hljs-string">-5</span>.6.35<span class="hljs-string">-2</span>.el7.x86_64 (mysql56-community)<br>           Requires: libc.so.6(GLIBC_2.17)(64bit)<br><span class="hljs-keyword">Error: </span>Package: mysql-community-server<span class="hljs-string">-5</span>.6.35<span class="hljs-string">-2</span>.el7.x86_64 (mysql56-community)<br>           Requires: systemd<br><span class="hljs-keyword">Error: </span>Package: mysql-community-server<span class="hljs-string">-5</span>.6.35<span class="hljs-string">-2</span>.el7.x86_64 (mysql56-community)<br>           Requires: libstdc++.so.6(GLIBCXX_3.4.15)(64bit)<br><span class="hljs-keyword">Error: </span>Package: mysql-community-client<span class="hljs-string">-5</span>.6.35<span class="hljs-string">-2</span>.el7.x86_64 (mysql56-community)<br>           Requires: libc.so.6(GLIBC_2.17)(64bit)<br> You could try using --skip-broken to work around the problem<br> You could try running: rpm -Va --nofiles --nodigest<br> <br></code></pre></td></tr></table></figure>
+<h3 id="解决方法如下："><a href="#解决方法如下：" class="headerlink" title="解决方法如下："></a>解决方法如下：</h3><p>yum install glibc.i686 yum list libstdc++*</p>
+<p>然后登陆 没有密码直接回车跳过 mysql -u root -p</p>
+<h3 id="登录时有可能报这样的错：ERROR-2002-HY000-Can’t-connect-to-local-MySQL-server-through-socket-‘-var-lib-mysql-mysql-sock’-2-，原因是-var-lib-mysql的访问权限问题。下面的命令把-var-lib-mysql的拥有者改为当前用户："><a href="#登录时有可能报这样的错：ERROR-2002-HY000-Can’t-connect-to-local-MySQL-server-through-socket-‘-var-lib-mysql-mysql-sock’-2-，原因是-var-lib-mysql的访问权限问题。下面的命令把-var-lib-mysql的拥有者改为当前用户：" class="headerlink" title="登录时有可能报这样的错：ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2)，原因是/var/lib/mysql的访问权限问题。下面的命令把/var/lib/mysql的拥有者改为当前用户："></a>登录时有可能报这样的错：ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2)，原因是/var/lib/mysql的访问权限问题。下面的命令把/var/lib/mysql的拥有者改为当前用户：</h3><p>sudo chown -R openscanner:openscanner /var/lib/mysql</p>
+<p>重启mysql service mysqld restart</p>
+<p>这里密码设置的为root</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">mysql &gt; use mysql;<br>mysql &gt; update user set password=password(<span class="hljs-string">&#x27;root&#x27;</span>) where user=<span class="hljs-string">&#x27;root&#x27;</span>;<br>mysql &gt; <span class="hljs-keyword">exit</span>;<br> <br></code></pre></td></tr></table></figure>
+<p>再重启 登陆mysql 加上远程访问权限 为root添加远程连接的能力。链接密码为 “root”（不包括双引号）</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">mysql&gt; <span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> <span class="hljs-keyword">PRIVILEGES</span> <span class="hljs-keyword">ON</span> *.* <span class="hljs-keyword">TO</span> root@&quot;%&quot; IDENTIFIED <span class="hljs-keyword">BY</span> &quot;root&quot;;　　<br></code></pre></td></tr></table></figure>
+<h1 id="最后最后-非常重要-查询不区分大小写表名"><a href="#最后最后-非常重要-查询不区分大小写表名" class="headerlink" title="最后最后 非常重要 查询不区分大小写表名"></a>最后最后 非常重要 查询不区分大小写表名</h1><p>vim /etc/my.cnf 在[mysqld]节点下，加入一行： lower_case_table_names=1<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190710-151220@2x_1562742772778.png" srcset="/blog/img/loading.gif" alt="WX20190710-151220@2x">重启数据库 连接工具测试连接<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/5E7E7FBB-4F4B-4C82-83E0-F98203469C7A_1562742912107.png" srcset="/blog/img/loading.gif" alt="5E7E7FBB-4F4B-4C82-83E0-F98203469C7A"></p>
 
             </div>
             <hr>
@@ -275,9 +275,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85mysql/">
+                      <a href="/blog/2021/01/06/Centos7%E5%AE%89%E8%A3%85Nginx/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Centos7安装mysql5.7</span>
+                        <span class="hidden-mobile">Centos7安装Nginx</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -285,8 +285,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85jdk/">
-                        <span class="hidden-mobile">Centos7安装jdk</span>
+                      <a href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85tomcat9/">
+                        <span class="hidden-mobile">Centos7安装tomcat9</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

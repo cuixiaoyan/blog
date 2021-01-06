@@ -19,9 +19,25 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>标签 - 崔笑颜的博客</title>
+  <title>Centos7安装redis - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -49,7 +65,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -155,17 +171,50 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="标签">
+            <span class="h2" id="subtitle" title="Centos7安装redis">
               
             </span>
 
             
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-06 20:10" pubdate>
+        2021年1月6日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      266 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      3
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
           </div>
 
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
           
         </div>
       </div>
@@ -174,24 +223,134 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
 
-<div class="text-center tagcloud">
-  <a href="/blog/tags/mybatis/" style="font-size: 15px; color: #bbe">mybatis</a> <a href="/blog/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 15px; color: #bbe">前端</a> <a href="/blog/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" style="font-size: 15px; color: #bbe">单点登录</a> <a href="/blog/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 15px; color: #bbe">博客</a> <a href="/blog/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 20px; color: #8ea5dc">学习</a> <a href="/blog/tags/%E6%84%9F%E6%82%9F/" style="font-size: 15px; color: #bbe">感悟</a> <a href="/blog/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 25px; color: #6090c9">服务器</a> <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 15px; color: #bbe">设计模式</a> <a href="/blog/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 15px; color: #bbe">软件</a> <a href="/blog/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 30px; color: #337ab7">部署</a>
-</div>
-
-              </div>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Centos7安装redis</h1>
+            
+            <div class="markdown-body">
+              <p>在CentOS和Red Hat系统中，首先添加EPEL仓库，然后更新yum源：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">sudo yum install epel-<span class="hljs-keyword">release</span><br>sudo yum <span class="hljs-keyword">update</span><br></code></pre></td></tr></table></figure>
+<p>然后安装Redis数据库：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">sudo yum -y <span class="hljs-keyword">install</span> redis<br></code></pre></td></tr></table></figure>
+<p>安装好后启动Redis服务即可：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">sudo systemctl <span class="hljs-literal">start</span> redis<br></code></pre></td></tr></table></figure>
+<p>这里同样可以使用redis-cli进入Redis命令行模式操作。</p>
+<p>另外，为了可以使Redis能被远程连接，需要修改配置文件，路径为/etc/redis.conf</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">vi <span class="hljs-regexp">/etc/</span>redis.conf<br></code></pre></td></tr></table></figure>
+<p>需要修改的地方： 直接搜索 requirepass</p>
+<p>首先，注释这一行： 另外，推荐给Redis设置密码，取消注释这一行：</p>
+<p>#requirepass foobared</p>
+<p>foobared即当前密码，可以自行修改为 这里我设置成root</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment">#bind 127.0.0.1</span><br> <br><span class="hljs-attribute">requirepass</span> root <br></code></pre></td></tr></table></figure>
+<p>然后重启Redis服务，使用的命令如下：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sudo systemctl restart redis</span><br></code></pre></td></tr></table></figure>
+<p>ps: 其他命令</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs gauss">systemctl start redis.service <span class="hljs-meta">#启动redis服务器</span><br> <br>systemctl <span class="hljs-keyword">stop</span> redis.service <span class="hljs-meta">#停止redis服务器</span><br> <br>systemctl restart redis.service <span class="hljs-meta">#重新启动redis服务器</span><br> <br>systemctl status redis.service <span class="hljs-meta">#获取redis服务器的运行状态</span><br> <br>systemctl <span class="hljs-keyword">enable</span> redis.service <span class="hljs-meta">#开机启动redis服务器</span><br> <br>systemctl <span class="hljs-keyword">disable</span> redis.service <span class="hljs-meta">#开机禁用redis服务器</span><br></code></pre></td></tr></table></figure>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E9%83%A8%E7%BD%B2/">部署</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2021/01/06/js%E5%AE%9E%E7%8E%B0%E4%B8%8B%E9%9B%AA%E7%89%B9%E6%95%88/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">js实现下雪特效</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/01/06/Centos7%E5%AE%89%E8%A3%85Nginx/">
+                        <span class="hidden-mobile">Centos7安装Nginx</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -295,9 +454,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
