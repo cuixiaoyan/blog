@@ -4,6 +4,111 @@
   
   
   <entry>
+    <title>Mysql系统知识梳理</title>
+    <link href="/blog/2021/01/10/Mysql%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/"/>
+    <url>/blog/2021/01/10/Mysql%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<p>1 数据库分类</p><p>　　MySQL Oracle redis</p><p>2 MySQL 存储引擎有哪些</p><p>　　ENGINE=InnoDB 提供事务安全表，支持外键。</p><p>　　MyISAM</p><p>　　Memory数据存入内存中，如果内存出现异常或事重启关机，所有数据都会消失</p><p>3 事务</p><p>　　概念：逻辑上的一组sql语句，组成这组操作的sql语句，要么成功，要么失败。</p><p>3.1 事务四大特性ACID</p><p>　　原子性(Atomicity)：事务是一个不可分割的单位，事务中的sql语句，要么全都发生，要么都不发生。</p><p>　　一致性(Consistency)：事务发生前后，数据的完整性必须保持一致。</p><p>　　隔离性(Isolation)：当并发访问数据库的时候，一个正在执行的事务在执行完前，对于其他的会话是不可见的，多个并发的事务之间的数据库相互隔离。</p><p>　　持久性(Durability)：一个事务一旦被提交，数据库中的数据改变就是持久性的。如果出了错误也不能撤销。</p><p>3.2 事务隔离级别</p><p>　　对于同时运行的几个事务，当这些事务同时访问数据库时，如果不采取隔离措施就会导致各种并发问题。由此引出隔离级别的概念，总有4个，由低到高，可逐步解决脏读，不可重复读，幻读等问题。</p><p>　　Default spring：默认隔离级别，使用数据库默认的事务隔离级别</p><p>　　read_uncommitied：读未提交，一个会话可以读取其他事务未提交的更新结果，一旦这个事务被回滚了，导致这个会话的结果不正确了。</p><p>　　read_commited：读已提交，一个会话只能读取其他事务已经提交的更新结果，否则，等待。但是其他会话可以修改这个事务中被读取的记录，而不必等待事务结束。导致了，一个事务中两个相同的读取操作，其结果可能不同。</p><p>　　repeatable_read：重复读取，在数据读取出来后加锁，直到这个事务执行结束。</p><p>　　serlalizable：串行化，不管多少事务，只有执行完一个事务的所有子事务后，才可以执行另外一个事务里的所有子事务。</p><p>3.3 数据库设置的隔离级别read_commited</p><p>　　可以避免脏读，且具有较好的并发性能，可能出现的问题场景，可以使用悲观锁或乐观锁控制。</p><p>4 悲观锁和乐观锁，以及使用场景</p><p>　　悲观排他后，不能修改数据，即在数据被操作的时候，锁定数据不被访问。</p><p>　　乐观排他后，可以修改数据，即假设数据一般情况下不会造成冲突。</p><p>5 如何实现分页</p><p>　　使用sql语句关键字limit</p><p>6 数据库三大范式</p><p>1NF：对属性的原子性约束，要求属性具有原子性，不可再分解。</p><p>2NF：对记录的惟一性约束，要求记录有惟一标识，即实体的惟一性。</p><p>3NF：对字段冗余性的约束，即任何字段不能由其他字段派生出来，它要求字段没有冗余。</p><p>7 Mysql有哪些索引：fulltext、hash、btree、rtree</p><p>8 什么时候该建立索引</p><p>　　1）表的主键、外键必须有索引</p><p>　　2）数据量超过300的表应该有索引</p><p>　　3）经常与其他表进行连接的表，在连接字段上应该建立索引</p><p>　　4）经常出现在where子句中的字段，特别是大表的字段，应该建立索引</p><p>9 sql关键字执行顺序：select-&gt;from-&gt;where-&gt;group by-&gt;having-&gt;order by</p><p>10 explain包含哪些列</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>数据库</tag>
+      
+      <tag>mysql</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Centos7Nginx的SSl证书安装</title>
+    <link href="/blog/2021/01/10/Centos7Nginx%E7%9A%84SSl%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85/"/>
+    <url>/blog/2021/01/10/Centos7Nginx%E7%9A%84SSl%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85/</url>
+    
+    <content type="html"><![CDATA[<p>注意路径</p><p>可见，nginx缺少SSL模块支持。这是因为我当年建站的时候根本没用到SSL啊，所以以前编译nginx的时候使用了不带SSL支持的默认编译参数。 为了让nginx添加SSL模块，只能重新编译它。但是，如何在现有nginx的基础上，添加一个支持SSL的编译参数呢？首先要找回原来编译nginx时的编译参数，然后再加上支持SSL的编译参数。如果不这样做，那么编译出来的nginx可能就会有问题（某些旧的编译参数被去掉了，使得nginx不能支持某些功能）。 所以先查看旧的nginx的编译参数：nginx -V 大写V 输出的信息中，最重要的一句是： configure arguments: –prefix=/usr/local/nginx 可见，当时我编译nginx的时候，只是指定了一个安装路径，没有其他特殊的编译参数。那么现在事情就好办了：回到nginx的源码目录下，加上SSL支持参数重新编译：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">./configure --prefix=/usr/local/nginx --with-http_ssl_module<br>make<br></code></pre></td></tr></table></figure><p>注意，此时千万不能手快直接 make install！因为我原来的nginx还有一堆的配置文件，不能被覆盖。我们应该只覆盖编译出来的nginx可执行程序：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">cp /usr/local/nginx/sbin/nginx ~/<br>cp objs/nginx /usr/local/nginx/sbin/<br></code></pre></td></tr></table></figure><p>其中，objs/nginx 是新编译出来的nginx可执行程序。 覆盖之后，再尝试重新启动nginx，就没有问题了。</p><p>接下来安装证书<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190724-133740@2x_1563946759206.png" alt="WX20190724-133740@2x">一个证书 针对一个域名<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190724-133807@2x_1563946759366.png" alt="WX20190724-133807@2x">进入nginx 目录下创建一个 mkdir cert 将两个文件上传到这个目录下 建议将文件重命名为 zhzq.pem 和 zhzq.key</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java">编辑 vim nginx.conf<br> <br>server &#123;<br>    listen <span class="hljs-number">80</span>;<br>    listen <span class="hljs-number">443</span> ssl;<br>    server_name ; 你的域名<br>    ssl off;<br>    ssl_certificate ../cert/zhzq.pem;<br>    ssl_certificate_key ../cert/zhzq.key;<br>    ssl_session_timeout 5m;<br>    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;<br>    ssl_protocols TLSv1 TLSv1<span class="hljs-number">.1</span> TLSv1<span class="hljs-number">.2</span>;<br>    ssl_prefer_server_ciphers on;<br>  <br>&#125;<br> <br></code></pre></td></tr></table></figure><p>重新载入</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">../sbin/nginx -s reload<br># 如果上面的命令不起作用，也可以重启<br>../sbin/nginx -s stop<br>../sbin/nginx<br></code></pre></td></tr></table></figure><p>https 443 开放对应的端口 访问就可以了</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>部署</tag>
+      
+      <tag>Nginx</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>java将PDF转为Word、图片、SVG、XPS、Html、PDF。</title>
+    <link href="/blog/2021/01/10/java%E5%B0%86PDF%E8%BD%AC%E4%B8%BAWord%E3%80%81%E5%9B%BE%E7%89%87%E3%80%81SVG%E3%80%81XPS%E3%80%81Html%E3%80%81PDF%E3%80%82/"/>
+    <url>/blog/2021/01/10/java%E5%B0%86PDF%E8%BD%AC%E4%B8%BAWord%E3%80%81%E5%9B%BE%E7%89%87%E3%80%81SVG%E3%80%81XPS%E3%80%81Html%E3%80%81PDF%E3%80%82/</url>
+    
+    <content type="html"><![CDATA[<p>本文将介绍通过Java编程来实现PDF文档转换的方法。包括：</p><ol><li><p>PDF转为Word</p></li><li><p>PDF转为图片</p></li><li><p>PDF转为Html</p></li><li><p>PDF转为SVG</p><p>4.1 将PDF每一页转为单个的SVG</p><p>4.2 将一个包含多页的PDF文档转为一个SVG</p></li><li><p>PDF转为XPS</p></li><li><p>PDF转为PDF/A</p></li></ol><p>使用工具：Free Spire.PDF for Java（免费版）</p><p>Jar文件获取及导入：</p><p>方法1：通过官网下载<a href="https://www.e-iceblue.cn/Downloads/Free-Spire-PDF-JAVA.html">下载jar包</a>。下载后，解压文件，并将lib文件夹下的Spire.Pdf.jar文件导入Java程序。</p><p>方法2：可通过maven仓库安装导入。参考<a href="https://www.e-iceblue.cn/licensing/install-spirepdf-for-java-from-maven-repository.html">导入方法</a></p><h2 id="PDF-转Word"><a href="#PDF-转Word" class="headerlink" title="PDF 转Word"></a>PDF 转Word</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToWord.docx&quot;</span>,FileFormat.DOCX);<br></code></pre></td></tr></table></figure><h2 id="PDF转图片"><a href="#PDF转图片" class="headerlink" title="PDF转图片"></a>PDF转图片</h2><p>支持的图片格式包括Jpeg, Jpg, Png, Bmp, Tiff, Gif, EMF等。这里以保存为Png格式为例。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.spire.pdf.*;<br> <br><span class="hljs-keyword">import</span> javax.imageio.ImageIO;<br><span class="hljs-keyword">import</span> java.awt.image.BufferedImage;<br><span class="hljs-keyword">import</span> java.io.File;<br><span class="hljs-keyword">import</span> java.io.IOException;<br> <br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PDFtoimage</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br> <br>PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>BufferedImage image;<br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt; pdf.getPages().getCount();i++)&#123;<br>    image = pdf.saveAsImage(i);<br>    File file = <span class="hljs-keyword">new</span> File( String.format(<span class="hljs-string">&quot;ToImage-img-%d.png&quot;</span>, i));<br>    ImageIO.write(image, <span class="hljs-string">&quot;PNG&quot;</span>, file);<br>&#125;<br>pdf.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="PDF转Html"><a href="#PDF转Html" class="headerlink" title="PDF转Html"></a>PDF转Html</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToHTML.html&quot;</span>, FileFormat.HTML);<br></code></pre></td></tr></table></figure><h2 id="PDF转SVG"><a href="#PDF转SVG" class="headerlink" title="PDF转SVG"></a>PDF转SVG</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//转为单个svg</span><br>PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToSVG.svg&quot;</span>, FileFormat.SVG);<br><span class="hljs-comment">//多页pdf转为一个svg</span><br>PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;sampe.pdf&quot;</span>);<br>pdf.getConvertOptions().setOutputToOneSvg(<span class="hljs-keyword">true</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToOneSvg.svg&quot;</span>,FileFormat.SVG);<br></code></pre></td></tr></table></figure><h2 id="PDF-转XPS"><a href="#PDF-转XPS" class="headerlink" title="PDF 转XPS"></a>PDF 转XPS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToXPS.xps&quot;</span>, FileFormat.XPS);<br></code></pre></td></tr></table></figure><h2 id="PDF转PDF-A"><a href="#PDF转PDF-A" class="headerlink" title="PDF转PDF/A"></a>PDF转PDF/A</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.spire.pdf.*;<br><span class="hljs-keyword">import</span> com.spire.pdf.graphics.PdfMargins;<br><span class="hljs-keyword">import</span> java.awt.geom.Dimension2D;<br> <br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PDFtoPDFA</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[]args)</span></span>&#123;<br>        <span class="hljs-comment">//加载测试文档</span><br>        PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument();<br>        pdf.loadFromFile(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br> <br>        <span class="hljs-comment">//转换为Pdf_A_1_B格式</span><br>        PdfNewDocument newDoc = <span class="hljs-keyword">new</span> PdfNewDocument();<br>        newDoc.setConformance(PdfConformanceLevel.Pdf_A_1_B);<br>        PdfPageBase page;<br>        <span class="hljs-keyword">for</span> ( <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt; pdf.getPages().getCount();i++) &#123;<br>            page = pdf.getPages().get(i);<br>            Dimension2D size = page.getSize();<br>            PdfPageBase p = newDoc.getPages().add(size, <span class="hljs-keyword">new</span> PdfMargins(<span class="hljs-number">0</span>));<br>            page.createTemplate().draw(p, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>        &#125;<br> <br>        <span class="hljs-comment">//保存结果文件</span><br>        newDoc.save(<span class="hljs-string">&quot;ToPDFA.pdf&quot;</span>);<br>        newDoc.close();<br> <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p><a href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf-%E8%BD%ACword">PDF 转Word</a><a href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf%E8%BD%AC%E5%9B%BE%E7%89%87">PDF转图片</a><a href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf%E8%BD%AChtml">PDF转Html</a><a href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf%E8%BD%ACsvg">PDF转SVG</a><a href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf-%E8%BD%ACxps">PDF 转XPS</a><a href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf%E8%BD%ACpdfa">PDF转PDF/A</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>工具</tag>
+      
+      <tag>java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>解决IntellijIDEA部署JavaWeb项目404问题</title>
+    <link href="/blog/2021/01/10/%E8%A7%A3%E5%86%B3IntellijIDEA%E9%83%A8%E7%BD%B2JavaWeb%E9%A1%B9%E7%9B%AE404%E9%97%AE%E9%A2%98/"/>
+    <url>/blog/2021/01/10/%E8%A7%A3%E5%86%B3IntellijIDEA%E9%83%A8%E7%BD%B2JavaWeb%E9%A1%B9%E7%9B%AE404%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<p>首先你要保证 你和同事的版本保持一致 jdk 和 tomcat 重中之重 检查一下Project Structure的配置，首先是project：<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/2_1563416756399.png" alt="2">Modules-Sources如下图：<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/3_1563416756457.png" alt="3">Modules-Paths中没什么需要特别修改的地方。 Modules-Dependencis如下图： 不用勾选<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/4_1563416756561.png" alt="4">Liraires如下图所示：<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/5_1563416756527.png" alt="5">Facets如下，路径一定不要配错，不如一定404，如下图： 尤其是从eclipse 导入尤其注意<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/6_1563416756587.png" alt="6">最后就是Artifacts:<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/7_1563416756592.png" alt="7">项目到这就配置完了，有些路径一定要结合自己的项目来配置。</p><p>接下来配置tomcat：<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/8_1563416765804.png" alt="8">不加就是/目录<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/9_1563416765774.png" alt="9"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+      <tag>IDEA</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Postman的基础功能</title>
+    <link href="/blog/2021/01/10/Postman%E7%9A%84%E5%9F%BA%E7%A1%80%E5%8A%9F%E8%83%BD/"/>
+    <url>/blog/2021/01/10/Postman%E7%9A%84%E5%9F%BA%E7%A1%80%E5%8A%9F%E8%83%BD/</url>
+    
+    <content type="html"><![CDATA[<p>前后端分离 接口调试工具<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/20180523232921542_1563331603653.png" alt="20180523232921542"></p><p>1.表单提交<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190717-104908@2x_1563331761801.png" alt="WX20190717-104908@2x"></p><p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190717-104757@2x_1563331703420.png" alt="WX20190717-104757@2x">2.json提交 下图中，当我们选择JSON(application/json) 是会自动帮我们设置 headers 为 application/json<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/2018052400054291_1563331856704.png" alt="2018052400054291"></p><h2 id="下面就是很多系统会需要登陆之后-才能模拟效果"><a href="#下面就是很多系统会需要登陆之后-才能模拟效果" class="headerlink" title="下面就是很多系统会需要登陆之后 才能模拟效果"></a>下面就是很多系统会需要登陆之后 才能模拟效果</h2><p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190717-105157@2x_1563331933756.png" alt="WX20190717-105157@2x"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>工具</tag>
+      
+      <tag>Postman</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>js实现下雪特效</title>
     <link href="/blog/2021/01/06/js%E5%AE%9E%E7%8E%B0%E4%B8%8B%E9%9B%AA%E7%89%B9%E6%95%88/"/>
     <url>/blog/2021/01/06/js%E5%AE%9E%E7%8E%B0%E4%B8%8B%E9%9B%AA%E7%89%B9%E6%95%88/</url>

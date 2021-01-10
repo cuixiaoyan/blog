@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>js实现下雪特效 - 崔笑颜的博客</title>
+  <title>java将PDF转为Word、图片、SVG、XPS、Html、PDF。 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="js实现下雪特效">
+            <span class="h2" id="subtitle" title="java将PDF转为Word、图片、SVG、XPS、Html、PDF。">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-06 20:20" pubdate>
-        2021年1月6日 晚上
+      <time datetime="2021-01-10 10:20" pubdate>
+        2021年1月10日 上午
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      239 字
+      487 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      7
        分钟
     </span>
   
@@ -233,11 +233,39 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">js实现下雪特效</h1>
+            <h1 style="display: none">java将PDF转为Word、图片、SVG、XPS、Html、PDF。</h1>
             
             <div class="markdown-body">
-              <p>直接上代码 放到你的script 标签中 具体效果参考博客页面</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs js">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$</span>)</span>&#123;<br>	$.fn.snow = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>)</span>&#123;<br>	<span class="hljs-keyword">var</span> $flake = $(<span class="hljs-string">&#x27;&lt;div id=&quot;snowbox&quot; /&gt;&#x27;</span>).css(&#123;<span class="hljs-string">&#x27;position&#x27;</span>: <span class="hljs-string">&#x27;absolute&#x27;</span>,<span class="hljs-string">&#x27;z-index&#x27;</span>:<span class="hljs-string">&#x27;9999&#x27;</span>, <span class="hljs-string">&#x27;top&#x27;</span>: <span class="hljs-string">&#x27;-50px&#x27;</span>&#125;).html(<span class="hljs-string">&#x27;&amp;#10052;&#x27;</span>),<br>	documentHeight 	= $(<span class="hljs-built_in">document</span>).height(),<br>	documentWidth	= $(<span class="hljs-built_in">document</span>).width(),<br>	defaults = &#123;<br>		minSize		: <span class="hljs-number">10</span>,<br>		maxSize		: <span class="hljs-number">20</span>,<br>		newOn		: <span class="hljs-number">1000</span>,<br>		flakeColor	: <span class="hljs-string">&quot;#AFDAEF&quot;</span> <span class="hljs-comment">/* 此处可以定义雪花颜色，若要白色可以改为#FFFFFF */</span><br>	&#125;,<br>	options	= $.extend(&#123;&#125;, defaults, options);<br>	<span class="hljs-keyword">var</span> interval= <span class="hljs-built_in">setInterval</span>( <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>	<span class="hljs-keyword">var</span> startPositionLeft = <span class="hljs-built_in">Math</span>.random() * documentWidth - <span class="hljs-number">100</span>,<br>	startOpacity = <span class="hljs-number">0.5</span> + <span class="hljs-built_in">Math</span>.random(),<br>	sizeFlake = options.minSize + <span class="hljs-built_in">Math</span>.random() * options.maxSize,<br>	endPositionTop = documentHeight - <span class="hljs-number">200</span>,<br>	endPositionLeft = startPositionLeft - <span class="hljs-number">500</span> + <span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">500</span>,<br>	durationFall = documentHeight * <span class="hljs-number">10</span> + <span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">5000</span>;<br>	$flake.clone().appendTo(<span class="hljs-string">&#x27;body&#x27;</span>).css(&#123;<br>		left: startPositionLeft,<br>		opacity: startOpacity,<br>		<span class="hljs-string">&#x27;font-size&#x27;</span>: sizeFlake,<br>		color: options.flakeColor<br>	&#125;).animate(&#123;<br>		top: endPositionTop,<br>		left: endPositionLeft,<br>		opacity: <span class="hljs-number">0.2</span><br>	&#125;,durationFall,<span class="hljs-string">&#x27;linear&#x27;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>		$(<span class="hljs-built_in">this</span>).remove()<br>	&#125;);<br>	&#125;, options.newOn);<br>    &#125;;<br>&#125;)(jQuery);<br>$(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>    $.fn.snow(&#123; <br>	    minSize: <span class="hljs-number">5</span>, <span class="hljs-comment">/* 定义雪花最小尺寸 */</span><br>	    maxSize: <span class="hljs-number">30</span>,<span class="hljs-comment">/* 定义雪花最大尺寸 */</span><br>	    newOn: <span class="hljs-number">300</span>  <span class="hljs-comment">/* 定义密集程度，数字越小越密集 */</span><br>    &#125;);<br>&#125;);<br></code></pre></td></tr></table></figure>
+              <p>本文将介绍通过Java编程来实现PDF文档转换的方法。包括：</p>
+<ol>
+<li><p>PDF转为Word</p>
+</li>
+<li><p>PDF转为图片</p>
+</li>
+<li><p>PDF转为Html</p>
+</li>
+<li><p>PDF转为SVG</p>
+<p>4.1 将PDF每一页转为单个的SVG</p>
+<p>4.2 将一个包含多页的PDF文档转为一个SVG</p>
+</li>
+<li><p>PDF转为XPS</p>
+</li>
+<li><p>PDF转为PDF/A</p>
+</li>
+</ol>
+<p>使用工具：Free Spire.PDF for Java（免费版）</p>
+<p>Jar文件获取及导入：</p>
+<p>方法1：通过官网下载<a target="_blank" rel="noopener" href="https://www.e-iceblue.cn/Downloads/Free-Spire-PDF-JAVA.html">下载jar包</a>。下载后，解压文件，并将lib文件夹下的Spire.Pdf.jar文件导入Java程序。</p>
+<p>方法2：可通过maven仓库安装导入。参考<a target="_blank" rel="noopener" href="https://www.e-iceblue.cn/licensing/install-spirepdf-for-java-from-maven-repository.html">导入方法</a></p>
+<h2 id="PDF-转Word"><a href="#PDF-转Word" class="headerlink" title="PDF 转Word"></a>PDF 转Word</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToWord.docx&quot;</span>,FileFormat.DOCX);<br></code></pre></td></tr></table></figure>
+<h2 id="PDF转图片"><a href="#PDF转图片" class="headerlink" title="PDF转图片"></a>PDF转图片</h2><p>支持的图片格式包括Jpeg, Jpg, Png, Bmp, Tiff, Gif, EMF等。这里以保存为Png格式为例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.spire.pdf.*;<br> <br><span class="hljs-keyword">import</span> javax.imageio.ImageIO;<br><span class="hljs-keyword">import</span> java.awt.image.BufferedImage;<br><span class="hljs-keyword">import</span> java.io.File;<br><span class="hljs-keyword">import</span> java.io.IOException;<br> <br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PDFtoimage</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br> <br>PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>BufferedImage image;<br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt; pdf.getPages().getCount();i++)&#123;<br>    image = pdf.saveAsImage(i);<br>    File file = <span class="hljs-keyword">new</span> File( String.format(<span class="hljs-string">&quot;ToImage-img-%d.png&quot;</span>, i));<br>    ImageIO.write(image, <span class="hljs-string">&quot;PNG&quot;</span>, file);<br>&#125;<br>pdf.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="PDF转Html"><a href="#PDF转Html" class="headerlink" title="PDF转Html"></a>PDF转Html</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToHTML.html&quot;</span>, FileFormat.HTML);<br></code></pre></td></tr></table></figure>
+<h2 id="PDF转SVG"><a href="#PDF转SVG" class="headerlink" title="PDF转SVG"></a>PDF转SVG</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//转为单个svg</span><br>PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToSVG.svg&quot;</span>, FileFormat.SVG);<br><span class="hljs-comment">//多页pdf转为一个svg</span><br>PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;sampe.pdf&quot;</span>);<br>pdf.getConvertOptions().setOutputToOneSvg(<span class="hljs-keyword">true</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToOneSvg.svg&quot;</span>,FileFormat.SVG);<br></code></pre></td></tr></table></figure>
+<h2 id="PDF-转XPS"><a href="#PDF-转XPS" class="headerlink" title="PDF 转XPS"></a>PDF 转XPS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToXPS.xps&quot;</span>, FileFormat.XPS);<br></code></pre></td></tr></table></figure>
+<h2 id="PDF转PDF-A"><a href="#PDF转PDF-A" class="headerlink" title="PDF转PDF/A"></a>PDF转PDF/A</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.spire.pdf.*;<br><span class="hljs-keyword">import</span> com.spire.pdf.graphics.PdfMargins;<br><span class="hljs-keyword">import</span> java.awt.geom.Dimension2D;<br> <br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PDFtoPDFA</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[]args)</span></span>&#123;<br>        <span class="hljs-comment">//加载测试文档</span><br>        PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument();<br>        pdf.loadFromFile(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br> <br>        <span class="hljs-comment">//转换为Pdf_A_1_B格式</span><br>        PdfNewDocument newDoc = <span class="hljs-keyword">new</span> PdfNewDocument();<br>        newDoc.setConformance(PdfConformanceLevel.Pdf_A_1_B);<br>        PdfPageBase page;<br>        <span class="hljs-keyword">for</span> ( <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt; pdf.getPages().getCount();i++) &#123;<br>            page = pdf.getPages().get(i);<br>            Dimension2D size = page.getSize();<br>            PdfPageBase p = newDoc.getPages().add(size, <span class="hljs-keyword">new</span> PdfMargins(<span class="hljs-number">0</span>));<br>            page.createTemplate().draw(p, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>        &#125;<br> <br>        <span class="hljs-comment">//保存结果文件</span><br>        newDoc.save(<span class="hljs-string">&quot;ToPDFA.pdf&quot;</span>);<br>        newDoc.close();<br> <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf-%E8%BD%ACword">PDF 转Word</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf%E8%BD%AC%E5%9B%BE%E7%89%87">PDF转图片</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf%E8%BD%AChtml">PDF转Html</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf%E8%BD%ACsvg">PDF转SVG</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf-%E8%BD%ACxps">PDF 转XPS</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf%E8%BD%ACpdfa">PDF转PDF/A</a></p>
+
             </div>
             <hr>
             <div>
@@ -247,9 +275,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/blog/tags/%E9%83%A8%E7%BD%B2/">部署</a>
+                      <a class="hover-with-bg" href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
                     
-                      <a class="hover-with-bg" href="/blog/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+                      <a class="hover-with-bg" href="/blog/tags/java/">java</a>
                     
                   </div>
                 
@@ -262,9 +290,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/01/10/Postman%E7%9A%84%E5%9F%BA%E7%A1%80%E5%8A%9F%E8%83%BD/">
+                      <a href="/blog/2021/01/10/Centos7Nginx%E7%9A%84SSl%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Postman的基础功能</span>
+                        <span class="hidden-mobile">Centos7Nginx的SSl证书安装</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -272,8 +300,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/01/06/Centos7%E5%AE%89%E8%A3%85redis/">
-                        <span class="hidden-mobile">Centos7安装redis</span>
+                      <a href="/blog/2021/01/10/%E8%A7%A3%E5%86%B3IntellijIDEA%E9%83%A8%E7%BD%B2JavaWeb%E9%A1%B9%E7%9B%AE404%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">解决IntellijIDEA部署JavaWeb项目404问题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
