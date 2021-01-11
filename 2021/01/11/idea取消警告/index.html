@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>java将PDF转为Word、图片、SVG、XPS、Html、PDF。 - 崔笑颜的博客</title>
+  <title>idea取消警告 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="java将PDF转为Word、图片、SVG、XPS、Html、PDF。">
+            <span class="h2" id="subtitle" title="idea取消警告">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-10 10:20" pubdate>
-        2021年1月10日 上午
+      <time datetime="2021-01-11 20:00" pubdate>
+        2021年1月11日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      487 字
+      335 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      5
        分钟
     </span>
   
@@ -233,38 +233,11 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">java将PDF转为Word、图片、SVG、XPS、Html、PDF。</h1>
+            <h1 style="display: none">idea取消警告</h1>
             
             <div class="markdown-body">
-              <p>本文将介绍通过Java编程来实现PDF文档转换的方法。包括：</p>
-<ol>
-<li><p>PDF转为Word</p>
-</li>
-<li><p>PDF转为图片</p>
-</li>
-<li><p>PDF转为Html</p>
-</li>
-<li><p>PDF转为SVG</p>
-<p>4.1 将PDF每一页转为单个的SVG</p>
-<p>4.2 将一个包含多页的PDF文档转为一个SVG</p>
-</li>
-<li><p>PDF转为XPS</p>
-</li>
-<li><p>PDF转为PDF/A</p>
-</li>
-</ol>
-<p>使用工具：Free Spire.PDF for Java（免费版）</p>
-<p>Jar文件获取及导入：</p>
-<p>方法1：通过官网下载<a target="_blank" rel="noopener" href="https://www.e-iceblue.cn/Downloads/Free-Spire-PDF-JAVA.html">下载jar包</a>。下载后，解压文件，并将lib文件夹下的Spire.Pdf.jar文件导入Java程序。</p>
-<p>方法2：可通过maven仓库安装导入。参考<a target="_blank" rel="noopener" href="https://www.e-iceblue.cn/licensing/install-spirepdf-for-java-from-maven-repository.html">导入方法</a></p>
-<h2 id="PDF-转Word"><a href="#PDF-转Word" class="headerlink" title="PDF 转Word"></a>PDF 转Word</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToWord.docx&quot;</span>,FileFormat.DOCX);<br></code></pre></td></tr></table></figure>
-<h2 id="PDF转图片"><a href="#PDF转图片" class="headerlink" title="PDF转图片"></a>PDF转图片</h2><p>支持的图片格式包括Jpeg, Jpg, Png, Bmp, Tiff, Gif, EMF等。这里以保存为Png格式为例。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.spire.pdf.*;<br> <br><span class="hljs-keyword">import</span> javax.imageio.ImageIO;<br><span class="hljs-keyword">import</span> java.awt.image.BufferedImage;<br><span class="hljs-keyword">import</span> java.io.File;<br><span class="hljs-keyword">import</span> java.io.IOException;<br> <br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PDFtoimage</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br> <br>PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>BufferedImage image;<br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt; pdf.getPages().getCount();i++)&#123;<br>    image = pdf.saveAsImage(i);<br>    File file = <span class="hljs-keyword">new</span> File( String.format(<span class="hljs-string">&quot;ToImage-img-%d.png&quot;</span>, i));<br>    ImageIO.write(image, <span class="hljs-string">&quot;PNG&quot;</span>, file);<br>&#125;<br>pdf.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="PDF转Html"><a href="#PDF转Html" class="headerlink" title="PDF转Html"></a>PDF转Html</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToHTML.html&quot;</span>, FileFormat.HTML);<br></code></pre></td></tr></table></figure>
-<h2 id="PDF转SVG"><a href="#PDF转SVG" class="headerlink" title="PDF转SVG"></a>PDF转SVG</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//转为单个svg</span><br>PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToSVG.svg&quot;</span>, FileFormat.SVG);<br><span class="hljs-comment">//多页pdf转为一个svg</span><br>PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;sampe.pdf&quot;</span>);<br>pdf.getConvertOptions().setOutputToOneSvg(<span class="hljs-keyword">true</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToOneSvg.svg&quot;</span>,FileFormat.SVG);<br></code></pre></td></tr></table></figure>
-<h2 id="PDF-转XPS"><a href="#PDF-转XPS" class="headerlink" title="PDF 转XPS"></a>PDF 转XPS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br>pdf.saveToFile(<span class="hljs-string">&quot;ToXPS.xps&quot;</span>, FileFormat.XPS);<br></code></pre></td></tr></table></figure>
-<h2 id="PDF转PDF-A"><a href="#PDF转PDF-A" class="headerlink" title="PDF转PDF/A"></a>PDF转PDF/A</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.spire.pdf.*;<br><span class="hljs-keyword">import</span> com.spire.pdf.graphics.PdfMargins;<br><span class="hljs-keyword">import</span> java.awt.geom.Dimension2D;<br> <br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PDFtoPDFA</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[]args)</span></span>&#123;<br>        <span class="hljs-comment">//加载测试文档</span><br>        PdfDocument pdf = <span class="hljs-keyword">new</span> PdfDocument();<br>        pdf.loadFromFile(<span class="hljs-string">&quot;test.pdf&quot;</span>);<br> <br>        <span class="hljs-comment">//转换为Pdf_A_1_B格式</span><br>        PdfNewDocument newDoc = <span class="hljs-keyword">new</span> PdfNewDocument();<br>        newDoc.setConformance(PdfConformanceLevel.Pdf_A_1_B);<br>        PdfPageBase page;<br>        <span class="hljs-keyword">for</span> ( <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt; pdf.getPages().getCount();i++) &#123;<br>            page = pdf.getPages().get(i);<br>            Dimension2D size = page.getSize();<br>            PdfPageBase p = newDoc.getPages().add(size, <span class="hljs-keyword">new</span> PdfMargins(<span class="hljs-number">0</span>));<br>            page.createTemplate().draw(p, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>        &#125;<br> <br>        <span class="hljs-comment">//保存结果文件</span><br>        newDoc.save(<span class="hljs-string">&quot;ToPDFA.pdf&quot;</span>);<br>        newDoc.close();<br> <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf-%E8%BD%ACword">PDF 转Word</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf%E8%BD%AC%E5%9B%BE%E7%89%87">PDF转图片</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf%E8%BD%AChtml">PDF转Html</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf%E8%BD%ACsvg">PDF转SVG</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf-%E8%BD%ACxps">PDF 转XPS</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/PDF#pdf%E8%BD%ACpdfa">PDF转PDF/A</a></p>
+              <p>右边那五颜六色的一堆东西 是警告 如果是报错还是会提醒的哦<br>打开设置 搜索 inspections<br><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/BC0B365A-0200-45E5-B6E9-0DD5A2E557DA_1564123100369.png" srcset="/blog/img/loading.gif" alt="BC0B365A-0200-45E5-B6E9-0DD5A2E557DA"></p>
+<h1 id="java判断中文汉字工具类"><a href="#java判断中文汉字工具类" class="headerlink" title="java判断中文汉字工具类"></a>java判断中文汉字工具类</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.wlkj.util;<br><br><span class="hljs-keyword">import</span> java.util.regex.Matcher;<br><span class="hljs-keyword">import</span> java.util.regex.Pattern;<br><br><span class="hljs-keyword">import</span> net.sourceforge.pinyin4j.PinyinHelper;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChineseUtil</span> </span>&#123;<br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 判断中文字符</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> c</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isChinese</span><span class="hljs-params">(<span class="hljs-keyword">char</span> c)</span></span>&#123;<br>    Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);<br>    <span class="hljs-keyword">if</span>(ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS ||<br>       ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS ||<br>       ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A ||<br>       ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B ||<br>       ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION ||<br>       ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS ||<br>       ub == Character.UnicodeBlock.GENERAL_PUNCTUATION)&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>&#125;<br> <br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 包含中文字符</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> str</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">containsChinese</span><span class="hljs-params">(String str)</span></span>&#123;<br>    <span class="hljs-keyword">char</span>[] ch = str.toCharArray();<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">char</span> c : ch)&#123;<br>        <span class="hljs-keyword">if</span>(isChinese(c))&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 是否中文（非标点符号）</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> c</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isChineseWord</span><span class="hljs-params">(<span class="hljs-keyword">char</span> c)</span> </span>&#123;<br>	<span class="hljs-keyword">char</span>[] ch = &#123;c&#125;;<br>	Pattern pattern = Pattern.compile(<span class="hljs-string">&quot;([\u4E00-\uFA29]|[\uE7C7-\uE7F3])&quot;</span>);<br>	Matcher matcher = pattern.matcher(<span class="hljs-keyword">new</span> String(ch));<br>	<span class="hljs-keyword">return</span> matcher.find();<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 包含汉字（非标点符号）</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> name</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">containsChineseWords</span><span class="hljs-params">(String name)</span> </span>&#123;<br>	Pattern pattern = Pattern.compile(<span class="hljs-string">&quot;^.*([\u4E00-\uFA29]|[\uE7C7-\uE7F3])+.*$&quot;</span>);<br>	Matcher matcher = pattern.matcher(name);<br>	<span class="hljs-keyword">return</span> matcher.find();<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 转换成拼音字母缩写</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> str</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> abbr</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">toPinyinAbbr</span><span class="hljs-params">(String str)</span></span>&#123;<br>	String abbr = <span class="hljs-string">&quot;&quot;</span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">char</span> c : str.toCharArray())&#123;<br>		<span class="hljs-keyword">if</span>(ChineseUtil.isChineseWord(c))&#123;<br>			abbr += PinyinHelper.toHanyuPinyinStringArray(c)[<span class="hljs-number">0</span>].substring(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>).toUpperCase();<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> abbr;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>	System.out.println(isChinese(<span class="hljs-string">&#x27;め&#x27;</span>));<span class="hljs-comment">// false</span><br>	System.out.println(isChineseWord(<span class="hljs-string">&#x27;我&#x27;</span>));<span class="hljs-comment">// true</span><br>	System.out.println(containsChinese(<span class="hljs-string">&quot;a我b&quot;</span>));<span class="hljs-comment">// true</span><br>	System.out.println(containsChineseWords(<span class="hljs-string">&quot;a，b&quot;</span>)); <span class="hljs-comment">// false</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -275,9 +248,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/blog/tags/java/">java</a>
-                    
                       <a class="hover-with-bg" href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/idea/">idea</a>
                     
                   </div>
                 
@@ -290,9 +263,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/01/10/Centos7Nginx%E7%9A%84SSl%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85/">
+                      <a href="/blog/2021/01/11/Java%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Centos7Nginx的SSl证书安装</span>
+                        <span class="hidden-mobile">Java常用工具类</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -300,8 +273,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/01/10/%E8%A7%A3%E5%86%B3IntellijIDEA%E9%83%A8%E7%BD%B2JavaWeb%E9%A1%B9%E7%9B%AE404%E9%97%AE%E9%A2%98/">
-                        <span class="hidden-mobile">解决IntellijIDEA部署JavaWeb项目404问题</span>
+                      <a href="/blog/2021/01/10/Mysql%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/">
+                        <span class="hidden-mobile">Mysql系统知识梳理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

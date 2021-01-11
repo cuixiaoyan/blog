@@ -186,6 +186,143 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/01/06/Centos7%E5%AE%89%E8%A3%85Nginx/">Centos7安装Nginx</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/01/06/Centos7%E5%AE%89%E8%A3%85Nginx/">
+          
+          
+            
+          
+          Nginx 是C语言开发的,所以要安装gcc编译器。
+安装 nginx 需要先将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境，则需要安装：
+
+1yum install -y gcc-c++
+
+PCRE(Perl Compatible Regular Expressions) 是一个Perl库，包括 perl 兼容的正则表达式库。nginx 的 http 模块使用 pcre
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-06 20:00" pubdate>
+              2021-01-06
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E9%83%A8%E7%BD%B2/">部署</a>
+            
+              <a href="/blog/tags/%E8%BD%AF%E4%BB%B6/">软件</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85mysql/">Centos7安装mysql5.7</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85mysql/">
+          
+          
+            
+          
+          先检查系统是否装有mysqlrpm -qa | grep mysql 这里执行安装命令是无效的，因为centos-7默认是Mariadb，所以执行以下命令只是更新Mariadb数据库 yum install mysql 删除 yum remove mysql
+下载mysql的repo源wget http://repo.mysql.com/mysql-community-release-el7-5.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-05 20:30" pubdate>
+              2021-01-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E9%83%A8%E7%BD%B2/">部署</a>
+            
+              <a href="/blog/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85tomcat9/">Centos7安装tomcat9</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85tomcat9/">
+          
+          
+            
+          
+          首先检查是否安装好jdk 和配置好运行环境 还有就是名字和路径输入命令：Java -version，如果显示JDK版本号，则证明已经安装了JDK。
+输入命令：echo $JAVA_HOME，如果显示路径，则证明配置了环境变量。
+如果没有参考 安装jdk tomcat 下载地址 [tomcat9]( https://pan.baidu.com/s/171M_rXvsyKNI5jAY8nwd1Q 提取
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-05 20:20" pubdate>
+              2021-01-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E9%83%A8%E7%BD%B2/">部署</a>
+            
+              <a href="/blog/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/01/05/Centos7%E5%AE%89%E8%A3%85jdk/">Centos7安装jdk</a>
       </h1>
 

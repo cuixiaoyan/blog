@@ -1,0 +1,520 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>Java常用工具类 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/blog/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java常用工具类">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-11 20:10" pubdate>
+        2021年1月11日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      54
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java常用工具类</h1>
+            
+            <div class="markdown-body">
+              <p>java中，StringUtils类中的一些常用方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">isBlank</span><span class="hljs-params">(String str)</span></span><br><span class="hljs-function"><span class="hljs-comment">//判断某字符串是否为空或长度为0或由空白符(whitespace)构成</span></span><br><span class="hljs-function">StringUtils.<span class="hljs-title">isBlank</span><span class="hljs-params">(<span class="hljs-keyword">null</span>)</span> </span>= <span class="hljs-keyword">true</span><br>StringUtils.isBlank(<span class="hljs-string">&quot;&quot;</span>) = <span class="hljs-keyword">true</span><br>StringUtils.isBlank(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-keyword">true</span><br>StringUtils.isBlank(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-keyword">true</span><br>StringUtils.isBlank(<span class="hljs-string">&quot;\t \n \f \r&quot;</span>) = <span class="hljs-keyword">true</span> <span class="hljs-comment">//对于制表符、换行符、换页符和回车符StringUtils.isBlank()均识为空白符</span><br>StringUtils.isBlank(<span class="hljs-string">&quot;\b&quot;</span>) = <span class="hljs-keyword">false</span> <span class="hljs-comment">//&quot;\b&quot;为单词边界符</span><br>StringUtils.isBlank(<span class="hljs-string">&quot;bob&quot;</span>) = <span class="hljs-keyword">false</span><br>StringUtils.isBlank(<span class="hljs-string">&quot; bob &quot;</span>) = <span class="hljs-keyword">false</span><br> <br> <br><span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">isNotBlank</span><span class="hljs-params">(String str)</span></span><br><span class="hljs-function"><span class="hljs-comment">//判断某字符串是否不为空且长度不为0且不由空白符(whitespace)构成，等于!isBlank(String str)</span></span><br><span class="hljs-function">StringUtils.<span class="hljs-title">isNotBlank</span><span class="hljs-params">(<span class="hljs-keyword">null</span>)</span> </span>= <span class="hljs-keyword">false</span><br>StringUtils.isNotBlank(<span class="hljs-string">&quot;&quot;</span>) = <span class="hljs-keyword">false</span><br>StringUtils.isNotBlank(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-keyword">false</span><br>StringUtils.isNotBlank(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-keyword">false</span><br>StringUtils.isNotBlank(<span class="hljs-string">&quot;\t \n \f \r&quot;</span>) = <span class="hljs-keyword">false</span><br>StringUtils.isNotBlank(<span class="hljs-string">&quot;\b&quot;</span>) = <span class="hljs-keyword">true</span><br>StringUtils.isNotBlank(<span class="hljs-string">&quot;bob&quot;</span>) = <span class="hljs-keyword">true</span><br>StringUtils.isNotBlank(<span class="hljs-string">&quot; bob &quot;</span>) = <span class="hljs-keyword">true</span><br> <br> <br><span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">(String str)</span></span><br><span class="hljs-function"><span class="hljs-comment">//判断某字符串是否为空，为空的标准是str==null或str.length()==0</span></span><br><span class="hljs-function">StringUtils.<span class="hljs-title">isEmpty</span><span class="hljs-params">(<span class="hljs-keyword">null</span>)</span> </span>= <span class="hljs-keyword">true</span><br>StringUtils.isEmpty(<span class="hljs-string">&quot;&quot;</span>) = <span class="hljs-keyword">true</span><br>StringUtils.isEmpty(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-keyword">false</span> <span class="hljs-comment">//注意在StringUtils中空格作非空处理</span><br>StringUtils.isEmpty(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-keyword">false</span><br>StringUtils.isEmpty(<span class="hljs-string">&quot;bob&quot;</span>) = <span class="hljs-keyword">false</span><br>StringUtils.isEmpty(<span class="hljs-string">&quot; bob &quot;</span>) = <span class="hljs-keyword">false</span><br> <br> <br><span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">isNotEmpty</span><span class="hljs-params">(String str)</span></span><br><span class="hljs-function"><span class="hljs-comment">//判断某字符串是否非空，等于!isEmpty(String str)</span></span><br><span class="hljs-function">StringUtils.<span class="hljs-title">isNotEmpty</span><span class="hljs-params">(<span class="hljs-keyword">null</span>)</span> </span>= <span class="hljs-keyword">false</span><br>StringUtils.isNotEmpty(<span class="hljs-string">&quot;&quot;</span>) = <span class="hljs-keyword">false</span><br>StringUtils.isNotEmpty(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-keyword">true</span><br>StringUtils.isNotEmpty(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-keyword">true</span><br>StringUtils.isNotEmpty(<span class="hljs-string">&quot;bob&quot;</span>) = <span class="hljs-keyword">true</span><br>StringUtils.isNotEmpty(<span class="hljs-string">&quot; bob &quot;</span>) = <span class="hljs-keyword">true</span><br> <br> <br><span class="hljs-function">String <span class="hljs-title">trim</span><span class="hljs-params">(String str)</span></span><br><span class="hljs-function"><span class="hljs-comment">//去掉字符串两端的控制符(control characters, char &lt;= 32),如果输入为null则返回null</span></span><br><span class="hljs-function">StringUtils.<span class="hljs-title">trim</span><span class="hljs-params">(<span class="hljs-keyword">null</span>)</span> </span>= <span class="hljs-keyword">null</span><br>StringUtils.trim(<span class="hljs-string">&quot;&quot;</span>) = <span class="hljs-string">&quot;&quot;</span><br>StringUtils.trim(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-string">&quot;&quot;</span><br>StringUtils.trim(<span class="hljs-string">&quot; \b \t \n \f \r &quot;</span>) = <span class="hljs-string">&quot;&quot;</span><br>StringUtils.trim(<span class="hljs-string">&quot; \n\tss \b&quot;</span>) = <span class="hljs-string">&quot;ss&quot;</span><br>StringUtils.trim(<span class="hljs-string">&quot; d d dd &quot;</span>) = <span class="hljs-string">&quot;d d dd&quot;</span><br>StringUtils.trim(<span class="hljs-string">&quot;dd &quot;</span>) = <span class="hljs-string">&quot;dd&quot;</span><br>StringUtils.trim(<span class="hljs-string">&quot; dd &quot;</span>) = <span class="hljs-string">&quot;dd&quot;</span><br> <br> <br><span class="hljs-function">String <span class="hljs-title">trimToNull</span><span class="hljs-params">(String str)</span></span><br><span class="hljs-function"><span class="hljs-comment">//去掉字符串两端的控制符(control characters, char &lt;= 32),如果变为null或&quot;&quot;，则返回null</span></span><br><span class="hljs-function">StringUtils.<span class="hljs-title">trimToNull</span><span class="hljs-params">(<span class="hljs-keyword">null</span>)</span> </span>= <span class="hljs-keyword">null</span><br>StringUtils.trimToNull(<span class="hljs-string">&quot;&quot;</span>) = <span class="hljs-keyword">null</span><br>StringUtils.trimToNull(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-keyword">null</span><br>StringUtils.trimToNull(<span class="hljs-string">&quot; \b \t \n \f \r &quot;</span>) = <span class="hljs-keyword">null</span><br>StringUtils.trimToNull(<span class="hljs-string">&quot; \n\tss \b&quot;</span>) = <span class="hljs-string">&quot;ss&quot;</span><br>StringUtils.trimToNull(<span class="hljs-string">&quot; d d dd &quot;</span>) = <span class="hljs-string">&quot;d d dd&quot;</span><br>StringUtils.trimToNull(<span class="hljs-string">&quot;dd &quot;</span>) = <span class="hljs-string">&quot;dd&quot;</span><br>StringUtils.trimToNull(<span class="hljs-string">&quot; dd &quot;</span>) = <span class="hljs-string">&quot;dd&quot;</span><br> <br> <br><span class="hljs-function">String <span class="hljs-title">trimToEmpty</span><span class="hljs-params">(String str)</span></span><br><span class="hljs-function"><span class="hljs-comment">//去掉字符串两端的控制符(control characters, char &lt;= 32),如果变为null或&quot;&quot;，则返回&quot;&quot;</span></span><br><span class="hljs-function">StringUtils.<span class="hljs-title">trimToEmpty</span><span class="hljs-params">(<span class="hljs-keyword">null</span>)</span> </span>= <span class="hljs-string">&quot;&quot;</span><br>StringUtils.trimToEmpty(<span class="hljs-string">&quot;&quot;</span>) = <span class="hljs-string">&quot;&quot;</span><br>StringUtils.trimToEmpty(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-string">&quot;&quot;</span><br>StringUtils.trimToEmpty(<span class="hljs-string">&quot; \b \t \n \f \r &quot;</span>) = <span class="hljs-string">&quot;&quot;</span><br>StringUtils.trimToEmpty(<span class="hljs-string">&quot; \n\tss \b&quot;</span>) = <span class="hljs-string">&quot;ss&quot;</span><br>StringUtils.trimToEmpty(<span class="hljs-string">&quot; d d dd &quot;</span>) = <span class="hljs-string">&quot;d d dd&quot;</span><br>StringUtils.trimToEmpty(<span class="hljs-string">&quot;dd &quot;</span>) = <span class="hljs-string">&quot;dd&quot;</span><br>StringUtils.trimToEmpty(<span class="hljs-string">&quot; dd &quot;</span>) = <span class="hljs-string">&quot;dd&quot;</span><br> <br> <br><span class="hljs-function">String <span class="hljs-title">strip</span><span class="hljs-params">(String str)</span></span><br><span class="hljs-function"><span class="hljs-comment">//去掉字符串两端的空白符(whitespace)，如果输入为null则返回null(注意和trim()的区别)：</span></span><br><span class="hljs-function">StringUtils.<span class="hljs-title">strip</span><span class="hljs-params">(<span class="hljs-keyword">null</span>)</span> </span>= <span class="hljs-keyword">null</span><br>StringUtils.strip(<span class="hljs-string">&quot;&quot;</span>) = <span class="hljs-string">&quot;&quot;</span><br>StringUtils.strip(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-string">&quot;&quot;</span><br>StringUtils.strip(<span class="hljs-string">&quot; \b \t \n \f \r &quot;</span>) = <span class="hljs-string">&quot;\b&quot;</span><br>StringUtils.strip(<span class="hljs-string">&quot; \n\tss \b&quot;</span>) = <span class="hljs-string">&quot;ss \b&quot;</span><br>StringUtils.strip(<span class="hljs-string">&quot; d d dd &quot;</span>) = <span class="hljs-string">&quot;d d dd&quot;</span><br>StringUtils.strip(<span class="hljs-string">&quot;dd &quot;</span>) = <span class="hljs-string">&quot;dd&quot;</span><br>StringUtils.strip(<span class="hljs-string">&quot; dd &quot;</span>) = <span class="hljs-string">&quot;dd&quot;</span><br> <br> <br><span class="hljs-function">String <span class="hljs-title">stripToNull</span><span class="hljs-params">(String str)</span></span><br><span class="hljs-function"><span class="hljs-comment">//去掉字符串两端的空白符(whitespace)，如果变为null或&quot;&quot;，则返回null(注意和trimToNull()的区别)：</span></span><br><span class="hljs-function">StringUtils.<span class="hljs-title">stripToNull</span><span class="hljs-params">(<span class="hljs-keyword">null</span>)</span> </span>= <span class="hljs-keyword">null</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot;&quot;</span>) = <span class="hljs-keyword">null</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-keyword">null</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot; \b \t \n \f \r &quot;</span>) = <span class="hljs-string">&quot;\b&quot;</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot; \n\tss \b&quot;</span>) = <span class="hljs-string">&quot;ss \b&quot;</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot; d d dd &quot;</span>) = <span class="hljs-string">&quot;d d dd&quot;</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot;dd &quot;</span>) = <span class="hljs-string">&quot;dd&quot;</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot; dd &quot;</span>) = <span class="hljs-string">&quot;dd&quot;</span><br> <br> <br><span class="hljs-function">String <span class="hljs-title">stripToEmpty</span><span class="hljs-params">(String str)</span></span><br><span class="hljs-function"><span class="hljs-comment">//去掉字符串两端的空白符(whitespace)，如果变为null或&quot;&quot;，则返回&quot;&quot;(注意和trimToEmpty()的区别)：</span></span><br><span class="hljs-function">StringUtils.<span class="hljs-title">stripToNull</span><span class="hljs-params">(<span class="hljs-keyword">null</span>)</span> </span>= <span class="hljs-string">&quot;&quot;</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot;&quot;</span>) = <span class="hljs-string">&quot;&quot;</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot; &quot;</span>) = <span class="hljs-string">&quot;&quot;</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot; \b \t \n \f \r &quot;</span>) = <span class="hljs-string">&quot;\b&quot;</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot; \n\tss \b&quot;</span>) = <span class="hljs-string">&quot;ss \b&quot;</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot; d d dd &quot;</span>) = <span class="hljs-string">&quot;d d dd&quot;</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot;dd &quot;</span>) = <span class="hljs-string">&quot;dd&quot;</span><br>StringUtils.stripToNull(<span class="hljs-string">&quot; dd &quot;</span>) = <span class="hljs-string">&quot;dd&quot;</span><br> <br></code></pre></td></tr></table></figure>
+<p>java中我们会常用一些判断如IP、电子邮箱、电话号码的是不是合法，那么我们怎么来判断呢，答案就是利用正则表达式来判断了，废话不多说，下面就是上代码。</p>
+<p>1:判断是否是正确的IP</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 用正则表达式进行判断</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isIPAddressByRegex</span><span class="hljs-params">(String str)</span> </span>&#123;<br>            String regex = <span class="hljs-string">&quot;\\d&#123;1,3&#125;\\.\\d&#123;1,3&#125;\\.\\d&#123;1,3&#125;\\.\\d&#123;1,3&#125;&quot;</span>;<br>            <span class="hljs-comment">// 判断ip地址是否与正则表达式匹配</span><br>            <span class="hljs-keyword">if</span> (str.matches(regex)) &#123;<br>                String[] arr = str.split(<span class="hljs-string">&quot;\\.&quot;</span>);<br>                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; i++) &#123;<br>                    <span class="hljs-keyword">int</span> temp = Integer.parseInt(arr[i]);<br>                    <span class="hljs-comment">//如果某个数字不是0到255之间的数 就返回false</span><br>                    <span class="hljs-keyword">if</span> (temp &lt; <span class="hljs-number">0</span> || temp &gt; <span class="hljs-number">255</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>                &#125;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>        &#125;<br></code></pre></td></tr></table></figure>
+<p>2:判断是否是正确的邮箱地址</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">*正则表达式验证邮箱</span><br><span class="hljs-comment">*/</span><br> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isEmail</span><span class="hljs-params">(String email)</span> </span>&#123;<br>       <span class="hljs-keyword">if</span> (email == <span class="hljs-keyword">null</span> || <span class="hljs-string">&quot;&quot;</span>.equals(email)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>            String regex = <span class="hljs-string">&quot;\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*&quot;</span>;<br>           <span class="hljs-keyword">return</span> email.matches(regex);<br>  &#125;<br></code></pre></td></tr></table></figure>
+<p>3:判断是否是手机号码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">*正则表达式验证手机</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">orPhoneNumber</span><span class="hljs-params">(String phoneNumber)</span> </span>&#123;<br>       <span class="hljs-keyword">if</span> (phoneNumber == <span class="hljs-keyword">null</span> || <span class="hljs-string">&quot;&quot;</span>.equals(phoneNumber))<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>           String regex = <span class="hljs-string">&quot;^1[3|4|5|8][0-9]\\d&#123;8&#125;$&quot;</span>;<br>           <span class="hljs-keyword">return</span> phoneNumber.matches(regex);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>代码如下 收藏备用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.Arrays;<br><span class="hljs-keyword">import</span> java.util.Date;<br><span class="hljs-keyword">import</span> java.util.GregorianCalendar;<br> <br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 工具类，实现阴阳历互转</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> luohao</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LunarCalendar</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 支持转换的最小农历年份</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> MIN_YEAR = <span class="hljs-number">1900</span>;<br> <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 支持转换的最大农历年份</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> MAX_YEAR = <span class="hljs-number">2099</span>;<br> <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 公历每月前的天数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span>[] DAYS_BEFORE_MONTH = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">31</span>, <span class="hljs-number">59</span>, <span class="hljs-number">90</span>, <span class="hljs-number">120</span>, <span class="hljs-number">151</span>, <span class="hljs-number">181</span>, <span class="hljs-number">212</span>, <span class="hljs-number">243</span>, <span class="hljs-number">273</span>, <span class="hljs-number">304</span>, <span class="hljs-number">334</span>, <span class="hljs-number">365</span>&#125;;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 用来表示1900年到2099年间农历年份的相关信息，共24位bit的16进制表示，其中：</span><br><span class="hljs-comment">     * 1. 前4位表示该年闰哪个月；</span><br><span class="hljs-comment">     * 2. 5-17位表示农历年份13个月的大小月分布，0表示小，1表示大；</span><br><span class="hljs-comment">     * 3. 最后7位表示农历年首（正月初一）对应的公历日期。</span><br><span class="hljs-comment">     * 以2014年的数据0x955ABF为例说明：</span><br><span class="hljs-comment">     *                  1001 0101 0101 1010 1011 1111</span><br><span class="hljs-comment">     *                闰九月                                  农历正月初一对应公历1月31号</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span>[] LUNAR_INFO = &#123;<br>            <span class="hljs-comment">/*1900*/</span><br>            <span class="hljs-number">0x84B6BF</span>,<br>            <span class="hljs-comment">/*1901-1910*/</span><br>            <span class="hljs-number">0x04AE53</span>, <span class="hljs-number">0x0A5748</span>, <span class="hljs-number">0x5526BD</span>, <span class="hljs-number">0x0D2650</span>, <span class="hljs-number">0x0D9544</span>, <span class="hljs-number">0x46AAB9</span>, <span class="hljs-number">0x056A4D</span>, <span class="hljs-number">0x09AD42</span>, <span class="hljs-number">0x24AEB6</span>, <span class="hljs-number">0x04AE4A</span>,<br>            <span class="hljs-comment">/*1911-1920*/</span><br>            <span class="hljs-number">0x6A4DBE</span>, <span class="hljs-number">0x0A4D52</span>, <span class="hljs-number">0x0D2546</span>, <span class="hljs-number">0x5D52BA</span>, <span class="hljs-number">0x0B544E</span>, <span class="hljs-number">0x0D6A43</span>, <span class="hljs-number">0x296D37</span>, <span class="hljs-number">0x095B4B</span>, <span class="hljs-number">0x749BC1</span>, <span class="hljs-number">0x049754</span>,<br>            <span class="hljs-comment">/*1921-1930*/</span><br>            <span class="hljs-number">0x0A4B48</span>, <span class="hljs-number">0x5B25BC</span>, <span class="hljs-number">0x06A550</span>, <span class="hljs-number">0x06D445</span>, <span class="hljs-number">0x4ADAB8</span>, <span class="hljs-number">0x02B64D</span>, <span class="hljs-number">0x095742</span>, <span class="hljs-number">0x2497B7</span>, <span class="hljs-number">0x04974A</span>, <span class="hljs-number">0x664B3E</span>,<br>            <span class="hljs-comment">/*1931-1940*/</span><br>            <span class="hljs-number">0x0D4A51</span>, <span class="hljs-number">0x0EA546</span>, <span class="hljs-number">0x56D4BA</span>, <span class="hljs-number">0x05AD4E</span>, <span class="hljs-number">0x02B644</span>, <span class="hljs-number">0x393738</span>, <span class="hljs-number">0x092E4B</span>, <span class="hljs-number">0x7C96BF</span>, <span class="hljs-number">0x0C9553</span>, <span class="hljs-number">0x0D4A48</span>,<br>            <span class="hljs-comment">/*1941-1950*/</span><br>            <span class="hljs-number">0x6DA53B</span>, <span class="hljs-number">0x0B554F</span>, <span class="hljs-number">0x056A45</span>, <span class="hljs-number">0x4AADB9</span>, <span class="hljs-number">0x025D4D</span>, <span class="hljs-number">0x092D42</span>, <span class="hljs-number">0x2C95B6</span>, <span class="hljs-number">0x0A954A</span>, <span class="hljs-number">0x7B4ABD</span>, <span class="hljs-number">0x06CA51</span>,<br>            <span class="hljs-comment">/*1951-1960*/</span><br>            <span class="hljs-number">0x0B5546</span>, <span class="hljs-number">0x555ABB</span>, <span class="hljs-number">0x04DA4E</span>, <span class="hljs-number">0x0A5B43</span>, <span class="hljs-number">0x352BB8</span>, <span class="hljs-number">0x052B4C</span>, <span class="hljs-number">0x8A953F</span>, <span class="hljs-number">0x0E9552</span>, <span class="hljs-number">0x06AA48</span>, <span class="hljs-number">0x6AD53C</span>,<br>            <span class="hljs-comment">/*1961-1970*/</span><br>            <span class="hljs-number">0x0AB54F</span>, <span class="hljs-number">0x04B645</span>, <span class="hljs-number">0x4A5739</span>, <span class="hljs-number">0x0A574D</span>, <span class="hljs-number">0x052642</span>, <span class="hljs-number">0x3E9335</span>, <span class="hljs-number">0x0D9549</span>, <span class="hljs-number">0x75AABE</span>, <span class="hljs-number">0x056A51</span>, <span class="hljs-number">0x096D46</span>,<br>            <span class="hljs-comment">/*1971-1980*/</span><br>            <span class="hljs-number">0x54AEBB</span>, <span class="hljs-number">0x04AD4F</span>, <span class="hljs-number">0x0A4D43</span>, <span class="hljs-number">0x4D26B7</span>, <span class="hljs-number">0x0D254B</span>, <span class="hljs-number">0x8D52BF</span>, <span class="hljs-number">0x0B5452</span>, <span class="hljs-number">0x0B6A47</span>, <span class="hljs-number">0x696D3C</span>, <span class="hljs-number">0x095B50</span>,<br>            <span class="hljs-comment">/*1981-1990*/</span><br>            <span class="hljs-number">0x049B45</span>, <span class="hljs-number">0x4A4BB9</span>, <span class="hljs-number">0x0A4B4D</span>, <span class="hljs-number">0xAB25C2</span>, <span class="hljs-number">0x06A554</span>, <span class="hljs-number">0x06D449</span>, <span class="hljs-number">0x6ADA3D</span>, <span class="hljs-number">0x0AB651</span>, <span class="hljs-number">0x095746</span>, <span class="hljs-number">0x5497BB</span>,<br>            <span class="hljs-comment">/*1991-2000*/</span><br>            <span class="hljs-number">0x04974F</span>, <span class="hljs-number">0x064B44</span>, <span class="hljs-number">0x36A537</span>, <span class="hljs-number">0x0EA54A</span>, <span class="hljs-number">0x86B2BF</span>, <span class="hljs-number">0x05AC53</span>, <span class="hljs-number">0x0AB647</span>, <span class="hljs-number">0x5936BC</span>, <span class="hljs-number">0x092E50</span>, <span class="hljs-number">0x0C9645</span>,<br>            <span class="hljs-comment">/*2001-2010*/</span><br>            <span class="hljs-number">0x4D4AB8</span>, <span class="hljs-number">0x0D4A4C</span>, <span class="hljs-number">0x0DA541</span>, <span class="hljs-number">0x25AAB6</span>, <span class="hljs-number">0x056A49</span>, <span class="hljs-number">0x7AADBD</span>, <span class="hljs-number">0x025D52</span>, <span class="hljs-number">0x092D47</span>, <span class="hljs-number">0x5C95BA</span>, <span class="hljs-number">0x0A954E</span>,<br>            <span class="hljs-comment">/*2011-2020*/</span><br>            <span class="hljs-number">0x0B4A43</span>, <span class="hljs-number">0x4B5537</span>, <span class="hljs-number">0x0AD54A</span>, <span class="hljs-number">0x955ABF</span>, <span class="hljs-number">0x04BA53</span>, <span class="hljs-number">0x0A5B48</span>, <span class="hljs-number">0x652BBC</span>, <span class="hljs-number">0x052B50</span>, <span class="hljs-number">0x0A9345</span>, <span class="hljs-number">0x474AB9</span>,<br>            <span class="hljs-comment">/*2021-2030*/</span><br>            <span class="hljs-number">0x06AA4C</span>, <span class="hljs-number">0x0AD541</span>, <span class="hljs-number">0x24DAB6</span>, <span class="hljs-number">0x04B64A</span>, <span class="hljs-number">0x6a573D</span>, <span class="hljs-number">0x0A4E51</span>, <span class="hljs-number">0x0D2646</span>, <span class="hljs-number">0x5E933A</span>, <span class="hljs-number">0x0D534D</span>, <span class="hljs-number">0x05AA43</span>,<br>            <span class="hljs-comment">/*2031-2040*/</span><br>            <span class="hljs-number">0x36B537</span>, <span class="hljs-number">0x096D4B</span>, <span class="hljs-number">0xB4AEBF</span>, <span class="hljs-number">0x04AD53</span>, <span class="hljs-number">0x0A4D48</span>, <span class="hljs-number">0x6D25BC</span>, <span class="hljs-number">0x0D254F</span>, <span class="hljs-number">0x0D5244</span>, <span class="hljs-number">0x5DAA38</span>, <span class="hljs-number">0x0B5A4C</span>,<br>            <span class="hljs-comment">/*2041-2050*/</span><br>            <span class="hljs-number">0x056D41</span>, <span class="hljs-number">0x24ADB6</span>, <span class="hljs-number">0x049B4A</span>, <span class="hljs-number">0x7A4BBE</span>, <span class="hljs-number">0x0A4B51</span>, <span class="hljs-number">0x0AA546</span>, <span class="hljs-number">0x5B52BA</span>, <span class="hljs-number">0x06D24E</span>, <span class="hljs-number">0x0ADA42</span>, <span class="hljs-number">0x355B37</span>,<br>            <span class="hljs-comment">/*2051-2060*/</span><br>            <span class="hljs-number">0x09374B</span>, <span class="hljs-number">0x8497C1</span>, <span class="hljs-number">0x049753</span>, <span class="hljs-number">0x064B48</span>, <span class="hljs-number">0x66A53C</span>, <span class="hljs-number">0x0EA54F</span>, <span class="hljs-number">0x06AA44</span>, <span class="hljs-number">0x4AB638</span>, <span class="hljs-number">0x0AAE4C</span>, <span class="hljs-number">0x092E42</span>,<br>            <span class="hljs-comment">/*2061-2070*/</span><br>            <span class="hljs-number">0x3C9735</span>, <span class="hljs-number">0x0C9649</span>, <span class="hljs-number">0x7D4ABD</span>, <span class="hljs-number">0x0D4A51</span>, <span class="hljs-number">0x0DA545</span>, <span class="hljs-number">0x55AABA</span>, <span class="hljs-number">0x056A4E</span>, <span class="hljs-number">0x0A6D43</span>, <span class="hljs-number">0x452EB7</span>, <span class="hljs-number">0x052D4B</span>,<br>            <span class="hljs-comment">/*2071-2080*/</span><br>            <span class="hljs-number">0x8A95BF</span>, <span class="hljs-number">0x0A9553</span>, <span class="hljs-number">0x0B4A47</span>, <span class="hljs-number">0x6B553B</span>, <span class="hljs-number">0x0AD54F</span>, <span class="hljs-number">0x055A45</span>, <span class="hljs-number">0x4A5D38</span>, <span class="hljs-number">0x0A5B4C</span>, <span class="hljs-number">0x052B42</span>, <span class="hljs-number">0x3A93B6</span>,<br>            <span class="hljs-comment">/*2081-2090*/</span><br>            <span class="hljs-number">0x069349</span>, <span class="hljs-number">0x7729BD</span>, <span class="hljs-number">0x06AA51</span>, <span class="hljs-number">0x0AD546</span>, <span class="hljs-number">0x54DABA</span>, <span class="hljs-number">0x04B64E</span>, <span class="hljs-number">0x0A5743</span>, <span class="hljs-number">0x452738</span>, <span class="hljs-number">0x0D264A</span>, <span class="hljs-number">0x8E933E</span>,<br>            <span class="hljs-comment">/*2091-2099*/</span><br>            <span class="hljs-number">0x0D5252</span>, <span class="hljs-number">0x0DAA47</span>, <span class="hljs-number">0x66B53B</span>, <span class="hljs-number">0x056D4F</span>, <span class="hljs-number">0x04AE45</span>, <span class="hljs-number">0x4A4EB9</span>, <span class="hljs-number">0x0A4D4C</span>, <span class="hljs-number">0x0D1541</span>, <span class="hljs-number">0x2D92B5</span><br>    &#125;;<br> <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 将农历日期转换为公历日期</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> year                               农历年份</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> month                              农历月</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> monthDay                   农历日</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> isLeapMonth        该月是否是闰月</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 返回农历日期对应的公历日期，year0, month1, day2.</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span>[] lunarToSolar(<span class="hljs-keyword">int</span> year, <span class="hljs-keyword">int</span> month, <span class="hljs-keyword">int</span> monthDay, <span class="hljs-keyword">boolean</span> isLeapMonth) &#123;<br> <br>        <span class="hljs-keyword">int</span> dayOffset;<br> <br>        <span class="hljs-keyword">int</span> leapMonth;<br> <br>        <span class="hljs-keyword">int</span> i;<br> <br>        <span class="hljs-keyword">if</span> (year &lt; MIN_YEAR || year &gt; MAX_YEAR || month &lt; <span class="hljs-number">1</span> || month &gt; <span class="hljs-number">12</span><br>                || monthDay &lt; <span class="hljs-number">1</span> || monthDay &gt; <span class="hljs-number">30</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<br>                    <span class="hljs-string">&quot;Illegal lunar date, must be like that:\n\t&quot;</span> +<br>                            <span class="hljs-string">&quot;year : 1900~2099\n\t&quot;</span> +<br>                            <span class="hljs-string">&quot;month : 1~12\n\t&quot;</span> +<br>                            <span class="hljs-string">&quot;day : 1~30&quot;</span>);<br>        &#125;<br>        dayOffset = (LUNAR_INFO[year - MIN_YEAR] &amp; <span class="hljs-number">0x001F</span>) - <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span> (((LUNAR_INFO[year - MIN_YEAR] &amp; <span class="hljs-number">0x0060</span>) &gt;&gt; <span class="hljs-number">5</span>) == <span class="hljs-number">2</span>) &#123;<br>            dayOffset += <span class="hljs-number">31</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">1</span>; i &lt; month; i++) &#123;<br>            <span class="hljs-keyword">if</span> ((LUNAR_INFO[year - MIN_YEAR] &amp; (<span class="hljs-number">0x80000</span> &gt;&gt; (i - <span class="hljs-number">1</span>))) == <span class="hljs-number">0</span>) &#123;<br>                dayOffset += <span class="hljs-number">29</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                dayOffset += <span class="hljs-number">30</span>;<br>            &#125;<br>        &#125;<br>        dayOffset += monthDay;<br> <br>        leapMonth = (LUNAR_INFO[year - MIN_YEAR] &amp; <span class="hljs-number">0xf00000</span>) &gt;&gt; <span class="hljs-number">20</span>;<br> <br>        <span class="hljs-comment">// 这一年有闰月</span><br> <br>        <span class="hljs-keyword">if</span> (leapMonth != <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">if</span> (month &gt; leapMonth || (month == leapMonth &amp;&amp; isLeapMonth)) &#123;<br> <br>                <span class="hljs-keyword">if</span> ((LUNAR_INFO[year - MIN_YEAR] &amp; (<span class="hljs-number">0x80000</span> &gt;&gt; (month - <span class="hljs-number">1</span>))) == <span class="hljs-number">0</span>) &#123;<br>                    dayOffset += <span class="hljs-number">29</span>;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    dayOffset += <span class="hljs-number">30</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br> <br>        <span class="hljs-keyword">if</span> (dayOffset &gt; <span class="hljs-number">366</span> || (year % <span class="hljs-number">4</span> != <span class="hljs-number">0</span> &amp;&amp; dayOffset &gt; <span class="hljs-number">365</span>)) &#123;<br>            year += <span class="hljs-number">1</span>;<br> <br>            <span class="hljs-keyword">if</span> (year % <span class="hljs-number">4</span> == <span class="hljs-number">1</span>) &#123;<br>                dayOffset -= <span class="hljs-number">366</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                dayOffset -= <span class="hljs-number">365</span>;<br>            &#125;<br>        &#125;<br> <br>        <span class="hljs-keyword">int</span>[] solarInfo = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">3</span>];<br>        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-number">13</span>; i++) &#123;<br>            <span class="hljs-keyword">int</span> iPos = DAYS_BEFORE_MONTH[i];<br> <br>            <span class="hljs-keyword">if</span> (year % <span class="hljs-number">4</span> == <span class="hljs-number">0</span> &amp;&amp; i &gt; <span class="hljs-number">2</span>) &#123;<br> <br>                iPos += <span class="hljs-number">1</span>;<br>            &#125;<br> <br>            <span class="hljs-keyword">if</span> (year % <span class="hljs-number">4</span> == <span class="hljs-number">0</span> &amp;&amp; i == <span class="hljs-number">2</span> &amp;&amp; iPos + <span class="hljs-number">1</span> == dayOffset) &#123;<br> <br>                solarInfo[<span class="hljs-number">1</span>] = i;<br> <br>                solarInfo[<span class="hljs-number">2</span>] = dayOffset - <span class="hljs-number">31</span>;<br> <br>                <span class="hljs-keyword">break</span>;<br> <br>            &#125;<br>            <span class="hljs-keyword">if</span> (iPos &gt;= dayOffset) &#123;<br>                solarInfo[<span class="hljs-number">1</span>] = i;<br>                iPos = DAYS_BEFORE_MONTH[i - <span class="hljs-number">1</span>];<br>                <span class="hljs-keyword">if</span> (year % <span class="hljs-number">4</span> == <span class="hljs-number">0</span> &amp;&amp; i &gt; <span class="hljs-number">2</span>) &#123;<br>                    iPos += <span class="hljs-number">1</span>;<br>                &#125;<br>                <span class="hljs-keyword">if</span> (dayOffset &gt; iPos) &#123;<br>                    solarInfo[<span class="hljs-number">2</span>] = dayOffset - iPos;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (dayOffset == iPos) &#123;<br>                    <span class="hljs-keyword">if</span> (year % <span class="hljs-number">4</span> == <span class="hljs-number">0</span> &amp;&amp; i == <span class="hljs-number">2</span>) &#123;<br>                        solarInfo[<span class="hljs-number">2</span>] = DAYS_BEFORE_MONTH[i] - DAYS_BEFORE_MONTH[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;<br>                    &#125; <span class="hljs-keyword">else</span> &#123;<br>                        solarInfo[<span class="hljs-number">2</span>] = DAYS_BEFORE_MONTH[i] - DAYS_BEFORE_MONTH[i - <span class="hljs-number">1</span>];<br>                    &#125;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    solarInfo[<span class="hljs-number">2</span>] = dayOffset;<br>                &#125;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        solarInfo[<span class="hljs-number">0</span>] = year;<br>        <span class="hljs-keyword">return</span> solarInfo;<br>    &#125;<br> <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 将公历日期转换为农历日期，且标识是否是闰月</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> year</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> month</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> monthDay</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 返回公历日期对应的农历日期，year0，month1，day2，leap3</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span>[] solarToLunar(<span class="hljs-keyword">int</span> year, <span class="hljs-keyword">int</span> month, <span class="hljs-keyword">int</span> monthDay) &#123;<br>        <span class="hljs-keyword">int</span>[] lunarDate = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">4</span>];<br>        Date baseDate = <span class="hljs-keyword">new</span> GregorianCalendar(<span class="hljs-number">1900</span>, <span class="hljs-number">0</span>, <span class="hljs-number">31</span>).getTime();<br>        Date objDate = <span class="hljs-keyword">new</span> GregorianCalendar(year, month - <span class="hljs-number">1</span>, monthDay).getTime();<br>        <span class="hljs-keyword">int</span> offset = (<span class="hljs-keyword">int</span>) ((objDate.getTime() - baseDate.getTime()) / <span class="hljs-number">86400000L</span>);<br>        <span class="hljs-comment">// 用offset减去每农历年的天数计算当天是农历第几天</span><br>        <span class="hljs-comment">// iYear最终结果是农历的年份, offset是当年的第几天</span><br>        <span class="hljs-keyword">int</span> iYear, daysOfYear = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (iYear = MIN_YEAR; iYear &lt;= MAX_YEAR &amp;&amp; offset &gt; <span class="hljs-number">0</span>; iYear++) &#123;<br>            daysOfYear = daysInLunarYear(iYear);<br>            offset -= daysOfYear;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (offset &lt; <span class="hljs-number">0</span>) &#123;<br>            offset += daysOfYear;<br>            iYear--;<br>        &#125;<br>        <span class="hljs-comment">// 农历年份</span><br>        lunarDate[<span class="hljs-number">0</span>] = iYear;<br>        <span class="hljs-keyword">int</span> leapMonth = leapMonth(iYear);<br>        <span class="hljs-comment">// 闰哪个月,1-12</span><br>        <span class="hljs-keyword">boolean</span> isLeap = <span class="hljs-keyword">false</span>;<br>        <span class="hljs-comment">// 用当年的天数offset,逐个减去每月（农历）的天数，求出当天是本月的第几天</span><br>        <span class="hljs-keyword">int</span> iMonth, daysOfMonth = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (iMonth = <span class="hljs-number">1</span>; iMonth &lt;= <span class="hljs-number">13</span> &amp;&amp; offset &gt; <span class="hljs-number">0</span>; iMonth++) &#123;<br>            daysOfMonth = daysInLunarMonth(iYear, iMonth);<br>            offset -= daysOfMonth;<br>        &#125;<br>        <span class="hljs-comment">// 当前月超过闰月，要校正</span><br>        <span class="hljs-keyword">if</span> (leapMonth != <span class="hljs-number">0</span> &amp;&amp; iMonth &gt; leapMonth) &#123;<br>            --iMonth;<br>            <span class="hljs-keyword">if</span> (iMonth == leapMonth) &#123;<br>                isLeap = <span class="hljs-keyword">true</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">// offset小于0时，也要校正</span><br>        <span class="hljs-keyword">if</span> (offset &lt; <span class="hljs-number">0</span>) &#123;<br>            offset += daysOfMonth;<br>            --iMonth;<br>        &#125;<br>        lunarDate[<span class="hljs-number">1</span>] = iMonth;<br>        lunarDate[<span class="hljs-number">2</span>] = offset + <span class="hljs-number">1</span>;<br>        lunarDate[<span class="hljs-number">3</span>] = isLeap ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">return</span> lunarDate;<br>    &#125;<br> <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 传回农历year年month月的总天数</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> year   要计算的年份</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> month        要计算的月</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 传回天数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">daysInMonth</span><span class="hljs-params">(<span class="hljs-keyword">int</span> year, <span class="hljs-keyword">int</span> month)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> daysInMonth(year, month, <span class="hljs-keyword">false</span>);<br>    &#125;<br> <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 传回农历year年month月的总天数</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> year   要计算的年份</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> month        要计算的月</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> leap   当月是否是闰月</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 传回天数，如果闰月是错误的，返回0.</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> <span class="hljs-title">daysInMonth</span><span class="hljs-params">(<span class="hljs-keyword">int</span> year, <span class="hljs-keyword">int</span> month, <span class="hljs-keyword">boolean</span> leap)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> leapMonth = leapMonth(year);<br>        <span class="hljs-keyword">int</span> offset = <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">// 如果本年有闰月且month大于闰月时，需要校正</span><br>        <span class="hljs-keyword">if</span> (leapMonth != <span class="hljs-number">0</span> &amp;&amp; month &gt; leapMonth) &#123;<br>            offset = <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-comment">// 不考虑闰月</span><br>        <span class="hljs-keyword">if</span> (!leap) &#123;<br>            <span class="hljs-keyword">return</span> daysInLunarMonth(year, month + offset);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 传入的闰月是正确的月份</span><br>            <span class="hljs-keyword">if</span> (leapMonth != <span class="hljs-number">0</span> &amp;&amp; leapMonth == month) &#123;<br>                <span class="hljs-keyword">return</span> daysInLunarMonth(year, month + <span class="hljs-number">1</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br> <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 传回农历 year年的总天数</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> year 将要计算的年份</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 返回传入年份的总天数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">daysInLunarYear</span><span class="hljs-params">(<span class="hljs-keyword">int</span> year)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> i, sum = <span class="hljs-number">348</span>;<br>        <span class="hljs-keyword">if</span> (leapMonth(year) != <span class="hljs-number">0</span>) &#123;<br>            sum = <span class="hljs-number">377</span>;<br>        &#125;<br>        <span class="hljs-keyword">int</span> monthInfo = LUNAR_INFO[year - MIN_YEAR] &amp; <span class="hljs-number">0x0FFF80</span>;<br>        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0x80000</span>; i &gt; <span class="hljs-number">0x7</span>; i &gt;&gt;= <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-keyword">if</span> ((monthInfo &amp; i) != <span class="hljs-number">0</span>) &#123;<br>                sum += <span class="hljs-number">1</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> sum;<br>    &#125;<br> <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 传回农历 year年month月的总天数，总共有13个月包括闰月</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> year  将要计算的年份</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> month 将要计算的月份</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 传回农历 year年month月的总天数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">daysInLunarMonth</span><span class="hljs-params">(<span class="hljs-keyword">int</span> year, <span class="hljs-keyword">int</span> month)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> ((LUNAR_INFO[year - MIN_YEAR] &amp; (<span class="hljs-number">0x100000</span> &gt;&gt; month)) == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">29</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">30</span>;<br>        &#125;<br>    &#125;<br> <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 传回农历 year年闰哪个月 1-12 , 没闰传回 0</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> year 将要计算的年份</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 传回农历 year年闰哪个月1-12, 没闰传回 0</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">leapMonth</span><span class="hljs-params">(<span class="hljs-keyword">int</span> year)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> ((LUNAR_INFO[year - MIN_YEAR] &amp; <span class="hljs-number">0xF00000</span>)) &gt;&gt; <span class="hljs-number">20</span>;<br>    &#125;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        System.out.println(Arrays.toString(solarToLunar(<span class="hljs-number">2019</span>, <span class="hljs-number">4</span>, <span class="hljs-number">4</span>)));<br>    &#125;<br>&#125;<br> <br></code></pre></td></tr></table></figure>
+<p>在做项目的时候遇到一个业务需要对图片进行旋转，于是找到一个工具类，亲测有效；在此与大家共享，需要用时可以直接用哈！ 一、旋转工具类代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> zh.test.utils;<br> <br><span class="hljs-keyword">import</span> java.awt.*;<br><span class="hljs-keyword">import</span> java.awt.image.BufferedImage;<br> <br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 图片旋转工具类</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RotateImage</span> </span>&#123;<br> <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 对图片进行旋转</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> src   被旋转图片</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> angel 旋转角度</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 旋转后的图片</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> BufferedImage <span class="hljs-title">Rotate</span><span class="hljs-params">(Image src, <span class="hljs-keyword">int</span> angel)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> src_width = src.getWidth(<span class="hljs-keyword">null</span>);<br>        <span class="hljs-keyword">int</span> src_height = src.getHeight(<span class="hljs-keyword">null</span>);<br>        <span class="hljs-comment">// 计算旋转后图片的尺寸</span><br>        Rectangle rect_des = CalcRotatedSize(<span class="hljs-keyword">new</span> Rectangle(<span class="hljs-keyword">new</span> Dimension(<br>                src_width, src_height)), angel);<br>        BufferedImage res = <span class="hljs-keyword">null</span>;<br>        res = <span class="hljs-keyword">new</span> BufferedImage(rect_des.width, rect_des.height,<br>                BufferedImage.TYPE_INT_RGB);<br>        Graphics2D g2 = res.createGraphics();<br>        <span class="hljs-comment">// 进行转换</span><br>        g2.translate((rect_des.width - src_width) / <span class="hljs-number">2</span>,<br>                (rect_des.height - src_height) / <span class="hljs-number">2</span>);<br>        g2.rotate(Math.toRadians(angel), src_width / <span class="hljs-number">2</span>, src_height / <span class="hljs-number">2</span>);<br> <br>        g2.drawImage(src, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>);<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br> <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 计算旋转后的图片</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> src   被旋转的图片</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> angel 旋转角度</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 旋转后的图片</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Rectangle <span class="hljs-title">CalcRotatedSize</span><span class="hljs-params">(Rectangle src, <span class="hljs-keyword">int</span> angel)</span> </span>&#123;<br>        <span class="hljs-comment">// 如果旋转的角度大于90度做相应的转换</span><br>        <span class="hljs-keyword">if</span> (angel &gt;= <span class="hljs-number">90</span>) &#123;<br>            <span class="hljs-keyword">if</span> (angel / <span class="hljs-number">90</span> % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;<br>                <span class="hljs-keyword">int</span> temp = src.height;<br>                src.height = src.width;<br>                src.width = temp;<br>            &#125;<br>            angel = angel % <span class="hljs-number">90</span>;<br>        &#125;<br> <br>        <span class="hljs-keyword">double</span> r = Math.sqrt(src.height * src.height + src.width * src.width) / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">double</span> len = <span class="hljs-number">2</span> * Math.sin(Math.toRadians(angel) / <span class="hljs-number">2</span>) * r;<br>        <span class="hljs-keyword">double</span> angel_alpha = (Math.PI - Math.toRadians(angel)) / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">double</span> angel_dalta_width = Math.atan((<span class="hljs-keyword">double</span>) src.height / src.width);<br>        <span class="hljs-keyword">double</span> angel_dalta_height = Math.atan((<span class="hljs-keyword">double</span>) src.width / src.height);<br> <br>        <span class="hljs-keyword">int</span> len_dalta_width = (<span class="hljs-keyword">int</span>) (len * Math.cos(Math.PI - angel_alpha<br>                - angel_dalta_width));<br>        <span class="hljs-keyword">int</span> len_dalta_height = (<span class="hljs-keyword">int</span>) (len * Math.cos(Math.PI - angel_alpha<br>                - angel_dalta_height));<br>        <span class="hljs-keyword">int</span> des_width = src.width + len_dalta_width * <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">int</span> des_height = src.height + len_dalta_height * <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Rectangle(<span class="hljs-keyword">new</span> Dimension(des_width, des_height));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>二、调用工具类的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> zh.test.controller;<br> <br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RestController;<br><span class="hljs-keyword">import</span> org.springframework.web.multipart.MultipartFile;<br><span class="hljs-keyword">import</span> zh.test.utils.RotateImage;<br> <br><span class="hljs-keyword">import</span> javax.imageio.ImageIO;<br><span class="hljs-keyword">import</span> java.awt.image.BufferedImage;<br><span class="hljs-keyword">import</span> java.io.File;<br> <br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 测试图片旋转</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(value = &quot;/test&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestController</span> </span>&#123;<br> <br>    <span class="hljs-meta">@RequestMapping(method = RequestMethod.POST)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testImgRotate</span><span class="hljs-params">(MultipartFile multipartFile)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>        BufferedImage src = ImageIO.read(multipartFile.getInputStream());<br>        <span class="hljs-comment">//顺时针旋转90度</span><br>        BufferedImage des1 = RotateImage.Rotate(src, <span class="hljs-number">90</span>);<br>        ImageIO.write(des1, <span class="hljs-string">&quot;jpg&quot;</span>, <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;e:/90.jpg&quot;</span>));<br>        <span class="hljs-comment">//顺时针旋转180度</span><br>        BufferedImage des2 = RotateImage.Rotate(src, <span class="hljs-number">180</span>);<br>        ImageIO.write(des2, <span class="hljs-string">&quot;jpg&quot;</span>, <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;c:/180.jpg&quot;</span>));<br>        <span class="hljs-comment">//顺时针旋转270度</span><br>        BufferedImage des3 = RotateImage.Rotate(src, <span class="hljs-number">270</span>);<br>        ImageIO.write(des3, <span class="hljs-string">&quot;jpg&quot;</span>, <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;c:/270.jpg&quot;</span>));<br> <br>    &#125;<br> <br>&#125;<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/java/">java</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2021/01/11/Java%E4%B8%AD%E5%AE%9E%E7%8E%B0List%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%92%E5%BA%8F/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java中实现List自定义排序</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/01/11/idea%E5%8F%96%E6%B6%88%E8%AD%A6%E5%91%8A/">
+                        <span class="hidden-mobile">idea取消警告</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
