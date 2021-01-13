@@ -1,0 +1,501 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>将数字金额转为大写中文金额 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/blog/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="将数字金额转为大写中文金额">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-13 20:40" pubdate>
+        2021年1月13日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">将数字金额转为大写中文金额</h1>
+            
+            <div class="markdown-body">
+              <p>输入数字金额参数，运行程序得到其对应的大写中文金额；例如：输入— 12.56，输出— 12.56:壹拾贰元伍角陆分</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> *<span class="hljs-doctag">@Title</span>: ConvertUpMoney </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Description</span>:  将数字金额转为大写汉字金额</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span>: 2019年6月18日 下午10:52:27</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConvertUpMoney</span> </span>&#123;<br>	<br>	<span class="hljs-comment">//大写数字</span><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] NUMBERS = &#123;<span class="hljs-string">&quot;零&quot;</span>,<span class="hljs-string">&quot;壹&quot;</span>,<span class="hljs-string">&quot;贰&quot;</span>,<span class="hljs-string">&quot;叁&quot;</span>,<span class="hljs-string">&quot;肆&quot;</span>,<span class="hljs-string">&quot;伍&quot;</span>,<span class="hljs-string">&quot;陆&quot;</span>,<span class="hljs-string">&quot;柒&quot;</span>,<span class="hljs-string">&quot;捌&quot;</span>,<span class="hljs-string">&quot;玖&quot;</span>&#125;;<br>	<span class="hljs-comment">// 整数部分的单位</span><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] IUNIT = &#123;<span class="hljs-string">&quot;元&quot;</span>,<span class="hljs-string">&quot;拾&quot;</span>,<span class="hljs-string">&quot;佰&quot;</span>,<span class="hljs-string">&quot;仟&quot;</span>,<span class="hljs-string">&quot;万&quot;</span>,<span class="hljs-string">&quot;拾&quot;</span>,<span class="hljs-string">&quot;佰&quot;</span>,<span class="hljs-string">&quot;仟&quot;</span>,<span class="hljs-string">&quot;亿&quot;</span>,<span class="hljs-string">&quot;拾&quot;</span>,<span class="hljs-string">&quot;佰&quot;</span>,<span class="hljs-string">&quot;仟&quot;</span>,<span class="hljs-string">&quot;万&quot;</span>,<span class="hljs-string">&quot;拾&quot;</span>,<span class="hljs-string">&quot;佰&quot;</span>,<span class="hljs-string">&quot;仟&quot;</span>&#125;;<br>    <span class="hljs-comment">//小数部分的单位</span><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] DUNIT = &#123;<span class="hljs-string">&quot;角&quot;</span>,<span class="hljs-string">&quot;分&quot;</span>,<span class="hljs-string">&quot;厘&quot;</span>&#125;;<br>	<br>	<span class="hljs-comment">//转成中文的大写金额</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">toChinese</span><span class="hljs-params">(String str)</span> </span>&#123;<br>		<span class="hljs-comment">//判断输入的金额字符串是否符合要求</span><br>		<span class="hljs-keyword">if</span> (StringUtils.isBlank(str) || !str.matches(<span class="hljs-string">&quot;(-)?[\\d]*(.)?[\\d]*&quot;</span>)) &#123;<br>			System.out.println(<span class="hljs-string">&quot;抱歉，请输入数字！&quot;</span>);<br>			<span class="hljs-keyword">return</span> str;<br>		&#125;<br>		<br>		<span class="hljs-keyword">if</span>(<span class="hljs-string">&quot;0&quot;</span>.equals(str) || <span class="hljs-string">&quot;0.00&quot;</span>.equals(str) || <span class="hljs-string">&quot;0.0&quot;</span>.equals(str)) &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;零元&quot;</span>;<br>		&#125;<br>		<br>		<span class="hljs-comment">//判断是否存在负号&quot;-&quot;</span><br>		<span class="hljs-keyword">boolean</span> flag = <span class="hljs-keyword">false</span>;<br>		<span class="hljs-keyword">if</span>(str.startsWith(<span class="hljs-string">&quot;-&quot;</span>))&#123;<br>			flag = <span class="hljs-keyword">true</span>;<br>			str = str.replaceAll(<span class="hljs-string">&quot;-&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);<br>		&#125;<br>		<br>		str = str.replaceAll(<span class="hljs-string">&quot;,&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);<span class="hljs-comment">//去掉&quot;,&quot;</span><br>		String integerStr;<span class="hljs-comment">//整数部分数字</span><br>		String decimalStr;<span class="hljs-comment">//小数部分数字</span><br>		<br>		<br>		<span class="hljs-comment">//初始化：分离整数部分和小数部分</span><br>		<span class="hljs-keyword">if</span>(str.indexOf(<span class="hljs-string">&quot;.&quot;</span>)&gt;<span class="hljs-number">0</span>) &#123;<br>			integerStr = str.substring(<span class="hljs-number">0</span>,str.indexOf(<span class="hljs-string">&quot;.&quot;</span>));<br>			decimalStr = str.substring(str.indexOf(<span class="hljs-string">&quot;.&quot;</span>)+<span class="hljs-number">1</span>);<br>		&#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(str.indexOf(<span class="hljs-string">&quot;.&quot;</span>)==<span class="hljs-number">0</span>) &#123;<br>			integerStr = <span class="hljs-string">&quot;&quot;</span>;<br>			decimalStr = str.substring(<span class="hljs-number">1</span>);<br>		&#125;<span class="hljs-keyword">else</span> &#123;<br>			integerStr = str;<br>			decimalStr = <span class="hljs-string">&quot;&quot;</span>;<br>		&#125;<br>		<br>		<span class="hljs-comment">//beyond超出计算能力，直接返回</span><br>		<span class="hljs-keyword">if</span>(integerStr.length()&gt;IUNIT.length) &#123;<br>			System.out.println(str+<span class="hljs-string">&quot;：超出计算能力&quot;</span>);<br>			<span class="hljs-keyword">return</span> str;<br>		&#125;<br>		<br>		<span class="hljs-keyword">int</span>[] integers = toIntArray(integerStr);<span class="hljs-comment">//整数部分数字</span><br>		<span class="hljs-comment">//判断整数部分是否存在输入012的情况</span><br>		<span class="hljs-keyword">if</span> (integers.length&gt;<span class="hljs-number">1</span> &amp;&amp; integers[<span class="hljs-number">0</span>] == <span class="hljs-number">0</span>) &#123;<br>			System.out.println(<span class="hljs-string">&quot;抱歉，请输入数字！&quot;</span>);<br>			<span class="hljs-keyword">if</span> (flag) &#123;<br>				str = <span class="hljs-string">&quot;-&quot;</span>+str;<br>			&#125;<br>			<span class="hljs-keyword">return</span> str;<br>		&#125;<br>		<span class="hljs-keyword">boolean</span> isWan = isWan5(integerStr);<span class="hljs-comment">//设置万单位</span><br>		<span class="hljs-keyword">int</span>[] decimals = toIntArray(decimalStr);<span class="hljs-comment">//小数部分数字</span><br>		String result = getChineseInteger(integers,isWan)+getChineseDecimal(decimals);<span class="hljs-comment">//返回最终的大写金额</span><br>		<span class="hljs-keyword">if</span>(flag)&#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;负&quot;</span>+result;<span class="hljs-comment">//如果是负数，加上&quot;负&quot;</span><br>		&#125;<span class="hljs-keyword">else</span>&#123;<br>			<span class="hljs-keyword">return</span> result;<br>		&#125;<br>	&#125;<br>	<br>	<span class="hljs-comment">//将字符串转为int数组</span><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span>[] toIntArray(String number) &#123;<br>		<span class="hljs-keyword">int</span>[] array = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[number.length()];<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i&lt;number.length();i++) &#123;<br>			array[i] = Integer.parseInt(number.substring(i,i+<span class="hljs-number">1</span>));<br>		&#125;<br>		<span class="hljs-keyword">return</span> array;<br>	&#125;<br>	<span class="hljs-comment">//将整数部分转为大写的金额</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">getChineseInteger</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] integers,<span class="hljs-keyword">boolean</span> isWan)</span> </span>&#123;<br>		StringBuffer chineseInteger = <span class="hljs-keyword">new</span> StringBuffer(<span class="hljs-string">&quot;&quot;</span>);<br>		<span class="hljs-keyword">int</span> length = integers.length;<br>		<span class="hljs-keyword">if</span> (length == <span class="hljs-number">1</span> &amp;&amp; integers[<span class="hljs-number">0</span>] == <span class="hljs-number">0</span>) &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>		&#125;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;length;i++) &#123;<br>			String key = <span class="hljs-string">&quot;&quot;</span>;<br>			<span class="hljs-keyword">if</span>(integers[i] == <span class="hljs-number">0</span>) &#123;<br>				<span class="hljs-keyword">if</span>((length - i) == <span class="hljs-number">13</span>)<span class="hljs-comment">//万（亿）</span><br>					key = IUNIT[<span class="hljs-number">4</span>];<br>				<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((length - i) == <span class="hljs-number">9</span>) &#123;<span class="hljs-comment">//亿</span><br>					key = IUNIT[<span class="hljs-number">8</span>];<br>				&#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((length - i) == <span class="hljs-number">5</span> &amp;&amp; isWan) &#123;<span class="hljs-comment">//万</span><br>					key = IUNIT[<span class="hljs-number">4</span>];<br>				&#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((length - i) == <span class="hljs-number">1</span>) &#123;<span class="hljs-comment">//元</span><br>					key = IUNIT[<span class="hljs-number">0</span>];<br>				&#125;<br>				<span class="hljs-keyword">if</span>((length - i)&gt;<span class="hljs-number">1</span> &amp;&amp; integers[i+<span class="hljs-number">1</span>]!=<span class="hljs-number">0</span>) &#123;<br>					key += NUMBERS[<span class="hljs-number">0</span>];<br>				&#125;<br>			&#125;<br>			chineseInteger.append(integers[i]==<span class="hljs-number">0</span>?key:(NUMBERS[integers[i]]+IUNIT[length - i -<span class="hljs-number">1</span>]));<br>		&#125;<br>		<span class="hljs-keyword">return</span> chineseInteger.toString();<br>	&#125;<br>	<span class="hljs-comment">//将小数部分转为大写的金额</span><br>	<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">getChineseDecimal</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] decimals)</span> </span>&#123;<br>		StringBuffer chineseDecimal = <span class="hljs-keyword">new</span> StringBuffer(<span class="hljs-string">&quot;&quot;</span>);<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i&lt;decimals.length;i++) &#123;<br>			<span class="hljs-keyword">if</span>(i == <span class="hljs-number">3</span>) &#123;<br>				<span class="hljs-keyword">break</span>;<br>			&#125;<br>			chineseDecimal.append(decimals[i]==<span class="hljs-number">0</span>?<span class="hljs-string">&quot;&quot;</span>:(NUMBERS[decimals[i]]+DUNIT[i]));<br>		&#125;<br>		<span class="hljs-keyword">return</span> chineseDecimal.toString();<br>	&#125;<br>	<span class="hljs-comment">//判断当前整数部分是否已经是达到【万】</span><br>	<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isWan5</span><span class="hljs-params">(String integerStr)</span> </span>&#123;<br>		<span class="hljs-keyword">int</span> length = integerStr.length();<br>		<span class="hljs-keyword">if</span>(length &gt; <span class="hljs-number">4</span>) &#123;<br>			String subInteger = <span class="hljs-string">&quot;&quot;</span>;<br>			<span class="hljs-keyword">if</span>(length &gt; <span class="hljs-number">8</span>) &#123;<br>				subInteger = integerStr.substring(length- <span class="hljs-number">8</span>,length -<span class="hljs-number">4</span>);<br>			&#125;<span class="hljs-keyword">else</span> &#123;<br>				subInteger = integerStr.substring(<span class="hljs-number">0</span>,length - <span class="hljs-number">4</span>);<br>			&#125;<br>			<span class="hljs-keyword">return</span> Integer.parseInt(subInteger) &gt; <span class="hljs-number">0</span>;<br>		&#125;<span class="hljs-keyword">else</span> &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>		&#125;<br>	&#125;<br>	<br>	<span class="hljs-comment">//Test</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>		String number = <span class="hljs-string">&quot;12.56&quot;</span>;<br>		System.out.println(number+<span class="hljs-string">&quot;: &quot;</span>+ConvertUpMoney.toChinese(number));<br>		<br>		number = <span class="hljs-string">&quot;1234567890563886.123&quot;</span>;<br>		System.out.println(number+<span class="hljs-string">&quot;: &quot;</span>+ConvertUpMoney.toChinese(number));<br>		<br>		number = <span class="hljs-string">&quot;1600&quot;</span>;<br>		System.out.println(number+<span class="hljs-string">&quot;: &quot;</span>+ConvertUpMoney.toChinese(number));<br>		<br>		number = <span class="hljs-string">&quot;156,0&quot;</span>;<br>		System.out.println(number+<span class="hljs-string">&quot;: &quot;</span>+ConvertUpMoney.toChinese(number));<br>		<br>		number = <span class="hljs-string">&quot;-156,0&quot;</span>;<br>		System.out.println(number+<span class="hljs-string">&quot;: &quot;</span>+ConvertUpMoney.toChinese(number));<br>		<br>		number = <span class="hljs-string">&quot;0.12&quot;</span>;<br>		System.out.println(number+<span class="hljs-string">&quot;: &quot;</span>+ConvertUpMoney.toChinese(number));<br>		<br>		number = <span class="hljs-string">&quot;0.0&quot;</span>;<br>		System.out.println(number+<span class="hljs-string">&quot;: &quot;</span>+ConvertUpMoney.toChinese(number));<br>		<br>		number = <span class="hljs-string">&quot;01.12&quot;</span>;<br>		System.out.println(number+<span class="hljs-string">&quot;: &quot;</span>+ConvertUpMoney.toChinese(number));<br>		<br>		number = <span class="hljs-string">&quot;0125&quot;</span>;<br>		System.out.println(number+<span class="hljs-string">&quot;: &quot;</span>+ConvertUpMoney.toChinese(number));<br>		<br>		number = <span class="hljs-string">&quot;-0125&quot;</span>;<br>		System.out.println(number+<span class="hljs-string">&quot;: &quot;</span>+ConvertUpMoney.toChinese(number));<br>		<br>		number = <span class="hljs-string">&quot;sdw5655&quot;</span>;<br>		System.out.println(number+<span class="hljs-string">&quot;: &quot;</span>+ConvertUpMoney.toChinese(number));<br>		<br>		System.out.println(<span class="hljs-keyword">null</span>+<span class="hljs-string">&quot;: &quot;</span>+ConvertUpMoney.toChinese(<span class="hljs-keyword">null</span>));<br>	&#125;<br> <br>&#125;<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/java/">java</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/01/13/Java%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB3/">
+                        <span class="hidden-mobile">Java常用工具类3</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
