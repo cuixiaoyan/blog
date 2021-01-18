@@ -1,0 +1,531 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>centos7安装ElasticSearch6 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/blog/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="centos7安装ElasticSearch6">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-18 20:20" pubdate>
+        2021年1月18日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">centos7安装ElasticSearch6</h1>
+            
+            <div class="markdown-body">
+              <h1 id="什么是-ElasticSearch"><a href="#什么是-ElasticSearch" class="headerlink" title="什么是 ElasticSearch"></a>什么是 ElasticSearch</h1><p>ElasticSearch是一个基于 Lucene 的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于 RESTful web 接口。Elasticsearch 是用 Java 开发的，并作为 Apache 许可条款下的开放源码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。</p>
+<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>索引：含有相同属性的文档集合</p>
+<p>类型：索引可以定义一个或多个类型，文档必须属于一个类型</p>
+<p>文档：可以被索引的基础数据单位</p>
+<p>分片：每个索引都有多个分片，每个分片都是 Lucene 索引</p>
+<p>备份：拷贝一份分片就完成分片的备份</p>
+<h2 id="形象比喻："><a href="#形象比喻：" class="headerlink" title="形象比喻："></a>形象比喻：</h2><p>百货大楼里有各式各样的商品，例如书籍、笔、水果等。书籍可以根据内容划分成不同种类，如科技类、教育类、悬疑推理等。悬疑推理类的小说中比较有名气的有《福尔摩斯探案集》、《白夜行》等。</p>
+<p>百货大楼 –&gt; ElasticSearch 数据库</p>
+<p>书籍 –&gt; 索引</p>
+<p>悬疑推理 –&gt; 类型</p>
+<p>白夜行 –&gt; 文档</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>需要JDK1.8 和 NodeJS 最新版的7 慎重考虑需要需要JDK 11 登陆<a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/past-releases">老版本下载</a> 官网下载文件。<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190816-094122@2x_1565919762389.png" srcset="/blog/img/loading.gif" alt="WX20190816-094122@2x">解压到 /use 目录下<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190816-094419@2x_1565919900521.png" srcset="/blog/img/loading.gif" alt="WX20190816-094419@2x"></p>
+<p>因为 Elasticsearch 可以执行脚本文件，为了安全性，默认不允许通过 root 用户启动服务。我们需要新创建用户名和用户组启动服务</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vim">#增加 es 组<br>groupadd es<br><br>#增加 es 用户并附加到 es 组<br>useradd es -g es -<span class="hljs-keyword">p</span> es<br><br>#给目录权限 进入到你解压的位置 输入<span class="hljs-keyword">pwd</span> 将路径拷贝到 es 后面<br>chown -R <span class="hljs-keyword">e</span><span class="hljs-variable">s:es</span> /usr/elasticsearch-<span class="hljs-number">5.6</span>.<span class="hljs-number">1</span><br><br>#使用es用户<br>su es<br></code></pre></td></tr></table></figure>
+<p>默认情况下，Elasticsearch 只允许本机访问，如果需要远程访问，需要修改其配置文件 特别注意 要和上下文对齐 不要多空格 和少空格</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">vim</span> config/elasticsearch.yml<br><br># 去掉 network.host 前边的注释，将它的值改成<span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span><br>network.hos<span class="hljs-variable">t:</span> <span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span><br><br><br><br># 在文件末尾添加 <span class="hljs-number">2</span> 段配置 这里是为了解决跨域问题 web管理界面<br><br>http.cors.enabled: true<br>http.cors.allow-origin: <span class="hljs-string">&quot;*&quot;</span><br></code></pre></td></tr></table></figure>
+<p>启动服务</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">bin/elasticsearch 或 bin/elasticsearch -d # -d 表示后台启动<br></code></pre></td></tr></table></figure>
+<h1 id="报错解决"><a href="#报错解决" class="headerlink" title="报错解决"></a>报错解决</h1><p>先不后台启动 错误会直接打印 调试没有问题之后 后台启动 可能会出现的问题 6也会遇到</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><code class="hljs vim">elasticsearch5.<span class="hljs-number">0</span>启动失败，出现如下提示：<br><br>1、Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x0000000085330000, 2060255232, 0) failed; error=&#x27;Cannot allocate memory&#x27; (errno=12)<br><br>由于elasticsearch5.<span class="hljs-number">0</span>默认分配jvm空间大小为<span class="hljs-number">2</span>g，修改jvm空间分配<br><br># <span class="hljs-keyword">vim</span> config/jvm.<span class="hljs-keyword">options</span><br>-Xms2g<br>-Xmx2g<br>修改为  还是同样的错误的话 继续往下调 <br>-Xms512m<br>-Xmx512m<br><br><br><span class="hljs-number">2</span>、<span class="hljs-built_in">max</span> <span class="hljs-keyword">number</span> of threads [<span class="hljs-number">1024</span>] <span class="hljs-keyword">for</span> user [elasticsearch] <span class="hljs-keyword">is</span> too low, increase <span class="hljs-keyword">to</span> at least [<span class="hljs-number">2048</span>]<br>修改 /etc/security/limits.d/<span class="hljs-number">90</span>-nproc.<span class="hljs-keyword">conf</span> <br><br>*          soft    nproc     <span class="hljs-number">1024</span><br><br>*          soft    nproc     <span class="hljs-number">2048</span><br><br><br><br><span class="hljs-number">3</span>、<span class="hljs-built_in">max</span> virtual memory areas <span class="hljs-keyword">vm</span>.max_map_count [<span class="hljs-number">65530</span>] <span class="hljs-keyword">is</span> too low, increase <span class="hljs-keyword">to</span> at least [<span class="hljs-number">262144</span>]<br><br>修改/etc/sysctl.<span class="hljs-keyword">conf</span>配置文件，<br><br><span class="hljs-keyword">cat</span> /etc/sysctl.<span class="hljs-keyword">conf</span> | <span class="hljs-keyword">grep</span> <span class="hljs-keyword">vm</span>.max_map_count<br><span class="hljs-keyword">vm</span>.max_map_count=<span class="hljs-number">262144</span><br><br>如果不存在则添加<br><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;vm.max_map_count=262144&quot;</span> &gt;&gt;/etc/sysctl.<span class="hljs-keyword">conf</span><br><br><br><br><span class="hljs-number">4</span>、<span class="hljs-built_in">max</span> <span class="hljs-keyword">file</span> descriptors [<span class="hljs-number">65535</span>] <span class="hljs-keyword">for</span> elasticsearch process likely too low, increase <span class="hljs-keyword">to</span> at least [<span class="hljs-number">65536</span>]<br><br><br><br>ulimit -n <span class="hljs-number">65536</span><br><br><br><br><br><br>以下是在<span class="hljs-number">5.5</span>.<span class="hljs-number">1</span>是踩过的坑<br><br><br><br><span class="hljs-number">5</span>、启动异常：ERROR: bootstrap checks failed<br><br>system call filters failed to install; check the logs and fix your configuration or disable system call filters at your own risk<br><br><br><br>问题原因：因为Centos6不支持SecComp，而ES默认bootstrap.system_call_filter为true进行检测，所以导致检测失败，失败后直接导致ES不能启动。详见 ：http<span class="hljs-variable">s:</span>//github.<span class="hljs-keyword">com</span>/elastic/elasticsearch/issues/<span class="hljs-number">22899</span><br><br><br><br>解决方法：在elasticsearch.yml中配置bootstrap.system_call_filter为false，注意要在Memory下面:<br>bootstrap.memory_lock: false<br>bootstrap.system_call_filter: false<br><br><br><br><span class="hljs-number">6</span>、logstash使用rpm包安装的时候没有配置init的启动脚本<br><br>默认情况使用rpm包安装完logstash之后没有启动脚本。官网给了一个脚本，需要根据不同的系统版本生成对应的启动脚本，而且官网没有给明使用方法，对于新用户来说算是个坑，不过在终端可以查看到脚本的使用帮助# /usr/share/logstash/bin/<span class="hljs-built_in">system</span>-install --<span class="hljs-keyword">help</span><br><br>生成启动脚本，centos6使用sysv参数，centos7使用systemd<br><br># /usr/share/logstash/bin/<span class="hljs-built_in">system</span>-install /etc/logstash/startup.<span class="hljs-keyword">options</span> sysv<br><br>Successfully created <span class="hljs-built_in">system</span> startup script <span class="hljs-keyword">for</span> Logstash<br></code></pre></td></tr></table></figure>
+<p>启动成功 你的ip 9200 默认端口<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190816-100353@2x_1565921056554.png" srcset="/blog/img/loading.gif" alt="WX20190816-100353@2x"></p>
+<h1 id="head插件"><a href="#head插件" class="headerlink" title="head插件"></a>head插件</h1><p>查看内容显示效果不友好，因此，我们需要安装一个名为 elasticsearch-head 的插件，让内容显示效果比较舒适。需要安装nodejs githup下载 端口9100</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">cd</span> elasticsearch-head-master<br><br>npm install<br><br>npm run start<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190816-100733@2x_1565921326422.png" srcset="/blog/img/loading.gif" alt="WX20190816-100733@2x"></p>
+<p>后面是我整合啦spring boot</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/centos7/">centos7</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/es/">es</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2021/01/18/java%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%9520%E9%97%AE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">java集合面试20问</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/01/18/MongoDB%E4%B8%8E%20MySQL%E7%9A%84%E5%8C%BA%E5%88%AB/">
+                        <span class="hidden-mobile">MongoDB 与 MySQL 的区别</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>

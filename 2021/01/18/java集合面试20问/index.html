@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>gradle使用本地jar包 - 崔笑颜的博客</title>
+  <title>java集合面试20问 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="gradle使用本地jar包">
+            <span class="h2" id="subtitle" title="java集合面试20问">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-16 10:30" pubdate>
-        2021年1月16日 上午
+      <time datetime="2021-01-18 20:30" pubdate>
+        2021年1月18日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      88 字
+      1.5k 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      15
        分钟
     </span>
   
@@ -233,13 +233,89 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">gradle使用本地jar包</h1>
+            <h1 style="display: none">java集合面试20问</h1>
             
             <div class="markdown-body">
-              <p>有很多时候 我们需要用到自己的jar包 特殊原因 你明白的</p>
-<p>1.在项目根目录(与src同级目录)创建lib文件夹，并将jar包拷贝进去。</p>
-<p>2.在build.gradle文件中的dependencies中添加如下脚本： compile fileTree(dir: ‘lib’, include: [ ‘*.jar’])</p>
-<p>3.运行gradle build即可将jar文件打到工程Jar包中。<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190815-103617@2x_1565836606994.png" srcset="/blog/img/loading.gif" alt="WX20190815-103617@2x"></p>
+              <ol>
+<li>HashMap的内部实现原理是什么？</li>
+</ol>
+<p>HashMap内部实现原理是数组+链表，通过散列算法将key值散列到数组中，如果到相同的位置，则通过拉链法解决散列冲突。在JDK8中新增了红黑树结构，当HashMap中的散列冲突链表结构超过8个数据时，会从链表结构转换为红黑树结构。</p>
+<ol>
+<li>HashMap的key值能否是null，如果能，key=null如何存储以及如何读取的？如果不能，为什么？</li>
+</ol>
+<p>HashMap的key值可以是null。如果key=null，则会将它放置在数组下标为0的位置。</p>
+<ol>
+<li>HashMap如何实现扩容？</li>
+</ol>
+<p>HashMap扩容和初始容器大小与负载因子有关。HashMap的初始容器大小为16，默认的负载因子为0.75，当实际容量超过16*0.75=12个元素时会进行扩容。扩容后的容器大小是扩容前的2倍，第一次扩容后的容器大小为32。</p>
+<ol>
+<li>设置HashMap的容量有没有注意的地方，为什么？</li>
+</ol>
+<p>指定HashMap的容量时，建议是2的幂次方。</p>
+<p>HashMap在寻址是会key的hash值与容器长度做与运算，(n - 1) &amp; hash。当n的长度为2的幂次方时，n-1的二进制形式就会是111111，这样与操作效率会非常的快。</p>
+<ol>
+<li>HashMap是否是线程安全的？如果不是，多线程下并发操作它可能会带来什么问题？如果是，它是怎么实现的？</li>
+</ol>
+<p>HashMap不是线程安全的。如果在多线程下并发操作不仅会导致脏数据，甚至可能会造成死循环。（关于死循环产生的原因参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yulinfeng/p/8558983.html%EF%BC%89">https://www.cnblogs.com/yulinfeng/p/8558983.html）</a></p>
+<ol>
+<li>LinkedHashMap的内部实现原理是什么？它是否支持key=null？</li>
+</ol>
+<p>LinkedHashMap是插入有序的Map集合。它直接继承了HashMap，所以很多都直接复用了HashMap方法，所以也支持key=null。它在内部除了沿用HashMap的底层结构，还单独维护了一个双向链表，在对Map进行put操作时，同时还会将数据写到了链表的尾部，保证了插入有序。</p>
+<ol>
+<li>TreeMap的内部实现原理是什么？它是否支持key=null？</li>
+</ol>
+<p>TreeMap结构也是有序的，不同的是它是字典有序，由于它底层是红黑树结构，插入时会进行比较key值的顺序，所以不允许key=null的情况。</p>
+<ol>
+<li>介绍下Hashtable</li>
+</ol>
+<p>Hashtable是线程安全的Map类型，但它的线程安全代价是为整个散列表加锁，效率很低，几乎已经废弃。如果要使用线程安全的Map，应该使用ConcurrentHashMap，它的实现是分段锁，能最大的提高效率。</p>
+<ol>
+<li>以上三种Map类型分别可以应用到哪些场景？你在哪些场景下使用过？</li>
+</ol>
+<p>HashMap的使用场景很多，这个使用场景就太多了，比如用作本地缓存。</p>
+<p>LinkedHashMap因为它的链表结构可以实现LRU（最近最少使用），即缓存空间有限，当元素多余缓存空间，可淘汰掉最近最少使用的元素。在LinkedHashMap维护了一个accessOrder字段，默认为false，当设置为true时，如果访问一个key值，就会将这个元素放置链表头部，这样在链表尾部的元素就是不常用的元素，空间不足直接remove末尾的元素即可。所以当要实现LRU缓存时，就可以将accessOrder设置为true实现。</p>
+<p>TreeMap没有实际应用过，如果有需要排序的场景则使用TreeMap</p>
+<p>Set 10. HashSet的内部实现原理是什么，它有什么特点？</p>
+<p>HashSet集合的特点是不允许有重复的元素，且无序的，允许null值。它在内部维护一个HashMap，存储在HashSet中的元素实际上存储在HashMap的key中。</p>
+<ol>
+<li>LinkedHashSet的内部实现原理是什么，它有什么特点？</li>
+</ol>
+<p>LinkedHashSet继承自HashMap，在内部维护一个双向链表保证插入有序，允许null值。</p>
+<ol>
+<li>TreeSet的内部实现原理是什么，它有什么特点？</li>
+</ol>
+<p>TreeSet是一个有序的集合，它的作用是提供有序的Set集合，TreeSet是基于TreeMap实现的。不允许有null值。</p>
+<ol>
+<li>以上三种Set类型分别可以应用到哪些场景？你在哪些场景下使用过？</li>
+</ol>
+<p>HashSet可应用于批量查询时去重。</p>
+<p>如果需要返回的数据和入参的数据顺序一致则可以使用LinkedHashSet。</p>
+<p>List 14. ArrayList的内部实现原理什么？</p>
+<p>底层通过数组实现，创建一个ArrayList对象实例时不会初始化数组，当插入第一条数据时会创建一个大小为10的数组。</p>
+<ol>
+<li>既然ArrayList的底层实现是数组，那定义ArrayList时，需要定义它的大小吗？</li>
+</ol>
+<p>可以不用定义容器的大小，默认大小为10，当容量大小不足时此时将会进行扩容。</p>
+<ol>
+<li>ArrayList的扩容机制是什么？</li>
+</ol>
+<p>每次新增的容量是旧容量的一半，扩容后调用System.arraycopy方法拷贝到新的数组。</p>
+<ol>
+<li>如果初始化ArrayList时，定义一个容量大小为11，此时扩容了几次，容量大小为16呢？</li>
+</ol>
+<p>不进行扩容。</p>
+<ol>
+<li>LinkedList的内部实现原理是什么？</li>
+</ol>
+<p>底层通过链表实现，所以不存在扩容。</p>
+<ol>
+<li>Vector和ArrayList、LinkedList的区别？</li>
+</ol>
+<p>Vector是线程安全的额，ArrayList、LinkedList不是线程安全的。Vector的线程安全是为每个方法加上synchronized关键字，效率不高，不常用。</p>
+<ol>
+<li>ArrayList与LinkedList分别可以应用到哪些场景？</li>
+</ol>
+<p>大多数情况下使用ArrayList，因为ArrayList是数组实现，它随机读取的速度更快，但插入指定位置慢；LinkedList由于是链表实现，所以随机读取的速度慢，但插入指定位置快。</p>
 
             </div>
             <hr>
@@ -250,9 +326,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+                      <a class="hover-with-bg" href="/blog/tags/java/">java</a>
                     
-                      <a class="hover-with-bg" href="/blog/tags/gradle/">gradle</a>
+                      <a class="hover-with-bg" href="/blog/tags/%E9%9D%A2%E8%AF%95/">面试</a>
                     
                   </div>
                 
@@ -265,18 +341,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/01/18/MongoDB%E4%B8%8E%20MySQL%E7%9A%84%E5%8C%BA%E5%88%AB/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MongoDB 与 MySQL 的区别</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/01/16/pdf%E8%BD%AC%E5%9B%BE%E7%89%87/">
-                        <span class="hidden-mobile">pdf 转 图片</span>
+                      <a href="/blog/2021/01/18/centos7%E5%AE%89%E8%A3%85ElasticSearch6/">
+                        <span class="hidden-mobile">centos7安装ElasticSearch6</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
