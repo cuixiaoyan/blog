@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>java集合面试20问 - 崔笑颜的博客</title>
+  <title>实现多线程的三种方法 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="java集合面试20问">
+            <span class="h2" id="subtitle" title="实现多线程的三种方法">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-18 20:30" pubdate>
-        2021年1月18日 晚上
+      <time datetime="2021-01-19 20:10" pubdate>
+        2021年1月19日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      975 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15
+      11
        分钟
     </span>
   
@@ -233,89 +233,25 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">java集合面试20问</h1>
+            <h1 style="display: none">实现多线程的三种方法</h1>
             
             <div class="markdown-body">
-              <ol>
-<li>HashMap的内部实现原理是什么？</li>
-</ol>
-<p>HashMap内部实现原理是数组+链表，通过散列算法将key值散列到数组中，如果到相同的位置，则通过拉链法解决散列冲突。在JDK8中新增了红黑树结构，当HashMap中的散列冲突链表结构超过8个数据时，会从链表结构转换为红黑树结构。</p>
-<ol>
-<li>HashMap的key值能否是null，如果能，key=null如何存储以及如何读取的？如果不能，为什么？</li>
-</ol>
-<p>HashMap的key值可以是null。如果key=null，则会将它放置在数组下标为0的位置。</p>
-<ol>
-<li>HashMap如何实现扩容？</li>
-</ol>
-<p>HashMap扩容和初始容器大小与负载因子有关。HashMap的初始容器大小为16，默认的负载因子为0.75，当实际容量超过16*0.75=12个元素时会进行扩容。扩容后的容器大小是扩容前的2倍，第一次扩容后的容器大小为32。</p>
-<ol>
-<li>设置HashMap的容量有没有注意的地方，为什么？</li>
-</ol>
-<p>指定HashMap的容量时，建议是2的幂次方。</p>
-<p>HashMap在寻址是会key的hash值与容器长度做与运算，(n - 1) &amp; hash。当n的长度为2的幂次方时，n-1的二进制形式就会是111111，这样与操作效率会非常的快。</p>
-<ol>
-<li>HashMap是否是线程安全的？如果不是，多线程下并发操作它可能会带来什么问题？如果是，它是怎么实现的？</li>
-</ol>
-<p>HashMap不是线程安全的。如果在多线程下并发操作不仅会导致脏数据，甚至可能会造成死循环。（关于死循环产生的原因参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yulinfeng/p/8558983.html%EF%BC%89">https://www.cnblogs.com/yulinfeng/p/8558983.html）</a></p>
-<ol>
-<li>LinkedHashMap的内部实现原理是什么？它是否支持key=null？</li>
-</ol>
-<p>LinkedHashMap是插入有序的Map集合。它直接继承了HashMap，所以很多都直接复用了HashMap方法，所以也支持key=null。它在内部除了沿用HashMap的底层结构，还单独维护了一个双向链表，在对Map进行put操作时，同时还会将数据写到了链表的尾部，保证了插入有序。</p>
-<ol>
-<li>TreeMap的内部实现原理是什么？它是否支持key=null？</li>
-</ol>
-<p>TreeMap结构也是有序的，不同的是它是字典有序，由于它底层是红黑树结构，插入时会进行比较key值的顺序，所以不允许key=null的情况。</p>
-<ol>
-<li>介绍下Hashtable</li>
-</ol>
-<p>Hashtable是线程安全的Map类型，但它的线程安全代价是为整个散列表加锁，效率很低，几乎已经废弃。如果要使用线程安全的Map，应该使用ConcurrentHashMap，它的实现是分段锁，能最大的提高效率。</p>
-<ol>
-<li>以上三种Map类型分别可以应用到哪些场景？你在哪些场景下使用过？</li>
-</ol>
-<p>HashMap的使用场景很多，这个使用场景就太多了，比如用作本地缓存。</p>
-<p>LinkedHashMap因为它的链表结构可以实现LRU（最近最少使用），即缓存空间有限，当元素多余缓存空间，可淘汰掉最近最少使用的元素。在LinkedHashMap维护了一个accessOrder字段，默认为false，当设置为true时，如果访问一个key值，就会将这个元素放置链表头部，这样在链表尾部的元素就是不常用的元素，空间不足直接remove末尾的元素即可。所以当要实现LRU缓存时，就可以将accessOrder设置为true实现。</p>
-<p>TreeMap没有实际应用过，如果有需要排序的场景则使用TreeMap</p>
-<p>Set 10. HashSet的内部实现原理是什么，它有什么特点？</p>
-<p>HashSet集合的特点是不允许有重复的元素，且无序的，允许null值。它在内部维护一个HashMap，存储在HashSet中的元素实际上存储在HashMap的key中。</p>
-<ol>
-<li>LinkedHashSet的内部实现原理是什么，它有什么特点？</li>
-</ol>
-<p>LinkedHashSet继承自HashMap，在内部维护一个双向链表保证插入有序，允许null值。</p>
-<ol>
-<li>TreeSet的内部实现原理是什么，它有什么特点？</li>
-</ol>
-<p>TreeSet是一个有序的集合，它的作用是提供有序的Set集合，TreeSet是基于TreeMap实现的。不允许有null值。</p>
-<ol>
-<li>以上三种Set类型分别可以应用到哪些场景？你在哪些场景下使用过？</li>
-</ol>
-<p>HashSet可应用于批量查询时去重。</p>
-<p>如果需要返回的数据和入参的数据顺序一致则可以使用LinkedHashSet。</p>
-<p>List 14. ArrayList的内部实现原理什么？</p>
-<p>底层通过数组实现，创建一个ArrayList对象实例时不会初始化数组，当插入第一条数据时会创建一个大小为10的数组。</p>
-<ol>
-<li>既然ArrayList的底层实现是数组，那定义ArrayList时，需要定义它的大小吗？</li>
-</ol>
-<p>可以不用定义容器的大小，默认大小为10，当容量大小不足时此时将会进行扩容。</p>
-<ol>
-<li>ArrayList的扩容机制是什么？</li>
-</ol>
-<p>每次新增的容量是旧容量的一半，扩容后调用System.arraycopy方法拷贝到新的数组。</p>
-<ol>
-<li>如果初始化ArrayList时，定义一个容量大小为11，此时扩容了几次，容量大小为16呢？</li>
-</ol>
-<p>不进行扩容。</p>
-<ol>
-<li>LinkedList的内部实现原理是什么？</li>
-</ol>
-<p>底层通过链表实现，所以不存在扩容。</p>
-<ol>
-<li>Vector和ArrayList、LinkedList的区别？</li>
-</ol>
-<p>Vector是线程安全的额，ArrayList、LinkedList不是线程安全的。Vector的线程安全是为每个方法加上synchronized关键字，效率不高，不常用。</p>
-<ol>
-<li>ArrayList与LinkedList分别可以应用到哪些场景？</li>
-</ol>
-<p>大多数情况下使用ArrayList，因为ArrayList是数组实现，它随机读取的速度更快，但插入指定位置慢；LinkedList由于是链表实现，所以随机读取的速度慢，但插入指定位置快。</p>
+              <p>Java虚拟机（JVM，是运行所有Java程序的抽象计算机，是Java语言的运行环境）允许应用程序并发地运行多个线程。在Java语言中，多线程的实现一般有以下三种方法：</p>
+<p>1、实现Runnable接口，并实现该接口的run()方法。</p>
+<p>　　①自定义类并实现Runnable接口，实现run()方法。</p>
+<p>　　②创建Thread对象，用实现Runnable接口的对象作为参数实例化该Thread对象。</p>
+<p>　　③调用Thread的start()方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyThread</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span></span>&#123;　　<span class="hljs-comment">//创建线程类</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;Thread body&quot;</span>);<br>    &#125;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        MyThread thread = <span class="hljs-keyword">new</span> MyThread();<br>        Thread t = <span class="hljs-keyword">new</span> Thread(thread);<br>        t.run();　　<span class="hljs-comment">//开启线程</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>2、继承Thread类，重写run()方法。</p>
+<p>　　Thread本质上也是实现了Runnable接口的一个实例，它代表一个线程的实例，并且，启动线程的唯一方法就是通过Thread类的start()方法。start()方法是一个native（本地）方法，它将启动一个新线程，并执行run()方法（Thread中提供的run()方法是一个空方法）。这种方式通过自定义类直接extends Thread，并重写run()方法，就可以启动新线程并执行自己定义的run()方法。需要注意的是，当start()方法调用后并不是立即执行多线程代码，而是使得该线程变为可运行态（Runnable），什么时候运行多线程代码是由操作系统决定的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Thread</span> </span>&#123;    <span class="hljs-comment">//创建线程类</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;Thread body&quot;</span>);    <span class="hljs-comment">//线程的方法体</span><br>    &#125;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        MyThread thread = <span class="hljs-keyword">new</span> MyThread();<br>        thread.run();    <span class="hljs-comment">//开启线程</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>3、实现Callable接口，重写call()方法。</p>
+<p>　　Callable对象实际是属于Executor框架中的功能类，Callable接口与Runnable接口类似，但是提供了比Runnable更强大 的功能，主要表现为以下三点：</p>
+<p>　　①Callable可以在任务结束后提供一个返回值，Runnable无法提供这个功能。</p>
+<p>　　②Callable中的call方法可以抛出异常，而Runnable的run()方法不能抛出异常。</p>
+<p>　　③运行Callable可以拿到一个Future对象，Future对象表示异步计算的结果。它提供了检查计算是否完成的方法。由于线程属于异步计算模型，所以无法从其他线程中得到方法的返回值，在这种情况下，就可以使用Future来监视目标线程调用call()方法的情况，当调用Future的get()方法以获取结果时，当前线程就会阻塞，直到call()方法结束返回结果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.concurrent.*;<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CallableAndFuture</span></span>&#123;　　<span class="hljs-comment">//创建线程类</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CallableTest</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Callable</span>&lt;<span class="hljs-title">String</span>&gt;</span>&#123;<br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">call</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello World!&quot;</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        ExecutorService threadPool = Executors.newSingleThreadExecutor();<br>        <span class="hljs-comment">//启动线程</span><br>        Future&lt;String&gt; future = threadPool.submit(<span class="hljs-keyword">new</span> CallableTest());<br>        <span class="hljs-keyword">try</span>&#123;<br>            System.out.println(<span class="hljs-string">&quot;waiting thread to finish&quot;</span>);<br>            System.out.println(future.get());　　<span class="hljs-comment">//等待线程结束，并获取返回结果</span><br>        &#125;<span class="hljs-keyword">catch</span> (Exception e)&#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>　　在以上三种方式中，前两种方式线程执行完后都没有返回值，只有最后一种是带返回值的。当需要实现多线程时，一般推荐实现Runnable接口的方式，原因如下：首先，Thread类定义了多种方法可以被派生类使用或重写，但是只有run方法是必须被重写的，在run方法中实现这个线程的主要功能。这当然是实现Runnable接口所需的同样的方法。而且，很多Java开发人员认为，一个人仅在它们需要被加强或修改时才会被继承。因此，如果没有必要重写Thread类中的其他方法，那么通过继承Thread的实现方式和实现Runnable接口的效果相同，在这种情况下最好通过Runnable接口的方式来创建线程。</p>
 
             </div>
             <hr>
@@ -328,7 +264,7 @@
                     
                       <a class="hover-with-bg" href="/blog/tags/java/">java</a>
                     
-                      <a class="hover-with-bg" href="/blog/tags/%E9%9D%A2%E8%AF%95/">面试</a>
+                      <a class="hover-with-bg" href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
                     
                   </div>
                 
@@ -341,9 +277,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/01/19/%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95/">
+                      <a href="/blog/2021/01/19/SpringAOP%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">实现多线程的三种方法</span>
+                        <span class="hidden-mobile">SpringAOP原理分析</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -351,8 +287,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/01/18/centos7%E5%AE%89%E8%A3%85ElasticSearch6/">
-                        <span class="hidden-mobile">centos7安装ElasticSearch6</span>
+                      <a href="/blog/2021/01/18/java%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%9520%E9%97%AE/">
+                        <span class="hidden-mobile">java集合面试20问</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
