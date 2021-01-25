@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>java中的数学工具类Math - 崔笑颜的博客</title>
+  <title>SpringBoot入门设置 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="java中的数学工具类Math">
+            <span class="h2" id="subtitle" title="SpringBoot入门设置">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-24 10:20" pubdate>
-        2021年1月24日 上午
+      <time datetime="2021-01-25 20:30" pubdate>
+        2021年1月25日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      526 字
+      890 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      12
        分钟
     </span>
   
@@ -233,14 +233,30 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">java中的数学工具类Math</h1>
+            <h1 style="display: none">SpringBoot入门设置</h1>
             
             <div class="markdown-body">
-              <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>java.util.Math类是数学相关的工具类，里面提供了大量的静态方法，完成与数学运算相关的操作。</p>
-<h2 id="基本的方法"><a href="#基本的方法" class="headerlink" title="基本的方法"></a>基本的方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">abs</span><span class="hljs-params">(<span class="hljs-keyword">double</span> num)</span></span>;获取绝对值。有多种重载，absolutely绝对地<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">ceil</span><span class="hljs-params">(<span class="hljs-keyword">double</span> num)</span></span>;向上取整，ceil是天花板的意思<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">floor</span><span class="hljs-params">(<span class="hljs-keyword">double</span> num)</span></span>;向下取整，floor是地板的意思<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">long</span> <span class="hljs-title">round</span><span class="hljs-params">(<span class="hljs-keyword">double</span> num)</span></span>;四舍六入五成双（看下面代码的注释），round有大约，完整的意思<br> <br></code></pre></td></tr></table></figure>
-<h2 id="四种方法一起通过代码演示一遍"><a href="#四种方法一起通过代码演示一遍" class="headerlink" title="四种方法一起通过代码演示一遍"></a>四种方法一起通过代码演示一遍</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MathMethod</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">//abs方法，取绝对值</span><br>        System.out.println(Math.abs(<span class="hljs-number">3.14</span>)); <span class="hljs-comment">//3.14</span><br>        System.out.println(Math.abs(<span class="hljs-number">0</span>));    <span class="hljs-comment">//0</span><br>        System.out.println(Math.abs(-<span class="hljs-number">2.2</span>)); <span class="hljs-comment">//2.2</span><br> <br>        System.out.println(<span class="hljs-string">&quot;---------------------&quot;</span>);<br> <br>        <span class="hljs-comment">//ceil方法，向上取整，往大的靠</span><br>        System.out.println(Math.ceil(<span class="hljs-number">3.2</span>));  <span class="hljs-comment">//4.0</span><br>        System.out.println(Math.ceil(<span class="hljs-number">3.8</span>));  <span class="hljs-comment">//4.0</span><br>        System.out.println(Math.ceil(-<span class="hljs-number">3.2</span>)); <span class="hljs-comment">//-3.0</span><br>        System.out.println(Math.ceil(-<span class="hljs-number">3.8</span>)); <span class="hljs-comment">//-3.0</span><br> <br>        System.out.println(<span class="hljs-string">&quot;---------------------&quot;</span>);<br>        <br>        <span class="hljs-comment">//floor方法，向下取整，往小的靠</span><br>        System.out.println(Math.floor(<span class="hljs-number">3.2</span>));  <span class="hljs-comment">//3.0</span><br>        System.out.println(Math.floor(<span class="hljs-number">3.8</span>));  <span class="hljs-comment">//3.0</span><br>        System.out.println(Math.floor(-<span class="hljs-number">3.2</span>)); <span class="hljs-comment">//-4.0</span><br>        System.out.println(Math.floor(-<span class="hljs-number">3.8</span>)); <span class="hljs-comment">//-4.0</span><br> <br>        System.out.println(<span class="hljs-string">&quot;---------------------&quot;</span>);<br> <br>        <span class="hljs-comment">//【注意，面试高频】round方法，四舍 六入 五成双</span><br>        <span class="hljs-comment">//先看看四舍六入，如果出现负数，先转成正数，再四舍六入，最后加上负号</span><br>        System.out.println(Math.round(<span class="hljs-number">3.4</span>));  <span class="hljs-comment">//3</span><br>        System.out.println(Math.round(<span class="hljs-number">3.6</span>));  <span class="hljs-comment">//4</span><br>        System.out.println(Math.round(-<span class="hljs-number">3.4</span>)); <span class="hljs-comment">//-3</span><br>        System.out.println(Math.round(-<span class="hljs-number">3.6</span>)); <span class="hljs-comment">//-4</span><br>        <span class="hljs-comment">//五成双是什么意思呢？当出现0.5结尾的时候，就给它再加上+0.5，5不就成双了</span><br>        <span class="hljs-comment">//接着再对相加的结果进行floor运算</span><br>        System.out.println(Math.round(-<span class="hljs-number">2.5</span>));  <span class="hljs-comment">//-2</span><br>        System.out.println(Math.floor(-<span class="hljs-number">2.5</span> + <span class="hljs-number">0.5</span>));  <span class="hljs-comment">//与Math.round(-2.5)结果一致</span><br> <br>		System.out.println(Math.round(<span class="hljs-number">2.5</span>));  <span class="hljs-comment">//3</span><br>        System.out.println(Math.floor(<span class="hljs-number">2.5</span> + <span class="hljs-number">0.5</span>));  <span class="hljs-comment">//与Math.round(2.5)结果一致</span><br>    &#125;<br>&#125;<br> <br></code></pre></td></tr></table></figure>
-<h2 id="圆周率Math-PI"><a href="#圆周率Math-PI" class="headerlink" title="圆周率Math.PI"></a>圆周率Math.PI</h2><p>在Math类的源码中，我们可以看到，它自定义的圆周率 PI = 3.14159265358979323846</p>
-<p>以后的计算如果需要用到PI，尽量用已经定义好的圆周率，非常精确</p>
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。好就对了</p>
+<h1 id="环境搭建maven项目"><a href="#环境搭建maven项目" class="headerlink" title="环境搭建maven项目"></a>环境搭建maven项目</h1><h2 id="pom-xml-中"><a href="#pom-xml-中" class="headerlink" title="pom.xml 中"></a>pom.xml 中</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;!-- 定义公共资源版本 --&gt;<br>&lt;parent&gt;<br>    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;<br>    &lt;version&gt;1.5.6.RELEASE&lt;/version&gt;<br>    &lt;relativePath /&gt;<br>&lt;/parent&gt;<br> <br>&lt;properties&gt;<br>    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;<br>    &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;<br>    &lt;java.version&gt;1.8&lt;/java.version&gt;<br>&lt;/properties&gt;<br> <br>&lt;dependencies&gt;<br>    &lt;!-- 上边引入 parent，因此 下边无需指定版本 --&gt;<br>    &lt;!-- 包含 mvc,aop 等jar资源 --&gt;<br>    &lt;dependency&gt;<br>        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;<br>    &lt;/dependency&gt;<br>&lt;/dependencies&gt;<br> <br>&lt;build&gt;<br>    &lt;plugins&gt;<br>        &lt;plugin&gt;<br>            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;<br>        &lt;/plugin&gt;<br>    &lt;/plugins&gt;<br>&lt;/build&gt;<br></code></pre></td></tr></table></figure>
+<h2 id="创建目录和配置文件"><a href="#创建目录和配置文件" class="headerlink" title="创建目录和配置文件"></a>创建目录和配置文件</h2><p>创建 src/main/resources 源文件目录，并在该目录下创建 application.properties 文件、static 和 templates 的文件夹。</p>
+<p>application.properties：用于配置项目运行所需的配置数据。</p>
+<p>static：用于存放静态资源，如：css、js、图片等。</p>
+<p>templates：用于存放模板文件。<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190902-094158@2x_1567388546384.png" srcset="/blog/img/loading.gif" alt="WX20190902-094158@2x"></p>
+<h2 id="创建启动类"><a href="#创建启动类" class="headerlink" title="创建启动类"></a>创建启动类</h2><p>放在包下 com.cxy.template 不用单独建文件夹放 保持同级</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> 该注解指定项目为springboot，由此类当作程序入口</span><br><span class="hljs-comment"> 自动装配 web 依赖的环境</span><br><span class="hljs-comment"> </span><br><span class="hljs-comment">**/</span><br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SpringbootApplication</span> </span>&#123;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        SpringApplication.run(SpringbootApplication.class, args);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="案例演示"><a href="#案例演示" class="headerlink" title="案例演示"></a>案例演示</h2><p>在com.cxy.template 下创建一个Controller类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestController</span> </span>&#123;<br> <br>    <span class="hljs-meta">@GetMapping(&quot;/helloworld&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">helloworld</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;helloworld&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>打开浏览器访问 <a target="_blank" rel="noopener" href="http://localhost:8080/helloworld">http://localhost:8080/helloworld</a> 这里建议增加热部署插件 <a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/jrebel">idea 激活 jrebel</a></p>
+<h2 id="多环境切换"><a href="#多环境切换" class="headerlink" title="多环境切换"></a>多环境切换</h2><p>pplication.properties 是 springboot 在运行中所需要的配置信息。</p>
+<p>当我们在开发阶段，使用自己的机器开发，测试的时候需要用的测试服务器测试，上线时使用正式环境的服务器。</p>
+<p>这三种环境需要的配置信息都不一样，当我们切换环境运行项目时，需要手动的修改多出配置信息，非常容易出错。</p>
+<p>为了解决上述问题，springboot 提供多环境配置的机制，让开发者非常容易的根据需求而切换不同的配置环境。</p>
+<p>在 src/main/resources 目录下创建三个配置文件:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">application-dev.properties：用于开发环境<br>application-test.properties：用于测试环境<br>application-prod.properties：用于生产环境<br> <br>我们可以在这个三个配置文件中设置不同的信息，application.properties 配置公共的信息。<br> <br>在 application.properties 中配置：<br>spring.profiles.active=dev<br> <br></code></pre></td></tr></table></figure>
+<p>切换项目启动的环境不仅对读取配置文件信息有效，也可以对 Bean 有效。</p>
+<p>当我们需要对不同环境使用不同的 Bean 时，可以通过 @Profile 注解进行区分，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BeanConfiguration</span> </span>&#123;<br> <br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-meta">@Profile(&quot;dev&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Runnable <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;开发环境使用的 Bean&quot;</span>);<br>        <span class="hljs-keyword">return</span> () -&gt; &#123;&#125;;<br>    &#125;<br> <br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-meta">@Profile(&quot;test&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Runnable <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;测试环境使用的 Bean&quot;</span>);<br>        <span class="hljs-keyword">return</span> () -&gt; &#123;&#125;;<br>    &#125;<br> <br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-meta">@Profile(&quot;pro&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Runnable <span class="hljs-title">test3</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;生成环境使用的 Bean&quot;</span>);<br>        <span class="hljs-keyword">return</span> () -&gt; &#123;&#125;;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>当启动项目后，Spring 会根据 spring.profiles.active 的值实例化对应的 Bean。</p>
 
             </div>
             <hr>
@@ -253,7 +269,7 @@
                     
                       <a class="hover-with-bg" href="/blog/tags/java/">java</a>
                     
-                      <a class="hover-with-bg" href="/blog/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/">工具类</a>
+                      <a class="hover-with-bg" href="/blog/tags/SpringBoot/">SpringBoot</a>
                     
                   </div>
                 
@@ -266,9 +282,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/01/25/centos7%E5%AE%89%E8%A3%85Docker/">
+                      <a href="/blog/2021/01/25/Docker%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E5%8A%A0RabbitMq%E5%AE%89%E8%A3%85/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">centos7安装Docker</span>
+                        <span class="hidden-mobile">Docker基本命令加RabbitMq安装</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -276,8 +292,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/01/24/mysql%E5%85%A5%E9%97%A8/">
-                        <span class="hidden-mobile">mysql入门</span>
+                      <a href="/blog/2021/01/25/centos7%E5%AE%89%E8%A3%85Docker/">
+                        <span class="hidden-mobile">centos7安装Docker</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

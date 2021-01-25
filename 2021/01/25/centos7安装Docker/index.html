@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>java中的数学工具类Math - 崔笑颜的博客</title>
+  <title>centos7安装Docker - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="java中的数学工具类Math">
+            <span class="h2" id="subtitle" title="centos7安装Docker">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-24 10:20" pubdate>
-        2021年1月24日 上午
+      <time datetime="2021-01-25 20:10" pubdate>
+        2021年1月25日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      526 字
+      512 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      6
        分钟
     </span>
   
@@ -233,14 +233,25 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">java中的数学工具类Math</h1>
+            <h1 style="display: none">centos7安装Docker</h1>
             
             <div class="markdown-body">
-              <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>java.util.Math类是数学相关的工具类，里面提供了大量的静态方法，完成与数学运算相关的操作。</p>
-<h2 id="基本的方法"><a href="#基本的方法" class="headerlink" title="基本的方法"></a>基本的方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">abs</span><span class="hljs-params">(<span class="hljs-keyword">double</span> num)</span></span>;获取绝对值。有多种重载，absolutely绝对地<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">ceil</span><span class="hljs-params">(<span class="hljs-keyword">double</span> num)</span></span>;向上取整，ceil是天花板的意思<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">floor</span><span class="hljs-params">(<span class="hljs-keyword">double</span> num)</span></span>;向下取整，floor是地板的意思<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">long</span> <span class="hljs-title">round</span><span class="hljs-params">(<span class="hljs-keyword">double</span> num)</span></span>;四舍六入五成双（看下面代码的注释），round有大约，完整的意思<br> <br></code></pre></td></tr></table></figure>
-<h2 id="四种方法一起通过代码演示一遍"><a href="#四种方法一起通过代码演示一遍" class="headerlink" title="四种方法一起通过代码演示一遍"></a>四种方法一起通过代码演示一遍</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MathMethod</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">//abs方法，取绝对值</span><br>        System.out.println(Math.abs(<span class="hljs-number">3.14</span>)); <span class="hljs-comment">//3.14</span><br>        System.out.println(Math.abs(<span class="hljs-number">0</span>));    <span class="hljs-comment">//0</span><br>        System.out.println(Math.abs(-<span class="hljs-number">2.2</span>)); <span class="hljs-comment">//2.2</span><br> <br>        System.out.println(<span class="hljs-string">&quot;---------------------&quot;</span>);<br> <br>        <span class="hljs-comment">//ceil方法，向上取整，往大的靠</span><br>        System.out.println(Math.ceil(<span class="hljs-number">3.2</span>));  <span class="hljs-comment">//4.0</span><br>        System.out.println(Math.ceil(<span class="hljs-number">3.8</span>));  <span class="hljs-comment">//4.0</span><br>        System.out.println(Math.ceil(-<span class="hljs-number">3.2</span>)); <span class="hljs-comment">//-3.0</span><br>        System.out.println(Math.ceil(-<span class="hljs-number">3.8</span>)); <span class="hljs-comment">//-3.0</span><br> <br>        System.out.println(<span class="hljs-string">&quot;---------------------&quot;</span>);<br>        <br>        <span class="hljs-comment">//floor方法，向下取整，往小的靠</span><br>        System.out.println(Math.floor(<span class="hljs-number">3.2</span>));  <span class="hljs-comment">//3.0</span><br>        System.out.println(Math.floor(<span class="hljs-number">3.8</span>));  <span class="hljs-comment">//3.0</span><br>        System.out.println(Math.floor(-<span class="hljs-number">3.2</span>)); <span class="hljs-comment">//-4.0</span><br>        System.out.println(Math.floor(-<span class="hljs-number">3.8</span>)); <span class="hljs-comment">//-4.0</span><br> <br>        System.out.println(<span class="hljs-string">&quot;---------------------&quot;</span>);<br> <br>        <span class="hljs-comment">//【注意，面试高频】round方法，四舍 六入 五成双</span><br>        <span class="hljs-comment">//先看看四舍六入，如果出现负数，先转成正数，再四舍六入，最后加上负号</span><br>        System.out.println(Math.round(<span class="hljs-number">3.4</span>));  <span class="hljs-comment">//3</span><br>        System.out.println(Math.round(<span class="hljs-number">3.6</span>));  <span class="hljs-comment">//4</span><br>        System.out.println(Math.round(-<span class="hljs-number">3.4</span>)); <span class="hljs-comment">//-3</span><br>        System.out.println(Math.round(-<span class="hljs-number">3.6</span>)); <span class="hljs-comment">//-4</span><br>        <span class="hljs-comment">//五成双是什么意思呢？当出现0.5结尾的时候，就给它再加上+0.5，5不就成双了</span><br>        <span class="hljs-comment">//接着再对相加的结果进行floor运算</span><br>        System.out.println(Math.round(-<span class="hljs-number">2.5</span>));  <span class="hljs-comment">//-2</span><br>        System.out.println(Math.floor(-<span class="hljs-number">2.5</span> + <span class="hljs-number">0.5</span>));  <span class="hljs-comment">//与Math.round(-2.5)结果一致</span><br> <br>		System.out.println(Math.round(<span class="hljs-number">2.5</span>));  <span class="hljs-comment">//3</span><br>        System.out.println(Math.floor(<span class="hljs-number">2.5</span> + <span class="hljs-number">0.5</span>));  <span class="hljs-comment">//与Math.round(2.5)结果一致</span><br>    &#125;<br>&#125;<br> <br></code></pre></td></tr></table></figure>
-<h2 id="圆周率Math-PI"><a href="#圆周率Math-PI" class="headerlink" title="圆周率Math.PI"></a>圆周率Math.PI</h2><p>在Math类的源码中，我们可以看到，它自定义的圆周率 PI = 3.14159265358979323846</p>
-<p>以后的计算如果需要用到PI，尽量用已经定义好的圆周率，非常精确</p>
+              <h1 id="为什么要用Docker"><a href="#为什么要用Docker" class="headerlink" title="为什么要用Docker"></a>为什么要用Docker</h1><p>全凭自己理解 我又不是专业的运维 搞这个干嘛 这种想法可不行哦</p>
+<ol>
+<li>安装软件方便快捷 例如rabbitmq 之前在本地怎么安装都访问不到web管理页面 但是docker就两句话 最后的效果是一样的</li>
+<li>能节省服务器一部分资源 我的服务器确实太小了</li>
+<li>而且像我这种小白白 安装错了 直接停止 删除镜像就可以了</li>
+<li>安装在服务器上 恐怕要去谷歌 如何完全卸载xxx啦</li>
+</ol>
+<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><p>目前，CentOS 仅发行版本中的内核支持 Docker。 Docker 运行在 CentOS 7 上，要求系统为64位、系统内核版本为 3.10 以上。 Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上，要求系统为64位、系统内核版本为 2.6.32-431 或者更高版本。</p>
+<p><strong>两种方式 二选一</strong></p>
+<h2 id="使用-yum-安装"><a href="#使用-yum-安装" class="headerlink" title="使用 yum 安装"></a>使用 yum 安装</h2><p>Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 。</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vala"><span class="hljs-meta">#查看你当前的内核版本</span><br>uname -r<br><br><span class="hljs-meta">#安装 Docker</span><br>yum -y install docker<br><br><span class="hljs-meta">#启动 Docker 后台服务</span><br>service docker start<br><br><span class="hljs-meta">#测试运行 hello-world,由于本地没有hello-world这个镜像，所以会下载一个hello-world的镜像，并在容器内运行。</span><br>docker run hello-world<br></code></pre></td></tr></table></figure>
+<h1 id="使用脚本安装-Docker"><a href="#使用脚本安装-Docker" class="headerlink" title="使用脚本安装 Docker"></a>使用脚本安装 Docker</h1><p>1、使用 sudo 或 root 权限登录 Centos。 2、确保 yum 包更新到最新。</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vala"><span class="hljs-meta">#确保 yum 包更新到最新</span><br>sudo yum update<br><br><span class="hljs-meta">#执行 Docker 安装脚本,执行这个脚本会添加 docker.repo 源并安装 Docker。</span><br>curl -fsSL https:<span class="hljs-comment">//get.docker.com/ | sh</span><br><br><span class="hljs-meta">#启动 Docker 进程</span><br>sudo service docker start<br><br><span class="hljs-meta">#验证 docker 是否安装成功并在容器中执行一个测试的镜像</span><br>sudo docker run hello-world<br></code></pre></td></tr></table></figure>
+<h2 id="查看Docker版本"><a href="#查看Docker版本" class="headerlink" title="查看Docker版本"></a>查看Docker版本</h2><p>docker version<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190828-091709@2x_1566955051972.png" srcset="/blog/img/loading.gif" alt="WX20190828-091709@2x"></p>
+<p>到此安装成功 最后推荐一款 管理界面 个人使用是免费的 足够啦<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190828-092421@2x_1566955505633.png" srcset="/blog/img/loading.gif" alt="WX20190828-092421@2x"></p>
+<p><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/docker#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8docker">为什么要用Docker</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/docker#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6">前提条件</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/docker#%E4%BD%BF%E7%94%A8%E8%84%9A%E6%9C%AC%E5%AE%89%E8%A3%85-docker">使用脚本安装 Docker</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/docker#%E6%9F%A5%E7%9C%8Bdocker%E7%89%88%E6%9C%AC">查看Docker版本</a></p>
 
             </div>
             <hr>
@@ -251,9 +262,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/blog/tags/java/">java</a>
+                      <a class="hover-with-bg" href="/blog/tags/docker/">docker</a>
                     
-                      <a class="hover-with-bg" href="/blog/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/">工具类</a>
+                      <a class="hover-with-bg" href="/blog/tags/centos/">centos</a>
                     
                   </div>
                 
@@ -266,9 +277,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/01/25/centos7%E5%AE%89%E8%A3%85Docker/">
+                      <a href="/blog/2021/01/25/SpringBoot%E5%85%A5%E9%97%A8%E8%AE%BE%E7%BD%AE/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">centos7安装Docker</span>
+                        <span class="hidden-mobile">SpringBoot入门设置</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -276,8 +287,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/01/24/mysql%E5%85%A5%E9%97%A8/">
-                        <span class="hidden-mobile">mysql入门</span>
+                      <a href="/blog/2021/01/24/java%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E5%B7%A5%E5%85%B7%E7%B1%BBMath/">
+                        <span class="hidden-mobile">java中的数学工具类Math</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

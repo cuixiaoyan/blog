@@ -19,9 +19,25 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>归档 - 崔笑颜的博客</title>
+  <title>Docker基本命令加RabbitMq安装 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -49,7 +65,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -155,9 +171,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="Docker基本命令加RabbitMq安装">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-25 20:40" pubdate>
+        2021年1月25日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      442 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      6
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -170,76 +223,143 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 41 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/blog/2021/01/16/gradle%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0jar%E5%8C%85/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">gradle使用本地jar包</span>
-      <time style="float: right;">01-16</time>
-    </a>
-  
-    
-    <a href="/blog/2021/01/16/pdf%E8%BD%AC%E5%9B%BE%E7%89%87/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">pdf 转 图片</span>
-      <time style="float: right;">01-16</time>
-    </a>
-  
-    
-    <a href="/blog/2021/01/16/aspose-words-java-word%E8%BD%AC%E6%8D%A2%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">aspose-words java word 转换 服务器乱码解决</span>
-      <time style="float: right;">01-16</time>
-    </a>
-  
-    
-    <a href="/blog/2021/01/15/aspose-words-java-word%E8%BD%ACpdf/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">aspose-words java word 转pdf</span>
-      <time style="float: right;">01-15</time>
-    </a>
-  
-    
-    <a href="/blog/2021/01/13/%E5%B0%86%E6%95%B0%E5%AD%97%E9%87%91%E9%A2%9D%E8%BD%AC%E4%B8%BA%E5%A4%A7%E5%86%99%E4%B8%AD%E6%96%87%E9%87%91%E9%A2%9D/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">将数字金额转为大写中文金额</span>
-      <time style="float: right;">01-13</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Docker基本命令加RabbitMq安装</h1>
+            
+            <div class="markdown-body">
+              <ol>
+<li>查看安装的Docker信息 docker info</li>
+<li>查看Docker版本 docker version</li>
+</ol>
+<h1 id="镜像类命令"><a href="#镜像类命令" class="headerlink" title="镜像类命令"></a>镜像类命令</h1><ol>
+<li>查看镜像 docker images</li>
+<li>删除镜像 根据imageId或者imageName:tag删除本地镜像 docker rmi &lt;imageId|imageName:tag&gt;</li>
+<li>拉取镜像 docker pull <a href="imagename:tag">imageName:tag</a></li>
+<li>上传镜像到仓库 docker push <a href="imagename:tag">imageName:tag</a></li>
+<li>保存镜像为tar包 docker save registry:latest &gt; /data/registry.tar</li>
+<li>搜索镜像 docker search</li>
+<li>导入镜像（用本地的tar包导入镜像） docker load –i</li>
+<li>给镜像重新打tag docker tag <a href="imagename:tag">imageName:tag</a></li>
+<li>构建镜像 docker build -t" srcset="/blog/img/loading.gif<img src="" alt="img">&lt;&gt;</li>
+</ol>
+<h1 id="容器类命令"><a href="#容器类命令" class="headerlink" title="容器类命令"></a>容器类命令</h1><ol>
+<li>查询正在运行的容器 查询所有容器 docker ps docker ps -a</li>
+<li>删除容器 删除的容器只能是停止的，非正在运行的容器 docker rm &lt;containerId|containerName&gt;</li>
+<li>开启停止的容器 docker start &lt;containerId|containerName&gt;</li>
+<li>停止容器 docker stop &lt;containerId|containerName&gt;</li>
+<li>杀死容器 docker kill &lt;containerId|containerName&gt;</li>
+<li>从容器中取日志 docker logs &lt;containerId|containerName&gt;</li>
+<li>显示一个运行的容器里面的进程信息 docker top &lt;containerId|containerName&gt;</li>
+<li>重启容器 docker restart &lt;containerId|containerName&gt;</li>
+<li>从容器里面拷贝文件/目录到本地一个路径 docker cp &lt;containerId|containerName&gt;:/container_path to_path</li>
+<li>启动容器 在容器中运行”echo”命令，输出”helloword” docker run image_name echo “hello word”</li>
+<li>交互式进入容器中 docker run -i -t image_name /bin/bash</li>
+<li>后台运行容器使用–d参数(后台运行) docker run -d image_name</li>
+</ol>
+<h1 id="Docker下安装rabbitmq"><a href="#Docker下安装rabbitmq" class="headerlink" title="Docker下安装rabbitmq"></a>Docker下安装rabbitmq</h1><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros">拉取镜像 <br>docker pull rabbitmq:3-management<br> <br>启动镜像<br>docker <span class="hljs-builtin-name">run</span> -d --hostname my-rabbit --name rabbit -v /data/rabbitmq:/var/lib/rabbitmq -e <span class="hljs-attribute">RABBITMQ_DEFAULT_USER</span>=admin -e <span class="hljs-attribute">RABBITMQ_DEFAULT_PASS</span>=admin -p 15672:15672 -p 5672:5672 rabbitmq:3-management<br></code></pre></td></tr></table></figure>
+<p>完成后访问：<a target="_blank" rel="noopener" href="http://ip:15672/">http://ip:15672</a> 用户名admin 密码 admin 也可以自己设置密码</p>
+<p>是不是很简单 我自己在物理机上装了好几次 还是没有成功 docker 两句命令</p>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/archives/2021/page/3/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/archives/2021/">1</a><a class="page-number" href="/blog/archives/2021/page/2/">2</a><a class="page-number" href="/blog/archives/2021/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/blog/archives/2021/page/5/">5</a><a class="page-number" href="/blog/archives/2021/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/blog/archives/2021/page/8/">8</a><a class="extend next" rel="next" href="/blog/archives/2021/page/5/"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
-    }
-  </script>
-
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/docker/">docker</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/mq/">mq</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/01/25/SpringBoot%E5%85%A5%E9%97%A8%E8%AE%BE%E7%BD%AE/">
+                        <span class="hidden-mobile">SpringBoot入门设置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -343,9 +463,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
