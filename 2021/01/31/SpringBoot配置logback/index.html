@@ -1,0 +1,523 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>SpringBoot配置logback - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/blog/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SpringBoot配置logback">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-31 20:00" pubdate>
+        2021年1月31日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringBoot配置logback</h1>
+            
+            <div class="markdown-body">
+              <h1 id="配置日志文件"><a href="#配置日志文件" class="headerlink" title="配置日志文件"></a>配置日志文件</h1><p>spring boot 默认会加载 classpath:logback-spring.xml 或者 classpath:logback-spring.groovy。</p>
+<p>如需要自定义文件名称，在 application.properties 中配置 logging.config 选项即可。</p>
+<p>在 src/main/resources 下创建 logback-spring.xml 文件，内容如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;<br>&lt;configuration&gt;<br>    &lt;!-- 文件输出格式 --&gt;<br>    &lt;property name=<span class="hljs-string">&quot;PATTERN&quot;</span> value=<span class="hljs-string">&quot;%-12(%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125;) |-%-5level [%thread] %c [%L] -| %msg%n&quot;</span> /&gt;<br>    &lt;!-- test文件路径 --&gt;<br>    &lt;property name=<span class="hljs-string">&quot;TEST_FILE_PATH&quot;</span> value=<span class="hljs-string">&quot;d:/test.log&quot;</span> /&gt;<br>    &lt;!-- pro文件路径 --&gt;<br>    &lt;property name=<span class="hljs-string">&quot;PRO_FILE_PATH&quot;</span> value=<span class="hljs-string">&quot;/opt/test/log&quot;</span> /&gt;<br> <br>    &lt;!-- 开发环境 --&gt;<br>    &lt;springProfile name=<span class="hljs-string">&quot;dev&quot;</span>&gt;<br>        &lt;appender name=<span class="hljs-string">&quot;CONSOLE&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span>&gt;<br>            &lt;encoder&gt;<br>                &lt;pattern&gt;$&#123;PATTERN&#125;&lt;/pattern&gt;<br>            &lt;/encoder&gt;<br>        &lt;/appender&gt;<br>        &lt;logger name=<span class="hljs-string">&quot;com.light.springboot&quot;</span> level=<span class="hljs-string">&quot;debug&quot;</span> /&gt;<br>        &lt;root level=<span class="hljs-string">&quot;info&quot;</span>&gt;<br>            &lt;appender-ref ref=<span class="hljs-string">&quot;CONSOLE&quot;</span> /&gt;<br>        &lt;/root&gt;<br>    &lt;/springProfile&gt;<br> <br>    &lt;!-- 测试环境 --&gt;<br>    &lt;springProfile name=<span class="hljs-string">&quot;test&quot;</span>&gt;<br>        &lt;!-- 每天产生一个文件 --&gt;<br>        &lt;appender name=<span class="hljs-string">&quot;TEST-FILE&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;<br>            &lt;!-- 文件路径 --&gt;<br>            &lt;file&gt;$&#123;TEST_FILE_PATH&#125;&lt;/file&gt;<br>            &lt;rollingPolicy <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;<br>                &lt;!-- 文件名称 --&gt;<br>                &lt;fileNamePattern&gt;$&#123;TEST_FILE_PATH&#125;/info.%d&#123;yyyy-MM-dd&#125;.log&lt;/fileNamePattern&gt;<br>                &lt;!-- 文件最大保存历史数量 --&gt;<br>                &lt;MaxHistory&gt;100&lt;/MaxHistory&gt;<br>            &lt;/rollingPolicy&gt;<br>            &lt;layout <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;ch.qos.logback.classic.PatternLayout&quot;</span>&gt;<br>                &lt;pattern&gt;$&#123;PATTERN&#125;&lt;/pattern&gt;<br>            &lt;/layout&gt;<br>        &lt;/appender&gt;<br>        &lt;logger name=<span class="hljs-string">&quot;com.light.springboot&quot;</span> level=<span class="hljs-string">&quot;debug&quot;</span> /&gt;<br>        &lt;root level=<span class="hljs-string">&quot;info&quot;</span>&gt;<br>            &lt;appender-ref ref=<span class="hljs-string">&quot;TEST-FILE&quot;</span> /&gt;<br>        &lt;/root&gt;<br>    &lt;/springProfile&gt;<br> <br>    &lt;!-- 生产环境 --&gt;<br>    &lt;springProfile name=<span class="hljs-string">&quot;prod&quot;</span>&gt;<br>        &lt;appender name=<span class="hljs-string">&quot;PROD_FILE&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;<br>            &lt;file&gt;$&#123;PRO_FILE_PATH&#125;&lt;/file&gt;<br>            &lt;rollingPolicy <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;<br>                &lt;fileNamePattern&gt;$&#123;PRO_FILE_PATH&#125;/warn.%d&#123;yyyy-MM-dd&#125;.log&lt;/fileNamePattern&gt;<br>                &lt;MaxHistory&gt;100&lt;/MaxHistory&gt;<br>            &lt;/rollingPolicy&gt;<br>            &lt;layout <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;ch.qos.logback.classic.PatternLayout&quot;</span>&gt;<br>                &lt;pattern&gt;$&#123;PATTERN&#125;&lt;/pattern&gt;<br>            &lt;/layout&gt;<br>        &lt;/appender&gt;<br>        &lt;root level=<span class="hljs-string">&quot;warn&quot;</span>&gt;<br>            &lt;appender-ref ref=<span class="hljs-string">&quot;PROD_FILE&quot;</span> /&gt;<br>        &lt;/root&gt;<br>    &lt;/springProfile&gt;<br>&lt;/configuration&gt;<br></code></pre></td></tr></table></figure>
+<p>其中，springProfile 标签的 name 属性对应 application.properties 中的 spring.profiles.active 的配置。</p>
+<p>即 spring.profiles.active 的值可以看作是日志配置文件中对应的 springProfile 是否生效的开关。</p>
+<h1 id="注解介绍"><a href="#注解介绍" class="headerlink" title="注解介绍"></a>注解介绍</h1><p>下面列出 Spring Boot 开发中常用的注解：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">@Configuration                 # 作用于类上，相当于一个 xml 配置文件<br>@Bean                          # 作用于方法上，相当于 xml 配置中的 &lt;bean&gt;<br>@SpringBootApplication         # Spring Boot的核心注解，是一个组合注解，用于启动类上<br>@EnableAutoConfiguration       # 启用自动配置，允许加载第三方 Jar 包的配置<br>@ComponentScan                 # 默认扫描 @SpringBootApplication 所在类的同级目录以及它的子目录<br>@PropertySource                # 加载 properties 文件<br>@Value                         # 将配置文件的属性注入到 Bean 中特定的成员变量<br>@EnableConfigurationProperties # 开启一个特性，让配置文件的属性可以注入到 Bean 中，与 @ConfigurationProperties 结合使用<br>@ConfigurationProperties       # 关联配置文件中的属性到 Bean 中<br>@Import                        # 加载指定 Class 文件，其生命周期被 Spring 管理<br>@ImportResource                # 加载 xml 文件<br></code></pre></td></tr></table></figure>
+<h1 id="读取配置文件"><a href="#读取配置文件" class="headerlink" title="读取配置文件"></a>读取配置文件</h1><h2 id="属性装配"><a href="#属性装配" class="headerlink" title="属性装配"></a>属性装配</h2><p>有两种方式：使用 @Value 注解和 Environment 对象。 在 application.properties 中添加：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java">ds.userName=root<br>ds.password=tiger<br>ds.url=jdbc:mysql:<span class="hljs-comment">//localhost:3306/test</span><br>ds.driverClassName=com.mysql.jdbc.Driver<br> <br>以上是自定义的配置。<br>创建一个配置类，如下：<br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WebConfig</span> </span>&#123;<br> <br>    <span class="hljs-meta">@Value(&quot;$&#123;ds.userName&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String userName;<br> <br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> Environment environment;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;ds.userName:&quot;</span> + <span class="hljs-keyword">this</span>.userName);<br>        System.out.println(<span class="hljs-string">&quot;ds.password:&quot;</span> + <span class="hljs-keyword">this</span>.environment.getProperty(<span class="hljs-string">&quot;ds.password&quot;</span>));<br>    &#125;<br>&#125;<br> <br>通过 <span class="hljs-meta">@Value</span> 获取 config.userName 配置；通过 environment 获取 config.password 配置。<br> <br>测试：<br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SpringbootApplication</span> </span>&#123;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        ConfigurableApplicationContext context = SpringApplication.run(SpringbootApplication.class, args);<br>        context.getBean(WebConfig.class).show();<br>    &#125;<br>&#125;<br> <br>打印结果：<br>userName:root<br>password:tiger<br></code></pre></td></tr></table></figure>
+<h2 id="对象装配"><a href="#对象装配" class="headerlink" title="对象装配"></a>对象装配</h2><p>创建一个封装类： 省略 get set</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@ConfigurationProperties(prefix=&quot;ds&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DataSourceProperties</span> </span>&#123;<br> <br>    <span class="hljs-keyword">private</span> String url;<br> <br>    <span class="hljs-keyword">private</span> String driverClassName;<br> <br>    <span class="hljs-keyword">private</span> String userName;<br> <br>    <span class="hljs-keyword">private</span> String password;<br> <br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;ds.url=&quot;</span> + <span class="hljs-keyword">this</span>.url);<br>        System.out.println(<span class="hljs-string">&quot;ds.driverClassName=&quot;</span> + <span class="hljs-keyword">this</span>.driverClassName);<br>        System.out.println(<span class="hljs-string">&quot;ds.userName=&quot;</span> + <span class="hljs-keyword">this</span>.userName);<br>        System.out.println(<span class="hljs-string">&quot;ds.password=&quot;</span> +<span class="hljs-keyword">this</span>.password);<br>    &#125;<br> <br>&#125;<br>测试：<br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SpringbootApplication</span> </span>&#123;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        ConfigurableApplicationContext context = SpringApplication.run(SpringbootApplication.class, args);<br>        context.getBean(DataSourceProperties.class).show();<br>    &#125;<br>&#125;<br> <br>打印结果<br>ds.url=jdbc:mysql:<span class="hljs-comment">//localhost:3306/test</span><br>ds.driverClassName=com.mysql.jdbc.Driver<br>ds.userName=root<br>ds.password=tiger<br></code></pre></td></tr></table></figure>
+<h1 id="打包运行"><a href="#打包运行" class="headerlink" title="打包运行"></a>打包运行</h1><p>打包的形式有两种：jar 和 war。</p>
+<h2 id="jar"><a href="#jar" class="headerlink" title="jar"></a>jar</h2><p>默认情况下，通过 maven 执行 package 命令后，会生成 jar 包，且该 jar 包会内置了 tomcat 容器，因此我们可以通过 java -jar 就可以运行项目</p>
+<h2 id="war"><a href="#war" class="headerlink" title="war"></a>war</h2><p>让 SpringbootApplication 类继承 SpringBootServletInitializer 并重写 configure 方法，如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SpringbootApplication</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">SpringBootServletInitializer</span> </span>&#123;<br> <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> SpringApplicationBuilder <span class="hljs-title">configure</span><span class="hljs-params">(SpringApplicationBuilder application)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> application.sources(SpringbootApplication.class);<br>    &#125;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        SpringApplication.run(SpringbootApplication.class, args);<br>    &#125;<br>&#125;<br>修改 pom.xml 文件，将 jar 改成 war，如下：<br>&lt;packaging&gt;war&lt;/packaging&gt;<br>移除内置 tomcat：<br>&lt;dependency&gt;<br>	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>	&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;<br>	&lt;exclusions&gt;<br>		&lt;exclusion&gt;<br>			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>			&lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;<br>		&lt;/exclusion&gt;<br>	&lt;/exclusions&gt;<br>&lt;/dependency&gt;<br>&lt;!-- Servlet API --&gt;<br>&lt;dependency&gt;<br>	&lt;groupId&gt;javax.servlet&lt;/groupId&gt;<br>	&lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;<br>	&lt;version&gt;3.1.0&lt;/version&gt;<br>	&lt;scope&gt;provided&lt;/scope&gt;<br>&lt;/dependency&gt;<br></code></pre></td></tr></table></figure>
+<p>打包成功后，将 war 包部署到 tomcat 容器中运行即可。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/SpringBoot/">SpringBoot</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/logback/">logback</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2021/01/31/SpringBoot-Web-Fastjson/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SpringBoot-Web-Fastjson</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/01/25/Docker%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E5%8A%A0RabbitMq%E5%AE%89%E8%A3%85/">
+                        <span class="hidden-mobile">Docker基本命令加RabbitMq安装</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
