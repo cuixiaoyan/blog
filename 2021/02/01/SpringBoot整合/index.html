@@ -1,0 +1,510 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>SpringBoot整合 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/blog/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SpringBoot整合">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-01 21:00" pubdate>
+        2021年2月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringBoot整合</h1>
+            
+            <div class="markdown-body">
+              <h1 id="配置-AOP-切面"><a href="#配置-AOP-切面" class="headerlink" title="配置 AOP 切面"></a>配置 AOP 切面</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java">添加依赖<br>&lt;dependency&gt;<br>	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>	&lt;artifactId&gt;spring-boot-starter-aop&lt;/artifactId&gt;<br>&lt;/dependency&gt;<br> <br>编写切面类<br>使用 <span class="hljs-meta">@Component</span>，<span class="hljs-meta">@Aspect</span> 标记到切面类上：<br><span class="hljs-meta">@Aspect</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TimeAspect</span> </span>&#123;<br> <br>	<span class="hljs-meta">@Around(&quot;execution(* com.light.springboot.controller.FastJsonController..*(..))&quot;)</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">method</span><span class="hljs-params">(ProceedingJoinPoint pjp)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br> <br>		System.out.println(<span class="hljs-string">&quot;=====Aspect处理=======&quot;</span>);<br>		Object[] args = pjp.getArgs();<br>		<span class="hljs-keyword">for</span> (Object arg : args) &#123;<br>			System.out.println(<span class="hljs-string">&quot;参数为:&quot;</span> + arg);<br>		&#125;<br> <br>		<span class="hljs-keyword">long</span> start = System.currentTimeMillis();<br> <br>		Object object = pjp.proceed();<br> <br>		System.out.println(<span class="hljs-string">&quot;Aspect 耗时:&quot;</span> + (System.currentTimeMillis() - start));<br> <br>		<span class="hljs-keyword">return</span> object;<br>	&#125;<br>&#125;<br> <br></code></pre></td></tr></table></figure>
+<p>请求 FastJsonController 控制器的方法，结果如下：<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/springboot-web-08_1567733306478.jpg" srcset="/blog/img/loading.gif" alt="springboot-web-08"></p>
+<h1 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs java">友好页面<br>先演示非友好页面，修改 FastJsonController 类中的 test 方法：<br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;fastjson&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FastJsonController</span> </span>&#123;<br> <br>	<span class="hljs-meta">@RequestMapping(&quot;/test&quot;)</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;<br>		User user = <span class="hljs-keyword">new</span> User();<br>		<br>		user.setId(<span class="hljs-number">1</span>);<br>		user.setUsername(<span class="hljs-string">&quot;jack&quot;</span>);<br>		user.setPassword(<span class="hljs-string">&quot;jack123&quot;</span>);<br>		user.setBirthday(<span class="hljs-keyword">new</span> Date());<br>		<br>		<span class="hljs-comment">// 模拟异常</span><br>		<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>/<span class="hljs-number">0</span>;<br>		<br>		<span class="hljs-keyword">return</span> user;<br>	&#125;<br>&#125;<br> <br>当系统报错时，返回到页面的内容通常是一些杂乱的代码段，这种显示对用户来说不友好，因此我们需要自定义一个友好的提示系统异常的页面。<br> <br>在 src/main/resources 下创建 /<span class="hljs-keyword">public</span>/error，在该目录下再创建一个名为 5xx.html 文件，该页面的内容就是当系统报错时返回给用户浏览的内容：<br>&lt;!DOCTYPE html&gt;<br>&lt;html lang=<span class="hljs-string">&quot;zh&quot;</span>&gt;<br>&lt;head&gt;<br>    &lt;meta charset=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;<br>    &lt;title&gt;系统错误&lt;/title&gt;<br>    &lt;link href=<span class="hljs-string">&quot;/css/index.css&quot;</span> rel=<span class="hljs-string">&quot;stylesheet&quot;</span>/&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>    &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;container&quot;</span>&gt;<br>    	&lt;h2&gt;系统内部错误&lt;/h2&gt;<br>    &lt;/div&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br>路径时固定的，Spring Boot 会在系统报错时将返回视图指向该目录下的文件。<br>上边处理的 5xx 状态码的问题，接下来解决 <span class="hljs-number">404</span> 状态码的问题。<br> <br>当出现 <span class="hljs-number">404</span> 的情况时，用户浏览的页面也不够友好，因此我们也需要自定义一个友好的页面给用户展示。<br> <br>在 /<span class="hljs-keyword">public</span>/error 目录下再创建一个名为 <span class="hljs-number">404.</span>html 的文件：<br> <br>&lt;!DOCTYPE html&gt;<br>&lt;html lang=<span class="hljs-string">&quot;zh&quot;</span>&gt;<br>&lt;head&gt;<br>    &lt;meta charset=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;<br>    &lt;title&gt;访问异常&lt;/title&gt;<br>    &lt;link href=<span class="hljs-string">&quot;/css/index.css&quot;</span> rel=<span class="hljs-string">&quot;stylesheet&quot;</span>/&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>    &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;container&quot;</span>&gt;<br>    	&lt;h2&gt;找不到页面&lt;/h2&gt;<br>    &lt;/div&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br> <br>全局异常捕获<br>如果项目前后端是通过 JSON 进行数据通信，则当出现异常时可以常用如下方式处理异常信息。<br> <br>编写一个类充当全局异常的处理类，需要使用 <span class="hljs-meta">@ControllerAdvice</span> 和 <span class="hljs-meta">@ExceptionHandler</span> 注解：<br><span class="hljs-meta">@ControllerAdvice</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GlobalDefaultExceptionHandler</span> </span>&#123;<br> <br>	<span class="hljs-comment">/**</span><br><span class="hljs-comment">	 * 处理 Exception 类型的异常</span><br><span class="hljs-comment">	 * <span class="hljs-doctag">@param</span> e</span><br><span class="hljs-comment">	 * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">	 */</span><br>	<span class="hljs-meta">@ExceptionHandler(Exception.class)</span><br>	<span class="hljs-meta">@ResponseBody</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;String,Object&gt; <span class="hljs-title">defaultExceptionHandler</span><span class="hljs-params">(Exception e)</span> </span>&#123;<br>		<br>		Map&lt;String,Object&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;String,Object&gt;();<br>		map.put(<span class="hljs-string">&quot;code&quot;</span>, <span class="hljs-number">500</span>);<br>		map.put(<span class="hljs-string">&quot;msg&quot;</span>, e.getMessage());<br>		<span class="hljs-keyword">return</span> map;<br>	&#125;<br>&#125;<br>其中，方法名为任意名，入参一般使用 Exception 异常类，方法返回值可自定义。<br> <br></code></pre></td></tr></table></figure>
+<h1 id="文件上传和下载"><a href="#文件上传和下载" class="headerlink" title="文件上传和下载"></a>文件上传和下载</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs java">添加依赖<br>&lt;dependency&gt;<br>	&lt;groupId&gt;commons-io&lt;/groupId&gt;<br>	&lt;artifactId&gt;commons-io&lt;/artifactId&gt;<br>	&lt;version&gt;2.4&lt;/version&gt;<br>&lt;/dependency&gt;<br> <br>编写一个实体类，用于封装返回信息：<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FileInfo</span> </span>&#123;<br> <br>	<span class="hljs-keyword">private</span> String path;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FileInfo</span><span class="hljs-params">(String path)</span> </span>&#123;<br>		<span class="hljs-keyword">this</span>.path = path;<br>	&#125;<br> <br>	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getPath</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> path;<br>	&#125;<br> <br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setPath</span><span class="hljs-params">(String path)</span> </span>&#123;<br>		<span class="hljs-keyword">this</span>.path = path;<br>	&#125;<br>	<br>&#125;<br>编写 Controller，用于处理文件上传下载：<br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/file&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FileController</span> </span>&#123;<br> <br>	<span class="hljs-keyword">private</span> String path = <span class="hljs-string">&quot;d:\\&quot;</span>;<br> <br>	<span class="hljs-meta">@PostMapping</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> FileInfo <span class="hljs-title">upload</span><span class="hljs-params">(MultipartFile file)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br> <br>		System.out.println(file.getName());<br>		System.out.println(file.getOriginalFilename());<br>		System.out.println(file.getSize());<br> <br>		File localFile = <span class="hljs-keyword">new</span> File(path, file.getOriginalFilename());<br> <br>		file.transferTo(localFile);<br> <br>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> FileInfo(localFile.getAbsolutePath());<br>	&#125;<br> <br>	<span class="hljs-meta">@GetMapping(&quot;/&#123;id&#125;&quot;)</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">download</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> String id, HttpServletRequest request, HttpServletResponse response)</span> </span>&#123;<br>		<span class="hljs-keyword">try</span> (InputStream inputStream = <span class="hljs-keyword">new</span> FileInputStream(<span class="hljs-keyword">new</span> File(path, id + <span class="hljs-string">&quot;.jpg&quot;</span>));<br>				OutputStream outputStream = response.getOutputStream();) &#123;<br> <br>			response.setContentType(<span class="hljs-string">&quot;application/x-download&quot;</span>);<br>			response.addHeader(<span class="hljs-string">&quot;Content-Disposition&quot;</span>, <span class="hljs-string">&quot;attachment;filename=&quot;</span> + id + <span class="hljs-string">&quot;.jpg&quot;</span>);<br> <br>			IOUtils.copy(inputStream, outputStream);<br>		&#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>			e.printStackTrace();<br>		&#125;<br>	&#125;<br>&#125;<br> <br></code></pre></td></tr></table></figure>
+<h1 id="CORS-支持"><a href="#CORS-支持" class="headerlink" title="CORS 支持"></a>CORS 支持</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs java">前端页面<br>&lt;!DOCTYPE html&gt;<br>&lt;html lang=<span class="hljs-string">&quot;en&quot;</span>&gt;<br> <br>&lt;head&gt;<br>    &lt;meta charset=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;<br>    &lt;title&gt;跨域测试&lt;/title&gt;<br>&lt;/head&gt;<br> <br>&lt;body&gt;<br>    &lt;button id=&quot;test&quot;&gt;测试&lt;/button&gt;<br>    &lt;script type=&quot;text/javascript&quot; src=&quot;jquery-1.12.3.min.js&quot;&gt;&lt;/script&gt;<br>    &lt;script type=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;<br>    $(function() &#123;<br>        $(<span class="hljs-string">&quot;#test&quot;</span>).on(<span class="hljs-string">&quot;click&quot;</span>, function() &#123;<br>            $.ajax(&#123;<br>                <span class="hljs-string">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://localhost:8080/fastjson/test&quot;</span>,<br>                <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;get&quot;</span>,<br>                <span class="hljs-string">&quot;dataType&quot;</span>: <span class="hljs-string">&quot;json&quot;</span>,<br>                <span class="hljs-string">&quot;success&quot;</span>: function(data) &#123;<br>                    console.log(data);<br>                &#125;<br>            &#125;)<br>        &#125;);<br>    &#125;);<br>    &lt;/script&gt;<br>&lt;/body&gt;<br> <br>&lt;/html&gt;<br> <br>前端服务器启动端口为 <span class="hljs-number">8088</span> 与后端服务器 <span class="hljs-number">8080</span> 不同源，因此出现跨域的问题。<br> <br>现在开始解决跨域问题，可以两种维度控制客户端请求。<br>粗粒度控制：<br> <br>方式一<br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WebConfig</span> </span>&#123;<br>    <br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> WebMvcConfigurer <span class="hljs-title">corsConfigurer</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> WebMvcConfigurerAdapter() &#123;<br>          <span class="hljs-meta">@Override</span><br>          <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addCorsMappings</span><span class="hljs-params">(CorsRegistry registry)</span> </span>&#123;<br>              registry.addMapping(<span class="hljs-string">&quot;/fastjson/**&quot;</span>)<br>                      .allowedOrigins(<span class="hljs-string">&quot;http://localhost:8088&quot;</span>);<span class="hljs-comment">// 允许 8088 端口访问</span><br>          &#125;<br>        &#125;;<br>    &#125;<br>&#125;<br> <br>方式二<br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WebConfig</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">WebMvcConfigurerAdapter</span></span>&#123;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addCorsMappings</span><span class="hljs-params">(CorsRegistry registry)</span> </span>&#123;<br>        registry.addMapping(<span class="hljs-string">&quot;/fastjson/**&quot;</span>)<br>              .allowedOrigins(<span class="hljs-string">&quot;http://localhost:8088&quot;</span>);<span class="hljs-comment">// 允许 8088 端口访问</span><br>    &#125;<br>&#125;<br>细粒度控制：<br>在 FastJsonController 类中的方法上添加 <span class="hljs-meta">@CrossOrigin(origins=&quot;xx&quot;)</span> 注解：<br><span class="hljs-meta">@RequestMapping(&quot;/test&quot;)</span><br><span class="hljs-meta">@CrossOrigin(origins=&quot;http://localhost:8088&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;<br>	User user = <span class="hljs-keyword">new</span> User();<br>	<br>	user.setId(<span class="hljs-number">1</span>);<br>	user.setUsername(<span class="hljs-string">&quot;jack&quot;</span>);<br>	user.setPassword(<span class="hljs-string">&quot;jack123&quot;</span>);<br>	user.setBirthday(<span class="hljs-keyword">new</span> Date());<br>	<br>	<span class="hljs-keyword">return</span> user;<br>&#125;<br>在使用该注解时，需要注意 <span class="hljs-meta">@RequestMapping</span> 使用的请求方式类型，即 GET 或 POST。<br> <br> <br> <br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/SpringBoot/">SpringBoot</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2021/02/01/SpringBoot%E5%B7%A5%E5%85%B7%E9%9B%86%E6%88%90/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SpringBoot工具集成</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/01/31/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89/">
+                        <span class="hidden-mobile">SpringBoot自定义</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
