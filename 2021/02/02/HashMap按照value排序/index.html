@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>贪心算法移除K个数字 - 崔笑颜的博客</title>
+  <title>HashMap按照value排序 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="贪心算法移除K个数字">
+            <span class="h2" id="subtitle" title="HashMap按照value排序">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-01 21:30" pubdate>
-        2021年2月1日 晚上
+      <time datetime="2021-02-02 21:10" pubdate>
+        2021年2月2日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      273 字
+      418 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      6
        分钟
     </span>
   
@@ -233,13 +233,16 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">贪心算法移除K个数字</h1>
+            <h1 style="display: none">HashMap按照value排序</h1>
             
             <div class="markdown-body">
-              <p>题目描述：有一 十进制正整数，移除其中的 K 个数，使剩下的数字是所有可能中最大的。 假设： 字符串的长度一定大于等于 K 字符串不会以 0 开头</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">输入：<span class="hljs-number">1432219</span><br>           <span class="hljs-number">3</span><br> <br>输出：<span class="hljs-number">4329</span><br></code></pre></td></tr></table></figure>
-<p>算法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.Scanner;<br><span class="hljs-keyword">import</span> java.util.Stack;<br> <br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DeleteK</span> </span>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>		Scanner scanner=<span class="hljs-keyword">new</span> Scanner(System.in);<br>		String num=scanner.nextLine();<br>		<span class="hljs-keyword">int</span> k=scanner.nextInt();<br>		String resulteString=DeleteK.removeK(num, k);<br>		System.out.println(resulteString);<br>	&#125;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">public</span>   <span class="hljs-keyword">static</span> String <span class="hljs-title">removeK</span><span class="hljs-params">(String num,<span class="hljs-keyword">int</span> k)</span> </span>&#123;<br>		String result=<span class="hljs-string">&quot;&quot;</span>;<br>		<span class="hljs-comment">//根据数值比较进行入栈移除</span><br>		Stack&lt;Integer&gt; stack=<span class="hljs-keyword">new</span> Stack&lt;Integer&gt;();<br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; num.length(); i++) &#123;<br>			<span class="hljs-keyword">int</span> temp=num.charAt(i)-<span class="hljs-string">&#x27;0&#x27;</span>;<br>			<span class="hljs-comment">//进行比较操作</span><br>			<span class="hljs-keyword">while</span> (stack.size()!=<span class="hljs-number">0</span>&amp;&amp;stack.peek()&lt;temp&amp;&amp;k&gt;<span class="hljs-number">0</span>) &#123;<br>				stack.pop();<br>				k--;<br>			&#125;<br>			<span class="hljs-comment">//比较完成后，执行入栈操作</span><br>			<span class="hljs-keyword">if</span> (stack.size()!=<span class="hljs-number">0</span>||temp!=<span class="hljs-number">0</span>) &#123;<br>				stack.push(temp);<br>			&#125;<br>		&#125;<br>			<span class="hljs-comment">//如果存在数据全部存入栈中，但是k的值不为0的</span><br>			<span class="hljs-keyword">while</span> (k&gt;<span class="hljs-number">0</span>&amp;&amp;stack.size()!=<span class="hljs-number">0</span>) &#123;<br>				stack.pop();<br>				k--;<br>			&#125;<br>		<br>			<span class="hljs-comment">//将数据从栈中全部取出</span><br>			<span class="hljs-keyword">while</span> (stack.size()!=<span class="hljs-number">0</span>) &#123;<br>				result=stack.pop()+result;<br>			&#125;<br>		<br>		<span class="hljs-keyword">return</span> result;<br>	&#125;<br>&#125;<br> <br></code></pre></td></tr></table></figure>
+              <h1 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h1><p>给定一个HashMap&lt;String, BuziObj&gt; buziObjMap;，其中 BuziObj 实现了 Comparable 接口。现在需要将 buziObjMap 按照 BuziObj 有序输出。注意，BuziObj 实例有可能相等，要求多次返回的结果一致。可以使用JDK提供的各种API。</p>
+<p>当时自己的想法是，将 buziObjMap 的 values 放在一个 List 中。然后使用 Collections.sort(valuesList) 对存放 values 的 valuesList 排序。再遍历排序之后的 valuesList 和 buziObjMap，比对 valuesList 与 buziObjMap 中的值，相等之后，将当前 buziObjMap 中的 Entry 放在 LinkedHashMap 中，返回 LinkedHashMap 即可。</p>
+<p>但是如上解法主要存在两个问题： 1，不满足多次执行返回结果一致这个要求，因为在遍历 valuesList 与 buziObjMap 时，buziObjMap的输出顺序无法保证每次都是一致的。 2，算法的复杂度过大。</p>
+<h1 id="实际遇到的问题"><a href="#实际遇到的问题" class="headerlink" title="实际遇到的问题"></a>实际遇到的问题</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"> <br> <br>List&lt;Map.Entry&lt;K, V&gt;&gt; list =  <br>            <span class="hljs-keyword">new</span> LinkedList&lt;Map.Entry&lt;K, V&gt;&gt;( map.entrySet() );  <br>        Collections.sort( list, <span class="hljs-keyword">new</span> Comparator&lt;Map.Entry&lt;K, V&gt;&gt;()  <br>        &#123;  <br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compare</span><span class="hljs-params">( Map.Entry&lt;K, V&gt; o1, Map.Entry&lt;K, V&gt; o2 )</span>  </span><br><span class="hljs-function">            </span>&#123;  <br>                <span class="hljs-keyword">return</span> (o1.getValue()).compareTo( o2.getValue() );  <br>            &#125;  <br>        &#125; );  <br>  <br>        Map&lt;K, V&gt; result = <span class="hljs-keyword">new</span> LinkedHashMap&lt;K, V&gt;();  <br>        <span class="hljs-keyword">for</span> (Map.Entry&lt;K, V&gt; entry : list)  <br>        &#123;  <br>            result.put( entry.getKey(), entry.getValue() );  <br>        &#125;<br> <br><span class="hljs-comment">//map 里面的属性值需要替换成自己的 我这里用的key是String型 value 是实体类</span><br>  List&lt;Map.Entry&lt;String, CorrectRate&gt;&gt; list =<br>                <span class="hljs-keyword">new</span> LinkedList&lt;Map.Entry&lt;String, CorrectRate&gt;&gt;(correctRateOm.entrySet());<br>        Collections.sort(list, <span class="hljs-keyword">new</span> Comparator&lt;Map.Entry&lt;String, CorrectRate&gt;&gt;() &#123;<br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compare</span><span class="hljs-params">(Map.Entry&lt;String, CorrectRate&gt; o1, Map.Entry&lt;String, CorrectRate&gt; o2)</span> </span>&#123;<br>                <span class="hljs-keyword">return</span> (o1.getValue().getStudentId()).compareTo(o2.getValue().getStudentId());<br>            &#125;<br>        &#125;);<br> <br></code></pre></td></tr></table></figure>
+<p>list 返回的就是排好顺序的啦</p>
+<p><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/valuepaixu#%E9%9D%A2%E8%AF%95%E9%A2%98">面试题</a><a target="_blank" rel="noopener" href="https://bk.cuixiaoyan.xyz/archives/valuepaixu#%E5%AE%9E%E9%99%85%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98">实际遇到的问题</a></p>
+
             </div>
             <hr>
             <div>
@@ -249,9 +252,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/blog/tags/Java/">Java</a>
+                      <a class="hover-with-bg" href="/blog/tags/HashMap/">HashMap</a>
                     
-                      <a class="hover-with-bg" href="/blog/tags/%E7%AE%97%E6%B3%95/">算法</a>
+                      <a class="hover-with-bg" href="/blog/tags/Java/">Java</a>
                     
                   </div>
                 
@@ -264,12 +267,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/blog/2021/02/02/Docker%E5%AE%89%E8%A3%85Tomcat/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Docker安装Tomcat</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/02/01/SpringBoot%E5%B7%A5%E5%85%B7%E9%9B%86%E6%88%90/">
-                        <span class="hidden-mobile">SpringBoot工具集成</span>
+                      <a href="/blog/2021/02/02/java%E7%9A%84%E4%B8%89%E7%A7%8D%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F/">
+                        <span class="hidden-mobile">java的三种随机数生成方式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

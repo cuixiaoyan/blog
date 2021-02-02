@@ -19,9 +19,25 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>崔笑颜的博客</title>
+  <title>Docker安装Tomcat - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -155,9 +171,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="位卑未敢忘忧国，事定犹须待阖棺。">
+            <span class="h2" id="subtitle" title="Docker安装Tomcat">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-02 21:30" pubdate>
+        2021年2月2日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      416 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      5
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -170,269 +223,127 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
 
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/01/19/%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95/">实现多线程的三种方法</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/01/19/%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95/">
-          
-          
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Docker安装Tomcat</h1>
             
-          
-          Java虚拟机（JVM，是运行所有Java程序的抽象计算机，是Java语言的运行环境）允许应用程序并发地运行多个线程。在Java语言中，多线程的实现一般有以下三种方法：
-1、实现Runnable接口，并实现该接口的run()方法。
-　　①自定义类并实现Runnable接口，实现run()方法。
-　　②创建Thread对象，用实现Runnable接口的对象作为参数实例化该Thread对象。
-　　③调
-        </a>
-      </p>
+            <div class="markdown-body">
+              <h1 id="查看-Tomcat-镜像"><a href="#查看-Tomcat-镜像" class="headerlink" title="查看 Tomcat 镜像"></a>查看 Tomcat 镜像</h1><p>我一般上都是直接获取最新的 除非指定要哪个版本的时候 <strong>docker search tomcat</strong></p>
+<h1 id="获取-Tomcat-镜像"><a href="#获取-Tomcat-镜像" class="headerlink" title="获取 Tomcat 镜像"></a>获取 Tomcat 镜像</h1><p>比如： 这种是指定版本 docker pull mongo:3.2.4 dockre pull redis:3.2</p>
+<p><strong>docker pull tomcat</strong>（这种方法是获取最新的Tomcat镜像）</p>
+<h1 id="启动Tomcat容器实例"><a href="#启动Tomcat容器实例" class="headerlink" title="启动Tomcat容器实例"></a>启动Tomcat容器实例</h1><p>第一个端口是外部访问的 我这里换成 8888 <strong>docker run –name tomcat -d -it –rm -p 8888:8080 tomcat</strong> –rm:表示当关闭或者销毁当前容器实例进程时，同时销毁容器实例。<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190911-173602@2x_1568194575420.png" srcset="/blog/img/loading.gif" alt="WX20190911-173602@2x"></p>
+<h1 id="实例化Tomcat容器实例"><a href="#实例化Tomcat容器实例" class="headerlink" title="实例化Tomcat容器实例"></a>实例化Tomcat容器实例</h1><p>docker restart tomcat（tomcat是当前实例的名称，也可以通过当前实例的容器ID来重启）</p>
+<h1 id="关闭Tomcat容器实例"><a href="#关闭Tomcat容器实例" class="headerlink" title="关闭Tomcat容器实例"></a>关闭Tomcat容器实例</h1><p>docker stop tomcat（tomcat是当前实例的名称，也可以通过当前实例的容器ID来重启）</p>
+<h1 id="启动Tomcat容器实例-1"><a href="#启动Tomcat容器实例-1" class="headerlink" title="启动Tomcat容器实例"></a>启动Tomcat容器实例</h1><p>docker start tomcat</p>
+<h1 id="查看Tomcat容器实例进程信息"><a href="#查看Tomcat容器实例进程信息" class="headerlink" title="查看Tomcat容器实例进程信息"></a>查看Tomcat容器实例进程信息</h1><p>通过docker top tomcat查看</p>
+<p>通过ps -ef | grep tomcat查看</p>
+<h1 id="杀死Tomcat容器实例进程"><a href="#杀死Tomcat容器实例进程" class="headerlink" title="杀死Tomcat容器实例进程"></a>杀死Tomcat容器实例进程</h1><p>docker kill -s KILL tomcat 再查看 docker ps</p>
+<h1 id="移除Tomcat容器实例"><a href="#移除Tomcat容器实例" class="headerlink" title="移除Tomcat容器实例"></a>移除Tomcat容器实例</h1><p>docker rm -f -v tomcat</p>
+<h1 id="进入Tomcat容器实例"><a href="#进入Tomcat容器实例" class="headerlink" title="进入Tomcat容器实例"></a>进入Tomcat容器实例</h1><p>docker exec -it tomcat /bin/sh</p>
+<h1 id="Tomcat-环境说明"><a href="#Tomcat-环境说明" class="headerlink" title="Tomcat 环境说明"></a>Tomcat 环境说明</h1><p>Tomcat 7、Tomcat 8 在容器的中的默认环境： CATALINA_BASE: /usr/local/tomcat CATALINA_HOME: /usr/local/tomcat CATALINA_TMPDIR: /usr/local/tomcat/temp JRE_HOME: /usr CLASSPATH: /usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar</p>
+<h1 id="上传WEB应用到Tomcat的容器实例中"><a href="#上传WEB应用到Tomcat的容器实例中" class="headerlink" title="上传WEB应用到Tomcat的容器实例中"></a>上传WEB应用到Tomcat的容器实例中</h1><p>进入war包 文件所在目录 docker cp tyrone-demo.war tomcat:/usr/local/tomcat/webapps</p>
+<p>注意：将WEB应用复制到Tomcat容器实例中后，会自动解压部署的，不需要重启容器。</p>
+<h1 id="查看Tomcat容器实例中的WEB应用"><a href="#查看Tomcat容器实例中的WEB应用" class="headerlink" title="查看Tomcat容器实例中的WEB应用"></a>查看Tomcat容器实例中的WEB应用</h1><p>语法：docker exec -it tomcat /bin/sh（相当于开启tomcat终端）</p>
 
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-19 20:10" pubdate>
-              2021-01-19
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/java/">java</a>
-            
-              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/01/18/java%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%9520%E9%97%AE/">java集合面试20问</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/01/18/java%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%9520%E9%97%AE/">
-          
-          
-            
-          
-          
-HashMap的内部实现原理是什么？
-
-HashMap内部实现原理是数组+链表，通过散列算法将key值散列到数组中，如果到相同的位置，则通过拉链法解决散列冲突。在JDK8中新增了红黑树结构，当HashMap中的散列冲突链表结构超过8个数据时，会从链表结构转换为红黑树结构。
-
-HashMap的key值能否是null，如果能，key=null如何存储以及如何读取的？如果不能，为什么？
-
-HashMa
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-18 20:30" pubdate>
-              2021-01-18
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/java/">java</a>
-            
-              <a href="/blog/tags/%E9%9D%A2%E8%AF%95/">面试</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/01/18/centos7%E5%AE%89%E8%A3%85ElasticSearch6/">centos7安装ElasticSearch6</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/01/18/centos7%E5%AE%89%E8%A3%85ElasticSearch6/">
-          
-          
-            
-          
-          什么是 ElasticSearchElasticSearch是一个基于 Lucene 的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于 RESTful web 接口。Elasticsearch 是用 Java 开发的，并作为 Apache 许可条款下的开放源码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。
-基础概念索引：含有相同
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-18 20:20" pubdate>
-              2021-01-18
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/centos7/">centos7</a>
-            
-              <a href="/blog/tags/es/">es</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/01/18/MongoDB%E4%B8%8E%20MySQL%E7%9A%84%E5%8C%BA%E5%88%AB/">MongoDB 与 MySQL 的区别</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/01/18/MongoDB%E4%B8%8E%20MySQL%E7%9A%84%E5%8C%BA%E5%88%AB/">
-          
-          
-            
-          
-          概念区别关键字和函数区别语句区别 创建表/集合
-123456789101112131415db.people.insertOne( &#123;    user_id: &quot;abc123&quot;,    age: 55,    status: &quot;A&quot; &#125; ) 相当于  CREATE TABLE people (    id MEDIUMINT NOT NU
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-18 20:10" pubdate>
-              2021-01-18
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/MongoDB/">MongoDB</a>
-            
-              <a href="/blog/tags/MySQL/">MySQL</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/01/16/gradle%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0jar%E5%8C%85/">gradle使用本地jar包</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/01/16/gradle%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0jar%E5%8C%85/">
-          
-          
-            
-          
-          有很多时候 我们需要用到自己的jar包 特殊原因 你明白的
-1.在项目根目录(与src同级目录)创建lib文件夹，并将jar包拷贝进去。
-2.在build.gradle文件中的dependencies中添加如下脚本： compile fileTree(dir: ‘lib’, include: [ ‘*.jar’])
-3.运行gradle build即可将jar文件打到工程Jar包中。
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-16 10:30" pubdate>
-              2021-01-16
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
-            
-              <a href="/blog/tags/gradle/">gradle</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/4/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/blog/page/6/">6</a><a class="page-number" href="/blog/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><a class="extend next" rel="next" href="/blog/page/6/"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
-    }
-  </script>
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/Docker/">Docker</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/Tomcat/">Tomcat</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/02/02/HashMap%E6%8C%89%E7%85%A7value%E6%8E%92%E5%BA%8F/">
+                        <span class="hidden-mobile">HashMap按照value排序</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -536,9 +447,15 @@ HashMa
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
