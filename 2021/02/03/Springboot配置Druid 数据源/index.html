@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>Docker安装Tomcat - 崔笑颜的博客</title>
+  <title>Springboot配置 Druid 数据源 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Docker安装Tomcat">
+            <span class="h2" id="subtitle" title="Springboot配置 Druid 数据源">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-02 21:30" pubdate>
-        2021年2月2日 晚上
+      <time datetime="2021-02-03 20:30" pubdate>
+        2021年2月3日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      416 字
+      300 字
     </span>
   
 
@@ -233,25 +233,16 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Docker安装Tomcat</h1>
+            <h1 style="display: none">Springboot配置 Druid 数据源</h1>
             
             <div class="markdown-body">
-              <h1 id="查看-Tomcat-镜像"><a href="#查看-Tomcat-镜像" class="headerlink" title="查看 Tomcat 镜像"></a>查看 Tomcat 镜像</h1><p>我一般上都是直接获取最新的 除非指定要哪个版本的时候 <strong>docker search tomcat</strong></p>
-<h1 id="获取-Tomcat-镜像"><a href="#获取-Tomcat-镜像" class="headerlink" title="获取 Tomcat 镜像"></a>获取 Tomcat 镜像</h1><p>比如： 这种是指定版本 docker pull mongo:3.2.4 dockre pull redis:3.2</p>
-<p><strong>docker pull tomcat</strong>（这种方法是获取最新的Tomcat镜像）</p>
-<h1 id="启动Tomcat容器实例"><a href="#启动Tomcat容器实例" class="headerlink" title="启动Tomcat容器实例"></a>启动Tomcat容器实例</h1><p>第一个端口是外部访问的 我这里换成 8888 <strong>docker run –name tomcat -d -it –rm -p 8888:8080 tomcat</strong> –rm:表示当关闭或者销毁当前容器实例进程时，同时销毁容器实例。<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190911-173602@2x_1568194575420.png" srcset="/blog/img/loading.gif" alt="WX20190911-173602@2x"></p>
-<h1 id="实例化Tomcat容器实例"><a href="#实例化Tomcat容器实例" class="headerlink" title="实例化Tomcat容器实例"></a>实例化Tomcat容器实例</h1><p>docker restart tomcat（tomcat是当前实例的名称，也可以通过当前实例的容器ID来重启）</p>
-<h1 id="关闭Tomcat容器实例"><a href="#关闭Tomcat容器实例" class="headerlink" title="关闭Tomcat容器实例"></a>关闭Tomcat容器实例</h1><p>docker stop tomcat（tomcat是当前实例的名称，也可以通过当前实例的容器ID来重启）</p>
-<h1 id="启动Tomcat容器实例-1"><a href="#启动Tomcat容器实例-1" class="headerlink" title="启动Tomcat容器实例"></a>启动Tomcat容器实例</h1><p>docker start tomcat</p>
-<h1 id="查看Tomcat容器实例进程信息"><a href="#查看Tomcat容器实例进程信息" class="headerlink" title="查看Tomcat容器实例进程信息"></a>查看Tomcat容器实例进程信息</h1><p>通过docker top tomcat查看</p>
-<p>通过ps -ef | grep tomcat查看</p>
-<h1 id="杀死Tomcat容器实例进程"><a href="#杀死Tomcat容器实例进程" class="headerlink" title="杀死Tomcat容器实例进程"></a>杀死Tomcat容器实例进程</h1><p>docker kill -s KILL tomcat 再查看 docker ps</p>
-<h1 id="移除Tomcat容器实例"><a href="#移除Tomcat容器实例" class="headerlink" title="移除Tomcat容器实例"></a>移除Tomcat容器实例</h1><p>docker rm -f -v tomcat</p>
-<h1 id="进入Tomcat容器实例"><a href="#进入Tomcat容器实例" class="headerlink" title="进入Tomcat容器实例"></a>进入Tomcat容器实例</h1><p>docker exec -it tomcat /bin/sh</p>
-<h1 id="Tomcat-环境说明"><a href="#Tomcat-环境说明" class="headerlink" title="Tomcat 环境说明"></a>Tomcat 环境说明</h1><p>Tomcat 7、Tomcat 8 在容器的中的默认环境： CATALINA_BASE: /usr/local/tomcat CATALINA_HOME: /usr/local/tomcat CATALINA_TMPDIR: /usr/local/tomcat/temp JRE_HOME: /usr CLASSPATH: /usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar</p>
-<h1 id="上传WEB应用到Tomcat的容器实例中"><a href="#上传WEB应用到Tomcat的容器实例中" class="headerlink" title="上传WEB应用到Tomcat的容器实例中"></a>上传WEB应用到Tomcat的容器实例中</h1><p>进入war包 文件所在目录 docker cp tyrone-demo.war tomcat:/usr/local/tomcat/webapps</p>
-<p>注意：将WEB应用复制到Tomcat容器实例中后，会自动解压部署的，不需要重启容器。</p>
-<h1 id="查看Tomcat容器实例中的WEB应用"><a href="#查看Tomcat容器实例中的WEB应用" class="headerlink" title="查看Tomcat容器实例中的WEB应用"></a>查看Tomcat容器实例中的WEB应用</h1><p>语法：docker exec -it tomcat /bin/sh（相当于开启tomcat终端）</p>
+              <h1 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;dependency&gt;<br>    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;<br>    &lt;artifactId&gt;druid&lt;/artifactId&gt;<br>    &lt;version&gt;1.1.8&lt;/version&gt;<br>&lt;/dependency&gt;<br></code></pre></td></tr></table></figure>
+<h1 id="添加配置"><a href="#添加配置" class="headerlink" title="添加配置"></a>添加配置</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java">spring.datasource.druid.driverClassName=com.mysql.jdbc.Driver<br>spring.datasource.druid.url=jdbc:mysql:<span class="hljs-comment">//localhost:3306/springboot?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC</span><br>spring.datasource.druid.username=root<br>spring.datasource.druid.password=tiger<br> <br>spring.datasource.druid.initialSize=<span class="hljs-number">5</span><br>spring.datasource.druid.minIdle=<span class="hljs-number">5</span><br>spring.datasource.druid.maxActive=<span class="hljs-number">20</span><br>spring.datasource.druid.maxWait=<span class="hljs-number">60000</span><br>spring.datasource.druid.timeBetweenEvictionRunsMillis=<span class="hljs-number">60000</span><br>spring.datasource.druid.min-evictableIdleTimeMillis=<span class="hljs-number">300000</span><br>spring.datasource.druid.validationQuery=SELECT <span class="hljs-number">1</span> FROM DUAL<br>spring.datasource.druid.testWhileIdle=<span class="hljs-keyword">true</span><br>spring.datasource.druid.testOnBorrow=<span class="hljs-keyword">false</span><br>spring.datasource.druid.testOnReturn=<span class="hljs-keyword">false</span><br>spring.datasource.druid.poolPreparedStatements=<span class="hljs-keyword">true</span><br>spring.datasource.druid.maxPoolPreparedStatementPerConnectionSize=<span class="hljs-number">20</span><br>spring.datasource.druid.filters=stat,wall<br> <br></code></pre></td></tr></table></figure>
+<p>注意：配置中都是以 spring.datasource.druid 开头，使用驼峰命名</p>
+<h1 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DruidConfiguration</span> </span>&#123;<br> <br>    <span class="hljs-meta">@ConfigurationProperties(prefix = &quot;spring.datasource.druid&quot;)</span><br>    <span class="hljs-meta">@Bean(initMethod = &quot;init&quot;,destroyMethod = &quot;close&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> DruidDataSource <span class="hljs-title">dataSource</span><span class="hljs-params">()</span> </span>&#123;<br>        DruidDataSource ds = <span class="hljs-keyword">new</span> DruidDataSource();<br>        ds.setProxyFilters(Arrays.asList(statFilter()));<br>        <span class="hljs-keyword">return</span> ds;<br>    &#125;<br> <br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Filter <span class="hljs-title">statFilter</span><span class="hljs-params">()</span> </span>&#123;<br>        StatFilter filter = <span class="hljs-keyword">new</span> StatFilter();<br>        filter.setSlowSqlMillis(<span class="hljs-number">5000</span>);<br>        filter.setLogSlowSql(<span class="hljs-keyword">true</span>);<br>        filter.setMergeSql(<span class="hljs-keyword">true</span>);<br>        <span class="hljs-keyword">return</span> filter;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>为了保证访问的安全性，我们可以如下配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">## druid 监控<br>spring.datasource.druid.web-stat-filter.enabled=<span class="hljs-keyword">true</span><br>spring.datasource.druid.web-stat-filter.url-pattern=<span class="hljs-comment">/*</span><br><span class="hljs-comment">spring.datasource.druid.web-stat-filter.exclusions=*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</span><br><span class="hljs-comment"> </span><br><span class="hljs-comment">## druid 监控页面</span><br><span class="hljs-comment">spring.datasource.druid.stat-view-servlet.enabled=true</span><br><span class="hljs-comment">spring.datasource.druid.stat-view-servlet.url-pattern=/druid/*</span><br><span class="hljs-comment">spring.datasource.druid.stat-view-servlet.login-username=druid</span><br><span class="hljs-comment">spring.datasource.druid.stat-view-servlet.login-password=druid123</span><br><span class="hljs-comment"> </span><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190917-133136@2x_1568698317734.png" srcset="/blog/img/loading.gif" alt="WX20190917-133136@2x"></p>
 
             </div>
             <hr>
@@ -262,9 +253,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/blog/tags/Docker/">Docker</a>
+                      <a class="hover-with-bg" href="/blog/tags/Springboot/">Springboot</a>
                     
-                      <a class="hover-with-bg" href="/blog/tags/Tomcat/">Tomcat</a>
+                      <a class="hover-with-bg" href="/blog/tags/Druid/">Druid</a>
                     
                   </div>
                 
@@ -277,18 +268,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/02/03/SpringBoot%E6%95%B4%E5%90%88Spring-data-jpa/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SpringBoot整合Spring-data-jpa</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/02/02/HashMap%E6%8C%89%E7%85%A7value%E6%8E%92%E5%BA%8F/">
-                        <span class="hidden-mobile">HashMap按照value排序</span>
+                      <a href="/blog/2021/02/03/SpringBoot%E6%95%B4%E5%90%88Mybatis/">
+                        <span class="hidden-mobile">SpringBoot整合Mybatis</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
