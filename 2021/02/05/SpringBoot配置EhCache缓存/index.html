@@ -1,0 +1,526 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>SpringBoot配置EhCache缓存 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/blog/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SpringBoot配置EhCache缓存">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-05 20:10" pubdate>
+        2021年2月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringBoot配置EhCache缓存</h1>
+            
+            <div class="markdown-body">
+              <h1 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;dependency&gt;<br>  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>  &lt;artifactId&gt;spring-boot-starter-cache&lt;/artifactId&gt;<br>&lt;/dependency&gt;<br> <br>&lt;dependency&gt;<br>  &lt;groupId&gt;net.sf.ehcache&lt;/groupId&gt;<br>  &lt;artifactId&gt;ehcache&lt;/artifactId&gt;<br>&lt;/dependency&gt;<br></code></pre></td></tr></table></figure>
+<h1 id="添加配置"><a href="#添加配置" class="headerlink" title="添加配置"></a>添加配置</h1><p>在 src/main/resources 目录下创建 ehcache.xml 文件，内容如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;<br>&lt;ehcache xmlns:xsi=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br>         xsi:noNamespaceSchemaLocation=<span class="hljs-string">&quot;http://ehcache.org/ehcache.xsd&quot;</span>&gt;<br> <br>    &lt;!-- 磁盘缓存位置 --&gt;<br>    &lt;diskStore path=<span class="hljs-string">&quot;java.io.tmpdir/ehcache&quot;</span>/&gt;<br> <br>    &lt;!-- 默认缓存 --&gt;<br>    &lt;defaultCache<br>            maxEntriesLocalHeap=<span class="hljs-string">&quot;10000&quot;</span><br>            eternal=<span class="hljs-string">&quot;false&quot;</span><br>            timeToIdleSeconds=<span class="hljs-string">&quot;120&quot;</span><br>            timeToLiveSeconds=<span class="hljs-string">&quot;120&quot;</span><br>            maxEntriesLocalDisk=<span class="hljs-string">&quot;10000000&quot;</span><br>            diskExpiryThreadIntervalSeconds=<span class="hljs-string">&quot;120&quot;</span><br>            memoryStoreEvictionPolicy=<span class="hljs-string">&quot;LRU&quot;</span>&gt;<br>        &lt;persistence strategy=<span class="hljs-string">&quot;localTempSwap&quot;</span>/&gt;<br>    &lt;/defaultCache&gt;<br> <br>    &lt;!-- 自定义缓存 --&gt;<br>    &lt;cache name=<span class="hljs-string">&quot;department&quot;</span><br>           maxElementsInMemory=<span class="hljs-string">&quot;1000&quot;</span><br>           eternal=<span class="hljs-string">&quot;false&quot;</span><br>           timeToIdleSeconds=<span class="hljs-string">&quot;50&quot;</span><br>           timeToLiveSeconds=<span class="hljs-string">&quot;50&quot;</span><br>           overflowToDisk=<span class="hljs-string">&quot;false&quot;</span><br>           memoryStoreEvictionPolicy=<span class="hljs-string">&quot;LRU&quot;</span>/&gt;<br>&lt;/ehcache&gt;<br></code></pre></td></tr></table></figure>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java">name：Cache 的唯一标识<br>maxElementsInMemory：内存中允许存储的最大的元素个数<br>maxElementsOnDisk：硬盘最大缓存个数，<span class="hljs-number">0</span>代表无限个<br>clearOnFlush：内存数量最大时是否清除<br>eternal：缓存对象是否永久有效，如果是，超时设置将被忽略<br>overflowToDisk：内存不足（超过 maxElementsInMemory）时，是否启用磁盘缓存<br>timeToIdleSeconds：设置对象在失效前的允许闲置时间（单位：秒）。仅当eternal=<span class="hljs-keyword">false</span>对象不是永久有效时使用，可选属性，默认值是<span class="hljs-number">0</span>，也就是可闲置时间无穷大<br>timeToLiveSeconds：缓存数据的生存时间（TTL），也就是一个元素从构建到消亡的最大时间间隔值，这只能在元素不是永久驻留时有效，如果该值是<span class="hljs-number">0</span>就意味着元素可以停顿无穷长的时间<br>diskPersistent：是否将缓存数据持久化到磁盘上，如果为 <span class="hljs-keyword">true</span>，JVM 重启数据依然存在。默认值是<span class="hljs-keyword">false</span><br>diskSpoolBufferSizeMB：这个参数设置DiskStore（磁盘缓存）的缓存区大小。默认是30MB。每个Cache都应该有自己的一个缓冲区<br>diskExpiryThreadIntervalSeconds：磁盘失效线程运行时间间隔，默认是<span class="hljs-number">120</span>秒<br>memoryStoreEvictionPolicy：当达到 maxElementsInMemory 限制时，Ehcache 将根据指定策略清除内存。默认为 LRU（最近最少使用），其他策略有 FIFO（先进先出），LFU（较少使用）<br></code></pre></td></tr></table></figure>
+<h1 id="application-properties-："><a href="#application-properties-：" class="headerlink" title="application.properties ："></a>application.properties ：</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"># 缓存类型（ehcache、redis）<br>spring.cache.type=ehcache<br> <br># ehcache 配置文件<br>spring.cache.ehcache.config=classpath:ehcache.xml<br> <br># 打印日志，查看 sql<br>logging.level.com.light.springboot=DEBUG<br></code></pre></td></tr></table></figure>
+<h1 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h1><p>在持久层篇的基础上，结合 Mybatis 测试：</p>
+<p>Service 层：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@CacheConfig(cacheNames = &quot;department&quot;)</span><br><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DepartmentService</span> </span>&#123;<br> <br>  <span class="hljs-meta">@Autowired</span><br>  <span class="hljs-keyword">private</span> DepartmentMapper departmentMapper;<br> <br>  <span class="hljs-meta">@CachePut(key = &quot;#department.id&quot;)</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> Department <span class="hljs-title">save</span><span class="hljs-params">(Department department)</span> </span>&#123;<br>    System.out.println(<span class="hljs-string">&quot;保存 id=&quot;</span> + department.getId() + <span class="hljs-string">&quot; 的数据&quot;</span>);<br>    <span class="hljs-keyword">this</span>.departmentMapper.insert(department);<br>    <span class="hljs-keyword">return</span> department;<br>  &#125;<br> <br>  <span class="hljs-meta">@CachePut(key = &quot;#department.id&quot;)</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> Department <span class="hljs-title">update</span><span class="hljs-params">(Department department)</span> </span>&#123;<br>    System.out.println(<span class="hljs-string">&quot;修改 id=&quot;</span> + department.getId() + <span class="hljs-string">&quot; 的数据&quot;</span>);<br>    <span class="hljs-keyword">this</span>.departmentMapper.update(department);<br>    <span class="hljs-keyword">return</span> department;<br>  &#125;<br> <br>  <span class="hljs-meta">@Cacheable(key = &quot;#id&quot;)</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> Department <span class="hljs-title">getDepartmentById</span><span class="hljs-params">(Integer id)</span> </span>&#123;<br>    System.out.println(<span class="hljs-string">&quot;获取 id=&quot;</span> + id + <span class="hljs-string">&quot; 的数据&quot;</span>);<br>    Department department = <span class="hljs-keyword">this</span>.departmentMapper.getById(id);<br>    <span class="hljs-keyword">return</span> department;<br>  &#125;<br> <br>  <span class="hljs-meta">@CacheEvict(key = &quot;#id&quot;)</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">delete</span><span class="hljs-params">(Integer id)</span> </span>&#123;<br>    System.out.println(<span class="hljs-string">&quot;删除 id=&quot;</span> + id + <span class="hljs-string">&quot; 的数据&quot;</span>);<br>    <span class="hljs-keyword">this</span>.departmentMapper.deleteById(id);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="控制层："><a href="#控制层：" class="headerlink" title="控制层："></a>控制层：</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-meta">@RequestMapping(&quot;department&quot;)</span><br><span class="hljs-meta">@ResponseBody</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DepartmentController</span> </span>&#123;<br> <br>  <span class="hljs-meta">@Autowired</span><br>  <span class="hljs-keyword">private</span> DepartmentService departmentService;<br> <br>  <span class="hljs-meta">@RequestMapping(&quot;save&quot;)</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;String,Object&gt; <span class="hljs-title">save</span><span class="hljs-params">(Department department)</span> </span>&#123;<br>    <span class="hljs-keyword">this</span>.departmentService.save(department);<br> <br>    Map&lt;String,Object&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;String,Object&gt;();<br>    map.put(<span class="hljs-string">&quot;code&quot;</span>, <span class="hljs-string">&quot;200&quot;</span>);<br>    map.put(<span class="hljs-string">&quot;msg&quot;</span>, <span class="hljs-string">&quot;保存成功&quot;</span>);<br>    <span class="hljs-keyword">return</span> map;<br>  &#125;<br> <br>  <span class="hljs-meta">@RequestMapping(&quot;get/&#123;id&#125;&quot;)</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;String,Object&gt; <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable(&quot;id&quot;)</span> Integer id)</span> </span>&#123;<br>    Department department = <span class="hljs-keyword">this</span>.departmentService.getDepartmentById(id);<br> <br>    Map&lt;String,Object&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;String,Object&gt;();<br>    map.put(<span class="hljs-string">&quot;code&quot;</span>, <span class="hljs-string">&quot;200&quot;</span>);<br>    map.put(<span class="hljs-string">&quot;msg&quot;</span>, <span class="hljs-string">&quot;获取成功&quot;</span>);<br>    map.put(<span class="hljs-string">&quot;data&quot;</span>, department);<br>    <span class="hljs-keyword">return</span> map;<br>  &#125;<br> <br>  <span class="hljs-meta">@RequestMapping(&quot;update&quot;)</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;String,Object&gt; <span class="hljs-title">update</span><span class="hljs-params">(Department department)</span> </span>&#123;<br>    <span class="hljs-keyword">this</span>.departmentService.update(department);<br> <br>    Map&lt;String,Object&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;String,Object&gt;();<br>    map.put(<span class="hljs-string">&quot;code&quot;</span>, <span class="hljs-string">&quot;200&quot;</span>);<br>    map.put(<span class="hljs-string">&quot;msg&quot;</span>, <span class="hljs-string">&quot;修改成功&quot;</span>);<br>    <span class="hljs-keyword">return</span> map;<br>  &#125;<br> <br>  <span class="hljs-meta">@RequestMapping(&quot;delete/&#123;id&#125;&quot;)</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;String,Object&gt; <span class="hljs-title">delete</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable(&quot;id&quot;)</span> Integer id)</span> </span>&#123;<br>    <span class="hljs-keyword">this</span>.departmentService.delete(id);<br> <br>    Map&lt;String,Object&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;String,Object&gt;();<br>    map.put(<span class="hljs-string">&quot;code&quot;</span>, <span class="hljs-string">&quot;200&quot;</span>);<br>    map.put(<span class="hljs-string">&quot;msg&quot;</span>, <span class="hljs-string">&quot;删除成功&quot;</span>);<br>    <span class="hljs-keyword">return</span> map;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>启动类：</p>
+<p>添加 @EnableCaching 注解，开启缓存功能。</p>
+<h1 id="测试说明"><a href="#测试说明" class="headerlink" title="测试说明"></a>测试说明</h1><p>由于 ehcache 缓存是存储在应用的内存中，如果使用 junit 测试，方法执行完毕缓存就释放了，无法正常测试缓存效果，因此测试使用发起 http 请求的形式。</p>
+<p>发起保存请求：</p>
+<h2 id="发起保存请求："><a href="#发起保存请求：" class="headerlink" title="发起保存请求："></a>发起保存请求：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">保存 id=<span class="hljs-number">2</span> 的数据<br><span class="hljs-number">2017</span>-<span class="hljs-number">12</span>-<span class="hljs-number">06</span> <span class="hljs-number">14</span>:<span class="hljs-number">50</span>:<span class="hljs-number">48.800</span> DEBUG <span class="hljs-number">680</span> --- [nio-<span class="hljs-number">8081</span>-exec-<span class="hljs-number">7</span>] c.l.s.dao.DepartmentMapper.insert        : ==&gt;  Preparing: <span class="hljs-function">insert into <span class="hljs-title">department</span><span class="hljs-params">(id,name,descr)</span> <span class="hljs-title">values</span><span class="hljs-params">(?,?,?)</span></span><br><span class="hljs-function">2017-12-06 14:50:48.801 DEBUG 680 --- [nio-8081-exec-7] c.l.s.dao.DepartmentMapper.insert        : </span>==&gt; Parameters: <span class="hljs-number">2</span>(Integer), Ehcache 部门(String), Ehcache(String)<br><span class="hljs-number">2017</span>-<span class="hljs-number">12</span>-<span class="hljs-number">06</span> <span class="hljs-number">14</span>:<span class="hljs-number">50</span>:<span class="hljs-number">48.868</span> DEBUG <span class="hljs-number">680</span> --- [nio-<span class="hljs-number">8081</span>-exec-<span class="hljs-number">7</span>] c.l.s.dao.DepartmentMapper.insert        : &lt;==    Updates: <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p>保存成功后，立刻发起查询请求，没有日志打印，但返回对象数据，说明数据是从缓存中获取。</p>
+<h2 id="发起修改请求："><a href="#发起修改请求：" class="headerlink" title="发起修改请求："></a>发起修改请求：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">修改 id=<span class="hljs-number">2</span> 的数据<br><span class="hljs-number">2017</span>-<span class="hljs-number">12</span>-<span class="hljs-number">06</span> <span class="hljs-number">14</span>:<span class="hljs-number">51</span>:<span class="hljs-number">16.588</span> DEBUG <span class="hljs-number">680</span> --- [nio-<span class="hljs-number">8081</span>-exec-<span class="hljs-number">8</span>] c.l.s.dao.DepartmentMapper.update        : ==&gt;  Preparing: update department set name = ? , descr = ? where id = ?<br><span class="hljs-number">2017</span>-<span class="hljs-number">12</span>-<span class="hljs-number">06</span> <span class="hljs-number">14</span>:<span class="hljs-number">51</span>:<span class="hljs-number">16.589</span> DEBUG <span class="hljs-number">680</span> --- [nio-<span class="hljs-number">8081</span>-exec-<span class="hljs-number">8</span>] c.l.s.dao.DepartmentMapper.update        : ==&gt; Parameters: Ehcache 部门<span class="hljs-number">2</span>(String), Ehcache2(String), <span class="hljs-number">2</span>(Integer)<br><span class="hljs-number">2017</span>-<span class="hljs-number">12</span>-<span class="hljs-number">06</span> <span class="hljs-number">14</span>:<span class="hljs-number">51</span>:<span class="hljs-number">16.657</span> DEBUG <span class="hljs-number">680</span> --- [nio-<span class="hljs-number">8081</span>-exec-<span class="hljs-number">8</span>] c.l.s.dao.DepartmentMapper.update        : &lt;==    Updates: <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p>修改成功后，立刻发起查询请求，没有日志打印，但返回修改后的对象数据，说明缓存中的数据已经同步。</p>
+<h2 id="发起删除请求："><a href="#发起删除请求：" class="headerlink" title="发起删除请求："></a>发起删除请求：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">删除 id=<span class="hljs-number">2</span> 的数据<br><span class="hljs-number">2017</span>-<span class="hljs-number">12</span>-<span class="hljs-number">06</span> <span class="hljs-number">14</span>:<span class="hljs-number">52</span>:<span class="hljs-number">07.572</span> DEBUG <span class="hljs-number">680</span> --- [nio-<span class="hljs-number">8081</span>-exec-<span class="hljs-number">1</span>] c.l.s.dao.DepartmentMapper.deleteById    : ==&gt;  Preparing: delete from department where id = ?<br><span class="hljs-number">2017</span>-<span class="hljs-number">12</span>-<span class="hljs-number">06</span> <span class="hljs-number">14</span>:<span class="hljs-number">52</span>:<span class="hljs-number">07.572</span> DEBUG <span class="hljs-number">680</span> --- [nio-<span class="hljs-number">8081</span>-exec-<span class="hljs-number">1</span>] c.l.s.dao.DepartmentMapper.deleteById    : ==&gt; Parameters: <span class="hljs-number">2</span>(Integer)<br><span class="hljs-number">2017</span>-<span class="hljs-number">12</span>-<span class="hljs-number">06</span> <span class="hljs-number">14</span>:<span class="hljs-number">52</span>:<span class="hljs-number">07.613</span> DEBUG <span class="hljs-number">680</span> --- [nio-<span class="hljs-number">8081</span>-exec-<span class="hljs-number">1</span>] c.l.s.dao.DepartmentMapper.deleteById    : &lt;==    Updates: <span class="hljs-number">1</span><br> <br></code></pre></td></tr></table></figure>
+<p>删除成功后，立刻发起查询请求，控制台打印 sql 语句，说明缓存数据被删除，需要查询数据库。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">获取 id=<span class="hljs-number">2</span> 的数据<br><span class="hljs-number">2017</span>-<span class="hljs-number">12</span>-<span class="hljs-number">06</span> <span class="hljs-number">14</span>:<span class="hljs-number">52</span>:<span class="hljs-number">40.324</span> DEBUG <span class="hljs-number">680</span> --- [nio-<span class="hljs-number">8081</span>-exec-<span class="hljs-number">3</span>] c.l.s.dao.DepartmentMapper.getById       : ==&gt;  Preparing: select id,name,descr from department where id = ?<br><span class="hljs-number">2017</span>-<span class="hljs-number">12</span>-<span class="hljs-number">06</span> <span class="hljs-number">14</span>:<span class="hljs-number">52</span>:<span class="hljs-number">40.325</span> DEBUG <span class="hljs-number">680</span> --- [nio-<span class="hljs-number">8081</span>-exec-<span class="hljs-number">3</span>] c.l.s.dao.DepartmentMapper.getById       : ==&gt; Parameters: <span class="hljs-number">2</span>(Integer)<br><span class="hljs-number">2017</span>-<span class="hljs-number">12</span>-<span class="hljs-number">06</span> <span class="hljs-number">14</span>:<span class="hljs-number">52</span>:<span class="hljs-number">40.328</span> DEBUG <span class="hljs-number">680</span> --- [nio-<span class="hljs-number">8081</span>-exec-<span class="hljs-number">3</span>] c.l.s.dao.DepartmentMapper.getById       : &lt;==      Total: <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/SpringBoot/">SpringBoot</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/EhCache/">EhCache</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2021/02/05/SpringBoot%E6%95%B4%E5%90%88Redis/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SpringBoot整合Redis</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/02/03/Springboot%E9%85%8D%E7%BD%AEDruid%20%E6%95%B0%E6%8D%AE%E6%BA%90/">
+                        <span class="hidden-mobile">Springboot配置 Druid 数据源</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>

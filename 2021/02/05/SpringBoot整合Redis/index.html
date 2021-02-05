@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>Springboot配置 Druid 数据源 - 崔笑颜的博客</title>
+  <title>SpringBoot整合Redis - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Springboot配置 Druid 数据源">
+            <span class="h2" id="subtitle" title="SpringBoot整合Redis">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-03 20:30" pubdate>
-        2021年2月3日 晚上
+      <time datetime="2021-02-05 20:20" pubdate>
+        2021年2月5日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      300 字
+      203 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      3
        分钟
     </span>
   
@@ -233,17 +233,14 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Springboot配置 Druid 数据源</h1>
+            <h1 style="display: none">SpringBoot整合Redis</h1>
             
             <div class="markdown-body">
-              <h1 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;dependency&gt;<br>    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;<br>    &lt;artifactId&gt;druid&lt;/artifactId&gt;<br>    &lt;version&gt;1.1.8&lt;/version&gt;<br>&lt;/dependency&gt;<br></code></pre></td></tr></table></figure>
-<h1 id="添加配置"><a href="#添加配置" class="headerlink" title="添加配置"></a>添加配置</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java">spring.datasource.druid.driverClassName=com.mysql.jdbc.Driver<br>spring.datasource.druid.url=jdbc:mysql:<span class="hljs-comment">//localhost:3306/springboot?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC</span><br>spring.datasource.druid.username=root<br>spring.datasource.druid.password=tiger<br> <br>spring.datasource.druid.initialSize=<span class="hljs-number">5</span><br>spring.datasource.druid.minIdle=<span class="hljs-number">5</span><br>spring.datasource.druid.maxActive=<span class="hljs-number">20</span><br>spring.datasource.druid.maxWait=<span class="hljs-number">60000</span><br>spring.datasource.druid.timeBetweenEvictionRunsMillis=<span class="hljs-number">60000</span><br>spring.datasource.druid.min-evictableIdleTimeMillis=<span class="hljs-number">300000</span><br>spring.datasource.druid.validationQuery=SELECT <span class="hljs-number">1</span> FROM DUAL<br>spring.datasource.druid.testWhileIdle=<span class="hljs-keyword">true</span><br>spring.datasource.druid.testOnBorrow=<span class="hljs-keyword">false</span><br>spring.datasource.druid.testOnReturn=<span class="hljs-keyword">false</span><br>spring.datasource.druid.poolPreparedStatements=<span class="hljs-keyword">true</span><br>spring.datasource.druid.maxPoolPreparedStatementPerConnectionSize=<span class="hljs-number">20</span><br>spring.datasource.druid.filters=stat,wall<br> <br></code></pre></td></tr></table></figure>
-<p>注意：配置中都是以 spring.datasource.druid 开头，使用驼峰命名</p>
-<h1 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DruidConfiguration</span> </span>&#123;<br> <br>    <span class="hljs-meta">@ConfigurationProperties(prefix = &quot;spring.datasource.druid&quot;)</span><br>    <span class="hljs-meta">@Bean(initMethod = &quot;init&quot;,destroyMethod = &quot;close&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> DruidDataSource <span class="hljs-title">dataSource</span><span class="hljs-params">()</span> </span>&#123;<br>        DruidDataSource ds = <span class="hljs-keyword">new</span> DruidDataSource();<br>        ds.setProxyFilters(Arrays.asList(statFilter()));<br>        <span class="hljs-keyword">return</span> ds;<br>    &#125;<br> <br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Filter <span class="hljs-title">statFilter</span><span class="hljs-params">()</span> </span>&#123;<br>        StatFilter filter = <span class="hljs-keyword">new</span> StatFilter();<br>        filter.setSlowSqlMillis(<span class="hljs-number">5000</span>);<br>        filter.setLogSlowSql(<span class="hljs-keyword">true</span>);<br>        filter.setMergeSql(<span class="hljs-keyword">true</span>);<br>        <span class="hljs-keyword">return</span> filter;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>为了保证访问的安全性，我们可以如下配置：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">## druid 监控<br>spring.datasource.druid.web-stat-filter.enabled=<span class="hljs-keyword">true</span><br>spring.datasource.druid.web-stat-filter.url-pattern=<span class="hljs-comment">/*</span><br><span class="hljs-comment">spring.datasource.druid.web-stat-filter.exclusions=*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</span><br><span class="hljs-comment"> </span><br><span class="hljs-comment">## druid 监控页面</span><br><span class="hljs-comment">spring.datasource.druid.stat-view-servlet.enabled=true</span><br><span class="hljs-comment">spring.datasource.druid.stat-view-servlet.url-pattern=/druid/*</span><br><span class="hljs-comment">spring.datasource.druid.stat-view-servlet.login-username=druid</span><br><span class="hljs-comment">spring.datasource.druid.stat-view-servlet.login-password=druid123</span><br><span class="hljs-comment"> </span><br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190917-133136@2x_1568698317734.png" srcset="/blog/img/loading.gif" alt="WX20190917-133136@2x"></p>
-
+              <p>Spring Data Redis 为我们提供 RedisTemplate 和 StringRedisTemplate 两个模板进行数据操作，它们主要 的访问方法如下：<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/WX20190919-173422@2x_1568885674306.png" srcset="/blog/img/loading.gif" alt="WX20190919-173422@2x"></p>
+<h1 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;dependency&gt;<br>  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>  &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;<br>&lt;/dependency&gt;<br></code></pre></td></tr></table></figure>
+<h1 id="配置连接"><a href="#配置连接" class="headerlink" title="配置连接"></a>配置连接</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">spring.redis.host=<span class="hljs-number">192.168</span><span class="hljs-number">.2</span><span class="hljs-number">.11</span><br>spring.redis.port=<span class="hljs-number">6379</span><br>spring.redis.password=redis123<br></code></pre></td></tr></table></figure>
+<h1 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RedisDao</span> </span>&#123;<br> <br>  <span class="hljs-meta">@Autowired</span><br>  <span class="hljs-keyword">private</span> StringRedisTemplate stringRedisTemplate;<br> <br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">set</span><span class="hljs-params">(String key, String value)</span> </span>&#123;<br>    <span class="hljs-keyword">this</span>.stringRedisTemplate.opsForValue().set(key, value);<br>  &#125;<br> <br>  <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">get</span><span class="hljs-params">(String key)</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.stringRedisTemplate.opsForValue().get(key);<br>  &#125;<br> <br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">delete</span><span class="hljs-params">(String key)</span> </span>&#123;<br>    <span class="hljs-keyword">this</span>.stringRedisTemplate.delete(key);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RunWith(SpringRunner.class)</span><br><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RedisDaoTest</span> </span>&#123;<br> <br>  <span class="hljs-meta">@Autowired</span><br>  <span class="hljs-keyword">private</span> RedisDao redisDao;<br> <br>  <span class="hljs-meta">@Test</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testSet</span><span class="hljs-params">()</span> </span>&#123;<br>    String key = <span class="hljs-string">&quot;name&quot;</span>;<br>    String value = <span class="hljs-string">&quot;zhangsan&quot;</span>;<br> <br>    <span class="hljs-keyword">this</span>.redisDao.set(key, value);<br>  &#125;<br> <br>  <span class="hljs-meta">@Test</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testGet</span><span class="hljs-params">()</span> </span>&#123;<br>    String key = <span class="hljs-string">&quot;name&quot;</span>;<br>    String value = <span class="hljs-keyword">this</span>.redisDao.get(key);<br>    System.out.println(value);<br>  &#125;<br> <br>  <span class="hljs-meta">@Test</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testDelete</span><span class="hljs-params">()</span> </span>&#123;<br>    String key = <span class="hljs-string">&quot;name&quot;</span>;<br>    <span class="hljs-keyword">this</span>.redisDao.delete(key);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -253,9 +250,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/blog/tags/Springboot/">Springboot</a>
+                      <a class="hover-with-bg" href="/blog/tags/SpringBoot/">SpringBoot</a>
                     
-                      <a class="hover-with-bg" href="/blog/tags/Druid/">Druid</a>
+                      <a class="hover-with-bg" href="/blog/tags/Redis/">Redis</a>
                     
                   </div>
                 
@@ -268,18 +265,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/02/05/SpringBoot%E9%85%8D%E7%BD%AEEhCache%E7%BC%93%E5%AD%98/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SpringBoot配置EhCache缓存</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/02/03/SpringBoot%E6%95%B4%E5%90%88Mybatis/">
-                        <span class="hidden-mobile">SpringBoot整合Mybatis</span>
+                      <a href="/blog/2021/02/05/SpringBoot%E9%85%8D%E7%BD%AEEhCache%E7%BC%93%E5%AD%98/">
+                        <span class="hidden-mobile">SpringBoot配置EhCache缓存</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
