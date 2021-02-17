@@ -186,6 +186,139 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/01/16/gradle%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0jar%E5%8C%85/">gradle使用本地jar包</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/01/16/gradle%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0jar%E5%8C%85/">
+          
+          
+            
+          
+          有很多时候 我们需要用到自己的jar包 特殊原因 你明白的
+1.在项目根目录(与src同级目录)创建lib文件夹，并将jar包拷贝进去。
+2.在build.gradle文件中的dependencies中添加如下脚本： compile fileTree(dir: ‘lib’, include: [ ‘*.jar’])
+3.运行gradle build即可将jar文件打到工程Jar包中。
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-16 10:30" pubdate>
+              2021-01-16
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+            
+              <a href="/blog/tags/gradle/">gradle</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/01/16/pdf%E8%BD%AC%E5%9B%BE%E7%89%87/">pdf 转 图片</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/01/16/pdf%E8%BD%AC%E5%9B%BE%E7%89%87/">
+          
+          
+            
+          
+          这里使用到的jar包 是 // https://mvnrepository.com/artifact/org.apache.pdfbox/fontbox compile group: ‘org.apache.pdfbox’, name: ‘fontbox’, version: ‘1.8.16’ // https://mvnrepository.com/artifact/org.apache.pdf
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-16 10:20" pubdate>
+              2021-01-16
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/java/">java</a>
+            
+              <a href="/blog/tags/pdf/">pdf</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/01/16/aspose-words-java-word%E8%BD%AC%E6%8D%A2%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/">aspose-words java word 转换 服务器乱码解决</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/01/16/aspose-words-java-word%E8%BD%AC%E6%8D%A2%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/">
+          
+          
+            
+          
+          在本机测试是好的 但是到服务器就乱码 想到pdf是一种为打印设计的文档格式，可能跟字体相关。而且转出来的pdf中文都是空心方框，不是单纯的乱码，很有可能是缺少字体渲染不出来造成的。 服务器上用fc-list命令查看字体，果然没有中文字体 接下来将本机Windows的字体上传到CentOS服务器上。 具体操作： 也可以直接使用我的字体 经测试没问题 有的系统版本的原因 也会导致乱码 链接: http
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-16 10:10" pubdate>
+              2021-01-16
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/java/">java</a>
+            
+              <a href="/blog/tags/aspose/">aspose</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/01/15/aspose-words-java-word%E8%BD%ACpdf/">aspose-words java word 转pdf</a>
       </h1>
 
@@ -268,144 +401,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/01/13/Java%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB3/">Java常用工具类3</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/01/13/Java%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB3/">
-          
-          
-            
-          
-          在Java中，工具类定义了一组公共方法，这篇文章将介绍Java中使用最频繁及最通用的Java工具类。以下工具类、方法按使用流行度排名，参考数据来源于Github上随机选取的5万个开源项目源码。
-一. org.apache.commons.io.IOUtils
-123456789closeQuietly：关闭一个IO流、socket、或者selector且不抛出异常，通常放在finally块toSt
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-13 20:30" pubdate>
-              2021-01-13
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/Java/">Java</a>
-            
-              <a href="/blog/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/">工具类</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/01/13/Java%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB2/">Java常用工具类2</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/01/13/Java%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB2/">
-          
-          
-            
-          
-          一、当相同元素为String时 方法一
-12345678910/** * List去重 */private List&lt;String&gt; removeDuplicate(List&lt;String&gt; list) &#123;    LinkedHashSet&lt;String&gt; set = new LinkedHashSet&lt;String&gt;(list.size(
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-13 20:20" pubdate>
-              2021-01-13
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/java/">java</a>
-            
-              <a href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/01/11/Java%E4%B8%AD%E5%AE%9E%E7%8E%B0List%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%92%E5%BA%8F/">Java中实现List自定义排序</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/01/11/Java%E4%B8%AD%E5%AE%9E%E7%8E%B0List%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%92%E5%BA%8F/">
-          
-          
-            
-          
-          实体类
-123456789101112131415161718192021222324252627282930313233343536373839package com.whty.entity; public class User &#123;	private int id;	private String name;	private int age;		public User(int id, St
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-11 20:30" pubdate>
-              2021-01-11
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/java/">java</a>
-            
-              <a href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/8/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/7/">7</a><a class="page-number" href="/blog/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/blog/page/10/">10</a><a class="page-number" href="/blog/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/13/">13</a><a class="extend next" rel="next" href="/blog/page/10/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/8/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/7/">7</a><a class="page-number" href="/blog/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/blog/page/10/">10</a><a class="page-number" href="/blog/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/14/">14</a><a class="extend next" rel="next" href="/blog/page/10/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
