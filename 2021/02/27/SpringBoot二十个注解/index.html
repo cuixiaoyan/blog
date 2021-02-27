@@ -1,0 +1,541 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>SpringBoot二十个注解 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/blog/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SpringBoot二十个注解">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-27 09:10" pubdate>
+        2021年2月27日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringBoot二十个注解</h1>
+            
+            <div class="markdown-body">
+              <h1 id="SpringBootApplication"><a href="#SpringBootApplication" class="headerlink" title="@SpringBootApplication"></a>@SpringBootApplication</h1><p>@SpringBootApplication 注解用于声明自动配置，即让Spring Boot 自动为程序进行必要的配置；@SpringBootApplication 注解配置等同于@Configuration、@EnableAutoConfiguration 和@ComponentScan 三个注解的配置。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.springframework.boot.SpringApplication;<br><span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.EnableAutoConfiguration;<br><span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.ComponentScan;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br> <br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-comment">/*@Configuration  三者只和等同于 @SpringBootApplication 注解进行自动配置</span><br><span class="hljs-comment">@EnableAutoConfiguration</span><br><span class="hljs-comment">@ComponentScan*/</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JzxyApplication</span> </span>&#123;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        SpringApplication.run(JzxyApplication.class, args);<br>        <br>    &#125;<br> <br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="Contronller"><a href="#Contronller" class="headerlink" title="@Contronller"></a>@Contronller</h1><p>@Contronller 注解用于定义该类属于控制器类，因为在Sping Boot 项目中是由控制器负责将用户请求的URL 转发到对应的服务接口（Service 服务层），So使用其是必不可少。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 定义控制器类 <span class="hljs-doctag">@Controller</span> </span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Controller</span><br><span class="hljs-meta">@RequestMapping(&quot;/demon/linux&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinuxUsersController</span> </span>&#123;<br> <br>    <span class="hljs-meta">@RequestMapping(&quot;/add/host&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Map <span class="hljs-title">getLinuxConn</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> List&lt;LinuxConnEntity&gt; list)</span> </span>&#123;<br>        Map resultMap = <span class="hljs-keyword">null</span>;<br>        <span class="hljs-keyword">return</span> list == <span class="hljs-keyword">null</span><br>                ? setResult(resultMap, Constant.ZERO, Constant.REQUEST_NULL_MSG)<br>                : linuxUsersServiceImpl.createLinuxConn(list);<br> <br>    &#125;<br></code></pre></td></tr></table></figure>
+<h1 id="ResponseBody"><a href="#ResponseBody" class="headerlink" title="@ResponseBody"></a>@ResponseBody</h1><p>@ResponseBody 注解表示该方法的返回结果直接写入HTTP 的Response Body 中，该注解一般在异步获取数据时使用，用于构建RESTful 的API；另外，在使用@RequestMapping 注解后返回值通常会解析为路径跳转，而在加上了@ResponseBody 注解后，返回结果则不会被解析为路径而是直接写入HTTP Response Body 中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 异步获取json 数据，加上<span class="hljs-doctag">@responsebody</span> 注解后，会直接返回json 数据</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@ResponseBody</span><br>    <span class="hljs-meta">@RequestMapping(&quot;/responsebody&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> LinuxUserEntity <span class="hljs-title">testOne</span><span class="hljs-params">(LinuxUserEntity linuxUserEntity)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> linuxUsersServiceImpl.test();<br>        <span class="hljs-number">9</span>     &#125;<br></code></pre></td></tr></table></figure>
+<h1 id="RestController"><a href="#RestController" class="headerlink" title="@RestController"></a>@RestController</h1><p>@RestController 注解用于标注控制层组件，其是@ResponseBody 和@Contronller 两个注解的集合。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@RestController</span> 等价于<span class="hljs-doctag">@Controller</span> 和 <span class="hljs-doctag">@ResponseBody</span> 两个注解的集合</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/responsebody/linux&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinuxUsersController</span> </span>&#123;<br> <br>    <span class="hljs-meta">@RequestMapping(&quot;/responsebody&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> LinuxUserEntity <span class="hljs-title">testOne</span><span class="hljs-params">(LinuxUserEntity linuxUserEntity)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> linuxUsersServiceImpl.test();<br>        <span class="hljs-number">12</span>     &#125;<br></code></pre></td></tr></table></figure>
+<h1 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h1><p>@RequestMapping 是提供路由信息的注解，其是负责URL 到Controller 中的具体函数的映射；此外，该注解后的括号内经常会使用如下六个属性：</p>
+<ol>
+<li>param：指定请求request 中必须包含某些参数，否则不处理该方法；</li>
+<li>header：指定请求request 中必须包含某些指定的header 值，否则不处理该方法；</li>
+<li>value：指定请求的实际地址；</li>
+<li>method：指定请求的方法method 类型，通常设计为RESTful 风格的GET、POST、PUT 和DELETE；</li>
+<li>consumes：指定处理请求提交内容的具体类型（即Content-Type），如applicatin/json 和text/html 等类型格式；</li>
+</ol>
+<p>6: produces：指定返回的内容类型，设置该属性后仅当request 请求头中的Accept 类型中包含该制定类型时才会返回，需谨慎。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@RequestMapping</span> 提供路由信息的注解</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@RequestMapping(&quot;/responsebody&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> LinuxUserEntity <span class="hljs-title">testOne</span><span class="hljs-params">(LinuxUserEntity linuxUserEntity)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> linuxUsersServiceImpl.test();<br>    &#125;<br></code></pre></td></tr></table></figure>
+<h1 id="EnableAutoConfiguration"><a href="#EnableAutoConfiguration" class="headerlink" title="@EnableAutoConfiguration"></a>@EnableAutoConfiguration</h1><p>@EnableAutoConfiguration 是Spring Boot 自动配置注解，其会根据项目中添加的依赖自动配置Spring 应用；比如Spring Boot 自动配置内嵌tomcat 的端口为8080；还有自动载入应用程序所需的所有Bean，这依赖于Spring Boot 在类路径中的查找结果，就比如你在classpath 下存在HSQLDB，并且没有手动配置任何数据库连接Bean，那么@EnableAutoConfiguration 注解就会自动配置一个内存模型（in-memory）数据库。</p>
+<h1 id="ComponentScan"><a href="#ComponentScan" class="headerlink" title="@ComponentScan"></a>@ComponentScan</h1><p>@ComponentScan 注解表示该类会自动发现扫描组件，若扫描到包含@Component、@Controller 和@Service 等注解的类，则会将其注册为Bean，并且可以自动收集所有的Spring 组件，包括有@Configuration 注解标注的类；开发中经常使用@ComponentScan 注解搜索Beans，并结合@Autowired 注解将Beans 注入，若没有进行配置，则Spring Boot 只会扫描SpringBootApplication 启动类所在包下及其子包下的使用了@Service、@Repository 等注解的类。</p>
+<h1 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h1><p>@Configuration 注解作用类似于传统的xml 配置文件；例如，有第三方库需要用到xml 文件，则可以通过添加@Configuration 注解表示该类作为项目的配置主类，然后使用@ImportResource 注解加载xml 配置文件内容。</p>
+<h1 id="Import"><a href="#Import" class="headerlink" title="@Import"></a>@Import</h1><p>@Import 注解作用是导入其它配置类。</p>
+<h1 id="ImportResource"><a href="#ImportResource" class="headerlink" title="@ImportResource"></a>@ImportResource</h1><p>@ImportResource 注解作用是加载xml 配置文件。</p>
+<h1 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h1><p>@Autowired 注解的作用是自动导入依赖的Bean；即把配置好的Bean 拿来用，完成属性、方法的组装，它可以对类成员变量、方法及构造函数进行标注，完成自动装配的工作；并且当加上标签（required=false）时，就算找不到bean 也不报错，允许注入为空。</p>
+<h1 id="Service"><a href="#Service" class="headerlink" title="@Service"></a>@Service</h1><p>@Service 注解的作用是标志某类为Service 层，是Service 服务层组件注解。</p>
+<h1 id="Repository"><a href="#Repository" class="headerlink" title="@Repository"></a>@Repository</h1><p>@Repository 注解作用是标志某类为数据层，其可用于确保DAO 层或者Repositories 能正常转译；当@Repository 注解修饰DAO 或者repositories 类时会被ComponentScan 发现并配置。</p>
+<h1 id="Bean"><a href="#Bean" class="headerlink" title="@Bean"></a>@Bean</h1><p>@Bean 注解相当于XML 配置文件中使用的标签，初始化的时候创建对象，并交由IOC 容器管理；需要注意的是@Bean 注解是放在方法的上面，而不是类，意思是产生一个bean，并交给spring 管理。</p>
+<h1 id="Value"><a href="#Value" class="headerlink" title="@Value"></a>@Value</h1><p>@Value 注解作用是注入Spring Boot 配置文件application.properties，即获取application.properties 配置文件中属性的值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Value(value = &quot;#&#123;VEHIVLE_TOPIC&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String VEHIVLE_TOPIC;<br></code></pre></td></tr></table></figure>
+<h1 id="inject"><a href="#inject" class="headerlink" title="@inject"></a>@inject</h1><p>@inject 注解作用与@Autowired 相同，不同的是其没有require 属性，强制要求注入不能为空。</p>
+<h1 id="Component"><a href="#Component" class="headerlink" title="@Component"></a>@Component</h1><p>@Component 注解泛指组件，即当组件不方便归类时，可以使用该注解进行标注归类。</p>
+<h1 id="Qualifier"><a href="#Qualifier" class="headerlink" title="@Qualifier"></a>@Qualifier</h1><p>@Qualifier 注解用于当有多个同一类型的Bean 时，通过@Qualifier(“name”) 根据名字来指定注入的Bean；其需要配合@Autowired 使用，根据名字进行注入，进行更细粒度的控制如何选择要注入的Bean。</p>
+<h1 id="Resouce"><a href="#Resouce" class="headerlink" title="@Resouce"></a>@Resouce</h1><p>@Resouce 注解的作用与@Autowired 相似，都是自动注入依赖的Bean；不同的是@Resource(name=”name”,type=”type”) 多了括号内的属性，当没有括号内内容的话，默认byName。</p>
+<h1 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h1><p>@PathVariable 注解的作用是获取路径变量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@RequestMapping</span> 获取路径变量</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@RequestMapping(&quot;/ioc/get/&#123;address&#125;&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">testOne</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> String address )</span> </span>&#123;<br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 获取得到路径中address 的值</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-keyword">return</span> address;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/SpringBoot/">SpringBoot</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E6%B3%A8%E8%A7%A3/">注解</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2021/02/27/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E9%81%8D%E5%8E%86%E5%88%A0%E9%99%A4List%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0(%E6%99%AE%E9%80%9Afor%E5%BE%AA%E7%8E%AF%E3%80%81%E5%A2%9E%E5%BC%BAfor%E5%BE%AA%E7%8E%AF%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8iterator%E3%80%81removeIf+%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8)/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">如何正确遍历删除List中的元素(普通for循环、增强for循环、迭代器iterator、removeIf+方法引用)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/02/27/Java%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B/">
+                        <span class="hidden-mobile">Java基本类型和包装类型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
