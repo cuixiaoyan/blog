@@ -1,0 +1,531 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>SpringCloud入门之Hystrix篇 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/blog/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SpringCloud入门之Hystrix篇">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-10 20:10" pubdate>
+        2021年3月10日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringCloud入门之Hystrix篇</h1>
+            
+            <div class="markdown-body">
+              <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>在微服务应用中，服务存在一定的依赖关系，如果某个目标服务调用慢或者有大量超时造成服务不可用，间接导致其他的依赖服务不可用，最严重的可能会阻塞整条依赖链，最终导致业务系统崩溃（又称雪崩效应）。</p>
+<p>上述的问题将是本篇需要解决的问题。</p>
+<h2 id="请求熔断"><a href="#请求熔断" class="headerlink" title="请求熔断"></a>请求熔断</h2><p>断路器是一种开关设置，当某个服务单元发生故障之后，通过断路器的故障监控，向调用方返回一个符合预期的服务降级处理（fallback），而不是长时间的等待或者抛出调用方无法处理的异常，这样保证了服务调用方的线程不会长时间被占用，从而避免了故障在分布式系统的蔓延乃至崩溃。</p>
+<h2 id="服务降级"><a href="#服务降级" class="headerlink" title="服务降级"></a>服务降级</h2><p>fallback 相当于是降级操作。对于查询操作, 我们可以实现一个 fallback 方法, 当请求后端服务出现异常的时候, 可以使用 fallback 方法返回的值。 fallback 方法的返回值一般是设置的默认值或者来自缓存，告知后面的请求服务不可用了，不要再请求了。</p>
+<h2 id="请求熔断和服务降级区别"><a href="#请求熔断和服务降级区别" class="headerlink" title="请求熔断和服务降级区别"></a>请求熔断和服务降级区别</h2><p>相同：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">目标一致：为了防止系统崩溃而实施的一种防御手段<br> <br>表现形式一致：当请求目标在一定时间内无响应时，返回或执行默认响应内容<br></code></pre></td></tr></table></figure>
+<p>不同</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">触发条件不同：下游服务出现故障触发请求熔断。系统负荷超过阈值触发服务降级。<br> <br>管理目标层次不同：请求熔断针对所有微服务。服务降级针对整个系统中的外围服务。<br></code></pre></td></tr></table></figure>
+<h2 id="实现方案"><a href="#实现方案" class="headerlink" title="实现方案"></a>实现方案</h2><p>Spring Cloud Hystrix 实现了断路器、线程隔离等一系列服务保护功能。它是基于 Netflix 的开源框架 Hystrix 实现的，该框架的目的在于通过控制访问远程系统、服务和第三方库节点，从而对延迟和故障提供更强大的容错能力。</p>
+<p>Hystrix 具备服务熔断、服务降级、线程和信号隔离、请求缓存、请求合并以及服务监控的能力。</p>
+<h1 id="请求熔断实战"><a href="#请求熔断实战" class="headerlink" title="请求熔断实战"></a>请求熔断实战</h1><p>现在的项目列表如下： 服务实例 端口 描述 common-api - 公用的 api，如：实体类 eureka-server 9000 注册中心（Eureka 服务端） goods-server 8081 商品服务（Eureka 客户端） goods-server-02 8082 商品服务（Eureka 客户端） goods-server-03 8083 商品服务（Eureka 客户端） order-server 8100 订单服务（Eureka 客户端） 在 order-server 项目中：</p>
+<h2 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;!-- hystrix --&gt;<br>&lt;dependency&gt;<br>	&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;<br>	&lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;<br>&lt;/dependency&gt;<br></code></pre></td></tr></table></figure>
+<h2 id="设置熔断策略"><a href="#设置熔断策略" class="headerlink" title="设置熔断策略"></a>设置熔断策略</h2><p>我们来修改获取下订单的方法，在 placeOrder 方法上加 @HystrixCommand 注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">OrderService</span></span>&#123;<br>	<br>	<span class="hljs-meta">@Autowired</span><br>	<span class="hljs-keyword">private</span> RestTemplate restTemplate;<br>	<br><span class="hljs-comment">//	@Autowired</span><br><span class="hljs-comment">//	private GoodsServiceClient goodsServiceClient;</span><br> <br>	<span class="hljs-meta">@HystrixCommand(fallbackMethod = &quot;defaultByPlaceOrder&quot;)</span><br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">placeOrder</span><span class="hljs-params">(Order order)</span> <span class="hljs-keyword">throws</span> Exception</span>&#123;<br>		<br>		Result result = <span class="hljs-keyword">this</span>.restTemplate.getForObject(<span class="hljs-string">&quot;http://GOODS/goods/goodsInfo/&quot;</span> + order.getGoodsId(), Result.class);<br>		<br><span class="hljs-comment">//		Result result = this.goodsServiceClient.goodsInfo(order.getGoodsId());</span><br>		<br>		<span class="hljs-keyword">if</span> (result != <span class="hljs-keyword">null</span> &amp;&amp; result.getCode() == <span class="hljs-number">200</span>) &#123;<br>			System.out.println(<span class="hljs-string">&quot;=====下订单====&quot;</span>);<br>			System.out.println(result.getData());<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			System.out.println(result.getMsg());<br>		&#125;<br>	&#125;<br>	<br> <br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">defaultByPlaceOrder</span><span class="hljs-params">(Order order)</span> </span>&#123;<br>		System.out.println(<span class="hljs-string">&quot;商品服务系统异常&quot;</span>);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>当调用商品服务超时或出现异常时，Hystrix 会调用 @HystrixCommand 中指定的 fallbackMethod 方法获取返回值或执行异常处理。</p>
+<p>注意：fallbackMethod 方法要求与正常方法有相同的入参和回参。</p>
+<h2 id="启动熔断功能"><a href="#启动熔断功能" class="headerlink" title="启动熔断功能"></a>启动熔断功能</h2><p>在启动类上添加 @EnableCircuitBreaker 注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableCircuitBreaker</span><br><span class="hljs-meta">@EnableEurekaClient</span><br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderServerApplication</span> </span>&#123;<br> <br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>		SpringApplication.run(OrderServerApplication.class, args);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="熔断测试"><a href="#熔断测试" class="headerlink" title="熔断测试"></a>熔断测试</h2><p>我们首先演示没有开启熔断的功能，即先把上边的 @EnableCircuitBreaker 注解进行注释。 启动好所有项目，使用 Postman 请求 order-server 进行下单操作，运行结果如下：<img src="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/hystrix-03-02_1572403574165.gif?x-oss-process=style/small" srcset="/blog/img/loading.gif" alt="hystrix-03-02">当我们请求发送的 goodsId 的商品不存在，服务提供方抛会异常，调用方无法处理，因此只能展示图中的异常信息。</p>
+<p>下面，我们再将 @EnableCircuitBreaker 注解的注释放开，运行结果如下：<img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/small-20210310202116369.jpeg" srcset="/blog/img/loading.gif" alt="hystrix-04-02"></p>
+<p>从图中可知，虽然请求了一个 goodsId 不存在的商品，但是调用方（order-server）开启了熔断机制，执行默认方法，从而使接口能正常通信而不是抛出调用方不可处理的异常导致整个系统不能正常运行。</p>
+<p>看到这里，或许会有读者产生一个疑问，如果类中定义 N 个方法，是不是意味着同时也要定义 N 个异常处理的方法呢，答案是否定的。</p>
+<p>Hystrix 还提供了 @DefaultProperties 统一处理请求熔断，在该注解上设置 defaultFallback 属性值，即熔断开启后要执行的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-meta">@DefaultProperties(defaultFallback = &quot;defaultByHystrix&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">OrderService</span></span>&#123;<br>	<br><span class="hljs-comment">//	@Autowired</span><br><span class="hljs-comment">//	private RestTemplate restTemplate;</span><br>	<br>	<span class="hljs-meta">@Autowired</span><br>	<span class="hljs-keyword">private</span> GoodsServiceClient goodsServiceClient;<br> <br>	<span class="hljs-meta">@HystrixCommand</span><br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">placeOrder</span><span class="hljs-params">(Order order)</span> <span class="hljs-keyword">throws</span> Exception</span>&#123;<br>		<br><span class="hljs-comment">//		Result result = this.restTemplate.getForObject(&quot;http://GOODS/goods/goodsInfo/&quot; + order.getGoodsId(), Result.class);</span><br>		<br>		Result result = <span class="hljs-keyword">this</span>.goodsServiceClient.goodsInfo(order.getGoodsId());<br>		<br>		<span class="hljs-keyword">if</span> (result != <span class="hljs-keyword">null</span> &amp;&amp; result.getCode() == <span class="hljs-number">200</span>) &#123;<br>			System.out.println(<span class="hljs-string">&quot;=====下订单====&quot;</span>);<br>			System.out.println(result.getData());<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			System.out.println(result.getMsg());<br>		&#125;<br>	&#125;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">defaultByHystrix</span><span class="hljs-params">()</span> </span>&#123;<br>		System.out.println(<span class="hljs-string">&quot;商品服务系统异常&quot;</span>);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意：defaultFallback 定义的方法必须是无参的。 <a target="_blank" rel="noopener" href="https://github.com/cuixiaoyan/hystrix">源码下载</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/SpringCloud/">SpringCloud</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2021/03/10/%E6%89%B9%E9%87%8F%E5%8E%BB%E9%99%A4%E6%96%87%E4%BB%B6,%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E5%90%8D%E7%A7%B0%E4%B8%AD%E6%8C%87%E5%AE%9A%E7%9A%84%E5%AD%97%E7%AC%A6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">批量去除文件,文件夹的名称中指定的字符</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/03/07/Java%E8%A7%A3%E5%86%B3Emoji%E8%A1%A8%E6%83%85%E8%BF%87%E6%BB%A4%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">Java解决Emoji表情过滤问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
