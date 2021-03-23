@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>线程池原理分析 - 崔笑颜的博客</title>
+  <title>Java8中引入的forEach - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="线程池原理分析">
+            <span class="h2" id="subtitle" title="Java8中引入的forEach">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-19 20:00" pubdate>
-        2021年3月19日 晚上
+      <time datetime="2021-03-23 20:50" pubdate>
+        2021年3月23日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      724 字
+      585 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      7
        分钟
     </span>
   
@@ -233,15 +233,33 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">线程池原理分析</h1>
+            <h1 style="display: none">Java8中引入的forEach</h1>
             
             <div class="markdown-body">
-              <p>我们通过代码输出结果可以看出：线程池每次会同时执行 5 个任务，这 5 个任务执行完之后，剩余的 5 个任务才会被执行。 大家可以先通过上面讲解的内容，分析一下到底是咋回事？（自己独立思考一会）</p>
-<p>现在，我们就分析上面的输出内容来简单分析一下线程池原理。</p>
-<p>为了搞懂线程池的原理，我们需要首先分析一下 execute方法。在 4.6 节中的 Demo 中我们使用 executor.execute(worker)来提交一个任务到线程池中去，这个方法非常重要，下面我们来看看它的源码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 存放线程池的运行状态 (runState) 和线程池内有效线程的数量 (workerCount)</span><br>   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> AtomicInteger ctl = <span class="hljs-keyword">new</span> AtomicInteger(ctlOf(RUNNING, <span class="hljs-number">0</span>));<br> <br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">workerCountOf</span><span class="hljs-params">(<span class="hljs-keyword">int</span> c)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> c &amp; CAPACITY;<br>    &#125;<br> <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> BlockingQueue&lt;Runnable&gt; workQueue;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">execute</span><span class="hljs-params">(Runnable command)</span> </span>&#123;<br>        <span class="hljs-comment">// 如果任务为null，则抛出异常。</span><br>        <span class="hljs-keyword">if</span> (command == <span class="hljs-keyword">null</span>)<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> NullPointerException();<br>        <span class="hljs-comment">// ctl 中保存的线程池当前的一些状态信息</span><br>        <span class="hljs-keyword">int</span> c = ctl.get();<br> <br>        <span class="hljs-comment">//  下面会涉及到 3 步 操作</span><br>        <span class="hljs-comment">// 1.首先判断当前线程池中之行的任务数量是否小于 corePoolSize</span><br>        <span class="hljs-comment">// 如果小于的话，通过addWorker(command, true)新建一个线程，并将任务(command)添加到该线程中；然后，启动该线程从而执行任务。</span><br>        <span class="hljs-keyword">if</span> (workerCountOf(c) &lt; corePoolSize) &#123;<br>            <span class="hljs-keyword">if</span> (addWorker(command, <span class="hljs-keyword">true</span>))<br>                <span class="hljs-keyword">return</span>;<br>            c = ctl.get();<br>        &#125;<br>        <span class="hljs-comment">// 2.如果当前之行的任务数量大于等于 corePoolSize 的时候就会走到这里</span><br>        <span class="hljs-comment">// 通过 isRunning 方法判断线程池状态，线程池处于 RUNNING 状态才会被并且队列可以加入任务，该任务才会被加入进去</span><br>        <span class="hljs-keyword">if</span> (isRunning(c) &amp;&amp; workQueue.offer(command)) &#123;<br>            <span class="hljs-keyword">int</span> recheck = ctl.get();<br>            <span class="hljs-comment">// 再次获取线程池状态，如果线程池状态不是 RUNNING 状态就需要从任务队列中移除任务，并尝试判断线程是否全部执行完毕。同时执行拒绝策略。</span><br>            <span class="hljs-keyword">if</span> (!isRunning(recheck) &amp;&amp; remove(command))<br>                reject(command);<br>                <span class="hljs-comment">// 如果当前线程池为空就新创建一个线程并执行。</span><br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (workerCountOf(recheck) == <span class="hljs-number">0</span>)<br>                addWorker(<span class="hljs-keyword">null</span>, <span class="hljs-keyword">false</span>);<br>        &#125;<br>        <span class="hljs-comment">//3. 通过addWorker(command, false)新建一个线程，并将任务(command)添加到该线程中；然后，启动该线程从而执行任务。</span><br>        <span class="hljs-comment">//如果addWorker(command, false)执行失败，则通过reject()执行相应的拒绝策略的内容。</span><br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!addWorker(command, <span class="hljs-keyword">false</span>))<br>            reject(command);<br>    &#125;<br></code></pre></td></tr></table></figure>
-<p>通过下图可以更好的对上面这 3 步做一个展示，下图<img src="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E5%9B%BE%E8%A7%A3%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86_1576459366999.png?x-oss-process=style/small" srcset="/blog/img/loading.gif" alt="图解线程池实现原理">我们在代码中模拟了 10 个任务，我们配置的核心线程数为 5 、等待队列容量为 100 ，所以每次只可能存在 5 个任务同时执行，剩下的 5 个任务会被放到等待队列中去。当前的 5 个任务之行完成后，才会之行剩下的 5 个任务。</p>
-
+              <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在Java 8中引入的forEach循环为程序员提供了一种新的，简洁而有趣的迭代集合的方式。</p>
+<p>在本文中，我们将看到如何将forEach与集合一起使用，它采用何种参数以及此循环与增强的for循环的不同之处。</p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Collection</span>&lt;<span class="hljs-title">E</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Iterable</span>&lt;<span class="hljs-title">E</span>&gt;</span><br><span class="hljs-class"> </span><br><span class="hljs-class"></span><br></code></pre></td></tr></table></figure>
+<p>Collection 接口实现了 Iterable 接口，而 Iterable 接口在 Java 8开始具有一个新的 API：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">forEach</span><span class="hljs-params">(Consumer&lt;? <span class="hljs-keyword">super</span> T&gt; action)</span><span class="hljs-comment">//对 Iterable的每个元素执行给定的操作，直到所有元素都被处理或动作引发异常。</span></span><br><span class="hljs-function"> </span><br><span class="hljs-function"></span><br></code></pre></td></tr></table></figure>
+<p>使用forEach，我们可以迭代一个集合并对每个元素执行给定的操作，就像任何其他迭代器一样。</p>
+<p>例如，迭代和打印字符串集合的for循环版本：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">for</span> (String name : names) &#123;<br>    System.out.println(name);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>我们可以使用forEach写这个 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">names.forEach(name -&gt; &#123;<br>    System.out.println(name);<br>&#125;);<br></code></pre></td></tr></table></figure>
+<h2 id="匿名类"><a href="#匿名类" class="headerlink" title="匿名类"></a>匿名类</h2><p>我们使用 forEach迭代集合并对每个元素执行特定操作。要执行的操作包含在实现Consumer接口的类中，并作为参数传递给forEach 。</p>
+<p>所述消费者接口是一个功能接口(具有单个抽象方法的接口）。它接受输入并且不返回任何结果。</p>
+<p>Consumer 接口定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@FunctionalInterface</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Consumer</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(T t)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>任何实现，例如，只是打印字符串的消费者：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">Consumer&lt;String&gt; printConsumer = <span class="hljs-keyword">new</span> Consumer&lt;String&gt;() &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(String name)</span> </span>&#123;<br>        System.out.println(name);<br>    &#125;;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>可以作为参数传递给forEach：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">names.forEach(printConsumer);<br> <br></code></pre></td></tr></table></figure>
+<p>但这不是通过消费者和使用forEach API 创建操作的唯一方法。让我们看看我们将使用forEach方法的另外2种最流行的方式：</p>
+<h2 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h2><p>Java 8功能接口的主要优点是我们可以使用Lambda表达式来实例化它们，并避免使用庞大的匿名类实现。</p>
+<p>由于 Consumer 接口属于函数式接口，我们可以通过以下形式在Lambda中表达它：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">(argument) -&gt; &#123; body &#125;<br>name -&gt; System.out.println(name)<br>names.forEach(name -&gt; System.out.println(name));<br></code></pre></td></tr></table></figure>
+<p>方法参考 我们可以使用方法引用语法而不是普通的Lambda语法，其中已存在一个方法来对类执行操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">names.forEach(System.out::println);<br> <br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -251,9 +269,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/blog/tags/java/">java</a>
+                      <a class="hover-with-bg" href="/blog/tags/Java8/">Java8</a>
                     
-                      <a class="hover-with-bg" href="/blog/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">线程池</a>
+                      <a class="hover-with-bg" href="/blog/tags/forEach/">forEach</a>
                     
                   </div>
                 
@@ -266,18 +284,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/03/19/%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%A5%BD%E5%A4%84/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">使用线程池的好处</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/03/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">
-                        <span class="hidden-mobile">线程池原理分析</span>
+                      <a href="/blog/2021/03/23/java%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81/">
+                        <span class="hidden-mobile">java生成二维码</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
