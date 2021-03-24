@@ -186,19 +186,17 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/02/27/Java%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B/">Java基本类型和包装类型</a>
+        <a href="/blog/2021/03/02/Eureka%E9%9B%86%E7%BE%A4/">Eureka集群</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/02/27/Java%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B/">
+        <a href="/blog/2021/03/02/Eureka%E9%9B%86%E7%BE%A4/">
           
           
             
           
-          包装类型可以为 null，而基本类型不可以别小看这一点区别，它使得包装类型可以应用于 POJO 中，而基本类型则不行。
-POJO 是什么呢？这里稍微说明一下。
-POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单无规则的 Java 对象，只有属性字段以及 setter 和 getter 方法，示例如下。
-1234567891011121314151617
+          Eureka 作为注册中心，保存了系统服务的相关信息，如果注册中心挂掉，那么系统就瘫痪了。因此，对 Eureka 做集群实现高可用是必不可少的。
+本次测试使用一台机器部署 Eureka 集群，通过名字和端口区分不同的 eureka 服务。 Eureka 名称 端口号 eureka01 9001 eureka02 9002 由于使用一台机器，使用两个名称还需要修改 C:\Windows\System
         </a>
       </p>
 
@@ -206,8 +204,8 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-27 09:00" pubdate>
-              2021-02-27
+            <time datetime="2021-03-02 20:10" pubdate>
+              2021-03-02
             </time>
           </div>
         
@@ -215,7 +213,7 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/blog/categories/Java/">Java</a>
+              <a href="/blog/categories/spring/">spring</a>
             
           </div>
         
@@ -223,9 +221,9 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/Java/">Java</a>
+              <a href="/blog/tags/Eureka/">Eureka</a>
             
-              <a href="/blog/tags/%E5%9F%BA%E7%A1%80/">基础</a>
+              <a href="/blog/tags/spring/">spring</a>
             
           </div>
         
@@ -239,18 +237,18 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/02/21/python%E7%88%AC%E5%9B%BE%E7%89%87/">python爬图片</a>
+        <a href="/blog/2021/02/27/SpringCloud%E5%85%A5%E9%97%A8%E4%B9%8BEureka%E7%AF%87/">SpringCloud 入门之Eureka 篇</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/02/21/python%E7%88%AC%E5%9B%BE%E7%89%87/">
+        <a href="/blog/2021/02/27/SpringCloud%E5%85%A5%E9%97%A8%E4%B9%8BEureka%E7%AF%87/">
           
           
             
           
-          这个例子也不是我本意,不过好像大家都喜欢爬这类图片本人抱着学习技术的态度 深入研究,了解啦其过程(滑稽)
-建议: 编译器debug运行,加上浏览器开发者调试 会有更加容易了解
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606
+          前言Spring Cloud 是一系列框架的有序集合。它利用 Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用 Spring Boot 的开发风格做到一键启动和部署。
+本篇介绍 Spring Cloud 入门系列中的 Eureka，实现快速入门。
+简单介绍Eureka 是 Netflix 的子模块，
         </a>
       </p>
 
@@ -258,8 +256,8 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-21 17:20" pubdate>
-              2021-02-21
+            <time datetime="2021-02-27 09:40" pubdate>
+              2021-02-27
             </time>
           </div>
         
@@ -270,7 +268,7 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
             
               <a href="/blog/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/">工具类</a>
             
-              <a href="/blog/tags/python/">python</a>
+              <a href="/blog/tags/SpringCloud/">SpringCloud</a>
             
           </div>
         
@@ -284,17 +282,16 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/02/21/My97Date%E6%8E%A7%E4%BB%B6%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E6%97%B6%E9%97%B4/">My97Date控件设置默认时间</a>
+        <a href="/blog/2021/02/27/Python%E7%BB%9F%E8%AE%A1%E5%AD%97%E7%AC%A6%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0(Counter%E5%8C%85)%E4%BB%A5%E5%8F%8Atxt%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5/">Python统计字符出现次数(Counter包)以及txt文件写入</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/02/21/My97Date%E6%8E%A7%E4%BB%B6%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E6%97%B6%E9%97%B4/">
+        <a href="/blog/2021/02/27/Python%E7%BB%9F%E8%AE%A1%E5%AD%97%E7%AC%A6%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0(Counter%E5%8C%85)%E4%BB%A5%E5%8F%8Atxt%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5/">
           
           
             
           
-          需求:设置开始时间和结束时间初始化时间隔为一周
-123&lt;input id=&quot;startTime&quot; name=&quot;startTime&quot; type=&quot;text&quot; style=&quot;width: 45%&quot; class=&quot;Wdate&quot; onClick=&quot;WdatePicker(&#123;maxD
+          统计字符(可以在jieba分词之后使用)123456789101112131415161718192021from collections import Counterfrom operator import itemgetter # txt_list可以写成函数参数进行导入txt_list = [&#x27;千古&#x27;,&#x27;人间&#x27;,&#x27;人间&#x27;,&#x27
         </a>
       </p>
 
@@ -302,8 +299,8 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-21 17:10" pubdate>
-              2021-02-21
+            <time datetime="2021-02-27 09:30" pubdate>
+              2021-02-27
             </time>
           </div>
         
@@ -312,9 +309,9 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+              <a href="/blog/tags/Python/">Python</a>
             
-              <a href="/blog/tags/My97Date/">My97Date</a>
+              <a href="/blog/tags/Counter/">Counter</a>
             
           </div>
         
@@ -328,17 +325,20 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/02/21/JSON%E6%95%B0%E7%BB%84%E5%BD%A2%E5%BC%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E4%B8%BAMap%E6%95%B0%E7%BB%84/">JSON数组形式字符串转换为Map数组</a>
+        <a href="/blog/2021/02/27/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E9%81%8D%E5%8E%86%E5%88%A0%E9%99%A4List%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0(%E6%99%AE%E9%80%9Afor%E5%BE%AA%E7%8E%AF%E3%80%81%E5%A2%9E%E5%BC%BAfor%E5%BE%AA%E7%8E%AF%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8iterator%E3%80%81removeIf+%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8)/">如何正确遍历删除List中的元素(普通for循环、增强for循环、迭代器iterator、removeIf+方法引用)</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/02/21/JSON%E6%95%B0%E7%BB%84%E5%BD%A2%E5%BC%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E4%B8%BAMap%E6%95%B0%E7%BB%84/">
+        <a href="/blog/2021/02/27/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E9%81%8D%E5%8E%86%E5%88%A0%E9%99%A4List%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0(%E6%99%AE%E9%80%9Afor%E5%BE%AA%E7%8E%AF%E3%80%81%E5%A2%9E%E5%BC%BAfor%E5%BE%AA%E7%8E%AF%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8iterator%E3%80%81removeIf+%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8)/">
           
           
             
           
-          阿里巴巴封装的FastJSON来转换JSON数组形式字符串
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384package com
+          遍历删除List中符合条件的元素主要有以下几种方法：
+
+普通for循环 2.增强for循环 foreach 3.迭代器iterator 4.removeIf 和 方法引用 (一行代码搞定) 其中使用普通for循环容易造成遗漏元素的问题，增强for循环foreach会报java.util.ConcurrentModificationException并发修改异常。
+
+所以推荐使用迭代器iterato
         </a>
       </p>
 
@@ -346,18 +346,11 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-21 17:00" pubdate>
-              2021-02-21
+            <time datetime="2021-02-27 09:20" pubdate>
+              2021-02-27
             </time>
           </div>
         
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/%E5%B7%A5%E5%85%B7%E7%B1%BB/">工具类</a>
-            
-          </div>
         
         
           <div class="post-meta">
@@ -365,7 +358,7 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
             
               <a href="/blog/tags/java/">java</a>
             
-              <a href="/blog/tags/FastJSON/">FastJSON</a>
+              <a href="/blog/tags/List/">List</a>
             
           </div>
         
@@ -379,18 +372,17 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/02/17/macOS%E5%A4%A7%E6%9B%B4%E6%96%B0%E5%AF%BC%E8%87%B4git%E5%92%8Csvn%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8/">macOS大更新导致git和svn无法使用</a>
+        <a href="/blog/2021/02/27/SpringBoot%E4%BA%8C%E5%8D%81%E4%B8%AA%E6%B3%A8%E8%A7%A3/">SpringBoot二十个注解</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/02/17/macOS%E5%A4%A7%E6%9B%B4%E6%96%B0%E5%AF%BC%E8%87%B4git%E5%92%8Csvn%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8/">
+        <a href="/blog/2021/02/27/SpringBoot%E4%BA%8C%E5%8D%81%E4%B8%AA%E6%B3%A8%E8%A7%A3/">
           
           
             
           
-          大更新之后 更新一堆自带没用软件之后
-123456$ git --version xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun  
-原因是系统升
+          @SpringBootApplication@SpringBootApplication 注解用于声明自动配置，即让Spring Boot 自动为程序进行必要的配置；@SpringBootApplication 注解配置等同于@Configuration、@EnableAutoConfiguration 和@ComponentScan 三个注解的配置。
+1234567891011121314151
         </a>
       </p>
 
@@ -398,26 +390,19 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-17 10:30" pubdate>
-              2021-02-17
+            <time datetime="2021-02-27 09:10" pubdate>
+              2021-02-27
             </time>
           </div>
         
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/macOS/">macOS</a>
-            
-          </div>
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/macOS/">macOS</a>
+              <a href="/blog/tags/SpringBoot/">SpringBoot</a>
             
-              <a href="/blog/tags/git/">git</a>
+              <a href="/blog/tags/%E6%B3%A8%E8%A7%A3/">注解</a>
             
           </div>
         
@@ -429,7 +414,7 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/11/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><a class="page-number" href="/blog/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/blog/page/13/">13</a><a class="page-number" href="/blog/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/25/">25</a><a class="extend next" rel="next" href="/blog/page/13/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/11/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><a class="page-number" href="/blog/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/blog/page/13/">13</a><a class="page-number" href="/blog/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/26/">26</a><a class="extend next" rel="next" href="/blog/page/13/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
