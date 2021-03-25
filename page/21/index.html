@@ -186,20 +186,17 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/01/19/%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95/">实现多线程的三种方法</a>
+        <a href="/blog/2021/01/20/java%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">java语言描述数据结构与算法</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/01/19/%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95/">
+        <a href="/blog/2021/01/20/java%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
           
           
             
           
-          Java虚拟机（JVM，是运行所有Java程序的抽象计算机，是Java语言的运行环境）允许应用程序并发地运行多个线程。在Java语言中，多线程的实现一般有以下三种方法：
-1、实现Runnable接口，并实现该接口的run()方法。
-　　①自定义类并实现Runnable接口，实现run()方法。
-　　②创建Thread对象，用实现Runnable接口的对象作为参数实例化该Thread对象。
-　　③调
+          冒泡排序 插入排序 选择排序 希尔排序 快速排序 归并排序 二分查找
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687
         </a>
       </p>
 
@@ -207,58 +204,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-19 20:10" pubdate>
-              2021-01-19
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/java/">java</a>
-            
-              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/01/18/java%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%9520%E9%97%AE/">java集合面试20问</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/01/18/java%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%9520%E9%97%AE/">
-          
-          
-            
-          
-          
-HashMap的内部实现原理是什么？
-
-HashMap内部实现原理是数组+链表，通过散列算法将key值散列到数组中，如果到相同的位置，则通过拉链法解决散列冲突。在JDK8中新增了红黑树结构，当HashMap中的散列冲突链表结构超过8个数据时，会从链表结构转换为红黑树结构。
-
-HashMap的key值能否是null，如果能，key=null如何存储以及如何读取的？如果不能，为什么？
-
-HashMa
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-18 20:30" pubdate>
-              2021-01-18
+            <time datetime="2021-01-20 20:30" pubdate>
+              2021-01-20
             </time>
           </div>
         
@@ -283,17 +230,19 @@ HashMa
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/01/18/centos7%E5%AE%89%E8%A3%85ElasticSearch6/">centos7安装ElasticSearch6</a>
+        <a href="/blog/2021/01/20/mysql%E8%A1%8C%E5%88%97%E8%BD%AC%E6%8D%A2/">mysql行列转换</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/01/18/centos7%E5%AE%89%E8%A3%85ElasticSearch6/">
+        <a href="/blog/2021/01/20/mysql%E8%A1%8C%E5%88%97%E8%BD%AC%E6%8D%A2/">
           
           
             
           
-          什么是 ElasticSearchElasticSearch是一个基于 Lucene 的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于 RESTful web 接口。Elasticsearch 是用 Java 开发的，并作为 Apache 许可条款下的开放源码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。
-基础概念索引：含有相同
+          需求是将以下两种表样式互相转换：
+score_1转score_2，如下： 这里也可以用来统计数据
+如果等于1 就加一 不然就不加 SUM(IF(C.question_type = ‘1’, 1, 0)) AS ‘论述’
+123456select ID    ,max(case when course=&#x27;数学&#x27; then score end) as &#x27;数学&#x27; 
         </a>
       </p>
 
@@ -301,8 +250,8 @@ HashMa
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-18 20:20" pubdate>
-              2021-01-18
+            <time datetime="2021-01-20 20:20" pubdate>
+              2021-01-20
             </time>
           </div>
         
@@ -311,9 +260,9 @@ HashMa
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/centos7/">centos7</a>
+              <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
             
-              <a href="/blog/tags/es/">es</a>
+              <a href="/blog/tags/mysql/">mysql</a>
             
           </div>
         
@@ -327,17 +276,21 @@ HashMa
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/01/18/MongoDB%E4%B8%8E%20MySQL%E7%9A%84%E5%8C%BA%E5%88%AB/">MongoDB 与 MySQL 的区别</a>
+        <a href="/blog/2021/01/20/%E5%B7%A6%E8%BF%9E%E6%8E%A5-%E5%8F%B3%E8%BF%9E%E6%8E%A5-%E5%86%85%E8%BF%9E%E6%8E%A5-%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A5%E7%9A%844%E8%80%85%E5%8C%BA%E5%88%AB/">左连接-右连接-内连接-全外连接的4者区别</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/01/18/MongoDB%E4%B8%8E%20MySQL%E7%9A%84%E5%8C%BA%E5%88%AB/">
+        <a href="/blog/2021/01/20/%E5%B7%A6%E8%BF%9E%E6%8E%A5-%E5%8F%B3%E8%BF%9E%E6%8E%A5-%E5%86%85%E8%BF%9E%E6%8E%A5-%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A5%E7%9A%844%E8%80%85%E5%8C%BA%E5%88%AB/">
           
           
             
           
-          概念区别关键字和函数区别语句区别 创建表/集合
-123456789101112131415db.people.insertOne( &#123;    user_id: &quot;abc123&quot;,    age: 55,    status: &quot;A&quot; &#125; ) 相当于  CREATE TABLE people (    id MEDIUMINT NOT NU
+          基本定义：　　left join （左连接）：返回包括左表中的所有记录和右表中连接字段相等的记录。
+　　right join （右连接）：返回包括右表中的所有记录和左表中连接字段相等的记录。
+　　inner join （等值连接或者叫内连接）：只返回两个表中连接字段相等的行。
+　　full join （全外连接）：返回左右表中所有的记录和左右表中连接字段相等的记录。
+举个例子：
+123456789
         </a>
       </p>
 
@@ -345,8 +298,8 @@ HashMa
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-18 20:10" pubdate>
-              2021-01-18
+            <time datetime="2021-01-20 20:10" pubdate>
+              2021-01-20
             </time>
           </div>
         
@@ -355,9 +308,9 @@ HashMa
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/MongoDB/">MongoDB</a>
+              <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
             
-              <a href="/blog/tags/MySQL/">MySQL</a>
+              <a href="/blog/tags/mysql/">mysql</a>
             
           </div>
         
@@ -371,20 +324,16 @@ HashMa
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/01/16/gradle%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0jar%E5%8C%85/">gradle使用本地jar包</a>
+        <a href="/blog/2021/01/19/mysql%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/">mysql基本操作命令汇总</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/01/16/gradle%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0jar%E5%8C%85/">
+        <a href="/blog/2021/01/19/mysql%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/">
           
           
             
           
-          有很多时候 我们需要用到自己的jar包 特殊原因 你明白的
-1.在项目根目录(与src同级目录)创建lib文件夹，并将jar包拷贝进去。
-2.在build.gradle文件中的dependencies中添加如下脚本： compile fileTree(dir: ‘lib’, include: [ ‘*.jar’])
-3.运行gradle build即可将jar文件打到工程Jar包中。
-
+          基本操作关于数据库1234567891011121314151617181920212223242526272829303132333435363738394041//创建数据库create database h_test;        //查看数据库show databases;  //查看数据库信息    show create database h_test;//修改数据库的编码，可使用上
         </a>
       </p>
 
@@ -392,8 +341,8 @@ HashMa
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-16 10:30" pubdate>
-              2021-01-16
+            <time datetime="2021-01-19 20:30" pubdate>
+              2021-01-19
             </time>
           </div>
         
@@ -402,9 +351,52 @@ HashMa
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+              <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
             
-              <a href="/blog/tags/gradle/">gradle</a>
+              <a href="/blog/tags/mysql/">mysql</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/01/19/SpringAOP%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">SpringAOP原理分析</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/01/19/SpringAOP%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">
+          
+          
+            
+          
+          Spring核心知识Spring是一个开源框架，Spring是于2003年兴起的一个轻量级的Java开发框架，由Rod Johnson在其著作Expert One-On-One J2EE Development and Design中阐述的部分理念和原型衍生而来。它是为了解决企业应用开发的复杂性而创建的。框架的主要优势之一就是其分层架构，分层架构允许使用者选择使用哪一个组件，同时为J2EE应用程序
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-19 20:20" pubdate>
+              2021-01-19
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/spring/">spring</a>
+            
+              <a href="/blog/tags/java/">java</a>
             
           </div>
         
@@ -416,7 +408,7 @@ HashMa
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/20/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/19/">19</a><a class="page-number" href="/blog/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/blog/page/22/">22</a><a class="page-number" href="/blog/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/26/">26</a><a class="extend next" rel="next" href="/blog/page/22/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/20/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/19/">19</a><a class="page-number" href="/blog/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/blog/page/22/">22</a><a class="page-number" href="/blog/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/27/">27</a><a class="extend next" rel="next" href="/blog/page/22/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

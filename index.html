@@ -186,16 +186,19 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/03/24/%E6%90%9C%E7%B4%A2%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84%E4%B8%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%9F%90%E4%B8%AA%E5%AD%97%E7%AC%A6/">搜索一个字符数组中是否存在某个字符</a>
+        <a href="/blog/2021/03/25/%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%80%80%E9%81%BF%E7%AD%96%E7%95%A5/">接口调用失败的退避策略</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/03/24/%E6%90%9C%E7%B4%A2%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84%E4%B8%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%9F%90%E4%B8%AA%E5%AD%97%E7%AC%A6/">
+        <a href="/blog/2021/03/25/%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%80%80%E9%81%BF%E7%AD%96%E7%95%A5/">
           
           
             
           
-          请在一个类中编写一个方法，这个方法搜索一个字符数组中是否存在某个字符，如果存在，则返回这个字符在字符数组中第一次出现的位置（序号从0开始计算），否则，返回-1。要搜索的字符数组和字符都以参数形式传递传递给该方法，如果传入的数组为null，应抛出IllegalArgumentException异常。在类的main方法中以各种可能出现的情况测试验证该方法编写得是否正确，例如，字符不存在，字符存在，传入
+          退避策略简介在开发过程中我们经常会遇到调用接口失败的情况。遇到这种情况，我们有时候需要重试机制，常用的重试（退避）策略有：
+
+固定的时间间隔重试一次，最多重试N次：比如我现在一个接口调用失败了，不是立马返回失败，而是hold住线程，每隔2秒重新调下接口，最多调5次，只要其中一次成功了就直接返回。如果5次都没成功，接口返回失败。
+指数时间间隔尝试策略：和上面策略一样，接口调用失败后也不是直接返回，但
         </a>
       </p>
 
@@ -203,51 +206,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-24 20:50" pubdate>
-              2021-03-24
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84/">字符数组</a>
-            
-              <a href="/blog/tags/%E5%8C%85%E5%90%AB/">包含</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/03/24/%E5%89%AF%E6%9C%AC%E7%9A%84%E5%89%AF%E6%9C%AC4/">Java中使用图片验证码</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/24/%E5%89%AF%E6%9C%AC%E7%9A%84%E5%89%AF%E6%9C%AC4/">
-          
-          
-            
-          
-          第一种方式123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-24 20:40" pubdate>
-              2021-03-24
+            <time datetime="2021-03-25 20:40" pubdate>
+              2021-03-25
             </time>
           </div>
         
@@ -258,7 +218,7 @@
             
               <a href="/blog/tags/Java/">Java</a>
             
-              <a href="/blog/tags/%E5%9B%BE%E7%89%87%E9%AA%8C%E8%AF%81%E7%A0%81/">图片验证码</a>
+              <a href="/blog/tags/%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8/">接口调用</a>
             
           </div>
         
@@ -272,16 +232,23 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/03/24/java%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB1/">java常用工具类</a>
+        <a href="/blog/2021/03/25/Python%E5%88%A9%E7%94%A8random%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E5%88%97%E8%A1%A8%E5%86%85%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0/">Python利用random生成一个列表内的随机数</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/03/24/java%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB1/">
+        <a href="/blog/2021/03/25/Python%E5%88%A9%E7%94%A8random%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E5%88%97%E8%A1%A8%E5%86%85%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0/">
           
           
             
           
-          统计段落中出现某一个词的次数1234567891011121314public static void wordCount()&#123;    Scanner scanner = new Scanner(System.in);    int count = 0,index = 0;    System.out.println(&quot;请输入句子：&quot;);    String s = 
+          首先,需要导入random模块:
+1import random
+随机取1-33之间的1个随机数，可能重复:
+1random.choice(range(1,34))
+print得到一系列随机数,执行一次得到一个随机数:
+1print(random.choice(range(1,34)))
+随机取1-33之间的6个随机数，可能重复:
+1random.choices(range(1,34),k=6,we
         </a>
       </p>
 
@@ -289,8 +256,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-24 20:30" pubdate>
-              2021-03-24
+            <time datetime="2021-03-25 20:30" pubdate>
+              2021-03-25
             </time>
           </div>
         
@@ -299,9 +266,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/java/">java</a>
+              <a href="/blog/tags/Python/">Python</a>
             
-              <a href="/blog/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/">工具类</a>
+              <a href="/blog/tags/random/">random</a>
             
           </div>
         
@@ -315,23 +282,16 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/03/24/jsp%E5%AE%9E%E7%8E%B0%E8%BD%AE%E6%92%AD%E5%9B%BE/">jsp实现轮播图</a>
+        <a href="/blog/2021/03/25/Java%E4%BD%BF%E7%94%A8zxing%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81(%E5%B8%A6%E6%9C%89logo)/">Java使用zxing生成二维码(带有logo)</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/03/24/jsp%E5%AE%9E%E7%8E%B0%E8%BD%AE%E6%92%AD%E5%9B%BE/">
+        <a href="/blog/2021/03/25/Java%E4%BD%BF%E7%94%A8zxing%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81(%E5%B8%A6%E6%9C%89logo)/">
           
           
             
           
-          背景 支持ie老版本没办法使用比较新的框架,只能使用原始js实现。 演示地址 实现功能如下:
-
-鼠标放在图上暂停。
-点击下面圆点切换图片。
-点击左右箭头切换。
-自动进行轮播。
-
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960
+          首先要添加zxing依赖123456789101112&lt;!-- 二维码生成依赖 --&gt;&lt;dependency&gt;    &lt;groupId&gt;com.google.zxing&lt;/groupId&gt;    &lt;artifactId&gt;core&lt;/artifactId&gt;    &lt;version&gt;3.4.0&lt;/version&
         </a>
       </p>
 
@@ -339,8 +299,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-24 20:10" pubdate>
-              2021-03-24
+            <time datetime="2021-03-25 20:20" pubdate>
+              2021-03-25
             </time>
           </div>
         
@@ -349,9 +309,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/jsp/">jsp</a>
+              <a href="/blog/tags/Java/">Java</a>
             
-              <a href="/blog/tags/%E8%BD%AE%E6%92%AD%E5%9B%BE/">轮播图</a>
+              <a href="/blog/tags/zxing/">zxing</a>
             
           </div>
         
@@ -365,18 +325,17 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/03/24/forEach%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/">forEach在集合中的使用</a>
+        <a href="/blog/2021/03/25/java%E4%B8%ADpoi%E5%AF%BC%E5%87%BA%E6%A8%A1%E6%9D%BF%E4%B8%8B%E6%8B%89%E6%A1%86%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BA%A7%E8%81%94%E5%8A%A8/">java中poi导出模板下拉框实现二级联动</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/03/24/forEach%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/">
+        <a href="/blog/2021/03/25/java%E4%B8%ADpoi%E5%AF%BC%E5%87%BA%E6%A8%A1%E6%9D%BF%E4%B8%8B%E6%8B%89%E6%A1%86%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BA%A7%E8%81%94%E5%8A%A8/">
           
           
             
           
-          迭代集合任何类型Collection的可迭代 - 列表，集合，队列 等都具有使用forEach的相同语法。
-因此，正如我们已经看到的，迭代列表的元素：
-123List&lt;String&gt; names = Arrays.asList(&quot;Larry&quot;, &quot;Steve&quot;, &quot;James&quot;); names.forEach(System.o
+          代码实现如下： 需要加入的jar包:
+1234567891011&lt;dependency&gt;   &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;   &lt;artifactId&gt;poi&lt;/artifactId&gt;   &lt;version&gt;3.14&lt;/version&gt;&lt;/dependency&gt;&l
         </a>
       </p>
 
@@ -384,8 +343,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-24 20:00" pubdate>
-              2021-03-24
+            <time datetime="2021-03-25 20:10" pubdate>
+              2021-03-25
             </time>
           </div>
         
@@ -394,9 +353,56 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/java/">java</a>
+              <a href="/blog/tags/poi/">poi</a>
             
-              <a href="/blog/tags/forEach/">forEach</a>
+              <a href="/blog/tags/%E4%BA%8C%E7%BA%A7%E8%81%94%E5%8A%A8/">二级联动</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/03/25/Iterator%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%A7%A3%E5%86%B3%E4%B8%BA%E4%BD%95%E7%A6%81%E6%AD%A2%E5%9C%A8foreach%E5%86%85%E5%A2%9E%E5%88%A0/">Iterator迭代器解决为何禁止在foreach内增删</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/25/Iterator%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%A7%A3%E5%86%B3%E4%B8%BA%E4%BD%95%E7%A6%81%E6%AD%A2%E5%9C%A8foreach%E5%86%85%E5%A2%9E%E5%88%A0/">
+          
+          
+            
+          
+          迭代器的应用场景：
+1、对集合进行增加删除，禁止使用foreach，循环的动态操作 2、倒序遍历 3、遍历循环
+步入正题：为何禁止在foreach内进行增删？
+先看一下代码：
+123456789101112131415161718192021/** *         正例： *         Iterator&lt;String&gt; iterator = list.iterator(); 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-25 20:00" pubdate>
+              2021-03-25
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/Iterator/">Iterator</a>
+            
+              <a href="/blog/tags/foreach/">foreach</a>
             
           </div>
         
@@ -408,7 +414,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/26/">26</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/27/">27</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
