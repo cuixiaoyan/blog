@@ -1,0 +1,595 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>通俗讲解分布式锁 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/blog/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="通俗讲解分布式锁">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-26 21:00" pubdate>
+        2021年3月26日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      40
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">通俗讲解分布式锁</h1>
+            
+            <div class="markdown-body">
+              <p>首先，分布式锁和我们平常讲到的锁原理基本一样，目的就是确保在多个线程并发时，只有一个线程在同一刻操作这个业务或者说方法、变量。</p>
+<p>在一个进程中，也就是一个 jvm 或者说应用中，我们很容易去处理控制，在 jdk java.util 并发包中已经为我们提供了这些方法去加锁，比如 synchronized 关键字或者 Lock 锁，都可以处理。</p>
+<p>但是我们现在的应用程序如果只部署一台服务器，那并发量是很差的，如果同时有上万的请求，很有可能造成服务器压力过大而瘫痪。想想双十一和大年三十晚上十点，瓜分支付宝红包等业务场景，自然需要用到多台服务器去同时处理这些业务，这些服务可能会有上百台同时处理。</p>
+<p>但是我们想一想，如果有 100 台服务器要处理分红包的业务，现在假设有 1 亿的红包，1 千万个人分，金额随机，那么这个业务场景下，是不是必须确保这 1 千万个人最后分的红包金额总和等于 1 亿？</p>
+<p>如果处理不好每人分到 100 万，那马云爸爸估计大年初一，就得宣布破产了</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/c7867412524a41bfa8f8ad3ff471f99a~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<h3 id="一、常规锁会造成什么情况？"><a href="#一、常规锁会造成什么情况？" class="headerlink" title="一、常规锁会造成什么情况？"></a>一、常规锁会造成什么情况？</h3><p>首先说一下我们为什么要搞集群。</p>
+<p>简单理解就是，需求量（请求并发量）变大了，一个工人处理能力有限，那就多招一些工人来一起处理。</p>
+<p>假设 1 千万个请求平均分配到 100 台服务器上，每个服务器接收 10w 的请求。这 10w 个请求并不是在同一秒中来的，可能是在 1,2 个小时内，可以联想下我们三十晚上开红包，等到 10：20 开始，有的人立马开了，有的人等到 12 点才想起来。</p>
+<p>那这样的话，平均到每一秒上的请求也就不到 1 千个，这种压力一般的服务器还是可以承受的。</p>
+<ul>
+<li>第一个用户来分，请求到来后，需要在 1 亿里面给他分一部分钱，金额随机，假设第一个人分到了 100，那就要在这 1 亿中减去 100 块，剩下 99999900 块~</li>
+<li>第二个用户再来分，金额随机，这次分 200 块，那就需要在剩下的 99999900 块中再减去 200 块，剩下 99999700 块。</li>
+<li>等到第 10w 个用户来，一看还有 1000w，那这 1000w 全成他的了。</li>
+</ul>
+<p>等于是在每个服务器中去分 1 亿，也就是 10w 个用户分了一个亿，最后总计有 100 个服务器，要分 100 亿。</p>
+<p>如果真这样了，虽说马云爸爸不会破产（据最新统计马云有 2300 亿人民币），那分红包的开发项目组，以及产品经理，可以 GG 了~</p>
+<p>简化结构图如下：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/9b9bc469743c480aa3985bb95baa0ddf~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<h3 id="二、分布式锁怎么去处理？"><a href="#二、分布式锁怎么去处理？" class="headerlink" title="二、分布式锁怎么去处理？"></a>二、分布式锁怎么去处理？</h3><p>那么为了解决这个问题，让 1000 万用户只分 1 亿，而不是 100 亿，这个时候分布式锁就派上用处了。</p>
+<p>分布式锁可以把整个集群就当作是一个应用一样去处理，那么也就需要这个锁独立于每一个服务之外，而不是在服务里面。</p>
+<p>假设第一个服务器接收到用户 1 的请求后，不能只在自己的应用中去判断还有多少钱可以分了，而需要去外部请求专门负责管理这 1 亿红包的人（服务），问他：哎，我这里要分 100 块，给我 100。</p>
+<p>管理红包的妹子（服务）一看，还有 1 个亿，那好，给你 100 块，然后剩下 99999900 块。</p>
+<p>第二个请求到来后，被服务器 2 获取，继续去询问，管理红包的妹子，我这边要分 10 块，管理红包的妹子先查了下还有 99999900，那就说：好，给你 10 块。那就剩下 99999890 块。</p>
+<p>等到第 1000w 个请求到来后，服务器 100 拿到请求，继续去询问，管理红包的妹子，我要 100，妹子翻了翻白眼，对你说，就剩 1 块了，爱要不要，那这个时候就只能给你 1 块了（1 块也是钱啊，买根辣条还是可以的）。</p>
+<p>这些请求编号 1,2 不代表执行的先后顺序，正式的场景下，应该是 100 台服务器每个服务器持有一个请求去访问负责管理红包的妹子（服务），那在管红包的妹子那里同时会接收到 100 个请求，这个时候就需要在负责红包的妹子那里加个锁就可以了（抛绣球），你们 100 个服务器谁拿到锁（抢到绣球），谁就进来和我谈，我给你分，其他人就等着去吧。</p>
+<p>经过上面的分布式锁的处理后，马云爸爸终于放心了，决定给红包团队每人加一个鸡腿。</p>
+<p>简化的结构图如下：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/ded345e3baf24d21a402418bc78ac2c0~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<h3 id="三、分布式锁的实现有哪些？"><a href="#三、分布式锁的实现有哪些？" class="headerlink" title="三、分布式锁的实现有哪些？"></a>三、分布式锁的实现有哪些？</h3><p>说到分布式锁的实现，还是有很多的，有数据库方式的，有 Redis 分布式锁，有 Zookeeper 分布式锁等等。</p>
+<p>我们如果采用 Redis 作为分布式锁，那么上图中负 “责红包的妹子（服务）”，就可以替换成 Redis，请自行脑补。</p>
+<p><strong>1、为什么 Redis 可以实现分布式锁？</strong></p>
+<p>首先 Redis 是单线程的，这里的单线程指的是网络请求模块使用了一个线程（所以不需考虑并发安全性），即一个线程处理所有网络请求，其他模块仍用了多个线程。</p>
+<p>在实际的操作中过程大致是这样子的：</p>
+<p>服务器 1 要去访问发红包的妹子，也就是 Redis，那么他会在 Redis 中通过 “setnx key value” 操作设置一个 key 进去，value 是啥不重要，重要的是要有一个 key，也就是一个标记，而且这个 key 你爱叫啥叫啥，只要所有的服务器设置的 key 相同就可以。</p>
+<p>假设我们设置一个，如下图：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/ba01791955c4422d8d83124405591598~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>那么我们可以看到会返回一个 1，那就代表了成功。</p>
+<p>如果再来一个请求去设置同样的 key，如下图：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/32b815d1f0f94cd9a563bd678a3dabc5~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>这个时候会返回 0，那就代表失败了。</p>
+<p>那么我们就可以通过这个操作去判断是不是当前可以拿到锁，或者说可以去访问 “负责发红包的妹子”，如果返回 1，那我就开始去执行后面的逻辑，如果返回 0，那就说明已经被人占用了，我就要继续等待。</p>
+<p>当服务器 1 拿到锁之后，进行了业务处理，完成后，还需要释放锁，如下图所示：</p>
+<p>删除成功返回 1，那么其他的服务器就可以继续重复上面的步骤去设置这个 key，以达到获取锁的目的。</p>
+<p>当然以上的操作是在 Redis 客户端直接进行的，通过程序调用的话，肯定就不能这么写，比如 java 就需要通过 jedis 去调用，但是整个处理逻辑基本都是一样的。</p>
+<p>通过上面的方式，我们好像是解决了分布式锁的问题，但是想想还有没有什么问题呢？</p>
+<p>对，问题还是有的，可能会有死锁的问题发生，比如服务器 1 设置完之后，获取了锁之后，忽然发生了宕机。</p>
+<p>那后续的删除 key 操作就没法执行，这个 key 会一直在 Redis 中存在，其他服务器每次去检查，都会返回 0，他们都会认为有人在使用锁，我需要等。</p>
+<p>为了解决这个死锁的问题，我们就需要给 key 设置有效期了。</p>
+<p>设置的方式有 2 种：</p>
+<ul>
+<li>第一种就是在 set 完 key 之后，直接设置 key 的有效期 “expire key timeout” ，为 key 设置一个超时时间，单位为 second，超过这个时间锁会自动释放，避免死锁。</li>
+</ul>
+<p>这种方式相当于，把锁持有的有效期，交给了 Redis 去控制。如果时间到了，你还没有给我删除 key，那 Redis 就直接给你删了，其他服务器就可以继续去 setnx 获取锁。</p>
+<ul>
+<li>第二种方式，就是把删除 key 权利交给其他的服务器，那这个时候就需要用到 value 值了，比如服务器 1，设置了 value 也就是 timeout 为当前时间 + 1 秒 ，这个时候服务器 2 通过 get 发现时间已经超过系统当前时间了，那就说明服务器 1 没有释放锁，服务器 1 可能出问题了，服务器 2 就开始执行删除 key 操作，并且继续执行 setnx 操作。</li>
+</ul>
+<p>但是这块有一个问题，也就是不光你服务器 2 可能会发现服务器 1 超时了，服务器 3 也可能会发现，如果刚好服务器 2 setnx 操作完成，服务器 3 就接着删除，是不是服务器 3 也可以 setnx 成功了？</p>
+<p>那就等于是服务器 2 和服务器 3 都拿到锁了，那就问题大了。这个时候怎么办呢？</p>
+<p>这个时候需要用到 “GETSET  key value” 命令了。这个命令的意思就是获取当前 key 的值，并且设置新的值。</p>
+<p>假设服务器 2 发现 key 过期了，开始调用 getset 命令，然后用获取的时间判断是否过期，如果获取的时间仍然是过期的，那就说明拿到锁了。</p>
+<p>如果没有，则说明在服务 2 执行 getset 之前，服务器 3 可能也发现锁过期了，并且在服务器 2 之前执行了 getset 操作，重新设置了过期时间。</p>
+<p>那么服务器 2 就需要放弃后续的操作，继续等待服务器 3 释放锁或者去监测 key 的有效期是否过期。</p>
+<p>这块其实有一个小问题是，服务器 3 已经修改了有效期，拿到锁之后，服务器 2 也修改了有效期，但是没能拿到锁，但是这个有效期的时间已经被在服务器 3 的基础上有增加一些，但是这种影响其实还是很小的，几乎可以忽略不计。</p>
+<p><strong>2、为什么 Zookeeper 可实现分布式锁？</strong></p>
+<p>百度百科是这么介绍的：ZooKeeper 是一个分布式的，开放源码的分布式应用程序协调服务，是 Google 的 Chubby 一个开源的实现，是 Hadoop 和 Hbase 的重要组件。</p>
+<p>那对于我们初次认识的人，可以理解成 ZooKeeper 就像是我们的电脑文件系统，我们可以在 d 盘中创建文件夹 a，并且可以继续在文件夹 a 中创建文件夹 a1，a2。</p>
+<p>那我们的文件系统有什么特点？那就是同一个目录下文件名称不能重复，同样 ZooKeeper 也是这样的。</p>
+<p>在 ZooKeeper 所有的节点，也就是文件夹称作 Znode，而且这个 Znode 节点是可以存储数据的。</p>
+<p>我们可以通过 “create /zkjjj nice” 来创建一个节点，这个命令就表示，在跟目录下创建一个 zkjjj 的节点，值是 nice。同样这里的值，和我在前面说的 Redis 中的一样，没什么意义，你随便给。</p>
+<p>另外 ZooKeeper 可以创建 4 种类型的节点，分别是：</p>
+<ul>
+<li>持久性节点</li>
+<li>持久性顺序节点</li>
+<li>临时性节点</li>
+<li>临时性顺序节点</li>
+</ul>
+<p>首先说下持久性节点和临时性节点的区别：</p>
+<ul>
+<li>持久性节点表示只要你创建了这个节点，那不管你 ZooKeeper 的客户端是否断开连接，ZooKeeper 的服务端都会记录这个节点；</li>
+<li>临时性节点刚好相反，一旦你 ZooKeeper 客户端断开了连接，那 ZooKeeper 服务端就不再保存这个节点；</li>
+<li>顺便也说下顺序性节点，顺序性节点是指，在创建节点的时候，ZooKeeper 会自动给节点编号比如 0000001，0000002 这种的。</li>
+</ul>
+<p>Zookeeper 有一个监听机制，客户端注册监听它关心的目录节点，当目录节点发生变化（数据改变、被删除、子目录节点增加删除）等，Zookeeper 会通知客户端。</p>
+<h3 id="四、在-Zookeeper-中如何加锁？"><a href="#四、在-Zookeeper-中如何加锁？" class="headerlink" title="四、在 Zookeeper 中如何加锁？"></a>四、在 Zookeeper 中如何加锁？</h3><p>下面我们继续结合我们上面的分红包场景，描述下在 Zookeeper 中如何加锁。</p>
+<p>假设服务器 1，创建了一个节点 /zkjjj，成功了，那服务器 1 就获取了锁，服务器 2 再去创建相同的锁，就会失败，这个时候就只能监听这个节点的变化。</p>
+<p>等到服务器 1 处理完业务，删除了节点后，他就会得到通知，然后去创建同样的节点，获取锁处理业务，再删除节点，后续的 100 台服务器与之类似。</p>
+<p>注意这里的 100 台服务器并不是挨个去执行上面的创建节点的操作，而是并发的，当服务器 1 创建成功，那么剩下的 99 个就都会注册监听这个节点，等通知，以此类推。</p>
+<p>但是大家有没有注意到，这里还是有问题的，还是会有死锁的情况存在，对不对？</p>
+<p>当服务器 1 创建了节点后挂了，没能删除，那其他 99 台服务器就会一直等通知，那就完蛋了。。。</p>
+<p>这个时候就需要用到临时性节点了，我们前面说过了，临时性节点的特点是客户端一旦断开，就会丢失，也就是当服务器 1 创建了节点后，如果挂了，那这个节点会自动被删除，这样后续的其他服务器，就可以继续去创建节点，获取锁了。</p>
+<p>但是我们可能还需要注意到一点，就是惊群效应：举一个很简单的例子，当你往一群鸽子中间扔一块食物，虽然最终只有一个鸽子抢到食物，但所有鸽子都会被惊动来争夺，没有抢到…</p>
+<p>就是当服务器 1 节点有变化，会通知其余的 99 个服务器，但是最终只有 1 个服务器会创建成功，这样 98 还是需要等待监听，那么为了处理这种情况，就需要用到临时顺序性节点。大致意思就是，之前是所有 99 个服务器都监听一个节点，现在就是每一个服务器监听自己前面的一个节点。</p>
+<p>假设 100 个服务器同时发来请求，这个时候会在 / zkjjj 节点下创建 100 个临时顺序性节点<code>/zkjjj/000000001</code>，<code>/zkjjj/000000002</code>，一直到<code>/zkjjj/000000100</code>，这个编号就等于是已经给他们设置了获取锁的先后顺序了。</p>
+<p>当 001 节点处理完毕，删除节点后，002 收到通知，去获取锁，开始执行，执行完毕，删除节点，通知 003~ 以此类推</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">分布式锁</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/03/25/%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%80%80%E9%81%BF%E7%AD%96%E7%95%A5/">
+                        <span class="hidden-mobile">接口调用失败的退避策略</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
