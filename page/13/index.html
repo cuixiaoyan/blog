@@ -186,6 +186,138 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/03/07/Java%E8%A7%A3%E5%86%B3Emoji%E8%A1%A8%E6%83%85%E8%BF%87%E6%BB%A4%E9%97%AE%E9%A2%98/">Java解决Emoji表情过滤问题</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/07/Java%E8%A7%A3%E5%86%B3Emoji%E8%A1%A8%E6%83%85%E8%BF%87%E6%BB%A4%E9%97%AE%E9%A2%98/">
+          
+          
+            
+          
+          问题：
+Emoji表情从三方数据中获取没有过滤，导致存入DB的时候报错。
+原因：
+UTF-8编码有可能是两个、三个、四个字节。Emoji表情是4个字节，而Mysql的utf8编码最多3个字节，所以数据插不进去。
+解决方案：
+1.将已经建好的表也转换成utf8mb4，这个方法不可行，有的时候就不灵了。
+2，写个工具类：过滤掉emoji表情符号
+1234567891011121314151617181
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-07 16:10" pubdate>
+              2021-03-07
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/03/07/SpringCloud%E5%85%A5%E9%97%A8%E4%B9%8BFeign%E7%AF%87/">SpringCloud入门之Feign篇</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/07/SpringCloud%E5%85%A5%E9%97%A8%E4%B9%8BFeign%E7%AF%87/">
+          
+          
+            
+          
+          上面介绍了 Ribbon 使用负载均衡调用微服务，但存在一个问题：消费端每个请求方法中都需要拼接请求服务的 URL 地址，存在硬编码问题且不符合面向对象编程思想。如果服务名称发生变化，消费端也需要跟着修改。
+本篇文章将介绍 Feign 来解决上边的问题。
+Feign 是一个声明式的 Web Service 客户端。使用 Feign 能让编写 Web Service 客户端更加简单，同时支持与Eur
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-07 10:20" pubdate>
+              2021-03-07
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/SpringCloud/">SpringCloud</a>
+            
+              <a href="/blog/tags/Feign/">Feign</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/03/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%B9%E6%98%93%E4%BA%A7%E7%94%9F%E7%9A%8440%E4%B8%AA%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/">多线程容易产生的40个问题汇总</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%B9%E6%98%93%E4%BA%A7%E7%94%9F%E7%9A%8440%E4%B8%AA%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/">
+          
+          
+            
+          
+          这些多线程的问题，有些来源于各大网站、有些来源于自己的思考。可能有些问题网上有、可能有些问题对应的答案也有、也可能有些各位网友也都看过，但是本文写作的重心就是所有的问题都会按照自己的理解回答一遍，不会去看网上的答案，因此可能有些问题讲的不对，能指正的希望大家不吝指教。
+40个问题汇总
+1、多线程有什么用？
+一个可能在很多人看来很扯淡的一个问题：我会用多线程就好了，还管它有什么用？在我看来，这个回答
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-07 10:10" pubdate>
+              2021-03-07
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/java/">java</a>
+            
+              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/03/02/Ribbon%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">Ribbon负载均衡</a>
       </h1>
 
@@ -268,145 +400,6 @@
               <a href="/blog/tags/Ribbon/">Ribbon</a>
             
               <a href="/blog/tags/SpringCloud/">SpringCloud</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/03/02/Eureka%E9%9B%86%E7%BE%A4/">Eureka集群</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/02/Eureka%E9%9B%86%E7%BE%A4/">
-          
-          
-            
-          
-          Eureka 作为注册中心，保存了系统服务的相关信息，如果注册中心挂掉，那么系统就瘫痪了。因此，对 Eureka 做集群实现高可用是必不可少的。
-本次测试使用一台机器部署 Eureka 集群，通过名字和端口区分不同的 eureka 服务。 Eureka 名称 端口号 eureka01 9001 eureka02 9002 由于使用一台机器，使用两个名称还需要修改 C:\Windows\System
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-02 20:10" pubdate>
-              2021-03-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/spring/">spring</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/Eureka/">Eureka</a>
-            
-              <a href="/blog/tags/spring/">spring</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/02/27/SpringCloud%E5%85%A5%E9%97%A8%E4%B9%8BEureka%E7%AF%87/">SpringCloud 入门之Eureka 篇</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/02/27/SpringCloud%E5%85%A5%E9%97%A8%E4%B9%8BEureka%E7%AF%87/">
-          
-          
-            
-          
-          前言Spring Cloud 是一系列框架的有序集合。它利用 Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用 Spring Boot 的开发风格做到一键启动和部署。
-本篇介绍 Spring Cloud 入门系列中的 Eureka，实现快速入门。
-简单介绍Eureka 是 Netflix 的子模块，
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-27 09:40" pubdate>
-              2021-02-27
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/">工具类</a>
-            
-              <a href="/blog/tags/SpringCloud/">SpringCloud</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/02/27/Python%E7%BB%9F%E8%AE%A1%E5%AD%97%E7%AC%A6%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0(Counter%E5%8C%85)%E4%BB%A5%E5%8F%8Atxt%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5/">Python统计字符出现次数(Counter包)以及txt文件写入</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/02/27/Python%E7%BB%9F%E8%AE%A1%E5%AD%97%E7%AC%A6%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0(Counter%E5%8C%85)%E4%BB%A5%E5%8F%8Atxt%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5/">
-          
-          
-            
-          
-          统计字符(可以在jieba分词之后使用)123456789101112131415161718192021from collections import Counterfrom operator import itemgetter # txt_list可以写成函数参数进行导入txt_list = [&#x27;千古&#x27;,&#x27;人间&#x27;,&#x27;人间&#x27;,&#x27
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-27 09:30" pubdate>
-              2021-02-27
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/Python/">Python</a>
-            
-              <a href="/blog/tags/Counter/">Counter</a>
             
           </div>
         
