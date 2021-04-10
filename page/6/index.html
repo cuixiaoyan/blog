@@ -186,6 +186,50 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/03/21/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%E8%AF%A6%E8%A7%A3/">几种常见的线程池详解</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/21/%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%E8%AF%A6%E8%A7%A3/">
+          
+          
+            
+          
+          FixedThreadPoolFixedThreadPool 被称为可重用固定线程数的线程池。通过 Executors 类中的相关源代码来看一下相关实现：
+123456789/**    * 创建一个可重用固定数量线程的线程池    */   public static ExecutorService newFixedThreadPool(int nThreads, ThreadFactory t
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-21 16:00" pubdate>
+              2021-03-21
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/Java/">Java</a>
+            
+              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">线程池</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/03/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%87%A0%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84%E5%AF%B9%E6%AF%94/">线程池几个常见的对比</a>
       </h1>
 
@@ -360,56 +404,11 @@ ThreadPoolExecutor 类分析ThreadPoolExecutor 类中提供的四个构造方法
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/03/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">线程池原理分析</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">
-          
-          
-            
-          
-          我们通过代码输出结果可以看出：线程池每次会同时执行 5 个任务，这 5 个任务执行完之后，剩余的 5 个任务才会被执行。 大家可以先通过上面讲解的内容，分析一下到底是咋回事？（自己独立思考一会）
-现在，我们就分析上面的输出内容来简单分析一下线程池原理。
-为了搞懂线程池的原理，我们需要首先分析一下 execute方法。在 4.6 节中的 Demo 中我们使用 executor.execute(wor
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-19 20:00" pubdate>
-              2021-03-19
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/java/">java</a>
-            
-              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">线程池</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/4/">4</a><a class="page-number" href="/blog/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/blog/page/7/">7</a><a class="page-number" href="/blog/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/28/">28</a><a class="extend next" rel="next" href="/blog/page/7/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/4/">4</a><a class="page-number" href="/blog/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/blog/page/7/">7</a><a class="page-number" href="/blog/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/29/">29</a><a class="extend next" rel="next" href="/blog/page/7/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
