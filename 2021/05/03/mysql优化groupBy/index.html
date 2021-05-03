@@ -1,0 +1,625 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>mysql优化groupBy - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/blog/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="mysql优化groupBy">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-03 11:10" pubdate>
+        2021年5月3日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      37
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">mysql优化groupBy</h1>
+            
+            <div class="markdown-body">
+              <p>当我们交友平台在线上运行一段时间后，为了给平台用户在搜索好友时，在搜索结果中推荐并置顶他感兴趣的好友，这时候，我们会对用户的行为做数据分析，根据分析结果给他推荐其感兴趣的好友。</p>
+<blockquote>
+<p>这里，我采用最简单的SQL分析法：对用户过去查看好友的性别和年龄进行统计，按照年龄进行分组得到统计结果。依据该结果，给用户推荐计数最高的某个性别及年龄的好友。</p>
+</blockquote>
+<p>那么，假设我们现在有一张用户浏览好友记录的明细表<code>t_user_view</code>，该表的表结构如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> `t_user_view` (<br>  `id` <span class="hljs-type">bigint</span>(<span class="hljs-number">20</span>) unsigned <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> AUTO_INCREMENT COMMENT <span class="hljs-string">&#x27;自增id&#x27;</span>,<br>  `user_id` <span class="hljs-type">bigint</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NULL</span> COMMENT <span class="hljs-string">&#x27;用户id&#x27;</span>,<br>  `viewed_user_id` <span class="hljs-type">bigint</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NULL</span> COMMENT <span class="hljs-string">&#x27;被查看用户id&#x27;</span>,<br>  `viewed_user_sex` tinyint(<span class="hljs-number">1</span>) <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NULL</span> COMMENT <span class="hljs-string">&#x27;被查看用户性别&#x27;</span>,<br>  `viewed_user_age` <span class="hljs-type">int</span>(<span class="hljs-number">5</span>) <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NULL</span> COMMENT <span class="hljs-string">&#x27;被查看用户年龄&#x27;</span>,<br>  `create_time` datetime(<span class="hljs-number">3</span>) <span class="hljs-keyword">DEFAULT</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span>(<span class="hljs-number">3</span>),<br>  `update_time` datetime(<span class="hljs-number">3</span>) <span class="hljs-keyword">DEFAULT</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">ON</span> <span class="hljs-keyword">UPDATE</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span>(<span class="hljs-number">3</span>),<br>  <span class="hljs-keyword">PRIMARY</span> <span class="hljs-keyword">KEY</span> (`id`),<br>  <span class="hljs-keyword">UNIQUE</span> KEY `idx_user_viewed_user` (`user_id`,`viewed_user_id`)<br>) ENGINE<span class="hljs-operator">=</span>InnoDB <span class="hljs-keyword">DEFAULT</span> CHARSET<span class="hljs-operator">=</span>utf8;<br><br></code></pre></td></tr></table></figure>
+<p>为了方便使用SQL统计，见上面的表结构，我冗余了被查看用户的性别和年龄字段。</p>
+<p>我们再来看看这张表里的记录：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/95ce656e6ade41e992f24f54974e209c~tplv-k3u1fbpfcp-watermark.image" srcset="/blog/img/loading.gif" alt="image-20210321202431004.png"></p>
+<p>现在结合上面的表结构和表记录，我以<code>user_id=1</code>的用户为例，分组统计该用户查看的年龄在18 ~ 22之间的女性用户的数量：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> viewed_user_age <span class="hljs-keyword">as</span> age, <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">as</span> num <span class="hljs-keyword">FROM</span> t_user_view <span class="hljs-keyword">WHERE</span> user_id <span class="hljs-operator">=</span> <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> viewed_user_age <span class="hljs-keyword">BETWEEN</span> <span class="hljs-number">18</span> <span class="hljs-keyword">AND</span> <span class="hljs-number">22</span> <span class="hljs-keyword">AND</span> viewed_user_sex <span class="hljs-operator">=</span> <span class="hljs-number">1</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> viewed_user_age<br><br></code></pre></td></tr></table></figure>
+<p>得到统计结果如下：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/a99d2932bcdb464a842f8bcfd98e0682~tplv-k3u1fbpfcp-watermark.image" srcset="/blog/img/loading.gif" alt="image-20210321172324495.png"></p>
+<p>可见：</p>
+<ul>
+<li>该用户查看年龄为18的女性用户数为2</li>
+<li>该用户查看年龄为19的女性用户数为1</li>
+<li>该用户查看年龄为20的女性用户数为3</li>
+</ul>
+<p>所以，<code>user_id=1</code>的用户对年龄为20的女性用户更感兴趣，可以更多推荐20岁的女性用户给他。</p>
+<blockquote>
+<p>如果此时，<code>t_user_view</code>这张表的记录数达到千万规模，想必这条SQL的查询效率会直线下降，为什么呢？有什么办法优化呢？</p>
+</blockquote>
+<p>想要知道原因，不得不先看一下这条SQL执行的过程是怎样的？</p>
+<h3 id="Explain"><a href="#Explain" class="headerlink" title="Explain"></a>Explain</h3><p>我们先用<code>explain</code>看一下这条SQL：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">EXPLAIN <span class="hljs-keyword">SELECT</span> viewed_user_age <span class="hljs-keyword">as</span> age, <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">as</span> num <span class="hljs-keyword">FROM</span> t_user_view <span class="hljs-keyword">WHERE</span> user_id <span class="hljs-operator">=</span> <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> viewed_user_age <span class="hljs-keyword">BETWEEN</span> <span class="hljs-number">18</span> <span class="hljs-keyword">AND</span> <span class="hljs-number">22</span> <span class="hljs-keyword">AND</span> viewed_user_sex <span class="hljs-operator">=</span> <span class="hljs-number">1</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> viewed_user_age<br><br></code></pre></td></tr></table></figure>
+<p>执行完上面的<code>explain</code>语句，我们得到如下结果：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/6488bd6356e240f9b47040261a6798c4~tplv-k3u1fbpfcp-watermark.image" srcset="/blog/img/loading.gif" alt="image-20210321200747868.png"></p>
+<p>在<code>Extra</code>这一列中出现了三个<code>Using</code>，这3个<code>Using</code>代表了《导读》中的<code>groupBy</code>语句分别经历了3个执行阶段：</p>
+<ol>
+<li>Using where：通过搜索可能的<code>idx_user_viewed_user</code>索引树定位到满足部分条件的<code>viewed_user_id</code>，然后，回表继续查找满足其他条件的记录</li>
+<li>Using temporary：使用临时表暂存待<code>groupBy</code>分组及统计字段信息</li>
+<li>Using filesort：使用<code>sort_buffer</code>对分组字段进行排序</li>
+</ol>
+<p>这3个阶段中出现了一个名词：<code>临时表</code>。这个名词我在《MySQL分表时机：100w？300w？500w？都对也都不对！》一文中有讲到，这是MySQL连接线程可以独立访问和处理的内存区域，那么，这个临时表长什么样呢？</p>
+<blockquote>
+<p>下面我就先讲讲这张MySQL的临时表，然后，结合上面提到的3个阶段，详细讲解《导读》中SQL的执行过程。</p>
+</blockquote>
+<h3 id="临时表"><a href="#临时表" class="headerlink" title="临时表"></a>临时表</h3><p>我们还是先看看《导读》中的这条包含<code>groupBy</code>语句的SQL，其中包含一个分组字段<code>viewed_user_age</code>和一个统计字段<code>count(*)</code>，这两个字段是这条SQL中统计所需的部分，如果我们要做这样一个统计和分组，并把结果固化下来，肯定是需要一个内存或磁盘区域落下第一次统计的结果，然后，以这个结果做下一次的统计，因此，像这种存储中间结果，并以此结果做进一步处理的区域，MySQL叫它<code>临时表</code>。</p>
+<p>刚刚提到既可以将中间结果落在内存，也可以将这个结果落在磁盘，因此，在MySQL中就出现了两种临时表：<code>内存临时表</code>和<code>磁盘临时表</code>。</p>
+<h4 id="内存临时表"><a href="#内存临时表" class="headerlink" title="内存临时表"></a>内存临时表</h4><p>什么是内存临时表？在早期数据量不是很大的时候，以存储分组及统计字段为例，那么，基本上内存就可以完全存放下分组及统计字段对应的所有值，这个存放大小由<code>tmp_table_size</code>参数决定。这时候，这个存放值的内存区域，MySQL就叫它内存临时表。</p>
+<p>此时，或许你已经觉得MySQL将中间结果存放在内存临时表，性能已经有了保障，但是，在《MySQL分表时机：100w？300w？500w？都对也都不对！》中，我提到过内存频繁的存取会产生碎片，为此，MySQL设计了一套新的内存分配和释放机制，可以减少甚至避免临时表内存碎片，提升内存临时表的利用率。</p>
+<blockquote>
+<p>此时，你可能会想，在《为什么我调大了sort_buffer_size，并发量一大，查询排序慢成狗？》一文中，我讲了用户态的内存分配器：<code>ptmalloc</code>和<code>tcmalloc</code>，无论是哪个分配器，它的作用就是避免用户进程频繁向Linux内核申请内存空间，造成<code>CPU</code>在用户态和内核态之间频繁切换，从而影响内存存取的效率。用它们就可以解决内存利用率的问题，为什么MySQL还要自己搞一套？</p>
+</blockquote>
+<p>或许MySQL的作者觉得无论哪个内存分配器，它的实现都过于复杂，这些复杂性会影响MySQL对于内存处理的性能，因此，MySQL自身又实现了一套内存分配机制：<code>MEM_ROOT</code>。它的内存处理机制相对比较简单，内存临时表的分配就是采用这样一种方式。</p>
+<p>下面，我就以《导读》中的SQL为例，详细讲解一下分组统计是如何使用<code>MEM_ROOT</code>内存分配和释放机制的？</p>
+<h5 id="MEM-ROOT"><a href="#MEM-ROOT" class="headerlink" title="MEM_ROOT"></a>MEM_ROOT</h5><p>我们先看看<code>MEM_ROOT</code>的结构，<code>MEM_ROOT</code>设计比较简单，主要包含这几部分，如下图：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/2a4a62d15071443a9ecfdd816a410da7~tplv-k3u1fbpfcp-watermark.image" srcset="/blog/img/loading.gif" alt="image-20210322205718291.png"></p>
+<p>free：一个单向链表，链表中每一个单元叫<code>block</code>，<code>block</code>中存放的是空闲的内存区，每个<code>block</code>包含3个元素：</p>
+<ul>
+<li>left：<code>block</code>中剩余的内存大小</li>
+<li>size：<code>block</code>对应内存的大小</li>
+<li>next：指向下一个<code>block</code>的指针</li>
+</ul>
+<p>如上图，<code>free</code>所在的行就是一个<code>free</code>链表，链表中每个箭头相连的部分就是<code>block</code>，<code>block</code>中有<code>left</code>和            <code>size</code>，每个<code>block</code>之间的箭头就是<code>next</code>指针</p>
+<p>used：一个单向链表，链表中每一个单元叫<code>block</code>，<code>block</code>中存放已使用的内存区，同样，每个<code>block</code>包含上面3            个元素</p>
+<p>min_malloc：控制一个 <code>block</code> 剩余空间还有多少的时候从<code>free</code>链表移除，加入到<code>used</code>链表中</p>
+<p>block_size：<code>block</code>对应内存的大小</p>
+<p>block_num：<code>MEM_ROOT</code> 管理的<code>block</code>数量</p>
+<p>first_block_usage：<code>free</code>链表中第一个<code>block</code>不满足申请空间大小的次数</p>
+<p>pre_alloc：当释放整个<code>MEM_ROOT</code>的时候可以通过参数控制，选择保留<code>pre_alloc</code>指向的<code>block</code></p>
+<p>下面我就以《导读》中的分组统计SQL为例，看一下<code>MEM_ROOT</code>是如何分配内存的？</p>
+<h6 id="分配"><a href="#分配" class="headerlink" title="分配"></a>分配</h6><p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/ccf3e23603a54fb1a3b820835ead6bd7~tplv-k3u1fbpfcp-watermark.image" srcset="/blog/img/loading.gif" alt="image-20210326002410273.png"></p>
+<ol>
+<li><p>初始化<code>MEM_ROOT</code>，见上图：</p>
+<p><code>min_malloc = 32</code></p>
+<p><code>block_num = 4</code></p>
+<p><code>first_block_usage = 0</code></p>
+<p><code>pre_alloc = 0</code></p>
+<p><code>block_size = 1000</code></p>
+<p><code>err_handler = 0</code></p>
+<p><code>free = 0</code></p>
+<p><code>used = 0</code></p>
+</li>
+<li><p>申请内存，见上图：</p>
+<p>由于初始化<code>MEM_ROOT</code>时，<code>free = 0</code>，说明<code>free</code>链表不存在，故向Linux内核申请4个大小为<code>1000/4=250</code>的<code>block</code>，构造一个<code>free</code>链表，如上图，链表中包含4个<code>block</code> ，结合前面<code>free</code>链表结构的说明，每个<code>block</code>中<code>size</code>为250，<code>left</code>也为250</p>
+</li>
+<li><p>分配内存，见上图：</p>
+<p>(1) 遍历<code>free</code>链表，从<code>free</code>链表头部取出第一个<code>block</code>，如上图向下的箭头</p>
+<p>(2) 从取出的<code>block</code>中划分<code>220</code>大小的内存区，如上图向右的箭头上面<code>-220</code>，<code>block</code>中的<code>left</code>从<code>250</code>变成<code>30</code></p>
+<p>(3) 将划分的<code>220</code>大小的内存区分配给SQL中的<code>groupby</code>字段<code>viewed_user_age</code>和统计字段<code>count(*)</code>，用于后面的统计分组数据收集到该内存区</p>
+<p>(4) 由于第(2)步中，分配后的<code>block</code>中的<code>left</code>变成<code>30</code>，<code>30 &lt; 32</code>，即小于第(1)步中初始化的<code>min_malloc</code>，所以，结合上面<code>min_malloc</code>的含义的讲解，该<code>block</code>将插入<code>used</code>链表尾部，如上图底部，由于<code>used</code>链表在第(1)步初始化时为0，所以，该<code>block</code>插入<code>used</code>链表的尾部，即插入头部</p>
+</li>
+</ol>
+<h6 id="释放"><a href="#释放" class="headerlink" title="释放"></a>释放</h6><p>下面还是以《导读》中的分组统计为例，我们再来看一下<code>MEM_ROOT</code>是如何释放内存的？</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/b6569d6768e14a68a647161c0e6bea2c~tplv-k3u1fbpfcp-watermark.image" srcset="/blog/img/loading.gif" alt="image-20210323233158459.png"></p>
+<p>如上图，<code>MEM_ROOT</code>释放内存的过程如下：</p>
+<ol>
+<li>遍历<code>used</code>链表中，找到需要释放的<code>block</code>，如上图，<code>block(30,250)</code>为之前已分配给分组统计用的<code>block</code></li>
+<li>将<code>block(30,250)</code>中的<code>left + 220</code>，即<code>30 + 220 = 250</code>，释放该<code>block</code>已使用的<code>220</code>大小的内存区，得到释放后的<code>block(250,250)</code></li>
+<li>将<code>block(250,250)</code>插入<code>free</code>链表尾部，如上图曲线箭头部分</li>
+</ol>
+<p>通过<code>MEM_ROOT</code>内存分配和释放的讲解，我们发现<code>MEM_ROOT</code>的内存管理方式是在每个<code>Block</code>上连续分配，内部碎片基本在每个<code>Block</code>的尾部，由<code>min_malloc</code>成员变量控制，但是<code>min_malloc</code>的值是在代码中写死的，有点不够灵活。所以，对一个<code>block</code>来说，当<code>left</code>小于<code>min_malloc</code>，从其申请的内存越大，那么<code>block</code>中的<code>left</code>值越小，那么，该<code>block</code>的内存利用率越高，碎片越少，反之，碎片越多。这个写死是MySQL的内存分配的一个缺陷。</p>
+<h4 id="磁盘临时表"><a href="#磁盘临时表" class="headerlink" title="磁盘临时表"></a>磁盘临时表</h4><p>当分组及统计字段对应的所有值大小超过<code>tmp_table_size</code>决定的值，那么，MySQL将使用磁盘来存储这些值。这个存放值的磁盘区域，MySQL叫它磁盘临时表。</p>
+<p>我们都知道磁盘存取的性能一定比内存存取的性能差很多，因为会产生磁盘IO，所以，一旦分组及统计字段不得不写入磁盘，那性能相对是很差的，所以，我们尽量调大参数<code>tmp_table_size</code>，使得组及统计字段可以在内存临时表中处理。</p>
+<h3 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h3><p>无论是使用内存临时表，还是磁盘临时表，临时表对组及统计字段的处理的方式都是一样的。《导读》中我提到想要优化《导读》中的那条SQL，就需要知道SQL执行的原理，所以，下面我就结合上面讲解的临时表的概念，详细讲讲这条SQL的执行过程，见下图：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/3598cf4798b84fa0ad04348bc69db486~tplv-k3u1fbpfcp-watermark.image" srcset="/blog/img/loading.gif" alt="image-20210326002155314.png"></p>
+<ol>
+<li><p>创建临时表<code>temporary</code>，表里有两个字段<code>viewed_user_age</code>和<code>count(*)</code>，主键是<code>viewed_user_age</code>，如上图，倒数第二个框<code>temporary</code>表示临时表，框中包含两个字段<code>viewed_user_age</code>和<code>count(*)</code>，框内就是这两个字段对应的值，其中<code>viewed_user_age</code>就是这张临时表的主键</p>
+</li>
+<li><p>扫描表辅助索引树<code>idx_user_viewed_user</code>，依次取出叶子节点上的<code>id</code>值，即从索引树叶子节点中取到表的主键id。如上图中的<code>idx_user_viewed_user</code>框就是索引树，框右侧的箭头表示取到表的主键id</p>
+</li>
+<li><p>根据主键id到聚簇索引<code>cluster_index</code>的叶子节点中查找记录，即扫描<code>cluster_index</code>叶子节点：</p>
+<p>(1) 得到一条记录，然后取到记录中的<code>viewed_user_age</code>字段值。如上图，<code>cluster_index</code>框，框中最右边的一列就是<code>viewed_user_age</code>字段的值</p>
+<p>(2) 如果临时表中没有主键为<code>viewed_user_age</code>的行，就插入一条记录 (<code>viewed_user_age</code>, 1)。如上图的<code>temporary</code>框，其左侧箭头表示将<code>cluster_index</code>框中的<code>viewed_user_age</code>字段值写入<code>temporary</code>临时表</p>
+<p>(3) 如果临时表中有主键为<code>viewed_user_age</code>的行，就将<code>viewed_user_age</code>这一行的<code>count(*)</code>值加 1。如上图的<code>temporary</code>框</p>
+</li>
+<li><p>遍历完成后，再根据字段<code>viewed_user_age</code>在<code>sort_buffer</code>中做排序，得到结果集返回给客户端。如上图中的最右边的箭头，表示将<code>temporary</code>框中的<code>viewed_user_age</code>和<code>count(*)</code>的值写入<code>sort_buffer</code>，然后，在<code>sort_buffer</code>中按<code>viewed_user_age</code>字段进行排序</p>
+</li>
+</ol>
+<blockquote>
+<p>通过《导读》中的SQL的执行过程的讲解，我们发现该过程经历了4个部分：<code>idx_user_viewed_user</code>、<code>cluster_index</code>、<code>temporary</code>和<code>sort_buffer</code>，对比上面<code>explain</code>的结果，其中前2个就对应结果中的<code>Using where</code>，<code>temporary</code>对应的是<code>Using temporary</code>，<code>sort_buffer</code>对应的是<code>Using filesort</code>。</p>
+</blockquote>
+<h3 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h3><p>此时，我们有什么办法优化这条SQL呢？</p>
+<blockquote>
+<p>既然这条SQL执行需要经历4个部分，那么，我们可不可以去掉最后两部分呢，即去掉<code>temporary</code>和<code>sort_buffer</code>？</p>
+</blockquote>
+<p>答案是可以的，我们只要给SQL中的表<code>t_user_view</code>添加如下索引：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> `t_user_view` <span class="hljs-keyword">ADD</span> INDEX `idx_user_age_sex` (`user_id`, `viewed_user_age`, `viewed_user_sex`);<br><br></code></pre></td></tr></table></figure>
+<p>你可以自己尝试一下哦！用<code>explain</code>康康有什么改变！</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>本章围绕《导读》中的分组统计SQL，通过<code>explain</code>分析SQL的执行阶段，结合临时表的结构，进一步剖析了SQL的详细执行过程，最后，引出优化方案：<strong>新增索引，避免临时表对分组字段的统计，及<code>sort_buffer</code>对分组和统计字段排序</strong>。</p>
+<p>当然，如果实在无法避免使用临时表，那么，<strong>尽量调大<code>tmp_table_size</code>，避免使用磁盘临时表统计分组字段。</strong></p>
+<h3 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h3><p>为什么新增了索引<code>idx_user_age_sex</code>可以避免临时表对分组字段的统计，及<code>sort_buffer</code>对分组和统计字段排序？</p>
+<p>提示：结合索引查找的原理。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/mysql/">mysql</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E4%BC%98%E5%8C%96/">优化</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/04/24/%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90%E5%88%87%E6%8D%A2/">
+                        <span class="hidden-mobile">在项目中实现多数据源切换</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
