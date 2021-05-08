@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>IDEA2021首个大版本发布 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="IDEA2021首个大版本发布">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-08 20:10" pubdate>
+        2021年5月8日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">IDEA2021首个大版本发布</h1>
+            
+            <div class="markdown-body">
+              <p>工欲善其事，必先利其器！</p>
+<p>就在不久之前，Java领域的开发神器<code>IntelliJ IDEA</code>终于迎来2021年的一个重要的大版本更新：<code>IntelliJ IDEA 2021.1</code>。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/0d5b436c8f7b4d19b4a2c53f6d3abc23~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>现如今大量的Java开发者深度依赖着这款开发软件，正如网上的段子所言：“可以毫不夸张地说，多少Java程序员离开了IDEA就不会写代码了（狗头）”，由此可见其使用的广泛程度。</p>
+<p>新版本一出来，我也迫不及待地想尝试一番。当然，主力开发机我是不敢乱升级的，所以这两天，我在一台平时用来做测试的老开发本子上更新了全新的IDEA。</p>
+<p>软件启动界面打开的那一瞬间，我就知道事情并不简单。</p>
+<h1 id="全新的启动页面"><a href="#全新的启动页面" class="headerlink" title="全新的启动页面"></a>全新的启动页面</h1><p>更新后，全新的启动页面更加花里胡哨了。</p>
+<p>软件启动速度也是非常之快，就我这多年苦练的火箭般手速，都差点没截来下面这张启动页面图。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/0fbf04b10731427898ba772d5b975a05~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<hr>
+<h1 id="Space集成"><a href="#Space集成" class="headerlink" title="Space集成"></a>Space集成</h1><p>JetBrains提供的Space这个功能不知道大家有没有听说过，讲白了就是一套集成的团队协作环境，可以提供包括构建交付、聊天协作、团队管理以及项目管理等在内的一整套协作一体化解决方案。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/da4834e6c4a5462f81fc8111ff057fef~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>最新的IDEA 2021.1把Space环境给无缝地集成进来了，现在属于开箱即用的状态，软件的右上角就有快捷入口：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/53a7139bcaba476382779037c3ec2135~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<hr>
+<h1 id="支持WSL-2"><a href="#支持WSL-2" class="headerlink" title="支持WSL 2"></a>支持WSL 2</h1><p>这个功能相信对于很多依赖Windows系统以及WSL功能的用户来说，简直是喜大普奔！</p>
+<p>以前WSL就算再好用，但是你的IDE并没有和它打通，多少总是一个遗憾。</p>
+<p>这下好了，二者直接打通了，IDEA支持WSL 2。你可以直接在新版IDEA 2021.1中运行并开发WSL 2中的Java项目，包括Gradle类型项目和Maven类型等项目均支持。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/11e7a616543745b094f518e0833e0a23~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/8d07b172800a46278435e57f24f8d900~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<hr>
+<h1 id="Run-Targets"><a href="#Run-Targets" class="headerlink" title="Run Targets"></a>Run Targets</h1><p>Run Targets这个功能的意思有点类似于上面刚聊过的WSL 2。它允许开发者直接在远程主机甚至在Docker容器上运行和调试项目。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/108245aa90ec4f52bba265fcc6f804a5~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>所以到目前为止，新版IDEA 2021允许开发者可以在本地、WSL 2、SSH远程主机、Docker等目标上运行项目，可以说贼香了！</p>
+<hr>
+<h1 id="支持Java-16"><a href="#支持Java-16" class="headerlink" title="支持Java 16"></a>支持Java 16</h1><p>这也算是一个比较重磅的更新。</p>
+<p>近两年来，Java版本的发布速度也是快如老狗，我还在用Java 8，它都淦到Java 16了。</p>
+<p>关于Java 16的新特性，我还准备写篇文章来详细聊一聊呢，包括比如：</p>
+<ul>
+<li>Records特性转正</li>
+<li>instanceof模式匹配转正</li>
+<li>jpackage转正</li>
+<li>Unix域套接字通道</li>
+<li>弹性Metaspace</li>
+<li>ZGC</li>
+<li>矢量API</li>
+<li>外部链接API</li>
+<li>…</li>
+</ul>
+<p>这次IDEA 2021版的一个很重要的更新就是加入了对Java 16的基本支持，注意是基本支持。</p>
+<p>除此之外IDEA还新增了几项检查机制，典型比如更加智能的数据流分析检查。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/77576024e84240a88339f60125f9bd01~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>链式构造方式的优化格式设置等等。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/5e9e57afa1114abaa70e646582f049d8~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>目的都是为了帮助提升可读性，进一步提升用户体验。</p>
+<hr>
+<h1 id="Code-With-Me"><a href="#Code-With-Me" class="headerlink" title="Code With Me"></a>Code With Me</h1><p>Code With Me是一项用于协作开发与结对编程的服务，可以实现<code>Host-Guest</code>模式的“手摸手”（滑稽）结对编程和群体编程。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/bb9e5d49651b4c7ea0ff903b713cb15d~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>目前，新版IDEA开箱即用地支持了Code With Me功能，同时它还具有音频通话和视频通话功能，可以满足随时随地的沟通需求，这操作简直骚到爆。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/975a2fe19c2c4ff192a4dfd38536b47a~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/0487f917947149cf804fd11c8c33645e~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<hr>
+<h1 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h1><p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/e5412ac81ee54d50824776bc8c1871c7~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>版本控制这一块目前做了不少的更新，包括可以更快地完成PR的创建提交，支持PR模板。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/001caf51fe2a41e2b7d02e21ff134962~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>变更提交至代码库前的自定义代码检查配置。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/08ff5332c8664ffe98e9dad0190613c6~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>以及支持自定义Git提交模板等等。</p>
+<hr>
+<h1 id="其他用户体验提升"><a href="#其他用户体验提升" class="headerlink" title="其他用户体验提升"></a>其他用户体验提升</h1><h2 id="IDEA内置HTML网页预览"><a href="#IDEA内置HTML网页预览" class="headerlink" title="IDEA内置HTML网页预览"></a>IDEA内置HTML网页预览</h2><p>以前在IDEA中预览网页得跳到外部浏览器，而现如今IDE的编辑器内部就支持<code>Built-in</code>级别的网页预览，只需要在右上角点那个IDEA小图标即可激活，而且可以编辑网页源码时做到同步更新和预览。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/e9e57262a6a646798a34ea5bbe73af61~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<h2 id="Windows版本任务栏增强"><a href="#Windows版本任务栏增强" class="headerlink" title="Windows版本任务栏增强"></a>Windows版本任务栏增强</h2><p>在Windows平台的新版IDEA上，可直接在任务栏（或开始菜单）上右键快捷呼出最近使用的项目。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/d38cc8879aa34c41b24806d750c1425c~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<h2 id="搜索时自定义外部依赖项"><a href="#搜索时自定义外部依赖项" class="headerlink" title="搜索时自定义外部依赖项"></a>搜索时自定义外部依赖项</h2><p>讲白了，就是使搜索范围更易于自定义，我们可以直接在设置中进行Scope定义，自行选择External Dependencies的范围是否包含。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/b114d1f88ad848c789108dab8cc837a8~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<h2 id="窗口拆分优化"><a href="#窗口拆分优化" class="headerlink" title="窗口拆分优化"></a>窗口拆分优化</h2><p>当你对编辑器里的多个文件进行垂直窗口拆分时，双击某个Tab就可以将当前文件窗口最大化，再次双击Tab则会还原。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/69ccfa7fb5bf4638acee50b8237b973c~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<hr>
+<p>当然除了这些之外，新版IDEA还新增了很多更新和增强，比如：对Kotlin、Scala、JavaScript等语言的开发优化、对常见框架与技术的优化和支持、对Kubernetes和Docker的更新支持和改进、数据库工具的更新支持等等，由于时间有限，在此就不一一赘述了，有需要的可以按需细究。</p>
+<p>最后，让我们一起大喊一句：“IDEA，yyds！”</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/69e06fcd540e4009b7b75987e2498d76~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>作者：CodeSheep<br>链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6959729508786110494">https://juejin.cn/post/6959729508786110494</a><br>来源：掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/IDEA2021/">IDEA2021</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/05/07/BeanUtils%E5%B1%9E%E6%80%A7%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/">
+                        <span class="hidden-mobile">为什么不推荐使用BeanUtils属性转换工具</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
