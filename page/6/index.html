@@ -186,6 +186,51 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/03/23/Lamda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/">Lamda表达式作用域(Lambda Scopes)</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/23/Lamda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/">
+          
+          
+            
+          
+          访问局部变量我们可以直接在 lambda 表达式中访问外部的局部变量：
+12345final int num = 1;Converter&lt;Integer, String&gt; stringConverter =        (from) -&gt; String.valueOf(from + num); stringConverter.convert(2);     // 3
+但是和匿名
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-23 20:30" pubdate>
+              2021-03-23
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/Lamda/">Lamda</a>
+            
+              <a href="/blog/tags/%E4%BD%9C%E7%94%A8%E5%9F%9F/">作用域</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/03/23/%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/">函数式接口(Functional Interfaces)</a>
       </h1>
 
@@ -327,43 +372,6 @@ NIO中的N可以理解为Non-blocking，不单纯是New。它支持面向缓冲�
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2021-03-21 16:50" pubdate>
-              2021-03-21
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/03/21/BIO,NIO,AIO%E6%80%BB%E7%BB%93/">BIO,NIO,AIO总结</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/21/BIO,NIO,AIO%E6%80%BB%E7%BB%93/">
-          
-          
-            
-          
-          Java 中的 BIO、NIO和 AIO 理解为是 Java 语言对操作系统的各种 IO 模型的封装。程序员在使用这些 API 的时候，不需要关心操作系统层面的知识，也不需要根据不同操作系统编写不同的代码。只需要使用Java的API就可以了。
-在讲 BIO,NIO,AIO 之前先来回顾一下这样几个概念：同步与异步，阻塞与非阻塞。 同步与异步
-
-同步： 同步就是发起一个调用后，被调用者未处理完请求之
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-21 16:40" pubdate>
               2021-03-21
             </time>
           </div>
