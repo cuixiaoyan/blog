@@ -1,0 +1,611 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>JDK1.8新特性之Stream - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JDK1.8新特性之Stream">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-15 20:20" pubdate>
+        2021年5月15日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      34
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JDK1.8新特性之Stream</h1>
+            
+            <div class="markdown-body">
+              <p>集合是Java中使用最多的API，几乎每个程序员天天都会和它打招呼，它可以让你把相同、相似、有关联的数据整合在一起，便于使用、提取以及运算等操作。在实际Java程序中，集合的使用往往随着业务需求、复杂度而变得更加复杂，在这其中将可能会涉及到更多的运算，如：求和、平均值、分组、过滤、排序等等。如何这些操作混合出现，又该如何实现？难道遍历、再遍历、再运算么？抛开性能因素，这些操作已经严重影响了代码的整洁，这种代码也没有几个人愿意来读。</p>
+<p>那么，有没有什么好的办法来解决这种现状呢？毕竟集合最为最常用的操作，难道Java语言的设计者没有意识到这一点吗？如何能够帮助你节约宝贵的时间，让程序员活得更轻松一点呢？</p>
+<p>你可能已经猜到了，答案就是流—<strong>Stream</strong>。</p>
+<p>本文将从<code>JDK1.8</code>中<code>Stream API</code>讲起，让你觉得集合操作原来可以这么轻松使用。</p>
+<h1 id="一、Stream是什么"><a href="#一、Stream是什么" class="headerlink" title="一、Stream是什么"></a>一、Stream是什么</h1><p><code>Stream</code>是<code>Java API</code>中的新成员，它允许你以声明的方式处理数据集合（通过查询语句来表达，而不是临时编写一个实现），你可以把它看成是遍历数据集的<strong>高级迭代器</strong>。此外，Stream还可以透明地并行处理，而无需写任何多线程代码了。</p>
+<p>我们先简单的对比使用下Stream的好处吧。下面两段代码都是实现筛选出名字中包含“xc”字符串的人，并按照其年龄进行排序。</p>
+<p>传统方式(JDK1.8之前，非Stream流)：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">List&lt;People&gt; peoples = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;<span class="hljs-literal">()</span>;<br><span class="hljs-comment">// 遍历 + 判断</span><br><span class="hljs-keyword">for</span> (People people : allPeoples) &#123;<br>    <span class="hljs-keyword">if</span> (people.get<span class="hljs-constructor">Name()</span>.contains(<span class="hljs-string">&quot;xc&quot;</span>)) &#123;<br>        peoples.add(people);<br>    &#125;<br>&#125;<br><span class="hljs-comment">// 对年龄排序</span><br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Collections</span>.</span></span>sort(peoples, <span class="hljs-keyword">new</span> Comparator&lt;People&gt;<span class="hljs-literal">()</span> &#123;<br>    @Override<br>    public <span class="hljs-built_in">int</span> compare(People p1, People p2) &#123;<br>        return <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Integer</span>.</span></span>compare(p1.get<span class="hljs-constructor">Age()</span>, p2.get<span class="hljs-constructor">Age()</span>);<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>Stream方式:</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">List&lt;People&gt; peoples2 = allPeoples.stream<span class="hljs-literal">()</span><br>                .filter(people -&gt; people.get<span class="hljs-constructor">Name()</span>.contains(<span class="hljs-string">&quot;xc&quot;</span>))<br>                .sorted(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Comparator</span>.</span></span>comparing(People::getAge))<br>                .collect(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Collectors</span>.</span></span><span class="hljs-keyword">to</span><span class="hljs-constructor">List()</span>);<br></code></pre></td></tr></table></figure>
+<p>没有对比就没有伤害，效果显而易见。从开发角度来看，Stream方式有以下显而易见的好处：</p>
+<ul>
+<li>代码以声明方式写的：说明想要完成什么（筛选出满足条件的数据）而不是说明如何实现一个操作（利用循环和if条件等控制流语句）。</li>
+<li>多个基本操作链接起来：将多个基础操作链接起来，来表达复杂的数据处理流水线(如下图)，同时体现了代码的清晰、可读性。</li>
+</ul>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/591b9bdf32584535bab881f93680853d~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="在这里插入图片描述"></p>
+<p><code>Stream API</code>功能非常强大，类似上面Stream处理流水线方式应用场景很多，理论上可以生成一个具有无穷长的流水线的。更重要的是，在复杂业务中你用不着为了让某些数据处理任务并行而去操心线程和锁了，<code>Stream API</code>都替你做好了！</p>
+<p><strong><code>Stream</code>，即：”流“，通过将集合转换为一种叫做”流“的元素序列，通过声明方式，对集合中的每个元素进行一系列并行或串行的流水线操作。</strong></p>
+<p>换句话说，你只需要告诉流你的要求，流便会在背后自行根据要求对元素进行处理，而你只需要 <strong>“坐享其成”</strong>。</p>
+<h1 id="二、Stream操作"><a href="#二、Stream操作" class="headerlink" title="二、Stream操作"></a>二、Stream操作</h1><p>整个流操作就是一条流水线，将元素放在流水线上一个个地进行处理，如下图所示。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/47e0cab765f74703858ef19dc028b56f~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="在这里插入图片描述"></p>
+<p>其中，数据源是原始集合数据，然后将如 <code>List&lt;T&gt; </code>的集合转换为<code>Stream&lt;T&gt;</code>类型的流，并对流进行一系列的操作，比如过滤保留部分元素、对元素进行排序、类型转换等，最后再进行一个终止操作，可以把 Stream 转换回集合类型，也可以直接对其中的各个元素进行处理，比如打印、比如计算总数、计算最大值等。</p>
+<p>很多流操作本身就会返回一个流，所以多个操作可以直接连接起来，就如上面举例中Stream方式的代码一样。 <img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/109e8c6bf1e2440a8a84454b0e25bef7~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="在这里插入图片描述"></p>
+<p>如果是以前，进行这么一系列操作，你需要做个迭代器或者 foreach 循环，然后遍历，一步步地亲力亲为地去完成这些操作。但是如果使用流，你便可以直接声明式地下指令，流会帮你完成这些操作。</p>
+<p>通过上面Stream操作流水线、实例，<strong>Stream操作大体上分为两种：中间操作符和终止操作符。</strong></p>
+<h2 id="1-中间操作符"><a href="#1-中间操作符" class="headerlink" title="1. 中间操作符"></a>1. 中间操作符</h2><p>对于数据流来说，中间操作符在执行指定处理逻辑后，数据流依然可以传递给下一级的操作符。</p>
+<p>中间操作符包含8种：</p>
+<ul>
+<li><code>map(mapToInt，mapToLong，mapToDouble)</code> 转换操作：把比如<code>A-&gt;B</code>，这里默认提供了转<code>int</code>，<code>long</code>，<code>double</code>的操作符。</li>
+<li><code>flatmap(flatmapToInt，flatmapToLong,flatmapToDouble) </code>拍平操作：比如把<code>int[]&#123;2,3,4&#125;</code>拍平变成 <code>2，3，4 </code>,也就是从原来的一个数据变成了3个数据，这里默认提供了拍平成<code>int</code>,<code>long</code>,<code>double</code>的操作。</li>
+<li><code>limit </code>限流操作：比如数据流中有10个，我只要前3个就可以使用。</li>
+<li><code>distinct</code>去重操作：重复元素去重。</li>
+<li><code>filter</code>过滤操作：对集合数据进行过滤。</li>
+<li><code>peek</code>消费操作：如果想对数据进行某些操作，如：读取、编辑修改等。</li>
+<li><code>skip</code>跳过操作：跳过某些元素。</li>
+<li><code>sorted</code>排序操作：对元素排序，前提是实现Comparable接口，当然也可以自定义比较器。</li>
+</ul>
+<p>（具体可参照源码<code>java.util.stream.Stream</code>）</p>
+<h2 id="2-终止操作符"><a href="#2-终止操作符" class="headerlink" title="2. 终止操作符"></a>2. 终止操作符</h2><p>数据经过一系列的中间操作，就轮到终止操作符上场了。终止操作符就是用来对数据进行收集或者消费的，数据到了终止操作这里就不会向下流动了，终止操作符只能使用一次。</p>
+<ul>
+<li><code>collect </code>收集操作：将所有数据收集起来，这个操作非常重要，官方的提供的Collectors 提供了非常多收集器，可以说Stream的核心在于Collectors。</li>
+<li><code>count </code>统计操作：统计最终的数据个数。</li>
+<li><code>findFirst、findAny </code>查找操作：查找第一个、查找任何一个，返回的类型为Optional。</li>
+<li><code>noneMatch、allMatch、anyMatch</code>匹配操作：数据流中是否存在符合条件的元素，返回值为bool 值。</li>
+<li><code>min、max</code>最值操作：需要自定义比较器，返回数据流中最大、最小的值。</li>
+<li><code>reduce</code>规约操作：将整个数据流的值规约为一个值，count、min、max底层就是使用reduce。</li>
+<li><code>forEach、forEachOrdered</code>遍历操作：这里就是对最终的数据进行消费了。</li>
+<li><code>toArray</code>数组操作：将数据流的元素转换成数组。</li>
+</ul>
+<p>说了这么多，心动不如行动，俗话说：实践出真理。那么，一起来实战吧。</p>
+<h1 id="三、实战演练"><a href="#三、实战演练" class="headerlink" title="三、实战演练"></a>三、实战演练</h1><p>Stream的一系列操作，必须要使用终止操作符，否则整个数据流是不会执行起来的。</p>
+<h2 id="1-map"><a href="#1-map" class="headerlink" title="1. map"></a>1. map</h2><p>转换、映射操作，将元素转换成其他形式或提取一些信息。</p>
+<p>比如，从People集合中获取所有人的年龄：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">allPeoples</span><span class="hljs-selector-class">.stream</span>()<br>	<span class="hljs-selector-class">.map</span>(<span class="hljs-selector-tag">People</span><span class="hljs-selector-pseudo">::getAge)</span><br>	<span class="hljs-selector-class">.forEach</span>(<span class="hljs-selector-tag">System</span><span class="hljs-selector-class">.out</span><span class="hljs-selector-pseudo">::println)</span>;<br></code></pre></td></tr></table></figure>
+<h2 id="2-flatmap"><a href="#2-flatmap" class="headerlink" title="2. flatmap"></a>2. flatmap</h2><p>将元素拍平拍扁 ，将拍扁的元素重新组成Stream，并将这些Stream 串行合并成一条Stream。</p>
+<p>比如，带有-字符的字符串进行拆分，并输出：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Stream</span>.</span></span><span class="hljs-keyword">of</span>(<span class="hljs-string">&quot;x-c-b-e-y-o-n-d&quot;</span>,<span class="hljs-string">&quot;a-b-c-d&quot;</span>)<br>	.flat<span class="hljs-constructor">Map(<span class="hljs-params">m</span> -&gt; Stream.<span class="hljs-params">of</span>(<span class="hljs-params">m</span>.<span class="hljs-params">split</span>(<span class="hljs-string">&quot;-&quot;</span>)</span>))<br>    .<span class="hljs-keyword">for</span><span class="hljs-constructor">Each(System.<span class="hljs-params">out</span>::<span class="hljs-params">println</span>)</span>;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs llvm"><span class="hljs-keyword">x</span><br><span class="hljs-keyword">c</span><br>b<br>e<br>y<br>o<br>n<br>d<br>a<br>b<br><span class="hljs-keyword">c</span><br>d<br></code></pre></td></tr></table></figure>
+<h2 id="3-limit"><a href="#3-limit" class="headerlink" title="3. limit"></a>3. limit</h2><p>限流操作，限制集合元素的个数。</p>
+<p>比如，集合中有10个元素，我只要前4个就可以使用：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">Stream</span><span class="hljs-selector-class">.of</span>(1,2,3,4,5,6,7,8,9,10)<br>	<span class="hljs-selector-class">.limit</span>(4)<br>	<span class="hljs-selector-class">.forEach</span>(<span class="hljs-selector-tag">System</span><span class="hljs-selector-class">.out</span><span class="hljs-selector-pseudo">::println)</span>;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">1<br>2<br>3<br>4<br></code></pre></td></tr></table></figure>
+<h2 id="4-distinct"><a href="#4-distinct" class="headerlink" title="4. distinct"></a>4. distinct</h2><p>去重操作，重复元素去重，类似数据库中的关键字<code>distinct</code>。</p>
+<p>比如，集合中可能存在一些重复的数据，需要进行去重操作：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Stream</span>.</span></span><span class="hljs-keyword">of</span>(<span class="hljs-string">&quot;xcbeyond&quot;</span>,<span class="hljs-string">&quot;Niki&quot;</span>,<span class="hljs-string">&quot;Liky&quot;</span>,<span class="hljs-string">&quot;xcbeyond&quot;</span>)<br>	.distinct<span class="hljs-literal">()</span><br>	.<span class="hljs-keyword">for</span><span class="hljs-constructor">Each(System.<span class="hljs-params">out</span>::<span class="hljs-params">println</span>)</span>;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">xcbeyond</span><br><span class="hljs-attribute">Niki</span><br><span class="hljs-attribute">Liky</span><br></code></pre></td></tr></table></figure>
+<h2 id="5-filter"><a href="#5-filter" class="headerlink" title="5. filter"></a>5. filter</h2><p>过滤、筛选，对某些元素进行过滤，不符合筛选条件的将无法进入流的下游。</p>
+<p>比如，筛选出一个数字集合中的所有偶数：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Stream</span>.</span></span><span class="hljs-keyword">of</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>,<span class="hljs-number">10</span>)<br>	.filter(n -&gt; <span class="hljs-number">0</span><span class="hljs-operator"> == </span>n%<span class="hljs-number">2</span>)<br>	.<span class="hljs-keyword">for</span><span class="hljs-constructor">Each(System.<span class="hljs-params">out</span>::<span class="hljs-params">println</span>)</span>;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">2<br>4<br>6<br>8<br>10<br></code></pre></td></tr></table></figure>
+<h2 id="6-peek"><a href="#6-peek" class="headerlink" title="6. peek"></a>6. peek</h2><p>消费操作，如果想对数据进行某些操作，如：读取、编辑修改等。</p>
+<p>比如，将People集合中name统一修改为name+age的形式：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">allPeoples.stream<span class="hljs-literal">()</span><br>	.peek(people -&gt; people.set<span class="hljs-constructor">Name(<span class="hljs-params">people</span>.<span class="hljs-params">getName</span>()</span> + people.get<span class="hljs-constructor">Age()</span>))<br>	.<span class="hljs-keyword">for</span><span class="hljs-constructor">Each(<span class="hljs-params">people</span> -&gt; System.<span class="hljs-params">out</span>.<span class="hljs-params">println</span>(<span class="hljs-params">people</span>.<span class="hljs-params">getName</span>()</span>));<br></code></pre></td></tr></table></figure>
+<h2 id="7-skip"><a href="#7-skip" class="headerlink" title="7. skip"></a>7. skip</h2><p>跳过操作，跳过某些元素。</p>
+<p>比如，一个数字集合，跳过前4个元素：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">Stream</span><span class="hljs-selector-class">.of</span>(1,2,3,4,5,6,7,8,9,10)<br>	<span class="hljs-selector-class">.skip</span>(4)<br>	<span class="hljs-selector-class">.forEach</span>(<span class="hljs-selector-tag">System</span><span class="hljs-selector-class">.out</span><span class="hljs-selector-pseudo">::println)</span>;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">5<br>6<br>7<br>8<br>9<br>10<br></code></pre></td></tr></table></figure>
+<h2 id="8-sorted"><a href="#8-sorted" class="headerlink" title="8. sorted"></a>8. sorted</h2><p>排序操作，对元素排序，前提是实现Comparable接口，当然也可以自定义比较器。</p>
+<p>比如，将People集合按照年龄排序：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">allPeoples</span><span class="hljs-selector-class">.stream</span>()<br>	<span class="hljs-selector-class">.sorted</span>(<span class="hljs-selector-tag">Comparator</span><span class="hljs-selector-class">.comparing</span>(<span class="hljs-selector-tag">People</span><span class="hljs-selector-pseudo">::getAge))</span><br>	<span class="hljs-selector-class">.forEach</span>(<span class="hljs-selector-tag">System</span><span class="hljs-selector-class">.out</span><span class="hljs-selector-pseudo">::println)</span>;<br></code></pre></td></tr></table></figure>
+<h2 id="9-collect"><a href="#9-collect" class="headerlink" title="9. collect"></a>9. collect</h2><p>收集操作，终止操作符，用于将最终的数据收集到新的集合中，如，List、Set、Map等集合。</p>
+<p>比如，将People集合按照年龄排序，并存放在一个新的集合中，供后续使用：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">List&lt;People&gt; sortedPeople = allPeoples.stream<span class="hljs-literal">()</span><br>	.sorted(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Comparator</span>.</span></span>comparing(People::getAge))<br>	.collect(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Collectors</span>.</span></span><span class="hljs-keyword">to</span><span class="hljs-constructor">List()</span>);<br></code></pre></td></tr></table></figure>
+<h2 id="10-count"><a href="#10-count" class="headerlink" title="10. count"></a>10. count</h2><p>统计操作，用于对集合元素个数的统计，返回类型是long。</p>
+<p>比如，计算People集合中年龄大于30的人数：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-built_in">long</span> <span class="hljs-keyword">count</span> = allPeoples.stream()<br>	.filter(people -&gt; people.getAge() &gt; <span class="hljs-number">30</span>)<br>    .<span class="hljs-keyword">count</span>();<br></code></pre></td></tr></table></figure>
+<h2 id="11-findFirst、findAny"><a href="#11-findFirst、findAny" class="headerlink" title="11. findFirst、findAny"></a>11. findFirst、findAny</h2><p>查找操作，查找第一个、任何一个，返回的类型为<code>Optional</code>。常用于查询集中符合条件的元素，并结合<code>Optional.isPresent()</code>进行判断，防止出现未找到而强制获取数据元素的异常情况。</p>
+<p>比如，查找People集合中名字为xcbeyond的人：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs nix">People <span class="hljs-attr">xcbeyondPeople</span> = <span class="hljs-literal">null</span>;<br>Optional&lt;People&gt; <span class="hljs-attr">optional</span> = allPeoples.stream()<br>	.filter(people -&gt; <span class="hljs-string">&quot;xcbeyond&quot;</span>.equals(people.getName()))<br>	.findFirst();<br><span class="hljs-keyword">if</span> (optional.isPresent()) &#123;<br>	<span class="hljs-attr">xcbeyondPeople</span> = optional.get();<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="12-noneMatch、allMatch、anyMatch"><a href="#12-noneMatch、allMatch、anyMatch" class="headerlink" title="12. noneMatch、allMatch、anyMatch"></a>12. noneMatch、allMatch、anyMatch</h2><p>匹配操作，判断数据流中是否存在符合条件的元素，返回值为<code>boolean</code>值。</p>
+<ul>
+<li>noneMatch：没有匹配条件的元素</li>
+<li>allMatch、anyMatch：全匹配</li>
+</ul>
+<p>比如，判断People集合中是否有名字为xcbeyond的人：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">boolean <span class="hljs-built_in">bool</span> = allPeoples.stream<span class="hljs-literal">()</span><br>	.all<span class="hljs-constructor">Match(<span class="hljs-params">people</span> -&gt; <span class="hljs-string">&quot;xcbeyond&quot;</span>.<span class="hljs-params">equals</span>(<span class="hljs-params">people</span>.<span class="hljs-params">getName</span>()</span>));<br></code></pre></td></tr></table></figure>
+<h2 id="13-min、max"><a href="#13-min、max" class="headerlink" title="13. min、max"></a>13. min、max</h2><p>最值操作，根据自定义比较器，返回数据流中最大、最小的元素。</p>
+<p>比如，找到People集合中最大年龄的人：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs pf">People <span class="hljs-keyword">max</span>AgePeople = null;<br>Optional<span class="hljs-variable">&lt;People&gt;</span> <span class="hljs-keyword">max</span>AgeOptional = <span class="hljs-literal">all</span>Peoples.stream()<br>	.<span class="hljs-keyword">max</span>(Comparator.comparing(People::getAge));<br>if (<span class="hljs-keyword">max</span>AgeOptional.isPresent()) &#123;	// 可能没有，则需要进行判断<br>	<span class="hljs-keyword">max</span>AgePeople = <span class="hljs-keyword">max</span>AgeOptional.get();<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="14-reduce"><a href="#14-reduce" class="headerlink" title="14. reduce"></a>14. reduce</h2><p>规约操作：将整个数据流的值规约为一个值，其中count、min、max底层就是使用reduce。</p>
+<p>比如，对一个整数集合进行求和：</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs livescript">int sum = Stream.<span class="hljs-keyword">of</span>(<span class="hljs-number">1</span>,<span class="hljs-number">9</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,-<span class="hljs-number">1</span>)<br>	.reduce<span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">0</span>,(e1,e2)-&gt;e1+e2)</span>;</span><br><span class="hljs-function"><span class="hljs-title">System</span>.<span class="hljs-title">out</span>.<span class="hljs-title">println</span><span class="hljs-params">(sum)</span>;</span><br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">32<br></code></pre></td></tr></table></figure>
+<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><p>本文就Stream的基础使用层面进行了全面的介绍、实战，告诉你该怎么用每种操作符，只有掌握了这些基本的操作，在面对实际复杂处理逻辑时，需要进一步配合使用，就会知道它的妙处了。这也让你对集合的操作更上一步，为你省去了不少麻烦。关于Stream更深入的说明，如：并行处理、是否高效等，将会在之后的章节进行详尽的阐述、验证，以消除使用中的疑惑与担忧。</p>
+<p>下一篇，将会提到Stream的终极操作——<strong>Collectors</strong>，让集合也能像数据库SQL一样，来完成复杂的分组、连接、汇总等，真正让你好用到飞起来。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/Stream/">Stream</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/1-8/">1.8</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/05/09/Sentinel%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">
+                        <span class="hidden-mobile">Sentinel快速入门</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
