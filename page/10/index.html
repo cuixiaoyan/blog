@@ -186,6 +186,97 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/03/19/%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%A5%BD%E5%A4%84/">使用线程池的好处</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/19/%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%A5%BD%E5%A4%84/">
+          
+          
+            
+          
+          池化技术相比大家已经屡见不鲜了，线程池、数据库连接池、Http 连接池等等都是对这个思想的应用。池化技术的思想主要是为了减少每次获取资源的消耗，提高对资源的利用率。 线程池提供了一种限制和管理资源（包括执行一个任务）。 每个线程池还维护一些基本统计信息，例如已完成任务的数量。
+这里借用《Java 并发编程的艺术》提到的来说一下使用线程池的好处：
+
+降低资源消耗。通过重复利用已创建的线程降低线程创建
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-19 20:10" pubdate>
+              2021-03-19
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/java/">java</a>
+            
+              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">线程池</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/03/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">线程池原理分析</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">
+          
+          
+            
+          
+          我们通过代码输出结果可以看出：线程池每次会同时执行 5 个任务，这 5 个任务执行完之后，剩余的 5 个任务才会被执行。 大家可以先通过上面讲解的内容，分析一下到底是咋回事？（自己独立思考一会）
+现在，我们就分析上面的输出内容来简单分析一下线程池原理。
+为了搞懂线程池的原理，我们需要首先分析一下 execute方法。在 4.6 节中的 Demo 中我们使用 executor.execute(wor
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-19 20:00" pubdate>
+              2021-03-19
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/java/">java</a>
+            
+              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">线程池</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/03/18/%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0/">如何创建线程池</a>
       </h1>
 
@@ -315,99 +406,11 @@ FixedThreadPool 和 SingleThreadExecutor ： 允许请求的队列长度为 Inte
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/03/18/volatile%E5%85%B3%E9%94%AE%E5%AD%97/">volatile关键字</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/18/volatile%E5%85%B3%E9%94%AE%E5%AD%97/">
-          
-          
-            
-          
-          在 JDK1.2 之前，Java的内存模型实现总是从主存（即共享内存）读取变量，是不需要进行特别的注意的。而在当前的 Java 内存模型下，线程可以把变量保存本地内存（比如机器的寄存器）中，而不是直接在主存中进行读写。这就可能造成一个线程在主存中修改了一个变量的值，而另外一个线程还继续使用它在寄存器中的变量值的拷贝，造成数据的不一致。要解决这个问题，就需要把变量声明为volatile，这就指示 J
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-18 20:10" pubdate>
-              2021-03-18
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/java/">java</a>
-            
-              <a href="/blog/tags/volatile/">volatile</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/03/18/synchronized%E5%92%8CReentrantLock%E7%9A%84%E5%8C%BA%E5%88%AB/">synchronized和ReentrantLock的区别</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/18/synchronized%E5%92%8CReentrantLock%E7%9A%84%E5%8C%BA%E5%88%AB/">
-          
-          
-            
-          
-          ① 两者都是可重入锁
-两者都是可重入锁。“可重入锁”概念是：自己可以再次获取自己的内部锁。比如一个线程获得了某个对象的锁，此时这个对象锁还没有释放，当其再次想要获取这个对象的锁的时候还是可以获取的，如果不可锁重入的话，就会造成死锁。同一个线程每次获取锁，锁的计数器都自增1，所以要等到锁的计数器下降为0时才能释放锁。
-② synchronized 依赖于 JVM 而 ReentrantLock 依赖
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-18 20:00" pubdate>
-              2021-03-18
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/java/">java</a>
-            
-              <a href="/blog/tags/synchronized/">synchronized</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/9/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/8/">8</a><a class="page-number" href="/blog/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/blog/page/11/">11</a><a class="page-number" href="/blog/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/11/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/9/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/8/">8</a><a class="page-number" href="/blog/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/blog/page/11/">11</a><a class="page-number" href="/blog/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/11/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

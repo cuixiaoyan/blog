@@ -186,6 +186,95 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/03/16/%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%92%8C%E8%BF%9B%E7%A8%8B/">什么是线程和进程</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/16/%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%92%8C%E8%BF%9B%E7%A8%8B/">
+          
+          
+            
+          
+          1.1. 何为进程? 进程是程序的一次执行过程，是系统运行程序的基本单位，因此进程是动态的。系统运行一个程序即是一个进程从创建，运行到消亡的过程。
+在 Java 中，当我们启动 main 函数时其实就是启动了一个 JVM 的进程，而 main 函数所在的线程就是这个进程中的一个线程，也称主线程。
+如下图所示，在 windows 中通过查看任务管理器的方式，我们就可以清楚看到 window 当前运行
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-16 19:10" pubdate>
+              2021-03-16
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
+            
+              <a href="/blog/tags/%E8%BF%9B%E7%A8%8B/">进程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/03/16/HashMap%E5%92%8CHashSet%E5%8C%BA%E5%88%AB/">HashMap和HashSet区别</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/16/HashMap%E5%92%8CHashSet%E5%8C%BA%E5%88%AB/">
+          
+          
+            
+          
+          如果你看过 HashSet 源码的话就应该知道：HashSet 底层就是基于 HashMap 实现的。（HashSet 的源码非常非常少，因为除了 clone()、writeObject()、readObject()是 HashSet 自己不得不实现之外，其他方法都是直接调用 HashMap 中的方法。
+HashSet如何检查重复当你把对象加入HashSet时，HashSet会先计算对象的hash
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-16 19:00" pubdate>
+              2021-03-16
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/HashMap/">HashMap</a>
+            
+              <a href="/blog/tags/HashSet/">HashSet</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/03/15/HashMap%E5%92%8CHashtable%E7%9A%84%E5%8C%BA%E5%88%AB/">HashMap和Hashtable的区别</a>
       </h1>
 
@@ -319,98 +408,11 @@ Arraylist 与 L
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/03/15/Servlet%E6%80%BB%E7%BB%93/">Servlet总结</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/15/Servlet%E6%80%BB%E7%BB%93/">
-          
-          
-            
-          
-          在Java Web程序中，Servlet主要负责接收用户请求 HttpServletRequest,在doGet(),doPost()中做相应的处理，并将回应HttpServletResponse反馈给用户。Servlet 可以设置初始化参数，供Servlet内部使用。一个Servlet类只会有一个实例，在它初始化时调用init()方法，销毁时调用destroy()方法。Servlet需要在web
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-15 20:10" pubdate>
-              2021-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
-            
-              <a href="/blog/tags/Servlet/">Servlet</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/03/15/%E6%B3%9B%E5%9E%8B%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/">泛型的实际应用</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/15/%E6%B3%9B%E5%9E%8B%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/">
-          
-          
-            
-          
-          实现最小值函数自己设计一个泛型的获取数组最小值的函数.并且这个方法只能接受Number的子类并且实现了Comparable接口。
-123456789//注意：Number并没有实现Comparableprivate static &lt;T extends Number &amp; Comparable&lt;? super T&gt;&gt; T min(T[] values) &#123;  
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-15 20:00" pubdate>
-              2021-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/Java/">Java</a>
-            
-              <a href="/blog/tags/%E6%B3%9B%E5%9E%8B/">泛型</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/11/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><a class="page-number" href="/blog/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/blog/page/13/">13</a><a class="page-number" href="/blog/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/13/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/11/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><a class="page-number" href="/blog/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/blog/page/13/">13</a><a class="page-number" href="/blog/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/13/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
