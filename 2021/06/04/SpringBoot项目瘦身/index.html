@@ -19,9 +19,25 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>归档 - 崔笑颜的博客</title>
+  <title>SpringBoot项目瘦身 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -49,7 +65,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -155,9 +171,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="SpringBoot项目瘦身">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-04 20:00" pubdate>
+        2021年6月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      515 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      5
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -170,76 +223,142 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 157 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/blog/2021/06/04/SpringBoot%E9%A1%B9%E7%9B%AE%E7%98%A6%E8%BA%AB/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">SpringBoot项目瘦身</span>
-      <time style="float: right;">06-04</time>
-    </a>
-  
-    
-    <a href="/blog/2021/06/01/Java8%E6%96%B0%E7%89%B9%E6%80%A7Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Java8新特性Lambda表达式</span>
-      <time style="float: right;">06-01</time>
-    </a>
-  
-    
-    <a href="/blog/2021/06/01/%E5%89%AF%E6%9C%AC/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title"></span>
-      <time style="float: right;">06-01</time>
-    </a>
-  
-    
-    <a href="/blog/2021/05/30/%E4%B8%BB%E6%B5%81%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%99%90%E6%B5%81%E7%AD%96%E7%95%A5%E9%83%BD%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87redis%E5%AE%9E%E7%8E%B0/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">主流的四种限流策略都可以通过redis实现</span>
-      <time style="float: right;">05-30</time>
-    </a>
-  
-    
-    <a href="/blog/2021/05/29/SpringBoot%E4%BC%98%E9%9B%85%E5%9C%B0%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">SpringBoot优雅地实现接口参数校验</span>
-      <time style="float: right;">05-29</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringBoot项目瘦身</h1>
+            
+            <div class="markdown-body">
+              <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>SpringBoot 部署起来虽然简单，如果服务器部署在公司内网，速度还行，但是如果部署在公网（阿里云等云服务器上），部署起来实在头疼：编译出来的 Jar 包很大，如果工程引入了许多开源组件（SpringCloud 等），那就更大了。</p>
+<p>这个时候如果想要对线上运行工程有一些微调，则非常痛苦</p>
+<h1 id="二、瘦身前的-Jar-包"><a href="#二、瘦身前的-Jar-包" class="headerlink" title="二、瘦身前的 Jar 包"></a>二、瘦身前的 Jar 包</h1><p>Tomcat 在部署 Web 工程的时候，可以进行增量更新，SpringBoot 也是可以的～</p>
+<p>SpringBoot 编译出来的 Jar 包中，磁盘占用大的，是一些外部依赖库（jar 包），例如：</p>
+<p>进入项目工程根目录，执行 mvn clean install 命令，得到的 Jar 包，用压缩软件打开，目录结构如下：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/d191cf2d49c042cbba8a1450db41f628~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>整个 Jar 包 18.18 MB, 但是 BOOT-INF/lib 就占用了将近 18 MB：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/1eedabed015b40758873bbd1ec8dc2cf~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<h1 id="三、解决方法"><a href="#三、解决方法" class="headerlink" title="三、解决方法"></a>三、解决方法</h1><p>步骤 1: 正常编译 JAR 包，解压出 lib 文件夹</p>
+<p>POM 文件如下：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/38c98d9e9b7b45aa84366ddd3beaac70~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>进入项目根目录，执行命令：mvn clean install</p>
+<p>将编译后的 Jar 包解压，拷贝 BOOT-INF 目录下的 lib 文件夹 到目标路径；</p>
+<p>步骤 2: 修改 pom.xml 配置，编译出不带 lib 文件夹的 Jar 包</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/49f3d7bb81314f16bfeeec61e326a2d0~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>配置完成后，再次执行编译：mvn clean install</p>
+<p>生成的 Jar 包体积明显变小，如下所示， 外部的 jar 包已经不会被引入了：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/76c686a9bc2c4cb9a00497cac2f436cc~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>步骤 3: 运行编译后的 Jar 包</p>
+<p>将 步骤 1 解压出来的 lib 文件夹、步骤 2 编译的 jar 包放在同一个目录, 运行下面命令：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/a8763842b17f413584be84069cbf07c9~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>或者在 maven 中输入一下命令导出需要用到的 jar 包</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/baade11e805d47f695f4a40d970f452e~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>备注：</p>
+<p>将/path/to/改成实际的路径。</p>
+<p>-Dloader.path=lib 文件夹路径</p>
+<p>最终目录文件结构是：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/52623002e80b451796f9085b19c0b987~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>说明</p>
+<p>1、通常，一个工程项目架构确定后，引入的 jar 包基本上不会变，改变的大部分是业务逻辑；</p>
+<p>2、后面如果需要变更业务逻辑，只需要轻量地编译工程，大大提高项目部署的效率。</p>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/blog/archives/2021/page/2/">2</a><a class="page-number" href="/blog/archives/2021/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/archives/2021/page/31/">31</a><a class="extend next" rel="next" href="/blog/archives/2021/page/2/"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
-    }
-  </script>
-
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/SpringBoot/">SpringBoot</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/jar/">jar</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/06/01/Java8%E6%96%B0%E7%89%B9%E6%80%A7Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+                        <span class="hidden-mobile">Java8新特性Lambda表达式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -343,9 +462,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
