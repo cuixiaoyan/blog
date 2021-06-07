@@ -1,0 +1,526 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>JAVA同一IP访问同一接口进行频率限制 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JAVA同一IP访问同一接口进行频率限制">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-07 20:00" pubdate>
+        2021年6月7日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JAVA同一IP访问同一接口进行频率限制</h1>
+            
+            <div class="markdown-body">
+              <h4 id="1-如何对同一IP访问同一接口进行每秒、每分钟、每小时频率限制"><a href="#1-如何对同一IP访问同一接口进行每秒、每分钟、每小时频率限制" class="headerlink" title="1.如何对同一IP访问同一接口进行每秒、每分钟、每小时频率限制"></a>1.如何对同一IP访问同一接口进行每秒、每分钟、每小时频率限制</h4><p>话不多说，直接开干，首先写一个注解类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.lang.annotation.*;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 接口限流</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> rs</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Inherited</span><br><span class="hljs-meta">@Documented</span><br><span class="hljs-meta">@Target(&#123;ElementType.FIELD,ElementType.TYPE,ElementType.METHOD&#125;)</span><br><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> VisitLimit &#123;<br>    <span class="hljs-comment">//标识 指定sec时间段内的访问次数限制</span><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">limit</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> 5</span>;  <br>    <span class="hljs-comment">//标识 时间段</span><br>    <span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">sec</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> 5</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>使用注解的原因是：我们使用拦截器在请求处理之前，检查某个请求接口是否有该注解，如果有该注解，获取访问次数和时间段（比如：在1s中只能访问一次）。接下来我们就来写一个拦截器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.test.annotation.VisitLimit;<br><span class="hljs-keyword">import</span> org.test.exception.BusinessException;<br><span class="hljs-keyword">import</span> org.test.redis.RedisCache;<br><span class="hljs-keyword">import</span> org.test.service.redis.RedisService;<br><span class="hljs-keyword">import</span> org.test.util.IPUtils;<br><span class="hljs-keyword">import</span> org.test.util.RedisUtils;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><span class="hljs-keyword">import</span> org.springframework.web.method.HandlerMethod;<br><span class="hljs-keyword">import</span> org.springframework.web.servlet.ModelAndView;<br><span class="hljs-keyword">import</span> org.springframework.web.servlet.handler.HandlerInterceptorAdapter;<br><br><span class="hljs-keyword">import</span> javax.servlet.ServletOutputStream;<br><span class="hljs-keyword">import</span> javax.servlet.http.HttpServletRequest;<br><span class="hljs-keyword">import</span> javax.servlet.http.HttpServletResponse;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.lang.reflect.Method;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">VisitLimitInterceptor</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HandlerInterceptorAdapter</span> </span>&#123;<br>	 <br>    <span class="hljs-meta">@Autowired</span><br>	<span class="hljs-keyword">private</span> RedisUtils redisService;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 处理请求之前被调用</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> request</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> response</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> handler</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> Exception</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">preHandle</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>        <span class="hljs-keyword">if</span> (handler <span class="hljs-keyword">instanceof</span> HandlerMethod) &#123;<br>            HandlerMethod handlerMethod = (HandlerMethod) handler;<br>            Method method = handlerMethod.getMethod();<br>            <span class="hljs-keyword">if</span> (!method.isAnnotationPresent(VisitLimit.class)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>            &#125;<br>            VisitLimit accessLimit = method.getAnnotation(VisitLimit.class);<br>            <span class="hljs-keyword">if</span> (accessLimit == <span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>            &#125;<br>            <span class="hljs-keyword">int</span> limit = accessLimit.limit();<br>            <span class="hljs-keyword">long</span> sec = accessLimit.sec();<br>            String key = IPUtils.getIpAddr(request) + request.getRequestURI();<br>            Integer maxLimit =<span class="hljs-keyword">null</span>;<br>            Object value =redisService.get(key);<br>            <span class="hljs-keyword">if</span>(value!=<span class="hljs-keyword">null</span> &amp;&amp; !value.equals(<span class="hljs-string">&quot;&quot;</span>)) &#123;<br>            	maxLimit = Integer.valueOf(String.valueOf(value));<br>            &#125;<br>            <span class="hljs-keyword">if</span> (maxLimit == <span class="hljs-keyword">null</span>) &#123;<br>            	redisService.set(key, <span class="hljs-string">&quot;1&quot;</span>, sec);<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (maxLimit &lt; limit) &#123;<br>            	Integer i = maxLimit+<span class="hljs-number">1</span>;<br>            	redisService.set(key, i.toString(), sec);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br><span class="hljs-comment">//              output(response, &quot;请求太频繁!&quot;);</span><br><span class="hljs-comment">//            	return false;</span><br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> BusinessException(<span class="hljs-number">500</span>,<span class="hljs-string">&quot;请求太频繁!&quot;</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>    &#125;<br> <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">postHandle</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br> <br>    &#125;<br> <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterCompletion</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br> <br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>这里用到了redis,解释一下redis的key（IP+URL）记录了某个ip访问某个接口，value存的是访问的次数，加上一个过期时间，过期时间就是我们在注解上赋值的值。</p>
+<p>这里的redis的部分代码也贴出来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RedisUtils</span> </span>&#123;<br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> RedisTemplate redisTemplate;<br><br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 写入缓存设置时效时间</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> key</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> value</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> expireTime 有效时间，单位秒</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">set</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String key, Object value, Long expireTime)</span> </span>&#123;<br>        <span class="hljs-keyword">boolean</span> result = <span class="hljs-keyword">false</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            ValueOperations&lt;Serializable, Object&gt; operations = redisTemplate.opsForValue();<br>            operations.set(key, value);<br>            redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);<br>            result = <span class="hljs-keyword">true</span>;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+<p>#怎么获取用户的真实IP呢???如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.slf4j.Logger;<br><span class="hljs-keyword">import</span> org.slf4j.LoggerFactory;<br><br><span class="hljs-keyword">import</span> javax.servlet.http.HttpServletRequest;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * IP Utils</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> rs</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IPUtils</span> </span>&#123;<br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Logger logger = LoggerFactory.getLogger(IPUtils.class);<br><br>	<span class="hljs-comment">/**</span><br><span class="hljs-comment">	 * 获取IP地址</span><br><span class="hljs-comment">	 * </span><br><span class="hljs-comment">	 * 使用Nginx等反向代理软件， 则不能通过request.getRemoteAddr()获取IP地址</span><br><span class="hljs-comment">	 * 如果使用了多级反向代理的话，X-Forwarded-For的值并不止一个，而是一串IP地址，X-Forwarded-For中第一个非unknown的有效IP字符串，则为真实IP地址</span><br><span class="hljs-comment">	 */</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">getIpAddr</span><span class="hljs-params">(HttpServletRequest request)</span> </span>&#123;<br>    	String ip = <span class="hljs-keyword">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            ip = request.getHeader(<span class="hljs-string">&quot;x-forwarded-for&quot;</span>);<br>	         <span class="hljs-keyword">if</span> (ip != <span class="hljs-keyword">null</span> &amp;&amp; ip.length() != <span class="hljs-number">0</span> &amp;&amp; !<span class="hljs-string">&quot;unknown&quot;</span>.equalsIgnoreCase(ip)) &#123;<br>	             <span class="hljs-comment">// 多次反向代理后会有多个ip值，第一个ip才是真实ip</span><br>	             <span class="hljs-keyword">if</span>( ip.indexOf(<span class="hljs-string">&quot;,&quot;</span>)!=-<span class="hljs-number">1</span> )&#123;<br>	                 ip = ip.split(<span class="hljs-string">&quot;,&quot;</span>)[<span class="hljs-number">0</span>];<br>	             &#125;<br>	         &#125;<br>	         <span class="hljs-keyword">if</span> (ip == <span class="hljs-keyword">null</span> || ip.length() == <span class="hljs-number">0</span> || <span class="hljs-string">&quot;unknown&quot;</span>.equalsIgnoreCase(ip)) &#123;<br>	             ip = request.getHeader(<span class="hljs-string">&quot;Proxy-Client-IP&quot;</span>);<br>	         &#125;<br>	         <span class="hljs-keyword">if</span> (ip == <span class="hljs-keyword">null</span> || ip.length() == <span class="hljs-number">0</span> || <span class="hljs-string">&quot;unknown&quot;</span>.equalsIgnoreCase(ip)) &#123;<br>	             ip = request.getHeader(<span class="hljs-string">&quot;WL-Proxy-Client-IP&quot;</span>);<br>	         &#125;<br>	         <span class="hljs-keyword">if</span> (ip == <span class="hljs-keyword">null</span> || ip.length() == <span class="hljs-number">0</span> || <span class="hljs-string">&quot;unknown&quot;</span>.equalsIgnoreCase(ip)) &#123;<br>	             ip = request.getHeader(<span class="hljs-string">&quot;HTTP_CLIENT_IP&quot;</span>);<br>	         &#125;<br>	         <span class="hljs-keyword">if</span> (ip == <span class="hljs-keyword">null</span> || ip.length() == <span class="hljs-number">0</span> || <span class="hljs-string">&quot;unknown&quot;</span>.equalsIgnoreCase(ip)) &#123;<br>	             ip = request.getHeader(<span class="hljs-string">&quot;HTTP_X_FORWARDED_FOR&quot;</span>);<br>	         &#125;<br>	         <span class="hljs-keyword">if</span> (ip == <span class="hljs-keyword">null</span> || ip.length() == <span class="hljs-number">0</span> || <span class="hljs-string">&quot;unknown&quot;</span>.equalsIgnoreCase(ip)) &#123;<br>	             ip = request.getHeader(<span class="hljs-string">&quot;X-Real-IP&quot;</span>);<br>	         &#125;<br>	         <span class="hljs-keyword">if</span> (ip == <span class="hljs-keyword">null</span> || ip.length() == <span class="hljs-number">0</span> || <span class="hljs-string">&quot;unknown&quot;</span>.equalsIgnoreCase(ip)) &#123;<br>	             ip = request.getRemoteAddr();<br>	         &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>        	logger.error(<span class="hljs-string">&quot;IPUtils ERROR &quot;</span>, e);<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> ip;<br>    &#125;<br>	<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>下面来正式使用一下</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@VisitLimit</span>(limit = <span class="hljs-number">1</span>, sec = <span class="hljs-number">1</span>)<br><span class="hljs-variable">@RequestMapping</span>(value = <span class="hljs-string">&quot;/close&quot;</span>, method = RequestMethod.POST)<br></code></pre></td></tr></table></figure>
+<p>这种方式不能很好的应对突发请求，需要对这一类情形平滑处理，比如200ms处理一个请求，下面就到<strong>令牌桶</strong>出场了！</p>
+<h2 id="二、令牌桶实战介绍"><a href="#二、令牌桶实战介绍" class="headerlink" title="二、令牌桶实战介绍"></a>二、令牌桶实战介绍</h2><p>2.1 先来个总结吧，让大家分清什么时候用令牌桶，什么时候用漏桶</p>
+<ul>
+<li>令牌桶：生产一个令牌消费一个</li>
+<li>漏桶： 处理大流量，并且以固定的速度平滑处理</li>
+</ul>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/14ff9094e5dd4cdcb351af00a3ce0f55~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="image.png"></p>
+<p>使用场景：geteway网关</p>
+<p>Bucket4j是基于令牌桶算法实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.test.gateway.filter.limit;<br><br><span class="hljs-keyword">import</span> java.time.Duration;<br><span class="hljs-keyword">import</span> java.util.Map;<br><span class="hljs-keyword">import</span> java.util.concurrent.ConcurrentHashMap;<br><br><span class="hljs-keyword">import</span> org.slf4j.Logger;<br><span class="hljs-keyword">import</span> org.slf4j.LoggerFactory;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.GatewayFilter;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.GatewayFilterChain;<br><span class="hljs-keyword">import</span> org.springframework.core.Ordered;<br><span class="hljs-keyword">import</span> org.springframework.core.io.buffer.DataBuffer;<br><span class="hljs-keyword">import</span> org.springframework.http.HttpHeaders;<br><span class="hljs-keyword">import</span> org.springframework.http.server.reactive.ServerHttpRequest;<br><span class="hljs-keyword">import</span> org.springframework.http.server.reactive.ServerHttpResponse;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><span class="hljs-keyword">import</span> org.springframework.util.StringUtils;<br><span class="hljs-keyword">import</span> org.springframework.web.server.ServerWebExchange;<br><br><span class="hljs-keyword">import</span> io.github.bucket4j.Bandwidth;<br><span class="hljs-keyword">import</span> io.github.bucket4j.Bucket;<br><span class="hljs-keyword">import</span> io.github.bucket4j.Bucket4j;<br><span class="hljs-keyword">import</span> io.github.bucket4j.Refill;<br><span class="hljs-keyword">import</span> reactor.core.publisher.Mono;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RateLimitByIpFilter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">GatewayFilter</span>, <span class="hljs-title">Ordered</span> </span>&#123;<br><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> Logger logger = LoggerFactory.getLogger(RateLimitByIpFilter.class);<br><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> capacity;<br><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> refillTokens;<br><br>	<span class="hljs-keyword">private</span> Duration refillDuration;<br><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;String, Bucket&gt; CACHE = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">RateLimitByIpFilter</span><span class="hljs-params">()</span> </span>&#123;<br><br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">RateLimitByIpFilter</span><span class="hljs-params">(<span class="hljs-keyword">int</span> capacity, <span class="hljs-keyword">int</span> refillTokens, Duration refillDuration)</span> </span>&#123;<br>		<span class="hljs-keyword">this</span>.capacity = capacity;<br>		<span class="hljs-keyword">this</span>.refillTokens = refillTokens;<br>		<span class="hljs-keyword">this</span>.refillDuration = refillDuration;<br>	&#125;<br><br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> Mono&lt;Void&gt; <span class="hljs-title">filter</span><span class="hljs-params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> </span>&#123;<br>		String ip = getIpAddr(exchange.getRequest());<br>		<span class="hljs-keyword">if</span> (ip.indexOf(<span class="hljs-string">&quot;192.168&quot;</span>) != -<span class="hljs-number">1</span> || ip.indexOf(<span class="hljs-string">&quot;172.31.202&quot;</span>) != -<span class="hljs-number">1</span>) &#123;<br>			<span class="hljs-keyword">return</span> chain.filter(exchange);<br>		&#125;<br>		Bucket bucket = CACHE.computeIfAbsent(ip, k -&gt; createNewBucket());<br>		logger.info(<span class="hljs-string">&quot;限频来访ip: &quot;</span> + ip + <span class="hljs-string">&quot;, 可用令牌数量：&quot;</span> + bucket.getAvailableTokens());<br>		<span class="hljs-keyword">if</span> (bucket.tryConsume(<span class="hljs-number">1</span>)) &#123;<br>			<span class="hljs-keyword">return</span> chain.filter(exchange);<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			<span class="hljs-comment">// 不合法(超过限流)</span><br>			ServerHttpResponse response = exchange.getResponse();<br>			<span class="hljs-comment">// 设置headers</span><br>			HttpHeaders httpHeaders = response.getHeaders();<br>			httpHeaders.add(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/json; charset=UTF-8&quot;</span>);<br>			httpHeaders.add(<span class="hljs-string">&quot;Cache-Control&quot;</span>, <span class="hljs-string">&quot;no-store, no-cache, must-revalidate, max-age=0&quot;</span>);<br>			<span class="hljs-comment">// 设置body</span><br>			String warningStr = <span class="hljs-string">&quot;&#123;\&quot;code\&quot;:\&quot;500\&quot;,\&quot;message\&quot;:\&quot;超过限流\&quot;&#125;&quot;</span>;<br>			DataBuffer bodyDataBuffer = response.bufferFactory().wrap(warningStr.getBytes());<br>			<span class="hljs-keyword">return</span> response.writeWith(Mono.just(bodyDataBuffer));<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getOrder</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> -<span class="hljs-number">1000</span>;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">private</span> Bucket <span class="hljs-title">createNewBucket</span><span class="hljs-params">()</span> </span>&#123;<br>		Refill refill = Refill.of(refillTokens, refillDuration);<br>		Bandwidth limit = Bandwidth.classic(capacity, refill);<br>		<span class="hljs-keyword">return</span> Bucket4j.builder().addLimit(limit).build();<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">getIpAddr</span><span class="hljs-params">(ServerHttpRequest request)</span> </span>&#123;<br>		String ip = <span class="hljs-string">&quot;&quot;</span>;<br>		String str = request.getHeaders().getFirst(<span class="hljs-string">&quot;x-forwarded-for&quot;</span>);<br>		<span class="hljs-keyword">if</span> (StringUtils.isEmpty(str)) &#123;<br>			ip = request.getRemoteAddress().getAddress().getHostAddress();<br>			logger.info(<span class="hljs-string">&quot;通过address方式限流获取到的IP为：&quot;</span> + ip);<br>			<span class="hljs-keyword">return</span> ip;<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			String[] ips = str.split(<span class="hljs-string">&quot;,&quot;</span>);<br>			<span class="hljs-keyword">for</span> (String s : ips) &#123;<br>				<span class="hljs-keyword">if</span> (s.indexOf(<span class="hljs-string">&quot;192.168&quot;</span>) != -<span class="hljs-number">1</span> || s.indexOf(<span class="hljs-string">&quot;172.31.202&quot;</span>) != -<span class="hljs-number">1</span>) &#123;<br>					<span class="hljs-keyword">continue</span>;<br>				&#125;<br>				ip = ip + s + <span class="hljs-string">&quot;,&quot;</span>;<br>			&#125;<br>			ip = ip.substring(<span class="hljs-number">0</span>, ip.length() - <span class="hljs-number">1</span>);<br>			logger.info(<span class="hljs-string">&quot;通过x-forwarded-for限流获取到的IP，且过滤掉内网后的地址为：&quot;</span> + ip);<br>			<span class="hljs-keyword">if</span> (ip.indexOf(<span class="hljs-string">&quot;,&quot;</span>) != -<span class="hljs-number">1</span>) &#123;<br>				ip = ip.substring(<span class="hljs-number">0</span>, ip.indexOf(<span class="hljs-string">&quot;,&quot;</span>));<br>				<span class="hljs-keyword">return</span> ip.trim();<br>			&#125;<br>			<span class="hljs-keyword">return</span> ip.trim();<br>		&#125;<br>	&#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>配置route: TEST-AUTH/**的api接口都会路由到TEST-AUTH服务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GateWayApplication</span> </span>&#123;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>		SpringApplication.run(GateWayApplication.class, args);<br>	&#125;<br><br>	<span class="hljs-meta">@Bean</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> RouteLocator <span class="hljs-title">routeLocator</span><span class="hljs-params">(RouteLocatorBuilder builder)</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> builder.routes()<br>				<span class="hljs-comment">// 认证中心</span><br>				.route(r -&gt; r.path(<span class="hljs-string">&quot;/TEST-AUTH/**&quot;</span>)<br>						.filters(f -&gt; f.stripPrefix(<span class="hljs-number">1</span>).filter(<span class="hljs-keyword">new</span> RateLimitByIpFilter(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, Duration.ofSeconds(<span class="hljs-number">1</span>))))<br>						.uri(<span class="hljs-string">&quot;lb://TEST-AUTH&quot;</span>).id(<span class="hljs-string">&quot;TEST-AUTH&quot;</span>))<br>				.build();<br>	&#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="三、分布式限流（这里摘自京东抢购业务）"><a href="#三、分布式限流（这里摘自京东抢购业务）" class="headerlink" title="三、分布式限流（这里摘自京东抢购业务）"></a>三、分布式限流（这里摘自京东抢购业务）</h2><p>使用Redis+Lua的方式来实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java">local key = <span class="hljs-string">&quot;rate.limit:&quot;</span> .. KEYS[<span class="hljs-number">1</span>] --限流KEY<br>local limit = tonumber(ARGV[<span class="hljs-number">1</span>])        --限流大小<br>local current = tonumber(redis.call(<span class="hljs-string">&#x27;get&#x27;</span>, key) or <span class="hljs-string">&quot;0&quot;</span>)<br><span class="hljs-keyword">if</span> current + <span class="hljs-number">1</span> &gt; limit then --如果超出限流大小<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br><span class="hljs-keyword">else</span>  --请求数+<span class="hljs-number">1</span>，并设置<span class="hljs-number">1</span>秒过期<br>  redis.call(<span class="hljs-string">&quot;INCRBY&quot;</span>, key,<span class="hljs-string">&quot;1&quot;</span>)<br>   redis.call(<span class="hljs-string">&quot;expire&quot;</span>, key,<span class="hljs-string">&quot;1&quot;</span>)<br>   <span class="hljs-keyword">return</span>  <span class="hljs-number">1</span><br>end<br>复制代码<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">accquire</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException, URISyntaxException </span>&#123;<br>    Jedis jedis = <span class="hljs-keyword">new</span> Jedis(<span class="hljs-string">&quot;127.0.0.1&quot;</span>);<br>    File luaFile = <span class="hljs-keyword">new</span> File(RedisLimitRateWithLUA.class.getResource(<span class="hljs-string">&quot;/&quot;</span>).toURI().getPath() + <span class="hljs-string">&quot;limit.lua&quot;</span>);<br>    String luaScript = FileUtils.readFileToString(luaFile);<br><br>    String key = <span class="hljs-string">&quot;ip:&quot;</span> + System.currentTimeMillis()/<span class="hljs-number">1000</span>; <span class="hljs-comment">// 当前秒</span><br>    String limit = <span class="hljs-string">&quot;5&quot;</span>; <span class="hljs-comment">// 最大限制</span><br>    List&lt;String&gt; keys = <span class="hljs-keyword">new</span> ArrayList&lt;String&gt;();<br>    keys.add(key);<br>    List&lt;String&gt; args = <span class="hljs-keyword">new</span> ArrayList&lt;String&gt;();<br>    args.add(limit);<br>    Long result = (Long)(jedis.eval(luaScript, keys, args)); <span class="hljs-comment">// 执行lua脚本，传入参数</span><br>    <span class="hljs-keyword">return</span> result == <span class="hljs-number">1</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>简单说明一下：redis k = rate.limit:ip:当前秒 V: 5</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/JAVA/">JAVA</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/IP/">IP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/06/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%9D%A1%E4%BB%B6%E4%B8%8B%E5%88%86%E6%AE%B5%E5%A4%84%E7%90%86List%E9%9B%86%E5%90%88/">
+                        <span class="hidden-mobile">多线程条件下分段处理List集合</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
