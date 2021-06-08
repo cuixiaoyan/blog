@@ -186,6 +186,52 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/03/25/%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%80%80%E9%81%BF%E7%AD%96%E7%95%A5/">接口调用失败的退避策略</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/25/%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%80%80%E9%81%BF%E7%AD%96%E7%95%A5/">
+          
+          
+            
+          
+          退避策略简介在开发过程中我们经常会遇到调用接口失败的情况。遇到这种情况，我们有时候需要重试机制，常用的重试（退避）策略有：
+
+固定的时间间隔重试一次，最多重试N次：比如我现在一个接口调用失败了，不是立马返回失败，而是hold住线程，每隔2秒重新调下接口，最多调5次，只要其中一次成功了就直接返回。如果5次都没成功，接口返回失败。
+指数时间间隔尝试策略：和上面策略一样，接口调用失败后也不是直接返回，但
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-25 20:40" pubdate>
+              2021-03-25
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/Java/">Java</a>
+            
+              <a href="/blog/tags/%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8/">接口调用</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/03/25/Python%E5%88%A9%E7%94%A8random%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E5%88%97%E8%A1%A8%E5%86%85%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0/">Python利用random生成一个列表内的随机数</a>
       </h1>
 
@@ -364,54 +410,11 @@ print得到一系列随机数,执行一次得到一个随机数:
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/03/24/%E6%90%9C%E7%B4%A2%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84%E4%B8%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%9F%90%E4%B8%AA%E5%AD%97%E7%AC%A6/">搜索一个字符数组中是否存在某个字符</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/24/%E6%90%9C%E7%B4%A2%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84%E4%B8%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%9F%90%E4%B8%AA%E5%AD%97%E7%AC%A6/">
-          
-          
-            
-          
-          请在一个类中编写一个方法，这个方法搜索一个字符数组中是否存在某个字符，如果存在，则返回这个字符在字符数组中第一次出现的位置（序号从0开始计算），否则，返回-1。要搜索的字符数组和字符都以参数形式传递传递给该方法，如果传入的数组为null，应抛出IllegalArgumentException异常。在类的main方法中以各种可能出现的情况测试验证该方法编写得是否正确，例如，字符不存在，字符存在，传入
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-24 20:50" pubdate>
-              2021-03-24
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84/">字符数组</a>
-            
-              <a href="/blog/tags/%E5%8C%85%E5%90%AB/">包含</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/4/">4</a><a class="page-number" href="/blog/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/blog/page/7/">7</a><a class="page-number" href="/blog/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/7/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/4/">4</a><a class="page-number" href="/blog/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/blog/page/7/">7</a><a class="page-number" href="/blog/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/33/">33</a><a class="extend next" rel="next" href="/blog/page/7/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

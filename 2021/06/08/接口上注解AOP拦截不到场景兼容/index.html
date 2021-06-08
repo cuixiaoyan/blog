@@ -1,0 +1,557 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>接口上注解AOP拦截不到场景兼容 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="接口上注解AOP拦截不到场景兼容">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-08 20:00" pubdate>
+        2021年6月8日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">接口上注解AOP拦截不到场景兼容</h1>
+            
+            <div class="markdown-body">
+              <p>在 Java 的开发过程中，面向接口的编程可能是大家的常态，切面也是各位大佬使用 Spring 时，或多或少会使用的一项基本技能；结果这两个碰到一起，有意思的事情就发生了，接口方法上添加注解，面向注解的切面拦截，居然不生效</p>
+<p>这就有点奇怪了啊，最开始遇到这个问题时，表示难以相信；事务注解也挺多是写在接口上的，好像也没有遇到这个问题（难道是也不生效，只是自己没有关注到？）</p>
+<p>接下来我们好好瞅瞅，这到底是怎么个情况</p>
+<h2 id="I-场景复现"><a href="#I-场景复现" class="headerlink" title="I. 场景复现"></a>I. 场景复现</h2><p>这个场景复现相对而言比较简单了，一个接口，一个实现类；一个注解，一个切面完事</p>
+<h3 id="1-项目环境"><a href="#1-项目环境" class="headerlink" title="1. 项目环境"></a>1. 项目环境</h3><p>采用<code>SpringBoot 2.2.1.RELEASE</code> + <code>IDEA</code> + <code>maven</code> 进行开发</p>
+<p>添加 aop 依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-aop<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+<h3 id="2-复现-case"><a href="#2-复现-case" class="headerlink" title="2. 复现 case"></a>2. 复现 case</h3><p>声明一个注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Target(ElementType.METHOD)</span><br><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> AnoDot &#123;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>拦截切面，下面这段代码来自之前分享的博文 <a target="_blank" rel="noopener" href="https://spring.hhui.top/spring-blog/2019/03/13/190313-SpringCloud%E5%BA%94%E7%94%A8%E7%AF%87%E4%B9%8BAOP%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E5%8A%9F%E8%83%BD/">【基础系列】AOP 实现一个日志插件（应用篇）</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Aspect</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LogAspect</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String SPLIT_SYMBOL = <span class="hljs-string">&quot;|&quot;</span>;<br><br><br>    <span class="hljs-meta">@Pointcut(&quot;execution(public * com.git.hui.boot.aop.demo.*.*(..)) || @annotation(AnoDot)&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pointcut</span><span class="hljs-params">()</span> </span>&#123;<br>    &#125;<br><br>    <span class="hljs-meta">@Around(value = &quot;pointcut()&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">doAround</span><span class="hljs-params">(ProceedingJoinPoint proceedingJoinPoint)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>        Object res = <span class="hljs-keyword">null</span>;<br>        String req = <span class="hljs-keyword">null</span>;<br>        <span class="hljs-keyword">long</span> start = System.currentTimeMillis();<br>        <span class="hljs-keyword">try</span> &#123;<br>            req = buildReqLog(proceedingJoinPoint);<br>            res = proceedingJoinPoint.proceed();<br>            <span class="hljs-keyword">return</span> res;<br>        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;<br>            res = <span class="hljs-string">&quot;Un-Expect-Error&quot;</span>;<br>            <span class="hljs-keyword">throw</span> e;<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">long</span> end = System.currentTimeMillis();<br>            System.out.println(req + <span class="hljs-string">&quot;&quot;</span> + JSON.toJSONString(res) + SPLIT_SYMBOL + (end - start));<br>        &#125;<br>    &#125;<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">buildReqLog</span><span class="hljs-params">(ProceedingJoinPoint joinPoint)</span> </span>&#123;<br>        <span class="hljs-comment">// 目标对象</span><br>        Object target = joinPoint.getTarget();<br>        <span class="hljs-comment">// 执行的方法</span><br>        Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();<br>        <span class="hljs-comment">// 请求参数</span><br>        Object[] args = joinPoint.getArgs();<br><br>        StringBuilder builder = <span class="hljs-keyword">new</span> StringBuilder(target.getClass().getName());<br>        builder.append(SPLIT_SYMBOL).append(method.getName()).append(SPLIT_SYMBOL);<br>        <span class="hljs-keyword">for</span> (Object arg : args) &#123;<br>            builder.append(JSON.toJSONString(arg)).append(<span class="hljs-string">&quot;,&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> builder.substring(<span class="hljs-number">0</span>, builder.length() - <span class="hljs-number">1</span>) + SPLIT_SYMBOL;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>然后定义一个接口与实现类，注意下面的两个方法，一个注解在接口上，一个注解在实现类上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BaseApi</span> </span>&#123;<br>    <span class="hljs-meta">@AnoDot</span><br>    <span class="hljs-function">String <span class="hljs-title">print</span><span class="hljs-params">(String obj)</span></span>;<br><br>    <span class="hljs-function">String <span class="hljs-title">print2</span><span class="hljs-params">(String obj)</span></span>;<br>&#125;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseApiImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">BaseApi</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">print</span><span class="hljs-params">(String obj)</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;ano in interface:&quot;</span> + obj);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;return:&quot;</span> + obj;<br>    &#125;<br><br>    <span class="hljs-meta">@AnoDot</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">print2</span><span class="hljs-params">(String obj)</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;ano in impl:&quot;</span> + obj);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;return:&quot;</span> + obj;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>测试 case</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Application</span><span class="hljs-params">(BaseApi baseApi)</span> </span>&#123;<br>        System.out.println(baseApi.print(<span class="hljs-string">&quot;hello world&quot;</span>));<br>        System.out.println(<span class="hljs-string">&quot;-----------&quot;</span>);<br>        System.out.println(baseApi.print2(<span class="hljs-string">&quot;hello world&quot;</span>));<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        SpringApplication.run(Application.class);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>执行后输出结果如下（有图有真相，别说我骗你 🙃）</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/825c84d3c2e74897a4833c26aa1a4a8a~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<h3 id="3-事务注解测试"><a href="#3-事务注解测试" class="headerlink" title="3. 事务注解测试"></a>3. 事务注解测试</h3><p>上面这个不生效，那我们通常写在接口上的事务注解，会生效么？</p>
+<p>添加 mysql 操作的依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>mysql<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mysql-connector-java<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+<p>数据库配置 <code>application.properties</code></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-comment">## DataSource</span><br><span class="hljs-meta">spring.datasource.url</span>=<span class="hljs-string">jdbc:mysql://127.0.0.1:3306/story?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=GMT%2b8</span><br><span class="hljs-meta">spring.datasource.username</span>=<span class="hljs-string">root</span><br><span class="hljs-meta">spring.datasource.password</span>=<span class="hljs-string"></span><br><br></code></pre></td></tr></table></figure>
+<p>接下来就是我们的接口定义与实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">TransApi</span> </span>&#123;<br>    <span class="hljs-meta">@Transactional(rollbackFor = Exception.class)</span><br>    <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">update</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id)</span></span>;<br>&#125;<br><br><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TransApiImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">TransApi</span> </span>&#123;<br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> JdbcTemplate jdbcTemplate;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">update</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id)</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;replace into money (id, name, money) values (&quot;</span> + id + <span class="hljs-string">&quot;, &#x27;事务测试&#x27;, 200)&quot;</span>;<br>        jdbcTemplate.execute(sql);<br><br>        Object ans = jdbcTemplate.queryForMap(<span class="hljs-string">&quot;select * from money where id = 111&quot;</span>);<br>        System.out.println(ans);<br><br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;事务回滚&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>注意上面的 update 方法，事务注解在接口上，接下来我们需要确认调用之后，是否会回滚</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Application</span><span class="hljs-params">(TransApiImpl transApi, JdbcTemplate jdbcTemplate)</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            transApi.update(<span class="hljs-number">111</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            System.out.println(e.getMessage());<br>        &#125;<br><br>        System.out.println(jdbcTemplate.queryForList(<span class="hljs-string">&quot;select * from money where id=111&quot;</span>));<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        SpringApplication.run(Application.class);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/4d903bbd1356440ab79cf56fb94f6b10~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>回滚了，有木有！！！</p>
+<p>果然是没有问题的，吓得我一身冷汗，这要是有问题，那就…(不敢想不敢想)</p>
+<p>所以问题来了，为啥第一种方式不生效呢？？？</p>
+<h2 id="II-接口注解切面拦截实现"><a href="#II-接口注解切面拦截实现" class="headerlink" title="II. 接口注解切面拦截实现"></a>II. 接口注解切面拦截实现</h2><p>暂且按下探寻究竟的欲望，先看下如果想让我们可以拦截接口上的注解，可以怎么做呢?</p>
+<p>既然拦截不上，多半是因为子类没有继承父类的注解，所以在进行切点匹配时，匹配不到；既然如此，那就让它在匹配时，找下父类看有没有对应的注解</p>
+<h3 id="1-自定义-Pointcut"><a href="#1-自定义-Pointcut" class="headerlink" title="1. 自定义 Pointcut"></a>1. 自定义 Pointcut</h3><p>虽说是自定义，但也没有要求我们直接实现这个接口，我们选择<code>StaticMethodMatcherPointcut</code>来补全逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.springframework.core.annotation.AnnotatedElementUtils;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LogPointCut</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StaticMethodMatcherPointcut</span> </span>&#123;<br><br>    <span class="hljs-meta">@SneakyThrows</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">matches</span><span class="hljs-params">(Method method, Class&lt;?&gt; aClass)</span> </span>&#123;<br>        <span class="hljs-comment">// 直接使用spring工具包，来获取method上的注解（会找父类上的注解）</span><br>        <span class="hljs-keyword">return</span> AnnotatedElementUtils.hasAnnotation(method, AnoDot.class);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>接下来我们采用声明式来实现切面逻辑</p>
+<h3 id="2-自定义-Advice"><a href="#2-自定义-Advice" class="headerlink" title="2. 自定义 Advice"></a>2. 自定义 Advice</h3><p>这个 advice 就是我们需要执行的切面逻辑，和上面的日志输出差不多，区别在于参数不同</p>
+<p>自定义 advice 实现自接口<code>MethodInterceptor</code>，顶层接口是<code>Advice</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LogAdvice</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">MethodInterceptor</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String SPLIT_SYMBOL = <span class="hljs-string">&quot;|&quot;</span>;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">invoke</span><span class="hljs-params">(MethodInvocation methodInvocation)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>        Object res = <span class="hljs-keyword">null</span>;<br>        String req = <span class="hljs-keyword">null</span>;<br>        <span class="hljs-keyword">long</span> start = System.currentTimeMillis();<br>        <span class="hljs-keyword">try</span> &#123;<br>            req = buildReqLog(methodInvocation);<br>            res = methodInvocation.proceed();<br>            <span class="hljs-keyword">return</span> res;<br>        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;<br>            res = <span class="hljs-string">&quot;Un-Expect-Error&quot;</span>;<br>            <span class="hljs-keyword">throw</span> e;<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">long</span> end = System.currentTimeMillis();<br>            System.out.println(<span class="hljs-string">&quot;ExtendLogAspect:&quot;</span> + req + <span class="hljs-string">&quot;&quot;</span> + JSON.toJSONString(res) + SPLIT_SYMBOL + (end - start));<br>        &#125;<br>    &#125;<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">buildReqLog</span><span class="hljs-params">(MethodInvocation joinPoint)</span> </span>&#123;<br>        <span class="hljs-comment">// 目标对象</span><br>        Object target = joinPoint.getThis();<br>        <span class="hljs-comment">// 执行的方法</span><br>        Method method = joinPoint.getMethod();<br>        <span class="hljs-comment">// 请求参数</span><br>        Object[] args = joinPoint.getArguments();<br><br>        StringBuilder builder = <span class="hljs-keyword">new</span> StringBuilder(target.getClass().getName());<br>        builder.append(SPLIT_SYMBOL).append(method.getName()).append(SPLIT_SYMBOL);<br>        <span class="hljs-keyword">for</span> (Object arg : args) &#123;<br>            builder.append(JSON.toJSONString(arg)).append(<span class="hljs-string">&quot;,&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> builder.substring(<span class="hljs-number">0</span>, builder.length() - <span class="hljs-number">1</span>) + SPLIT_SYMBOL;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h3 id="3-自定义-Advisor"><a href="#3-自定义-Advisor" class="headerlink" title="3. 自定义 Advisor"></a>3. 自定义 Advisor</h3><p>将上面自定义的切点 pointcut 与通知 advice 整合，实现我们的切面</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LogAdvisor</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractBeanFactoryPointcutAdvisor</span> </span>&#123;<br>    <span class="hljs-meta">@Setter</span><br>    <span class="hljs-keyword">private</span> Pointcut logPointCut;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Pointcut <span class="hljs-title">getPointcut</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> logPointCut;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h3 id="4-最后注册切面"><a href="#4-最后注册切面" class="headerlink" title="4. 最后注册切面"></a>4. 最后注册切面</h3><p>说是注册，实际上就是声明为 bean，丢到 spring 容器中而已</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> LogAdvisor <span class="hljs-title">init</span><span class="hljs-params">()</span> </span>&#123;<br>    LogAdvisor logAdvisor = <span class="hljs-keyword">new</span> LogAdvisor();<br>    <span class="hljs-comment">// 自定义实现姿势</span><br>    logAdvisor.setLogPointCut(<span class="hljs-keyword">new</span> LogPointCut());<br>    logAdvisor.setAdvice(<span class="hljs-keyword">new</span> LogAdvice());<br>    <span class="hljs-keyword">return</span> logAdvisor;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>然后再次执行上面的测试用例，输出如下</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/7ca7e497951640048fb6b0d15e458629~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>接口上的注解也被拦截了，但是最后一个耗时的输出，有点夸张了啊，采用上面这种方式，这个耗时有点夸张了啊，生产环境这么一搞，岂不是分分钟卷铺盖的节奏</p>
+<ul>
+<li>可以借助 StopWatch 来查看到底是哪里的开销增加了这么多 （关于 StopWatch 的使用，下篇介绍）</li>
+<li>单次执行的统计偏差问题，将上面的调用，执行一百遍之后，再看耗时，趋于平衡，如下图</li>
+</ul>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/c3fa3c026e67418e90a9367986331e45~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<h3 id="5-小结"><a href="#5-小结" class="headerlink" title="5. 小结"></a>5. 小结</h3><p>到这里，我们实现了接口上注解的拦截，虽说解决了我们的需求，但是疑惑的地方依然没有答案</p>
+<ul>
+<li>为啥接口上的注解拦截不到 ？</li>
+<li>为啥事务注解，放在接口上可以生效，事务注解的实现机制是怎样的？</li>
+<li>自定义的切点，可以配合我们的注解来玩么？</li>
+<li>为什么首次执行时，耗时比较多；多次执行之后，则耗时趋于正常？</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E6%B3%A8%E8%A7%A3/">注解</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/AOP/">AOP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/06/07/JAVA%E5%90%8C%E4%B8%80IP%E8%AE%BF%E9%97%AE%E5%90%8C%E4%B8%80%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E9%A2%91%E7%8E%87%E9%99%90%E5%88%B6/">
+                        <span class="hidden-mobile">JAVA同一IP访问同一接口进行频率限制</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
