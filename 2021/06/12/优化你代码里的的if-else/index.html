@@ -1,0 +1,570 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>如何用策略模式，优化你代码里的的if-else - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="如何用策略模式，优化你代码里的的if-else">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-12 11:00" pubdate>
+        2021年6月12日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">如何用策略模式，优化你代码里的的if-else</h1>
+            
+            <div class="markdown-body">
+              <h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/a46b3d8654904fc6becedc7dd348a27f~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>什么是策略模式？它的原理实现是怎么样的？</p>
+<blockquote>
+<p>定义一系列算法，封装每个算法，并使他们可以互换，不同的策略可以让算法独立于使用它们的客户而变化。 以上定义来自设计模式之美</p>
+</blockquote>
+<p>感觉有点抽象？那就来看一张结构图吧</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/caf12785e40b41fb9313b3fc60fe9211~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<blockquote>
+<ul>
+<li>Strategy（抽象策略）：抽象策略类，并且定义策略执行入口</li>
+<li>ConcreteStrategy（具体策略）：实现抽象策略，实现algorithm方法</li>
+<li>Context（环境）：运行特定的策略类。</li>
+</ul>
+</blockquote>
+<p>这么看结构其实还是不复杂的，而且跟状态模式类似。</p>
+<p>那么这个代码怎么实现？</p>
+<p>举个例子，汽车大家肯定都不陌生，愿大家早日完成汽车梦，汽车的不同档(concreteStrategy）就好比不同的策略，驾驶者选择几档则汽车按几档的速度前进，整个选择权在驾驶者（context）手中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">GearStrategy</span> </span>&#123;<br><br>    <span class="hljs-comment">// 定义策略执行方法</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">algorithm</span><span class="hljs-params">(String param)</span></span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>首先还是先定义抽象策略</p>
+<blockquote>
+<p>这里是用接口的形式，还有一种方式可以用抽象方法<strong>abstract</strong>来写也是一样的。具体就看大家自己选择了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GearStrategyAbstract</span> </span>&#123;<br> <span class="hljs-comment">// 定义策略执行方法</span><br> <span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">algorithm</span><span class="hljs-params">(String param)</span></span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GearStrategyOne</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">GearStrategy</span> </span>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">algorithm</span><span class="hljs-params">(String param)</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;当前档位&quot;</span> + param);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>其次定义具体档位策略，实现algorithm方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Context</span> </span>&#123;<br>		<span class="hljs-comment">// 缓存所有的策略，当前是无状态的，可以共享策略类对象</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;String, GearStrategy&gt; strategies = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();<br><br>    <span class="hljs-comment">// 第一种写法</span><br>    <span class="hljs-keyword">static</span> &#123;<br>        strategies.put(<span class="hljs-string">&quot;one&quot;</span>, <span class="hljs-keyword">new</span> GearStrategyOne());<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> GearStrategy <span class="hljs-title">getStrategy</span><span class="hljs-params">(String type)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (type == <span class="hljs-keyword">null</span> || type.isEmpty()) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">&quot;type should not be empty.&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> strategies.get(type);<br>    &#125;<br><br>    <span class="hljs-comment">// 第二种写法</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> GearStrategy <span class="hljs-title">getStrategySecond</span><span class="hljs-params">(String type)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (type == <span class="hljs-keyword">null</span> || type.isEmpty()) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">&quot;type should not be empty.&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (type.equals(<span class="hljs-string">&quot;one&quot;</span>)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> GearStrategyOne();<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">// 测试结果</span><br>        GearStrategy strategyOne = Context.getStrategy(<span class="hljs-string">&quot;one&quot;</span>);<br>        strategyOne.algorithm(<span class="hljs-string">&quot;1档&quot;</span>);<br>         <span class="hljs-comment">// 结果：当前档位1档</span><br>        GearStrategy strategyTwo = Context.getStrategySecond(<span class="hljs-string">&quot;one&quot;</span>);<br>        strategyTwo.algorithm(<span class="hljs-string">&quot;1档&quot;</span>);<br>        <span class="hljs-comment">// 结果：当前档位1档</span><br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>最后就是实现运行时环境（Context），你可以定义成StrategyFactory，但都是一个意思。</p>
+<p>在main方法里面的测试demo，可以看到通过不同的type类型，可以实现不同的策略，这就是策略模式主要思想。</p>
+<p>在Context里面定义了两种写法：</p>
+<blockquote>
+<ul>
+<li>第一种是维护了一个strategies的Map容器。用这种方式就需要判断每种策略是否可以共享使用，它只是作为算法的实现。</li>
+<li>第二种是直接通过有状态的类，每次根据类型new一个新的策略类对象。这个就需要根据实际业务场景去做的判断。</li>
+</ul>
+</blockquote>
+<h3 id="框架的应用"><a href="#框架的应用" class="headerlink" title="框架的应用"></a>框架的应用</h3><p>策略模式在框架中也在一个很常见的地方体现出来了，而且大家肯定都有使用过。</p>
+<p>那就是JDK中的线程池<strong>ThreadPoolExecutor</strong></p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/86c90d21d5524f9b98a3f2b45fbddfe5~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>首先都是类似于这样定义一个线程池，里面实现线程池的异常策略。</p>
+<p>这个线程池的异常策略就是用的策略模式的思想。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/15b5bff7cb6c4d77a97ca5dff25ab060~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>在源码中有RejectedExecutionHandler这个抽象异常策略接口，同时它也有四种拒绝策略。关系图如下：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/46f0039d6cdb4a6ab6c85b5f028a40b2~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/1e16d4b6d9dc48cbb782f28bbfa360ce~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>这就是在框架中的体现了，根据自己的业务场景，合理的选择线程池的异常策略。</p>
+<h3 id="业务改造举例"><a href="#业务改造举例" class="headerlink" title="业务改造举例"></a>业务改造举例</h3><p>在真实的业务场景中策略模式也还是应用很多的。</p>
+<p>在社交电商中分享商品是一个很重要的环节，假设现在要我们实现一个分享图片功能，比如当前有 单商品、多商品、下单、会场、邀请、小程序链接等等多种分享场景。</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/4120a446ad4d43a0aff9a2ae50c79f06~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>针对上线这个流程图先用if else语句做一个普通业务代码判断，就像下面的这中方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingleItemShare</span> </span>&#123;<br>    <span class="hljs-comment">// 单商品</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">algorithm</span><span class="hljs-params">(String param)</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;当前分享图片是&quot;</span> + param);<br>    &#125;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MultiItemShare</span> </span>&#123;<br>    <span class="hljs-comment">// 多商品</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">algorithm</span><span class="hljs-params">(String param)</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;当前分享图片是&quot;</span> + param);<br>    &#125;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderItemShare</span> </span>&#123;<br>    <span class="hljs-comment">// 下单</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">algorithm</span><span class="hljs-params">(String param)</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;当前分享图片是&quot;</span> + param);<br>    &#125;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShareFactory</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>        Integer shareType = <span class="hljs-number">1</span>;<br>       <span class="hljs-comment">// 测试业务逻辑</span><br>        <span class="hljs-keyword">if</span> (shareType.equals(ShareType.SINGLE.getCode())) &#123;<br>            SingleItemShare singleItemShare = <span class="hljs-keyword">new</span> SingleItemShare();<br>            singleItemShare.algorithm(<span class="hljs-string">&quot;单商品&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (shareType.equals(ShareType.MULTI.getCode())) &#123;<br>            MultiItemShare multiItemShare = <span class="hljs-keyword">new</span> MultiItemShare();<br>            multiItemShare.algorithm(<span class="hljs-string">&quot;多商品&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (shareType.equals(ShareType.ORDER.getCode())) &#123;<br>            OrderItemShare orderItemShare = <span class="hljs-keyword">new</span> OrderItemShare();<br>            orderItemShare.algorithm(<span class="hljs-string">&quot;下单&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Exception(<span class="hljs-string">&quot;未知分享类型&quot;</span>);<br>        &#125;<br>        <span class="hljs-comment">// .....省略更多分享场景</span><br>    &#125;<br><br>    <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">ShareType</span> </span>&#123;<br>        SINGLE(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;单商品&quot;</span>),<br>        MULTI(<span class="hljs-number">2</span>, <span class="hljs-string">&quot;多商品&quot;</span>),<br>        ORDER(<span class="hljs-number">3</span>, <span class="hljs-string">&quot;下单&quot;</span>);<br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 场景对应的编码</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-keyword">private</span> Integer code;<br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 业务场景描述</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-keyword">private</span> String desc;<br>        ShareType(Integer code, String desc) &#123;<br>            <span class="hljs-keyword">this</span>.code = code;<br>            <span class="hljs-keyword">this</span>.desc = desc;<br>        &#125;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getCode</span><span class="hljs-params">()</span> </span>&#123;<br>            <span class="hljs-keyword">return</span> code;<br>        &#125;<br>       <span class="hljs-comment">// 省略 get set 方法</span><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>这里大家可以看到每新加一种分享类型，就需要加一次if else 判断，当如果有十几种场景的时候那代码整体就会非常的长，看起来给人的感觉也不是很舒服。</p>
+<p>接下来就看看如何用策略模式进行重构：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ShareStrategy</span> </span>&#123;<br>    <span class="hljs-comment">// 定义分享策略执行方法</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">shareAlgorithm</span><span class="hljs-params">(String param)</span></span>;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderItemShare</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ShareStrategy</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">shareAlgorithm</span><span class="hljs-params">(String param)</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;当前分享图片是&quot;</span> + param);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 省略 MultiItemShare以及SingleItemShare策略</span><br><br><span class="hljs-comment">// 分享工厂</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShareFactory</span> </span>&#123;<br>		<span class="hljs-comment">// 定义策略枚举</span><br>    <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">ShareType</span> </span>&#123;<br>        SINGLE(<span class="hljs-string">&quot;single&quot;</span>, <span class="hljs-string">&quot;单商品&quot;</span>),<br>        MULTI(<span class="hljs-string">&quot;multi&quot;</span>, <span class="hljs-string">&quot;多商品&quot;</span>),<br>        ORDER(<span class="hljs-string">&quot;order&quot;</span>, <span class="hljs-string">&quot;下单&quot;</span>);<br>        <span class="hljs-comment">// 场景对应的编码</span><br>        <span class="hljs-keyword">private</span> String code;<br>       <br>        <span class="hljs-comment">// 业务场景描述</span><br>        <span class="hljs-keyword">private</span> String desc;<br>        ShareType(String code, String desc) &#123;<br>            <span class="hljs-keyword">this</span>.code = code;<br>            <span class="hljs-keyword">this</span>.desc = desc;<br>        &#125;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getCode</span><span class="hljs-params">()</span> </span>&#123;<br>            <span class="hljs-keyword">return</span> code;<br>        &#125;<br>       <span class="hljs-comment">// 省略 get set 方法</span><br>    &#125;<br>		<span class="hljs-comment">// 定义策略map缓存</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;String, ShareStrategy&gt; shareStrategies = <span class="hljs-keyword">new</span>       HashMap&lt;&gt;();<br>    <span class="hljs-keyword">static</span> &#123;<br>        shareStrategies.put(<span class="hljs-string">&quot;order&quot;</span>, <span class="hljs-keyword">new</span> OrderItemShare());<br>        shareStrategies.put(<span class="hljs-string">&quot;single&quot;</span>, <span class="hljs-keyword">new</span> SingleItemShare());<br>        shareStrategies.put(<span class="hljs-string">&quot;multi&quot;</span>, <span class="hljs-keyword">new</span> MultiItemShare());<br>    &#125;<br>    <span class="hljs-comment">// 获取指定策略</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ShareStrategy <span class="hljs-title">getShareStrategy</span><span class="hljs-params">(String type)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (type == <span class="hljs-keyword">null</span> || type.isEmpty()) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">&quot;type should not be empty.&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> shareStrategies.get(type);<br>    &#125;<br>	<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">// 测试demo</span><br>        String shareType = <span class="hljs-string">&quot;order&quot;</span>;<br>        ShareStrategy shareStrategy = ShareFactory.getShareStrategy(shareType);<br>        shareStrategy.shareAlgorithm(<span class="hljs-string">&quot;order&quot;</span>);<br>        <span class="hljs-comment">// 输出结果：当前分享图片是order</span><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>这里策略模式就已经改造完了。在client请求端，根本看不到那么多的if else判断，只需要传入对应的策略方式即可，这里我们维护了一个策略缓存map，在直接调用的ShareFactory获取策略的时候就直接是从换种获取策略类对象。</p>
+<p>这就已经达到了行为解偶的思想。同时也避免了长串的if else 判断。</p>
+<p>优点：</p>
+<blockquote>
+<ul>
+<li>算法策略可以自由实现切换</li>
+<li>扩展性好，加一个策略，只需要增加一个类</li>
+</ul>
+</blockquote>
+<p>缺点：</p>
+<blockquote>
+<ul>
+<li>策略类数量多</li>
+<li>需要维护一个策略枚举，让别人知道你当前具有哪些策略</li>
+</ul>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上就讲完了策略模式，整体看上去其实还是比较简单的，还是那句话学习设计模式我们还是要学习每种设计模式的思想，任何一种设计模式存在即合理。当然也不要因为设计模式而设计代码，那样反而得不偿失。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">策略模式</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/if-else/">if-else</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/06/08/%E6%8E%A5%E5%8F%A3%E4%B8%8A%E6%B3%A8%E8%A7%A3AOP%E6%8B%A6%E6%88%AA%E4%B8%8D%E5%88%B0%E5%9C%BA%E6%99%AF%E5%85%BC%E5%AE%B9/">
+                        <span class="hidden-mobile">接口上注解AOP拦截不到场景兼容</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
