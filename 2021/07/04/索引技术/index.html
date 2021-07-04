@@ -1,0 +1,743 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>mysql索引技术 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="mysql索引技术">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-04 10:00" pubdate>
+        2021年7月4日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      54
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">mysql索引技术</h1>
+            
+            <div class="markdown-body">
+              <h1 id="前提概要"><a href="#前提概要" class="headerlink" title="前提概要"></a>前提概要</h1><blockquote>
+<p><strong>本篇文章主要介绍了相关MySQL技术系列体系中，最重要的部分-索引，带你从索引的本质（底层原理）、索引的类型、索引的原理、索引的数据结构，最后到索引的使用角度以及索引的优化，全方位360度去探索索引的奥秘！</strong></p>
+</blockquote>
+<h1 id="数据库类型"><a href="#数据库类型" class="headerlink" title="数据库类型"></a>数据库类型</h1><ul>
+<li>OLAP：<strong>联机分析处理—-对海量历史数据进行分析，产生决策性的策略—-数据仓库—Hive</strong></li>
+<li>OLTP：<strong>联机事务处理—-要求很短时效内返回对应的结果—-数据库—关系型数据库(mysql、oracle)</strong></li>
+</ul>
+<h1 id="内容架构"><a href="#内容架构" class="headerlink" title="内容架构"></a>内容架构</h1><ul>
+<li><strong>磁盘角度去看索引机制（运作机制提升性能原理）</strong></li>
+<li><strong>索引机制的分析和基本介绍</strong></li>
+<li><strong>索引机制的分类和概念</strong></li>
+<li><strong>索引本身的优缺点以及不同分类的优缺点</strong></li>
+</ul>
+<h2 id="索引和磁盘的关系"><a href="#索引和磁盘的关系" class="headerlink" title="索引和磁盘的关系"></a>索引和磁盘的关系</h2><h3 id="数据读取时主要时间开销"><a href="#数据读取时主要时间开销" class="headerlink" title="数据读取时主要时间开销"></a>数据读取时主要时间开销</h3><p>从概念模型上来讲，从磁盘读出一条数据需要两步：</p>
+<ul>
+<li><strong>将磁头移动到数据所在的扇区，找到数据所在的页，将这一页数据加载到内存</strong></li>
+<li><strong>在内存中，找到数据所在的偏移量，并返回该记录</strong></li>
+</ul>
+<h3 id="总结分析瓶颈点"><a href="#总结分析瓶颈点" class="headerlink" title="总结分析瓶颈点"></a>总结分析瓶颈点</h3><blockquote>
+<p><strong>这两步中，第1步消耗的时间远远大于第2步，其原因是需要移动磁头到给定扇区，时间开销由寻道和延迟两部分构成，通常在毫秒级。而从内存直接读取数据，时间为纳秒级。</strong></p>
+</blockquote>
+<h3 id="优化的方式"><a href="#优化的方式" class="headerlink" title="优化的方式"></a>优化的方式</h3><p>主要的时间开销来源于寻找数据所在的页。<strong>因此优化寻找数据所在页的需求是非常紧急且重要的。</strong></p>
+<h4 id="数据量计算"><a href="#数据量计算" class="headerlink" title="数据量计算"></a>数据量计算</h4><p>对于给定大小的数据量（比如2^ 20条）、平均每条记录所占用的内存空间（比如2^ 7byte）和每一页的大小（如4kb），那么平均每页的记录数和所需的数据页数就可以确定，分别是(32（2^12/2^7）条和2^15（2^20/2^5）页)。</p>
+<h4 id="传统暴力（顺序型读写）X"><a href="#传统暴力（顺序型读写）X" class="headerlink" title="传统暴力（顺序型读写）X"></a>传统暴力（顺序型读写）X</h4><p>如果使用遍历的方式，将每一页加载到内存然后搜索，那么最坏情况下需要1万次的读取数据页的操作才能搜索到给定记录。这就好像我有一本书，我要从第一页一指翻到最后一页，才能找到我要读到的某一行文字，这显然不太高效。</p>
+<h4 id="索引机制（半随机性读写）√"><a href="#索引机制（半随机性读写）√" class="headerlink" title="索引机制（半随机性读写）√"></a>索引机制（半随机性读写）√</h4><blockquote>
+<p><strong>优化的办法是建立索引，将数据按索引排序，对于每一条数据，我可以建立一个索引+指针来指向该数据的起始地址</strong>。(<strong>空间来换时间</strong>)</p>
+</blockquote>
+<blockquote>
+<p><strong>那么我就可以将这个索引存起来，并使用指针指向该记录。</strong></p>
+</blockquote>
+<ul>
+<li><p>现在需要 2^ 20个索引，假设</p>
+<p>每条索引和指针共占8byte空间</p>
+<p>，</p>
+<p>那么所需的索引页为2^ 11（2^ 20 * 8 / 4kb）页。</p>
+<ul>
+<li><strong>此时如果遍历索引页，然后再去找到对应的记录，最坏需要2^11 + 1次读取，显然效率高了些</strong>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="索引升级之多级索引化（全随机性读写）"><a href="#索引升级之多级索引化（全随机性读写）" class="headerlink" title="索引升级之多级索引化（全随机性读写）"></a>索引升级之多级索引化（全随机性读写）</h4><p>如果利用递归的思想，对索引页再建索引（<strong>是不是在内存管理中有类似的想法，对页表建立页表</strong>）。</p>
+<blockquote>
+<p><strong>比如，对这2^20条数据的索引建立索引。对于给定的一页，它的第一条索引是确定的</strong>。</p>
+</blockquote>
+<ol>
+<li><strong>那么将第一条索引再存到另一个索引中(索引的索引)，假设索引都连续，那么对于给定的一个索引，就可以根据索引的索引找到这个索引所在的页</strong>。</li>
+<li><strong>然后找到这个索引，根据这个索引指向的数据去读取数据。比如：检索索引15，它在0到31之间，便可以知道它在第一个数据页上，通过之前保存起来的指针即可访问到该页</strong>。</li>
+<li><strong>由于更上层的索引更稀疏了，因此可以保存更多的索引，使每一页能表示更多的数据。</strong></li>
+<li><strong>递归到最终只需1页就能保存某一级索引的时候，就可以停止递归了</strong>。<strong>此时根据索引来访问数据，只需要查每一级索引中的某一页，就可以确定下一级索引所在的页。直到最底一层的索引，它指向了数据</strong>。</li>
+<li><strong>那么需要读取的总页数为索引级数+1。这个次数远远小于总数据页数</strong>。</li>
+</ol>
+<h4 id="使用索引的好处在于"><a href="#使用索引的好处在于" class="headerlink" title="使用索引的好处在于"></a>使用索引的好处在于</h4><ul>
+<li><strong>第一，将数据进行了分桶，对于落在桶内区间段的索引，都可以通过一个指针访问到对应的数据页</strong>。</li>
+<li><strong>第二，索引所占的内存要远远小于1条记录所占的空间，因此个索引页能保存非常多的索引</strong>。</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/39e244d86e334a0bad7dd3ea3cfaeef9~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<h3 id="索引机制总结"><a href="#索引机制总结" class="headerlink" title="索引机制总结"></a>索引机制总结</h3><blockquote>
+<p>一句话：减少加载磁盘的次数（寻道的时间和次数），且索引占用数据较少，所以可以存放更多的数据内存（提高检索效率）。</p>
+</blockquote>
+<h3 id="磁盘预读"><a href="#磁盘预读" class="headerlink" title="磁盘预读"></a>磁盘预读</h3><ul>
+<li><strong>去磁盘读取数据，是用多少读取多少吗？</strong><ul>
+<li><strong>内存和磁盘发生数据交互的时候，一般情况下有一个最小的逻辑单元：页（Page）。</strong></li>
+<li><strong>页一般由操作系统觉得大小，4k或8k，而我们在进行数据交互的时候，可以取页的整数倍来读取。</strong></li>
+<li><strong>innodb存储引擎每次读取数据，读取16k</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="局部性原理：数据和程序都有聚集成群的倾向，同时之前被访问过的数据很可能再次被查询，空间局部性，时间局部性"><a href="#局部性原理：数据和程序都有聚集成群的倾向，同时之前被访问过的数据很可能再次被查询，空间局部性，时间局部性" class="headerlink" title="局部性原理：数据和程序都有聚集成群的倾向，同时之前被访问过的数据很可能再次被查询，空间局部性，时间局部性"></a>局部性原理：<strong>数据和程序都有聚集成群的倾向，同时之前被访问过的数据很可能再次被查询，空间局部性，时间局部性</strong></h4><h3 id="索引存储"><a href="#索引存储" class="headerlink" title="索引存储"></a>索引存储</h3><blockquote>
+<p><strong>磁盘，查询数据的时候会优先将索引加载到内存中</strong></p>
+</blockquote>
+<ul>
+<li><strong>索引在存储的时候，需要什么信息？需要存储存储什么字段值？</strong><ul>
+<li><strong>key：实际数据行中存储的索引键。</strong></li>
+<li><strong>文件地址，所在磁盘文件地址</strong></li>
+<li><strong>offset：偏移量</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="索引系统性介绍"><a href="#索引系统性介绍" class="headerlink" title="索引系统性介绍"></a>索引系统性介绍</h2><h3 id="索引的定义"><a href="#索引的定义" class="headerlink" title="索引的定义"></a>索引的定义</h3><blockquote>
+<p><strong>索引（index）是帮助MySQL高效获取数据的数据结构（有序）</strong>。</p>
+</blockquote>
+<blockquote>
+<p><strong>在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用（指向）数据，这样就可以在这些数据结构上实现高级查找算法，这种数据结构就是索引。</strong></p>
+</blockquote>
+<h3 id="索引的介绍"><a href="#索引的介绍" class="headerlink" title="索引的介绍"></a>索引的介绍</h3><ul>
+<li><strong>索引是一种用于快速查询和检索数据的数据结构</strong>。</li>
+<li><strong>索引的作用就相当于目录的作用，可以类比字典、 火车站的车次表、图书的目录等</strong>。</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c3ce1c9efe4247448f279659c9a8fef7~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<ul>
+<li><strong>索引是在存储【引擎层】实现的，而不是在服务器层实现的，所以不同存储引擎具有不同的索引类型和实现</strong>。</li>
+</ul>
+<blockquote>
+<p><strong>可以简单的理解为“排好序的快速查找数据结构”，数据本身之外，数据库还维护者一个满足特定查找算法的数据结构，这些数据结构以某种方式引用（指向）数据，这样就可以在这些数据结构上实现高级查找算法，这种数据结构，就是索引。</strong></p>
+</blockquote>
+<blockquote>
+<p>索引本身也很大，不可能全部存储在内存中，一般以索引文件的形式存储在磁盘上，(<strong>InnoDB数据表上的索引是表空间的一个组成部分</strong>)，它们包含着对数据表里所有记录的引用指针。</p>
+</blockquote>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/35ffd54668b14c8d891ac510af340f40~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<ul>
+<li><strong>左边是数据表，一共有两列七行记录，最左边的0x07格式的数据是物理地址（注意逻辑上相邻的记录在磁盘上也并不是一定物理相邻的）</strong>。</li>
+<li><strong>为了加快Col 2的查找，可以维护一个右边所示的二叉查找树，每个节点分别包含索引键值和一个指向对应数据的物理地址的指针，这样就可以运用二叉查找快速获取到对应的数据了</strong>。</li>
+<li><strong>一般来说索引本身也很大，不可能全部存储在内存中，因此索引往往以索引文件的形式存储在磁盘上。建立索引是数据库中用来提高性能的最常用的方式。</strong></li>
+</ul>
+<h3 id="索引优缺点"><a href="#索引优缺点" class="headerlink" title="索引优缺点"></a>索引优缺点</h3><h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><ul>
+<li>效率：<strong>大大提高数据检索效率（减少了检索的数据量以及次数），降低数据库IO成本，这也是创建索引的最主要原因</strong>；</li>
+<li>性能：<strong>降低数据排序的成本，降低CPU的消耗，提高系统性能</strong>；</li>
+<li>索引大大减小了服务器需要扫描的数据量</li>
+<li>索引可以帮助服务器避免排序和临时表</li>
+<li>索引可以将随机IO变成顺序IO</li>
+</ul>
+<p>在MySQL5.1和更新的版本中，InnoDB可以在服务器端过滤掉行后就释放锁，但在早期的MySQL版本中，InnoDB直到事务提交时才会解锁。</p>
+<p>对不需要的元组的加锁，会增加锁的开销，降低并发性。</p>
+<p>InnoDB仅对需要访问的元组加锁，而索引能够减少InnoDB访问的元组数。但是只有在存储引擎层过滤掉那些不需要的数据才能达到这种目的。</p>
+<p>一旦索引不允许InnoDB那样做（即索引达不到过滤的目的），MySQL服务器只能对InnoDB返回的数据进行WHERE操作，已经无法避免对那些元组加锁了。</p>
+<p>如果查询不能使用索引，MySQL会进行全表扫描，并锁住每一个元组，不管是否真正需要。</p>
+<h4 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h4><ul>
+<li>空间方面：<strong>索引也是一张表，保存了主键和索引字段，并指向实体表的记录，所以索引也需要占用内存（物理空间）。</strong><ul>
+<li><strong>建立索引会占用磁盘空间的索引文件。一般情况这个问题不太严重，但如果你在一个大表上创建了多种组合索引，索引文件的会膨胀很快</strong></li>
+</ul>
+</li>
+<li>时间方面：<strong>创建索引和维护索引要耗费时间，具体地，当对表中的数据进行增加、删除和修改的时候，索引也要动态的维护，会降低增/改/删的执行效率；</strong><ul>
+<li><strong>索引大大提高了查询速度，同时却会降低更新表的速度，如对表进行INSERT、UPDATE和DELETE。因为更新表时，MySQL不仅要保存数据，还要保存索引文件</strong>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="注意要点"><a href="#注意要点" class="headerlink" title="注意要点"></a>注意要点</h4><ul>
+<li><strong>如果某个数据列包含许多重复的内容，为它建立索引就没有太大的实际效果。</strong></li>
+<li><strong>对于非常小的表，大部分情况下简单的全表扫描更高效；</strong></li>
+<li><strong>因此应该只为最经常查询和最经常排序的数据列建立索引</strong></li>
+<li><strong>MySQL里同一个数据表里的索引总数限制为16个。</strong></li>
+</ul>
+<p>关于InnoDB、索引和锁：InnoDB在二级索引上使用共享锁（读锁），但访问主键索引需要排他锁（写锁）</p>
+<h3 id="索引的分类"><a href="#索引的分类" class="headerlink" title="索引的分类"></a>索引的分类</h3><h4 id="存储数据结构划分"><a href="#存储数据结构划分" class="headerlink" title="存储数据结构划分"></a>存储数据结构划分</h4><blockquote>
+<p><strong>B-Tree索引（B-Tree或B+Tree索引），Hash索引，full-index全文索引，R-Tree索引，这里所描述的是索引存储时保存的形式。</strong></p>
+</blockquote>
+<h4 id="【从物理角度划分】"><a href="#【从物理角度划分】" class="headerlink" title="【从物理角度划分】"></a>【从物理角度划分】</h4><ul>
+<li><p>聚集索引：</p>
+<p>即数据文件本身就是主键索引文件（InnoDB）</p>
+<p>。</p>
+<ul>
+<li><strong>聚集索引(聚簇索引、Innodb)：聚集索引即索引结构和数据一起存放的索引，主键索引属于聚集索引。表中记录的物理顺序与键值的索引顺序相同。 因为真实数据的物理顺序只有一种，所以一个表只能有一个聚集索引</strong>。</li>
+<li><strong>InnoDB 引擎的表的 .ibd文件就包含了该表的索引和数据，对于InnoDB 引擎表来说，该表的索引（B+树）的每个非叶子节点存储索引，叶子节点存储索引和索引对应的数据</strong>。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/87c45c978d6c419ca3e0a06539b52875~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p><a target="_blank" rel="noopener" href="https://upload-images.jianshu.io/upload_images/26078969-3c1cf9cee4bc53b7.image?imageMogr2/auto-orient/strip%7CimageView2/2/w/850/format/webp">【图片来源】</a></p>
+<ul>
+<li><p>非聚集索引（辅助索引）：</p>
+<p>即索引文件与数据文件是分离的（MyISAM），聚集索引和非聚集索引都是B+树结构</p>
+<p>。</p>
+<ul>
+<li><strong>非聚集索引即索引结构和数据分开存放的索引。二级索引属于非聚集索引</strong>。</li>
+<li><strong>记录的物理顺序与键值的索引顺序不同。这也是非聚集索引与聚集索引的根本区别。</strong></li>
+<li><strong>表中记录的物理顺序与键值的索引顺序不同。这也是非聚集索引与聚集索引的根本区别</strong>。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>非聚集索引的叶子节点并不一定存放数据的指针， 因为二级索引的叶子节点就存放的是主键，根据主键再回表查数据</strong>。</p>
+</blockquote>
+<blockquote>
+<p><strong>MYISAM引擎的表的.MYI 文件包含了表的索引， 该表的索引(B+树)的每个叶子非叶子节点存储索引， 叶子节点存储索引和索引对应数据的指针，指向.MYD 文件的数据。</strong></p>
+</blockquote>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8d01f1a4163b4d6c84cb09dfb6b06933~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"> <a target="_blank" rel="noopener" href="https://upload-images.jianshu.io/upload_images/26078969-3c1cf9cee4bc53b7.image?imageMogr2/auto-orient/strip%7CimageView2/2/w/850/format/webp">【图片来源】</a></p>
+<h5 id="聚集索引的优点"><a href="#聚集索引的优点" class="headerlink" title="聚集索引的优点"></a>聚集索引的优点</h5><blockquote>
+<p><strong>聚集索引的查询速度非常的快，因为整个 B+树本身就是一颗多叉平衡树，叶子节点也都是有序的，定位到索引的节点，就相当于定位到了数据。</strong></p>
+</blockquote>
+<h5 id="聚集索引的缺点"><a href="#聚集索引的缺点" class="headerlink" title="聚集索引的缺点"></a>聚集索引的缺点</h5><ul>
+<li><strong>依赖于有序的数据</strong> ：因为 B+树是多路平衡树，如果索引的数据不是有序的，那么就需要在插入时排序，如果数据是整型还好，否则类似于字符串或 UUID 这种又长又难比较的数据，插入或查找的速度肯定比较慢。</li>
+<li><strong>更新代价大</strong> ： 如果对索引列的数据被修改时，那么对应的索引也将会被修改， 而且况聚集索引的叶子节点还存放着数据，修改代价肯定是较大的， 所以对于主键索引来说，主键一般都是不可被修改的。</li>
+</ul>
+<h5 id="非聚集索引的优点"><a href="#非聚集索引的优点" class="headerlink" title="非聚集索引的优点"></a>非聚集索引的优点</h5><blockquote>
+<p><strong>更新代价比聚集索引要小 。因为非聚集索引的叶子节点是不存放数据的</strong></p>
+</blockquote>
+<h5 id="非聚集索引的缺点："><a href="#非聚集索引的缺点：" class="headerlink" title="非聚集索引的缺点："></a>非聚集索引的缺点：</h5><ul>
+<li>跟聚集索引一样，非聚集索引也依赖于有序的数据</li>
+<li><strong>可能会二次查询(回表) ：这应该是非聚集索引最大的缺点了。当查到索引对应的指针或主键后，可能还需要根据指针或主键再到数据文件或表中查询</strong>。</li>
+</ul>
+<h4 id="【从功能角度划分】"><a href="#【从功能角度划分】" class="headerlink" title="【从功能角度划分】"></a>【从功能角度划分】</h4><ul>
+<li>普通索引（单列索引）：<strong>每个索引只包含单个列，一个表可以有多个单列索引，仅加速查询；</strong></li>
+<li>唯一索引：<strong>加速查询 + 列值唯一（可以有null）</strong></li>
+<li>主键索引：<strong>加速查询 + 列值唯一（不可以有null）+ 表中只有一个，在 mysql 的 InnoDB 的表中，当没有显示的指定表的主键时，InnoDB 会自动先检查表中是否有唯一索引的字段，如果有，则选择该字段为默认的主键，否则 InnoDB 将会自动创建一个6Byte的自增主键</strong>。</li>
+<li>组合/复合索引（多列索引）：<strong>多列值组成一个索引，专门用于组合搜索，其效率大于索引合并（即使用多个单列索引组合搜索）</strong></li>
+</ul>
+<h5 id="主键与唯一索引的区别"><a href="#主键与唯一索引的区别" class="headerlink" title="主键与唯一索引的区别"></a>主键与唯一索引的区别</h5><ul>
+<li>主键是一种约束，目的是对这个表的某一列进行限制；唯一索引是一种索引，目的是为了加速查询；</li>
+<li>主键列不允许为空值，而唯一索引列可以为空值（null）</li>
+<li>一个表中最多只能有一个主键，但是可以包含多个唯一索引</li>
+<li>主键一定是唯一性索引，唯一性索引并不一定就是主键</li>
+</ul>
+<h4 id="【从特性角度划分】"><a href="#【从特性角度划分】" class="headerlink" title="【从特性角度划分】"></a>【从特性角度划分】</h4><blockquote>
+<p>MySQL目前主要有以下几种索引类型：<strong>B+Tree 索引、哈希索引、全文索引（full-index）与空间数据索引（R-Tree）</strong></p>
+</blockquote>
+<ul>
+<li>B+Tree 索引：<strong>是大多数 MySQL 存储引擎的默认索引类型，不需进行全表扫描，只需对树进行搜索，所以查找速度快很多； B+ Tree 的有序性，所以除了用于查找，还可以用于排序和分组</strong>。</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/413584f808ca42b1a11c67de3f040dcc~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<hr>
+<blockquote>
+<p>B+树把数据全放在了叶子节点中，叶子节点之间使用双向指针连接，最底层的叶子节点形成了一个双向有序链表。 例如： 查询范围 select * from table where id between 11 and 35？</p>
+</blockquote>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b9c28441553448debe7a6c2d195b3c7d~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<ul>
+<li>第一步，将磁盘一加载到内存中，发现11&lt;28,寻找地址磁盘2</li>
+<li>第二步，将磁盘二加载到内存中，发现10&gt;11&gt;17,寻找地址磁盘5</li>
+<li>第三步，将磁盘五加载到内存中，发现11=11，读取data</li>
+<li>第四步，继续向右查询，读取磁盘5，发现35=35，读取11-35之间数据，结束 由此可见，这样的范围查询比B树速度提高了不少。</li>
+<li>哈希索引：<strong>哈希索引能以 O(1) 时间进行查找，一次定位，不需要像树形索引逐层查找，具有极高的效率</strong>。<strong>哈希表这种结构适用于只有等值查询的场景，比如 Memcached 及其他一些 NoSQL 引擎。但是失去了有序性</strong><ul>
+<li>对排序与组合索引效率不高；</li>
+<li>只支持精确查找（等值查询，如=、in()、&lt;=&gt;），无法用于部分查找和范围查找。</li>
+<li>InnoDB 存储引擎有一个特殊的功能叫“自适应哈希索引”，当某个索引值被使用的非常频繁时，会在 B+Tree 索引之上再创建一个哈希索引，这样就让 B+Tree 索引具有哈希索引的一些优点，比如快速的哈希查找。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/35133d7329704d958af63a1f39f3ee37~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<ul>
+<li>全文索引：<strong>MyISAM 存储引擎支持全文索引，用于查找文本中的关键词，而不是直接比较是否相等</strong>。<ul>
+<li>查找条件使用 MATCH AGAINST，而不是普通的 WHERE。全文索引使用倒排索引实现，它记录着关键词到其所在文档的映射。<strong>InnoDB 存储引擎在 MySQL 5.6.4 版本中也开始支持全文索引</strong>。</li>
+</ul>
+</li>
+<li>空间数据索引：MyISAM 存储引擎支持空间数据索引（R-Tree），可以用于地理数据存储。空间数据索引会从所有维度来索引数据，可以有效地使用任意维度来进行组合查询。必须使用 GIS 相关的函数来维护数据</li>
+</ul>
+<blockquote>
+<p>树(二叉树、红黑树、AVL树、B树、B+树)，这里为什么索引默认用 B+树，而不用B树、二叉树、hash和红黑树呢？</p>
+</blockquote>
+<h3 id="为什么不用B-tree："><a href="#为什么不用B-tree：" class="headerlink" title="为什么不用B-tree："></a>为什么不用B-tree：</h3><ul>
+<li>B+树的磁盘读写代价更低：B+树的内部节点并没有指向关键字具体信息的指针（B树每个节点都存储数据，B+树只有叶子节点才存储节点），所以查找相同数据量的情况下，B树的高度更高，IO更频繁。数据库索引是存储在磁盘上的，当数据量大时，就不能把整个索引全部加载到内存了，只能逐一加载每一个磁盘页（对应索引树的节点）。</li>
+<li>由于B+树的数据都存储在叶子结点中，分支结点均为索引，方便扫库，只需要扫一遍叶子结点即可（叶子节点使用双向链表连接）。但是B树因为其分支结点同样存储着数据，我们要找到具体的数据，需要进行一次中序遍历按序来找，所以B+树更加适合在区间查询的情况，通常B+树用于数据库索引。</li>
+</ul>
+<h3 id="为什么不用Hash方式："><a href="#为什么不用Hash方式：" class="headerlink" title="为什么不用Hash方式："></a>为什么不用Hash方式：</h3><blockquote>
+<p>因为Hash索引底层是哈希表，哈希表是一种以key-value存储数据的结构，只适合等值查询（等值查询效率高），如=、in()、&lt;=&gt;多个数据在存储关系上是完全没有任何顺序关系的，所以对于区间查询是无法直接通过索引查询的，就需要全表扫描，即不支持范围查询 。</p>
+</blockquote>
+<blockquote>
+<p>哈希索引不支持多列联合索引的最左匹配规则，如果有大量重复键值得情况下，哈希索引的效率会很低，因为存在哈希碰撞问题。</p>
+</blockquote>
+<h3 id="为什么不用二叉树方式："><a href="#为什么不用二叉树方式：" class="headerlink" title="为什么不用二叉树方式："></a>为什么不用二叉树方式：</h3><blockquote>
+<p><strong>树的高度不均匀，不能自平衡，查找效率跟数据有关（树的高度），并且IO代价高。</strong></p>
+</blockquote>
+<h3 id="什么不用红黑树"><a href="#什么不用红黑树" class="headerlink" title="什么不用红黑树"></a>什么不用红黑树</h3><blockquote>
+<p><strong>树的高度随着数据量增加而增加，IO代价高。数据库系统的设计者巧妙利用了磁盘预读原理，将一个节点的大小设为等于一个页，这样每个节点只需要一次I/O就可以完全载入</strong>。</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/mysql/">mysql</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E7%B4%A2%E5%BC%95/">索引</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/07/03/%E6%8E%8C%E6%8F%A1JavaStream%E6%B5%81%E6%93%8D%E4%BD%9C/">
+                        <span class="hidden-mobile">掌握JavaStream流操作</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
