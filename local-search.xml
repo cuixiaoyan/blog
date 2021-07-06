@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>Autowired报错原因分析和4种解决方案</title>
+    <link href="/blog/2021/07/06/Autowired%E6%8A%A5%E9%94%99%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90%E5%92%8C4%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <url>/blog/2021/07/06/Autowired%E6%8A%A5%E9%94%99%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90%E5%92%8C4%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    
+    <content type="html"><![CDATA[<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5668f70c3dcf4b04b38aed355e6b87d9~tplv-k3u1fbpfcp-zoom-1.image" alt="autowired-logo.png"> 上图的报错信息相信大部分程序员都遇到过，<strong>奇怪的是虽然代码报错，但丝毫不影响程序的正常执行</strong>，也就是虽然编译器 IDEA 报错，但程序却能正常的执行，那这其中的原因又是为何？ </p><h2 id="报错原因分析"><a href="#报错原因分析" class="headerlink" title="报错原因分析"></a>报错原因分析</h2><p>报错的原因首先是因为 IDEA 强大的报警机制，@Autowired 为 Spring 的注解，含义是将某类动态的注入到当前类中，如下图所示： <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/37751b49f3a940d3a307b9554ef6a5e2~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"> @Autowired 默认是根据 type 进行注入，并且注入时要求（注入）对象不能为 NULL，默认值如下图所示： <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3f1bf342f8b749b08495cb5d371a2271~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"> 而 <strong>IDEA 报错的原因是：@Autowired 为 Spring 的注解，而注入的 Mapper 对象使用的又是 @Mapper 的注解，然而 @Mapper 又为 MyBaits 的注解，IDEA 能很好的兼容并识别 Spring 的注解，但不能很好的识别 MyBatis 的注解，因此在使用 @Autowired 注解时，IDEA 并不能检测到 @Mapper 注解的对象不为 NULL，因此就会报错。</strong> <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c80bfdcfc70745988bb05ccfb7c0505e~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"></p><p>这就是为什么使用 Spring 的注解 @Repository/@Component… 不报错，而使用 @Mapper 注解却会报错的根本原因，如下图所示： <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f997825fabdb43feb4e452efbfa1df7d~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"> <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/96b08c4d099d4352ac8eb38c6c5a6451~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"> <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/04c01661c3e541bc8b6f92cd0431ecee~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"></p><h2 id="解决方案1：关闭报警机制"><a href="#解决方案1：关闭报警机制" class="headerlink" title="解决方案1：关闭报警机制"></a>解决方案1：关闭报警机制</h2><p>关闭 IDEA 注入报警机制，可以避免报错，实现步骤如下。 </p><p>1.打开 IDEA，找到参数设置选项 “Preferences…” ，如下图所示： <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2b76ba5dc3be4e26a86640a8292b41df~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"> 2.依次选择 “Editor” -&gt; “Inspections” -&gt; “Spring” -&gt; “Spring Core” -&gt; “Code” -&gt; “Autowiring for bean class” 将 “Error” 级别修改成 “Waring” 级别，如下图所示： <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ff5e0e7833c3496e91399efbd90f7d7c~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"> 设置完成之后点击确认，查看之前报错的 Mapper 类，此时展示效果如下： <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f4121b3fa7a34b1aa6577a545ef5e0c2~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"> 报错信息消失了。 </p><h2 id="解决方案2：添加Spring注解"><a href="#解决方案2：添加Spring注解" class="headerlink" title="解决方案2：添加Spring注解"></a>解决方案2：添加Spring注解</h2><p>在 Mapper 的类上添加 Spring 的注解，也可以解决 IDEA 报错的问题，如 @Repository 或 @Component 这类注解，如下图所示： <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/754a9348dd8446c7bed38fdbe402c77c~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"> 或使用 @Repository 注解，如下图所示： <img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/4aad4f652ef0472eb0225deb143c3b78~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"> 查看之前的报错信息： <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/df1ac0c3a3f1460f8ac6ff5139bb634e~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"> 报错消失了。</p><h2 id="解决方案3：允许注入对象为NULL"><a href="#解决方案3：允许注入对象为NULL" class="headerlink" title="解决方案3：允许注入对象为NULL"></a>解决方案3：允许注入对象为NULL</h2><p>设置允许注入的 Mapper 对象为 NULL，也可以避免 IDEA 报错，只需要设置 @Autowired(required=false) 即可，如下图所示： <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c4e4d05472744c90bc1b3b7afef6e449~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"> （其中 userMapper2 对象就不报错了）</p><ul><li>@Autowired(required=true)：表示当使用 @Autowired 注解的时候，该 bean 必须存在，否则注入失败，默认值。</li><li>@Autowired(required=false)：表示忽略当前要注入的 bean，如果有直接注入，没有则跳过，不会报错。</li></ul><p>@Autowired 默认值的实现源码： <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a7d309a4196345498f1616e84a8c881b~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"></p><h2 id="解决方案4：使用-Resource注解"><a href="#解决方案4：使用-Resource注解" class="headerlink" title="解决方案4：使用@Resource注解"></a>解决方案4：使用@Resource注解</h2><p>使用 @Resource 注解替换 @Autowired 注解也可以避免报错，它们的对比效果如下： <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0806fd14b2674b3eab9aa72a7525ebf8~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"> @Resource 注解和 @Autowired 注解以当前的场景来说，它们的主要区别是 @Resource 是 Java 自身提供的注解，而 @Autowired 是 Spring 提供的注解，@Autowired 默认值为 required=true，所以必须要一个非 NULL 的对象，当 IDEA 检测不到对象为 NULL 时就会报错，而 @Resource 并没有这项要求。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>使用 @Autowired 注解导入 Mapper 对象报错的原因，是因为 @Autowired 默认情况下，需要注入一个非 NULL 的对象，而被 @Mapper 修饰的类为 MyBatis 的注解，IDEA 并不能很好的识别其为非 NULL 对象，因此就会报错。当然，它的解决方案也有很多，推荐使用 @Resource 替代 @Autowired 注解的方式来解决此问题。 </p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>解决方案</tag>
+      
+      <tag>Autowired</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>如何设计一个高可用的订单系统</title>
     <link href="/blog/2021/07/05/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E8%AE%A2%E5%8D%95%E7%B3%BB%E7%BB%9F/"/>
     <url>/blog/2021/07/05/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E8%AE%A2%E5%8D%95%E7%B3%BB%E7%BB%9F/</url>
