@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>代码实现IOC - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="代码实现IOC">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-10 10:00" pubdate>
+        2021年7月10日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">代码实现IOC</h1>
+            
+            <div class="markdown-body">
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><code>Spring ioc</code>  相信很多人都知道这是<code>Spring</code>框架中一个非常核心的组件，<code>IoC(控制反转)</code>，对于初学<code>Spring</code>的人来说，对其的设计思想理解可能非常表面，要理解好<code>Ioc</code>的关键是要明确 以下几点，<strong>谁控制谁，控制什么，为何是反转（那正转？），哪些方面反转了</strong> 。</p>
+<p><strong>谁控制谁，控制什么</strong> 还记得你们当时学习<code>servlet</code>的时候在每一层内部通过<code>new</code>关键字进行创建对象吗，要清楚这是<strong>程序主动去创建依赖对象</strong>; 而当你们接触了<code>Spring</code>之后<code>IoC</code>是有<strong>专门一个容器来创建这些对象</strong>，控制对象。</p>
+<p>**为何是反转（那正转？)**，这个简单理解当我们主动控制去获取依赖对象，这就是正转？ 而反转则是由容器来帮忙创建及注入依赖对象; 为何是反转 ？ 因为由容器帮我们查找及注入依赖对象，对象只是被动的接受依赖对象，所以是反转; 哪些方面反转了？依赖对象的获取被反转了。</p>
+<h3 id="手撕最简易版IOC容器"><a href="#手撕最简易版IOC容器" class="headerlink" title="手撕最简易版IOC容器"></a>手撕最简易版IOC容器</h3><p>可能你还不明白，觉得很抽象？那么跟着博主手把手带你来实现<code>IOC</code>！</p>
+<blockquote>
+<p><em>这里实现仅仅是为了理解ioc概念的手写<code>demo</code>,<code>ioc</code>背后还拥有超多细节等我们去学习，感兴趣同学可以去公众号看看之前发表的一篇关于<code>spring ioc</code>源码走读的文章</em></p>
+</blockquote>
+<p>ioc不是一个容器嘛，ok，我们先来定义一个容器，容器的特性肯定拥有存、取对象嘛~</p>
+<p><code>Spring</code>的对象都是一个个<code>bean</code>，但是我们不知道<code>bean</code>类型是什么，那么就泛型体现，还有<code>bean</code>什么时候存放进容器的啊？<code>spring</code>是在启动的时候会进行初始化扫描，我们就定义一个<code>initAutoWired</code>方法来模拟。</p>
+<h5 id="先定义一个橘松容器接口JsContainer。"><a href="#先定义一个橘松容器接口JsContainer。" class="headerlink" title="先定义一个橘松容器接口JsContainer。"></a>先定义一个橘松容器接口<code>JsContainer</code>。</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">JsContainer</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 根据Class获取Bean</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> clazz</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">getBean</span><span class="hljs-params">(Class&lt;T&gt; clazz)</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 注册一个Class到容器中</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> clazz</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">Object <span class="hljs-title">registerBean</span><span class="hljs-params">(Class&lt;?&gt; clazz)</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 初始化装配</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">initAutoWired</span><span class="hljs-params">()</span></span>;<br><br></code></pre></td></tr></table></figure>
+<h5 id="我们再写一个自定义注解标识JsAutowired，来为了后面通过反射获取实例化bean，自定义注解可以指定要注入的类型，以及注入的bean名称。"><a href="#我们再写一个自定义注解标识JsAutowired，来为了后面通过反射获取实例化bean，自定义注解可以指定要注入的类型，以及注入的bean名称。" class="headerlink" title="我们再写一个自定义注解标识JsAutowired，来为了后面通过反射获取实例化bean，自定义注解可以指定要注入的类型，以及注入的bean名称。"></a>我们再写一个自定义注解标识<code>JsAutowired</code>，来为了后面通过反射获取实例化<code>bean</code>，自定义注解可以指定要注入的类型，以及注入的<code>bean</code>名称。</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.orangesongjava.ioc;<br><br><span class="hljs-keyword">import</span> java.lang.annotation.ElementType;<br><span class="hljs-keyword">import</span> java.lang.annotation.Retention;<br><span class="hljs-keyword">import</span> java.lang.annotation.RetentionPolicy;<br><span class="hljs-keyword">import</span> java.lang.annotation.Target;<br><br><br><span class="hljs-meta">@Target(ElementType.FIELD)</span><br><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> JsAutowired &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 要注入的类类型</span><br><span class="hljs-comment">     */</span><br>    Class&lt;?&gt; value() <span class="hljs-keyword">default</span> Class.class;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> bean的名称</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">String <span class="hljs-title">name</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> &quot;&quot;</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h5 id="容器接口和注解都有了，接下来我们思考来实现它！我们定义一个类-JsSampleContainer-来实现容器接口JsContainer-。"><a href="#容器接口和注解都有了，接下来我们思考来实现它！我们定义一个类-JsSampleContainer-来实现容器接口JsContainer-。" class="headerlink" title="容器接口和注解都有了，接下来我们思考来实现它！我们定义一个类 JsSampleContainer 来实现容器接口JsContainer 。"></a>容器接口和注解都有了，接下来我们思考来实现它！我们定义一个类 <code>JsSampleContainer</code> 来实现容器接口<code>JsContainer</code> 。</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.orangesongjava.ioc;<br><br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.util.Map;<br><span class="hljs-keyword">import</span> java.util.concurrent.ConcurrentHashMap;<br><br><br><span class="hljs-meta">@SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JsSampleContainer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">JsContainer</span> </span>&#123;<br>	<span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 保存所有bean对象，格式为 com.xxx.xxx.XxxClass : @56x2ya</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Map&lt;String, Object&gt; beanNameMap;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 存储bean和name的关系</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Map&lt;String, String&gt; beanKeys;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">JsSampleContainer</span><span class="hljs-params">()</span> </span>&#123;<br>    	<span class="hljs-keyword">this</span>.beanNameMap = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();<br>    	<span class="hljs-keyword">this</span>.beanKeys = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();<br>    &#125;<br>	<br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">getBean</span><span class="hljs-params">(Class&lt;T&gt; clazz)</span> </span>&#123;<br>		String name = clazz.getName();<br>		Object object = beanNameMap.get(name);<br>		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">null</span> != object)&#123;<br>			<span class="hljs-keyword">return</span> (T) object;<br>		&#125;<br>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>	&#125;<br><br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">registerBean</span><span class="hljs-params">(Class&lt;?&gt; clazz)</span> </span>&#123;<br>		String name = clazz.getName();<br>		beanKeys.put(name, name);<br>		Object bean = newInstance(clazz);<br>        beanNameMap.put(name, bean);<br>		<span class="hljs-keyword">return</span> bean;<br>	&#125;<br><br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initAutoWired</span><span class="hljs-params">()</span> </span>&#123;<br>        beanNameMap.forEach((k,v) -&gt; injection(v));<br>	&#125;<br>	<span class="hljs-comment">/**</span><br><span class="hljs-comment">	 * 注入对象</span><br><span class="hljs-comment">	 * <span class="hljs-doctag">@param</span> object</span><br><span class="hljs-comment">	 */</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">injection</span><span class="hljs-params">(Object object)</span> </span>&#123;<br>		<span class="hljs-comment">// 所有字段</span><br>	    <span class="hljs-keyword">try</span> &#123;<br>			Field[] fields = object.getClass().getDeclaredFields();<br>			<span class="hljs-keyword">for</span> (Field field : fields) &#123;<br>				<span class="hljs-comment">// 需要注入的字段</span><br>                JsAutowired jsAutowired = field.getAnnotation(JsAutowired.class);<br>			    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> != jsAutowired) &#123;<br>			    	<span class="hljs-comment">// 要注入的字段</span><br>			        Object autoAutoWiredField = <span class="hljs-keyword">null</span>;<br>			        String name = jsAutowired.name();<br>			        <span class="hljs-comment">// 如果说这里JsAutowired自定义注解没指定name属性 则默认值是&quot;&quot;</span><br>	        		<span class="hljs-keyword">if</span>(!name.equals(<span class="hljs-string">&quot;&quot;</span>))&#123;<br>	        		    <span class="hljs-comment">// 指定了特定的name</span><br>	        			String className = beanKeys.get(name);<br>	        			<span class="hljs-keyword">if</span>(<span class="hljs-keyword">null</span> != className &amp;&amp; !className.equals(<span class="hljs-string">&quot;&quot;</span>))&#123;<br>                                            autoAutoWiredField = beanNameMap.get(className);<br>	        			&#125;<br>	        			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> == autoAutoWiredField) &#123;<br>				            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;Unable to load &quot;</span> + name);<br>				        &#125;<br>	        		&#125; <span class="hljs-keyword">else</span> &#123;<br>                                        <span class="hljs-comment">// JsAutowired注解没有name属性</span><br>                                        <span class="hljs-comment">// 判断注入的类型 是否是类Class类型 默认值也是Class</span><br>	        			<span class="hljs-keyword">if</span>(jsAutowired.value() == Class.class)&#123;<br>                                               autoAutoWiredField = register(field.getType());<br>				        &#125; <span class="hljs-keyword">else</span> &#123;<br>				            <span class="hljs-comment">// 指定装配的类</span><br>                                            autoAutoWiredField = <span class="hljs-keyword">this</span>.getBean(jsAutowired.value());<br>				            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> == autoAutoWiredField) &#123;<br>                                                autoAutoWiredField = register(jsAutowired.value());<br>				            &#125;<br>					&#125;<br>			        &#125;<br>			        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> == autoAutoWiredField) &#123;<br>			            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;Unable to load &quot;</span> + field.getType().getCanonicalName());<br>			        &#125;<br>			        <span class="hljs-keyword">boolean</span> accessible = field.isAccessible();<br>			        field.setAccessible(<span class="hljs-keyword">true</span>);<br>			        field.set(object, autoAutoWiredField);<br>			        field.setAccessible(accessible);<br>			    &#125;<br>			&#125;<br>		&#125; <span class="hljs-keyword">catch</span> (SecurityException e) &#123;<br>        	e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (IllegalArgumentException e) &#123;<br>        	e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (IllegalAccessException e) &#123;<br>        	e.printStackTrace();<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">private</span> Object <span class="hljs-title">register</span><span class="hljs-params">(Class&lt;?&gt; clazz)</span></span>&#123;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">null</span> != clazz)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.registerBean(clazz);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 创建一个实例对象</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> clazz class对象</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title">newInstance</span><span class="hljs-params">(Class&lt;?&gt; clazz)</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">return</span> clazz.newInstance();<br>        &#125; <span class="hljs-keyword">catch</span> (InstantiationException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (IllegalAccessException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h3 id="测试一下"><a href="#测试一下" class="headerlink" title="测试一下"></a>测试一下</h3><p>我们现在来测试一下，我们先定义一个类<code>OrangeSongJavaService</code>，方便待会测试被调用。<strong>注意哦，这个类上面没有任何注解</strong>。也就是他并没有被Spring管理起来。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-keyword">package</span> com.orangesongjava.ioc;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrangeSongJavaService</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeArticleOnJs</span><span class="hljs-params">(String name)</span></span>&#123;<br>        System.out.println(name + <span class="hljs-string">&quot;在掘金上写文章!&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>在定义本地调用的模拟调用<code>OrangeSongJavaClient</code>。<strong>注意这个类上面也是没有注解</strong>，另外引用的<code>OrangeSongJavaService</code> 被我们的<strong>自定义注解<code>JsAutowired</code>标识</strong>起来了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-keyword">package</span> com.orangesongjava.ioc;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrangeSongJavaClient</span> </span>&#123;<br><br>    <span class="hljs-meta">@JsAutowired</span><br>    <span class="hljs-keyword">private</span> OrangeSongJavaService orangeSongJavaService;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">work</span><span class="hljs-params">()</span> </span>&#123;<br>        orangeSongJavaService.writeArticleOnJs(<span class="hljs-string">&quot;橘松Java&quot;</span>);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> OrangeSongJavaService <span class="hljs-title">getOrangeSongJavaService</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> orangeSongJavaService;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>现在我们写个测试<code>main</code>方法测试一下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.orangesongjava.ioc;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IocTest</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> JsSampleContainer jsContainer = <span class="hljs-keyword">new</span> JsSampleContainer();<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">// 将类注入容器</span><br>        jsContainer.registerBean(OrangeSongJavaClient.class);<br>        <span class="hljs-comment">// 初始化注入-扫描引用</span><br>        jsContainer.initAutoWired();<br>        <span class="hljs-comment">// 容器获取bean</span><br>        OrangeSongJavaClient client jsContainer.getBean(OrangeSongJavaClient.class);<br>        <span class="hljs-comment">// 执行</span><br>        client.work();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如果能输出执行逻辑，则表示这段程序没问题。果不其然，没问题。看到这里，你对ioc理解是不是有点清晰了。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/IOC/">IOC</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/07/08/%E5%85%AD%E7%A7%8D%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%96%B9%E6%A1%88/">
+                        <span class="hidden-mobile">六种分布式事务方案</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
