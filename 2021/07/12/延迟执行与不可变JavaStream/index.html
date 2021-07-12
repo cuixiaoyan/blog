@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>延迟执行与不可变JavaStream - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="延迟执行与不可变JavaStream">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-12 10:00" pubdate>
+        2021年7月12日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      67
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">延迟执行与不可变JavaStream</h1>
+            
+            <div class="markdown-body">
+              <p>最近在公司写业务的时候，忽然想不起来<code>Stream</code>中的累加应该怎么写？</p>
+<p>无奈只能面向谷歌编程，花费了我宝贵的三分钟之后，学会了，很简单。</p>
+<p>自从我用上JDK8以后，Stream就是我最常用的特性，各种流式操作用的飞起，然而这次事以后我忽然觉得Stream对我真的很陌生。</p>
+<p>可能大家都一样，<code>对最常用到的东西，也最容易将其忽略</code>，哪怕你要准备面试估计也肯定想不起来要看一下Stream这种东西。</p>
+<p>不过我既然注意到了，就要重新梳理一遍它，也算是对我的整体知识体系的查漏补缺。</p>
+<p>花了很多功夫来写这篇Stream，希望大家和我一块重新认识并学习一下Stream，了解API也好，了解内部特性也罢，<strong>怕什么真理无穷，进一步有进一步的欢喜。</strong></p>
+<p>在本文中我将Stream的内容分为以下几个部分：</p>
+<p><img src="https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/8d35884fcdd24d82a438f1a4f399e8e0~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>初看这个导图大家可能对转换流操作和终结流操作这两个名词有点蒙，其实这是我将Stream中的所有API分成两类，每一类起了一个对应的名字(参考自Java8相关书籍，见文末)：</p>
+<ul>
+<li><strong>转换流操作</strong> ：例如filter和map方法，将一个Stream转换成另一个Stream，返回值都是Stream。</li>
+<li><strong>终结流操作</strong> ：例如count和collect方法，将一个Stream汇总为我们需要的结果，返回值都不是Stream。</li>
+</ul>
+<p>其中转换流操作的API我也分了两类，文中会有详细例子说明，这里先看一下定义，有一个大概印象：</p>
+<ol>
+<li><strong>无状态</strong> ：即此方法的执行无需依赖前面方法执行的结果集。</li>
+<li><strong>有状态</strong> ：即此方法的执行需要依赖前面方法执行的结果集。</li>
+</ol>
+<p>由于Stream内容过多，所以我将Stream拆成了上下两篇，本篇是第一篇，内容翔实，用例简单且丰富。</p>
+<p>第二篇的主题虽然只有一个终结操作，但是终结操作API比较复杂，所以内容也翔实，用例也简单且丰富，从篇幅上来看两者差不多，敬请期待。</p>
+<hr>
+<p><strong>注</strong> ：由于我本机的电脑是JDK11，而且写的时候忘了切换到JDK8，所以在用例中大量出现的<code>List.of()</code>在JDK8是没有的，它等同于JDK8中的<code>Arrays.asList()</code>。</p>
+<p><strong>注</strong> ：写作过程中翻读了大量Stream源码和Java8书籍(文末)，创作不易，点赞过百，马上出第二篇。</p>
+<h2 id="1-为什么要使用Stream？"><a href="#1-为什么要使用Stream？" class="headerlink" title="1. 为什么要使用Stream？"></a>1. 为什么要使用Stream？</h2><p>一切还要源于JDK8的发布，在那个函数式编程语言如火如荼的时代，Java由于它的臃肿而饱受诟病（强面向对象），社区迫切需要Java能加入函数式语言特点改善这种情况，终于在2014年Java发布了JDK8。</p>
+<p>在JDK8中，我认为最大的新特性就是加入了函数式接口和lambda表达式，这两个特性取自函数式编程。</p>
+<p>这两个特点的加入使Java变得更加简单与优雅，用函数式对抗函数式，巩固Java老大哥的地位，简直是师夷长技以制夷。</p>
+<p>而Stream，就是JDK8又依托于上面的两个特性为集合类库做的 一个类库，它能让我们通过lambda表达式更简明扼要的以流水线的方式去处理集合内的数据，可以很轻松的完成诸如：过滤、分组、收集、归约这类操作，所以我愿将Stream称为函数式接口的最佳实践。</p>
+<h3 id="1-1-更清晰的代码结构"><a href="#1-1-更清晰的代码结构" class="headerlink" title="1.1 更清晰的代码结构"></a>1.1 更清晰的代码结构</h3><p>Stream拥有更清晰的代码结构，为了更好的讲解Stream怎么就让代码变清晰了，这里假设我们有一个非常简单的需求：<strong>在一个集合中找到所有大于2的元素</strong> 。</p>
+<p>先来看看没使用Stream之前：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; list = List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br><br>List&lt;Integer&gt; filterList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br><br><span class="hljs-keyword">for</span> (Integer i : list) &#123;<br>    <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">2</span>) &#123;<br>        filterList.add(i);<br>    &#125;<br>&#125;<br><br>System.out.println(filterList);<br></code></pre></td></tr></table></figure>
+<p>上面的代码很好理解，我就不过多解释了，其实也还好了，因为我们的需求比较简单，如果需求再多点呢？</p>
+<p>每多一个要求，那么if里面就又要加一个条件了，而我们开发中往往对象上都有很多字段，那么条件可能有四五个，最后可能会变成这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; list = List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br><br>List&lt;Integer&gt; filterList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br><br><span class="hljs-keyword">for</span> (Integer i : list) &#123;<br>    <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">2</span> &amp;&amp; i &lt; <span class="hljs-number">10</span> &amp;&amp; (i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)) &#123;<br>        filterList.add(i);<br>    &#125;<br>&#125;<br><br>System.out.println(filterList);<br></code></pre></td></tr></table></figure>
+<p>if里面塞了很多条件，看起来就变得乱糟糟了，其实这也还好，最要命的是项目中往往有很多类似的需求，它们之间的区别只是某个条件不一样，那么你就需要复制一大坨代码，改吧改吧就上线了，这就导致代码里有大量重复的代码。</p>
+<p>如果你Stream，一切都会变得清晰易懂：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; list = List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).stream()<br>        .filter(i -&gt; i &gt; <span class="hljs-number">2</span>)<br>        .filter(i -&gt; i &lt; <span class="hljs-number">10</span>)<br>        .filter(i -&gt; i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)<br>        .collect(toList());<br></code></pre></td></tr></table></figure>
+<p>这段代码你只需要关注我们最关注的东西：筛选条件就够了，filter这个方法名能让你清楚的知道它是个过滤条件，collect这个方法名也能看出来它是一个收集器，将最终结果收集到一个List里面去。</p>
+<p>同时你可能发现了，为什么上面的代码中不用写循环？</p>
+<p>因为Stream会帮助我们进行隐式的循环，这被称为：<code>内部迭代</code>，与之对应的就是我们常见的外部迭代了。</p>
+<p>所以就算你不写循环，它也会进行一遍循环。</p>
+<h3 id="1-2-不必关心变量状态"><a href="#1-2-不必关心变量状态" class="headerlink" title="1.2 不必关心变量状态"></a>1.2 不必关心变量状态</h3><p>Stream在设计之初就被设计为<code>不可变的</code>，它的不可变有两重含义：</p>
+<ol>
+<li>由于每次Stream操作都会生成一个新的Stream，所以Stream是不可变的，就像String。</li>
+<li>在Stream中只保存原集合的引用，所以在进行一些会修改元素的操作时，是通过原元素生成一份新的新元素，所以Stream 的任何操作都不会影响到原对象。</li>
+</ol>
+<p>第一个含义可以帮助我们进行链式调用，实际上我们使用Stream的过程中往往会使用链式调用，而第二个含义则是函数式编程中的一大特点：不修改状态。</p>
+<p>无论对Stream做怎么样的操作，它最终都不会影响到原集合，它的返回值也是在原集合的基础上进行计算得来的。</p>
+<p>所以在Stream中我们不必关心操作原对象集合带来的种种副作用，用就完了。</p>
+<p>关于函数式编程可以查阅<a href="https://link.juejin.cn/?target=https://www.ruanyifeng.com/blog/2012/04/functional_programming.html">阮一峰的函数式编程初探</a>。</p>
+<h3 id="1-3-延迟执行与优化"><a href="#1-3-延迟执行与优化" class="headerlink" title="1.3 延迟执行与优化"></a>1.3 延迟执行与优化</h3><p>Stream只在遇到<code>终结操作</code>的时候才会执行，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).stream()<br>        .filter(i -&gt; i &gt; <span class="hljs-number">2</span>)<br>        .peek(System.out::println);<br></code></pre></td></tr></table></figure>
+<p>这么一段代码是不会执行的，peek方法可以看作是forEach，这里我用它来打印Stream中的元素。</p>
+<p>因为filter方法和peek方法都是转换流方法，所以不会触发执行。</p>
+<p>如果我们在后面加入一个count方法就能正常执行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).stream()<br>        .filter(i -&gt; i &gt; <span class="hljs-number">2</span>)<br>        .peek(System.out::println)<br>        .count();<br></code></pre></td></tr></table></figure>
+<p>count方法是一个终结操作，用于计算出Stream中有多少个元素，它的返回值是一个long型。</p>
+<p>Stream的这种没有终结操作就不会执行的特性被称为<code>延迟执行</code>。</p>
+<p>与此同时，Stream还会对API中的无状态方法进行名为<code>循环合并</code>的优化，具体例子详见第三节。</p>
+<h2 id="2-创建Stream"><a href="#2-创建Stream" class="headerlink" title="2. 创建Stream"></a>2. 创建Stream</h2><p>为了文章的完整性，我思来想去还是加上了创建Stream这一节，这一节主要介绍一些创建Stream的常用方式，Stream的创建一般可以分为两种情况：</p>
+<ol>
+<li><strong>使用Steam接口创建</strong></li>
+<li><strong>通过集合类库创建</strong></li>
+</ol>
+<p>同时还会讲一讲Stream的并行流与连接，都是创建Stream，却具有不同的特点。</p>
+<h3 id="2-1-通过Stream接口创建"><a href="#2-1-通过Stream接口创建" class="headerlink" title="2.1 通过Stream接口创建"></a>2.1 通过Stream接口创建</h3><p>Stream作为一个接口，它在接口中定义了定义了几个静态方法为我们提供创建Stream的API：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span>&lt;T&gt; Stream&lt;T&gt; <span class="hljs-title">of</span><span class="hljs-params">(T... values)</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> Arrays.stream(values);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>首先是of方法，它提供了一个泛型可变参数，为我们创建了带有泛型的Stream流，同时在如果你的参数是基本类型的情况下会使用自动包装对基本类型进行包装：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream&lt;Integer&gt; integerStream = Stream.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br><br>Stream&lt;Double&gt; doubleStream = Stream.of(<span class="hljs-number">1.1d</span>, <span class="hljs-number">2.2d</span>, <span class="hljs-number">3.3d</span>);<br><br>Stream&lt;String&gt; stringStream = Stream.of(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p>当然，你也可以直接创建一个空的Stream，只需要调用另一个静态方法——empty()，它的泛型是一个Object：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream&lt;Object&gt; empty = Stream.empty();<br></code></pre></td></tr></table></figure>
+<p>以上都是我们让我们易于理解的创建方式，还有一种方式可以创建一个无限制元素数量的Stream——generate()：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span>&lt;T&gt; Stream&lt;T&gt; <span class="hljs-title">generate</span><span class="hljs-params">(Supplier&lt;? extends T&gt; s)</span> </span>&#123;<br>    Objects.requireNonNull(s);<br>    <span class="hljs-keyword">return</span> StreamSupport.stream(<br>            <span class="hljs-keyword">new</span> StreamSpliterators.InfiniteSupplyingSpliterator.OfRef&lt;&gt;(Long.MAX_VALUE, s), <span class="hljs-keyword">false</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>从方法参数上来看，它接受一个函数式接口——Supplier作为参数，这个函数式接口是用来创建对象的接口，你可以将其类比为对象的创建工厂，Stream将从此工厂中创建的对象放入Stream中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream&lt;String&gt; generate = Stream.generate(() -&gt; <span class="hljs-string">&quot;Supplier&quot;</span>);<br><br>Stream&lt;Integer&gt; generateInteger = Stream.generate(() -&gt; <span class="hljs-number">123</span>);<br></code></pre></td></tr></table></figure>
+<p>我这里是为了方便直接使用Lamdba构造了一个Supplier对象，你也可以直接传入一个Supplier对象，它会通过Supplier接口的get() 方法来构造对象。</p>
+<h3 id="2-2-通过集合类库进行创建"><a href="#2-2-通过集合类库进行创建" class="headerlink" title="2.2 通过集合类库进行创建"></a>2.2 通过集合类库进行创建</h3><p>相较于上面一种来说，第二种方式更较为常用，我们常常对集合就行Stream流操作而非手动构建一个Stream：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream&lt;Integer&gt; integerStreamList = List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).stream();<br><br>Stream&lt;String&gt; stringStreamList = List.of(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>).stream(); <br></code></pre></td></tr></table></figure>
+<p>在Java8中，集合的顶层接口<code>Collection</code>被加入了一个新的接口默认方法——<code>stream()</code>，通过这个方法我们可以方便的对所有集合子类进行创建Stream的操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream&lt;Integer&gt; listStream = List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).stream();<br><br>Stream&lt;Integer&gt; setStream = Set.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).stream();<br></code></pre></td></tr></table></figure>
+<p>通过查阅源码，可以发先 <code>stream()</code> 方法本质上还是通过调用一个Stream工具类来创建Stream：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">    <span class="hljs-function"><span class="hljs-keyword">default</span> Stream&lt;E&gt; <span class="hljs-title">stream</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> StreamSupport.stream(spliterator(), <span class="hljs-keyword">false</span>);<br>    &#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+<h3 id="2-3-创建并行流"><a href="#2-3-创建并行流" class="headerlink" title="2.3 创建并行流"></a>2.3 创建并行流</h3><p>在以上的示例中所有的Stream都是串行流，在某些场景下，为了最大化压榨多核CPU的性能，我们可以使用并行流，它通过JDK7中引入的fork/join框架来执行并行操作，我们可以通过如下方式创建并行流：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream&lt;Integer&gt; integerParallelStream = Stream.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).parallel();<br><br>Stream&lt;String&gt; stringParallelStream = Stream.of(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>).parallel();<br><br>Stream&lt;Integer&gt; integerParallelStreamList = List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).parallelStream();<br><br>Stream&lt;String&gt; stringParallelStreamList = List.of(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>).parallelStream();<br></code></pre></td></tr></table></figure>
+<p>是的，在Stream的静态方法中没有直接创建并行流的方法，我们需要在构造Stream后再调用一次parallel()方法才能创建并行流，因为调用parallel()方法并不会重新创建一个并行流对象，而是在原有的Stream对象上面设置了一个并行参数。</p>
+<p>当然，我们还可以看到，Collection接口中可以直接创建并行流，只需要调用与<code>stream()</code> 对应的<code>parallelStream()</code>方法，就像我刚才讲到的，他们之间其实只有参数的不同：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">default</span> Stream&lt;E&gt; <span class="hljs-title">stream</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> StreamSupport.stream(spliterator(), <span class="hljs-keyword">false</span>);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">default</span> Stream&lt;E&gt; <span class="hljs-title">parallelStream</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> StreamSupport.stream(spliterator(), <span class="hljs-keyword">true</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>不过一般情况下我们并不需要用到并行流，在Stream中元素不过千的情况下性能并不会有太大提升，因为将元素分散到不同的CPU进行计算也是有成本的。</p>
+<p>并行的好处是充分利用多核CPU的性能，但是使用中往往要对数据进行分割，然后分散到各个CPU上去处理，如果我们使用的数据是数组结构则可以很轻易的进行分割，但是如果是链表结构的数据或者Hash结构的数据则分割起来很明显不如数组结构方便。</p>
+<p>所以只有当Stream中元素过万甚至更大时，选用并行流才能带给你更明显的性能提升。</p>
+<p>最后，当你有一个并行流的时候，你也可以通过<code>sequential()</code> 将其方便的转换成串行流：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).parallel().sequential();<br></code></pre></td></tr></table></figure>
+<h3 id="2-4-连接Stream"><a href="#2-4-连接Stream" class="headerlink" title="2.4 连接Stream"></a>2.4 连接Stream</h3><p>如果你在两处构造了两个Stream，在使用的时候希望组合在一起使用，可以使用concat()：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream&lt;Integer&gt; concat = Stream<br>        .concat(Stream.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>), Stream.of(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>));<br></code></pre></td></tr></table></figure>
+<p>如果是两种不同的泛型流进行组合，自动推断会自动的推断出两种类型相同的父类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream&lt;Integer&gt; integerStream = Stream.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br><br>Stream&lt;String&gt; stringStream = Stream.of(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>);<br><br>Stream&lt;? extends Serializable&gt; stream = Stream.concat(integerStream, stringStream);<br></code></pre></td></tr></table></figure>
+<h2 id="3-Stream转换操作之无状态方法"><a href="#3-Stream转换操作之无状态方法" class="headerlink" title="3. Stream转换操作之无状态方法"></a>3. Stream转换操作之无状态方法</h2><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/90bd3bad499b4c4886aa100c2af83c4d~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p><strong>无状态方法：即此方法的执行无需依赖前面方法执行的结果集。</strong></p>
+<p>在Stream中无状态的API我们常用的大概有以下三个：</p>
+<ol>
+<li><code>map()</code>方法：此方法的参数是一个Function对象，它可以使你对集合中的元素做自定义操作，并保留操作后的元素。</li>
+<li><code>filter()</code>方法：此方法的参数是一个Predicate对象，Predicate的执行结果是一个Boolean类型，所以此方法只保留返回值为true的元素，正如其名我们可以使用此方法做一些筛选操作。</li>
+<li><code>flatMap()</code>方法：此方法和map()方法一样参数是一个Function对象，但是此Function的返回值要求是一个Stream，该方法可以将多个Stream中的元素聚合在一起进行返回。</li>
+</ol>
+<p>先来看看一个map()方法的示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream&lt;Integer&gt; integerStreamList = List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).stream();<br><br>Stream&lt;Integer&gt; mapStream = integerStreamList.map(i -&gt; i * <span class="hljs-number">10</span>);<br></code></pre></td></tr></table></figure>
+<p>我们拥有一个List，想要对其中的每个元素进行<strong>乘10</strong> 的操作，就可以采用如上写法，其中的<code>i</code>是对List中元素的变量名，<code>→</code> 后面的逻辑则是要对此元素进行的操作，以一种非常简洁明了的方式传入一段代码逻辑执行，这段代码最后会返回一个包含操作结果的新Stream。</p>
+<p>这里为了更好的帮助大家理解，我画了一个简图：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2958e563168e4631b2e06a20487e9f7e~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<hr>
+<p>接下来是filter()方法示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream&lt;Integer&gt; integerStreamList = List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).stream();<br><br>Stream&lt;Integer&gt; filterStream = integerStreamList.filter(i -&gt; i &gt;= <span class="hljs-number">20</span>);<br></code></pre></td></tr></table></figure>
+<p>在这段代码中会执行<code>i &gt;= 20</code> 这段逻辑，然后将返回值为true的结果保存在一个新的Stream中并返回。</p>
+<p>这里我也有一个简单的图示：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e8d5acb58a414c7ab4fccc6c08918ead~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<hr>
+<p><code>flatMap()</code> 方法的描述在上文我已经描述过，但是有点过于抽象，我在学习此方法中也是搜索了很多示例才有了较好的理解。</p>
+<p>根据官方文档的说法，此方法是为了进行一对多元素的平展操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Order&gt; orders = List.of(<span class="hljs-keyword">new</span> Order(), <span class="hljs-keyword">new</span> Order());<br><br>Stream&lt;Item&gt; itemStream = orders.stream()<br>        .flatMap(order -&gt; order.getItemList().stream());<br></code></pre></td></tr></table></figure>
+<p>这里我通过一个订单示例来说明此方法，我们的每个订单中都包含了一个商品List，如果我想要将两个订单中所有商品List组成一个新的商品List，就需要用到flatMap()方法。</p>
+<p>在上面的代码示例中可以看到每个订单都返回了一个商品List的Stream，我们在本例中只有两个订单，所以也就是最终会返回两个商品List的Stream，flatMap()方法的作用就是将这两个Stream中元素提取出来然后放到一个新的Stream中。</p>
+<p>老规矩，放一个简单的图示来说明：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/327690b17959463d8677f5d333699b12~tplv-k3u1fbpfcp-zoom-1.image" srcset="/blog/img/loading.gif" alt="img"></p>
+<p>图例中我使用青色代表Stream，在最终的输出中可以看到flatMap()将两个流变成了一个流进行输出，这在某些场景中非常有用，比如我上面的订单例子。</p>
+<hr>
+<p>还有一个很不常用的无状态方法<code>peek()</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function">Stream&lt;T&gt; <span class="hljs-title">peek</span><span class="hljs-params">(Consumer&lt;? <span class="hljs-keyword">super</span> T&gt; action)</span></span>;<br></code></pre></td></tr></table></figure>
+<p>peek方法接受一个Consumer对象做参数，这是一个无返回值的参数，我们可以通过peek方法做些打印元素之类的操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream&lt;Integer&gt; peekStream = integerStreamList.peek(i -&gt; System.out.println(i));<br></code></pre></td></tr></table></figure>
+<p>然而如果你不太熟悉的话，不建议使用，某些情况下它并不会生效，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).stream()<br>        .map(i -&gt; i * <span class="hljs-number">10</span>)<br>        .peek(System.out::println)<br>        .count();<br></code></pre></td></tr></table></figure>
+<p>API文档上面也注明了此方法是用于Debug，通过我的经验，只有当Stream最终需要重新生产元素时，peek才会执行。</p>
+<p>上面的例子中，count只需要返回元素个数，所以peek没有执行，如果换成collect方法就会执行。</p>
+<p>或者如果Stream中存在过滤方法如filter方法和match相关方法，它也会执行。</p>
+<h3 id="3-1-基础类型Stream"><a href="#3-1-基础类型Stream" class="headerlink" title="3.1 基础类型Stream"></a>3.1 基础类型Stream</h3><p>上一节提到了三个Stream中最常用的三个无状态方法，在Stream的无状态方法中还有几个和map()与flatMap()对应的方法，它们分别是：</p>
+<ol>
+<li><code>mapToInt</code></li>
+<li><code>mapToLong</code></li>
+<li><code>mapToDouble</code></li>
+<li><code>flatMapToInt</code></li>
+<li><code>flatMapToLong</code></li>
+<li><code>flatMapToDouble</code></li>
+</ol>
+<p>这六个方法首先从方法名中就可以看出来，它们只是在map()或者flatMap()的基础上对返回值进行转换操作，按理说没必要单拎出来做成一个方法，实际上它们的关键在于返回值：</p>
+<ol>
+<li>mapToInt返回值为<strong>IntStream</strong></li>
+<li>mapToLong返回值为<strong>LongStream</strong></li>
+<li>mapToDouble返回值为<strong>DoubleStream</strong></li>
+<li>flatMapToInt返回值为<strong>IntStream</strong></li>
+<li>flatMapToLong返回值为<strong>LongStream</strong></li>
+<li>flatMapToDouble返回值为<strong>DoubleStream</strong></li>
+</ol>
+<p>在JDK5中为了使Java更加的面向对象，引入了包装类的概念，八大基础数据类型都对应着一个包装类，这使你在使用基础类型时可以无感的进行自动拆箱/装箱，也就是自动使用包装类的转换方法。</p>
+<p>比如，在最前文的示例中，我用了这样一个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream&lt;Integer&gt; integerStream = Stream.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br></code></pre></td></tr></table></figure>
+<p>我在创建Stream中使用了基本数据类型参数，其泛型则被自动包装成了Integer，但是我们有时可能忽略自动拆装箱也是有代价的，如果我们想在使用Stream中忽略这个代价则可以使用Stream中转为基础数据类型设计的Stream：</p>
+<ol>
+<li><strong>IntStream：对应</strong> 基础数据类型中的int、short、char、boolean</li>
+<li>LongStream：对应基础数据类型中的long</li>
+<li>DoubleStream：对应基础数据类型中的double和float</li>
+</ol>
+<p>在这些接口中都可以和上文的例子一样通过of方法构造Stream，且不会自动拆装箱。</p>
+<p>所以上文中提到的那六个方法实际上就是将普通流转换成这种基础类型流，在我们需要的时候可以拥有更高的效率。</p>
+<p>基础类型流在API方面拥有Stream一样的API，所以在使用方面只要明白了Stream，基础类型流也都是一样的。</p>
+<p><strong>注</strong> ：IntStream、LongStream和DoubleStream都是接口，但并非继承自Stream接口。</p>
+<h3 id="3-2-无状态方法的循环合并"><a href="#3-2-无状态方法的循环合并" class="headerlink" title="3.2 无状态方法的循环合并"></a>3.2 无状态方法的循环合并</h3><p>说完无状态的这几个方法我们来看一个前文中的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; list = List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).stream()<br>        .filter(i -&gt; i &gt; <span class="hljs-number">2</span>)<br>        .filter(i -&gt; i &lt; <span class="hljs-number">10</span>)<br>        .filter(i -&gt; i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)<br>        .collect(toList());<br></code></pre></td></tr></table></figure>
+<p>在这个例子中我用了三次filter方法，那么大家觉得Stream会循环三次进行过滤吗？</p>
+<p>如果换掉其中一个filter为map，大家觉得会循环几次？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; list = List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).stream()<br>        .map(i -&gt; i * <span class="hljs-number">10</span>)<br>        .filter(i -&gt; i &lt; <span class="hljs-number">10</span>)<br>        .filter(i -&gt; i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)<br>        .collect(toList());<br></code></pre></td></tr></table></figure>
+<p>从我们的直觉来看，需要先使用map方法对所有元素做处理，然后再使用filter方法做过滤，所以需要执行三次循环。</p>
+<p>但回顾无状态方法的定义，你可以发现其他这三个条件可以放在一个循环里面做，因为filter只依赖map的计算结果，而不必依赖map执行完后的结果集，所以只要保证先操作map再操作filter，它们就可以在一次循环内完成，这种优化方式被称为<code>循环合并</code>。</p>
+<p><strong>所有的无状态方法都可以放在同一个循环内执行，它们也可以方便的使用并行流在多个CPU上执行。</strong></p>
+<h2 id="4-Stream转换操作之有状态方法"><a href="#4-Stream转换操作之有状态方法" class="headerlink" title="4. Stream转换操作之有状态方法"></a>4. Stream转换操作之有状态方法</h2><p>前面说完了无状态方法，有状态方法就比较简单了，只看名字就可以知道它的作用：</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>方法结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>distinct()</td>
+<td>元素去重。</td>
+</tr>
+<tr>
+<td>sorted()</td>
+<td>元素排序，重载的两个方法，需要的时候可以传入一个排序对象。</td>
+</tr>
+<tr>
+<td>limit(long maxSize)</td>
+<td>传入一个数字，代表只取前X个元素。</td>
+</tr>
+<tr>
+<td>skip(long n)</td>
+<td>传入一个数字，代表跳过X个元素，取后面的元素。</td>
+</tr>
+<tr>
+<td>takeWhile(Predicate predicate)</td>
+<td>JDK9新增，传入一个断言参数当第一次断言为false时停止，返回前面断言为true的元素。</td>
+</tr>
+<tr>
+<td>dropWhile(Predicate predicate)</td>
+<td>JDK9新增，传入一个断言参数当第一次断言为false时停止，删除前面断言为true的元素。</td>
+</tr>
+</tbody></table>
+<p>以上就是所有的有状态方法，它们的方法执行都必须依赖前面方法执行的结果集才能执行，比如排序方法就需要依赖前面方法的结果集才能进行排序。</p>
+<p>同时limit方法和takeWhile是两个短路操作方法，这意味效率更高，因为可能内部循环还没有走完时就已经选出了我们想要的元素。</p>
+<p>所以有状态的方法不像无状态方法那样可以在一个循环内执行，每个有状态方法都要经历一个单独的内部循环，所以编写代码时的顺序会影响到程序的执行结果以及性能，希望各位读者在开发过程中注意。</p>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><p>本文主要是对Stream做了一个概览，并讲述了Stream的两大特点：</p>
+<ol>
+<li><code>不可变</code>：不影响原集合，每次调用都返回一个新的Stream。</li>
+<li><code>延迟执行</code>：在遇到终结操作之前，Stream不会执行。</li>
+</ol>
+<p>同时也将Stream的API分成了转换操作和终结操作两类，并讲解了所有常用的转换操作，下一章的主要内容将是终结操作。</p>
+<p>在看Stream源码的过程中发现了一个有趣的事情，在<code>ReferencePipeline</code>类中(Stream的实现类)，它的方法顺序从上往下正好是：无状态方法 → 有状态方法 → 聚合方法。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/JavaStream/">JavaStream</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/07/11/SpringCloud%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/">
+                        <span class="hidden-mobile">SpringCloud实现数据权限控制</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
