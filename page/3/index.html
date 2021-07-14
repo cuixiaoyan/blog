@@ -186,6 +186,52 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/07/02/%E4%B9%A6%E5%86%99%E9%AB%98%E8%B4%A8%E9%87%8FSQL%E7%9A%8430%E6%9D%A1%E5%BB%BA%E8%AE%AE/">书写高质量SQL的30条建议</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/07/02/%E4%B9%A6%E5%86%99%E9%AB%98%E8%B4%A8%E9%87%8FSQL%E7%9A%8430%E6%9D%A1%E5%BB%BA%E8%AE%AE/">
+          
+          
+            
+          
+          1、查询SQL尽量不要使用select *，而是select具体字段。12345- 反例子：- select * from employee;- 正例子：- select id，name from employee;
+理由：
+只取需要的字段，节省资源、减少网络开销。 select * 进行查询时，很可能就不会使用到覆盖索引了，就会造成回表查询。
+2、如果知道查询结果只有一条或者只要最大/最小一条记
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-02 20:00" pubdate>
+              2021-07-02
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/sql/">sql</a>
+            
+              <a href="/blog/tags/%E5%BB%BA%E8%AE%AE/">建议</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/07/01/SpringBoot%E6%8B%A6%E6%88%AA%E5%99%A8/">SpringBoot拦截器</a>
       </h1>
 
@@ -356,56 +402,6 @@ Windows系统从1985年开始至今，已经经历了30多年，陪伴了很多�
               <a href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
             
               <a href="/blog/tags/Windows11/">Windows11</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/06/20/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E4%B8%AD%E5%A6%82%E4%BD%95%E5%87%8F%E5%B0%91bug/">日常开发中如何减少bug</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/06/20/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E4%B8%AD%E5%A6%82%E4%BD%95%E5%87%8F%E5%B0%91bug/">
-          
-          
-            
-          
-          1. 数据库篇
-数据库篇的话，哪些地方容易导致bug出现呢？我总结了7个方面：慢查询、数据库字段注意点、事务失效的场景、死锁、主从延迟、新老数据兼容、一些SQL经典注意点。
-1.1 慢查询
-1.1.1 是否命中索引提起慢查询，我们马上就会想到加索引。如果一条SQL没加索引，或者没有命中索引的话，就会产生慢查询。
-索引哪些情况会失效？
-
-查询条件包含or，可能导致索引失效
-如何字段类型是字符串，wh
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-06-20 20:00" pubdate>
-              2021-06-20
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E5%87%8F%E5%B0%91bug/">减少bug</a>
-            
-              <a href="/blog/tags/%E6%97%A5%E5%B8%B8/">日常</a>
             
           </div>
         
