@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>模板方法模式 - 崔笑颜的博客</title>
+  <title>外观模式 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="模板方法模式">
+            <span class="h2" id="subtitle" title="外观模式">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-19 20:00" pubdate>
-        2021年7月19日 晚上
+      <time datetime="2021-07-20 20:00" pubdate>
+        2021年7月20日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      526 字
+      436 字
     </span>
   
 
@@ -233,39 +233,37 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">模板方法模式</h1>
+            <h1 style="display: none">外观模式</h1>
             
             <div class="markdown-body">
-              <h2 id="模板方法模式"><a href="#模板方法模式" class="headerlink" title="模板方法模式"></a>模板方法模式</h2><h3 id="1-什么是模板方法"><a href="#1-什么是模板方法" class="headerlink" title="1.什么是模板方法"></a>1.什么是模板方法</h3><ul>
-<li>模板方法模式：定义一个操作中的算法骨架（父类），而将一些步骤延迟到子类中。 模板方法使得子类可以不改变一个算法的结构来重定义该算法的</li>
+              <h2 id="外观模式"><a href="#外观模式" class="headerlink" title="外观模式"></a>外观模式</h2><h3 id="1-什么是外观模式"><a href="#1-什么是外观模式" class="headerlink" title="1.什么是外观模式"></a>1.什么是外观模式</h3><ul>
+<li>外观模式：也叫门面模式，隐藏系统的复杂性，并向客户端提供了一个客户端可以访问系统的接口。</li>
+<li>它向现有的系统添加一个接口，用这一个接口来隐藏实际的系统的复杂性。</li>
+<li>使用外观模式，他外部看起来就是一个接口，其实他的内部有很多复杂的接口已经被实现</li>
 </ul>
-<h3 id="2-什么时候使用模板方法"><a href="#2-什么时候使用模板方法" class="headerlink" title="2.什么时候使用模板方法"></a>2.什么时候使用模板方法</h3><ul>
-<li>实现一些操作时，整体步骤很固定，但是呢。就是其中一小部分需要改变，这时候可以使用模板方法模式，将容易变的部分抽象出来，供子类实现。</li>
+<h3 id="2-外观模式例子"><a href="#2-外观模式例子" class="headerlink" title="2.外观模式例子"></a>2.外观模式例子</h3><ul>
+<li>用户注册完之后，需要调用阿里短信接口、邮件接口、微信推送接口。</li>
 </ul>
-<h3 id="3-实际开发中应用场景哪里用到了模板方法"><a href="#3-实际开发中应用场景哪里用到了模板方法" class="headerlink" title="3.实际开发中应用场景哪里用到了模板方法"></a>3.实际开发中应用场景哪里用到了模板方法</h3><ul>
-<li>其实很多框架中都有用到了模板方法模式</li>
-<li>例如：数据库访问的封装、Junit单元测试、servlet中关于doGet/doPost方法的调用等等</li>
-</ul>
-<h3 id="4-现实生活中的模板方法"><a href="#4-现实生活中的模板方法" class="headerlink" title="4.现实生活中的模板方法"></a>4.现实生活中的模板方法</h3><p><strong>例如：</strong></p>
 <ol>
-<li>去餐厅吃饭，餐厅给我们提供了一个模板就是：看菜单，点菜，吃饭，付款，走人 （这里 “<strong>点菜和付款</strong>” 是不确定的由子类来完成的，其他的则是一个模板。）</li>
+<li>创建阿里短信接口</li>
 </ol>
-<h3 id="5-代码实现模板方法模式"><a href="#5-代码实现模板方法模式" class="headerlink" title="5.代码实现模板方法模式"></a>5.代码实现模板方法模式</h3><ol>
-<li>先定义一个模板。把模板中的点菜和付款，让子类来实现。</li>
-</ol>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs csharp">package com.lijie;<br><br><span class="hljs-comment">//模板方法</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title">RestaurantTemplate</span> &#123;<br><br>	<span class="hljs-comment">// 1.看菜单</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">menu</span>(<span class="hljs-params"></span>)</span> &#123;<br>		System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">&quot;看菜单&quot;</span>);<br>	&#125;<br><br>	<span class="hljs-comment">// 2.点菜业务</span><br>	<span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">spotMenu</span>(<span class="hljs-params"></span>)</span>;<br><br>	<span class="hljs-comment">// 3.吃饭业务</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">havingDinner</span>(<span class="hljs-params"></span>)</span>&#123; System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">&quot;吃饭&quot;</span>); &#125;<br><br>	<span class="hljs-comment">// 3.付款业务</span><br>	<span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">payment</span>(<span class="hljs-params"></span>)</span>;<br><br>	<span class="hljs-comment">// 3.走人</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">GoR</span>(<span class="hljs-params"></span>)</span> &#123; System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">&quot;走人&quot;</span>); &#125;<br><br>	<span class="hljs-comment">//模板通用结构</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span>(<span class="hljs-params"></span>)</span>&#123;<br>		menu();<br>		spotMenu();<br>		havingDinner();<br>		payment();<br>		GoR();<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.lijie;<br><br><span class="hljs-comment">//阿里短信消息</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">AliSmsService</span> </span>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sendSms</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br><span class="hljs-keyword">package</span> com.lijie;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AliSmsServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AliSmsService</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sendSms</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;阿里短信消息&quot;</span>);<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
 <ol>
-<li>具体的模板方法子类 1</li>
+<li>创建邮件接口</li>
 </ol>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">package</span> com.lijie;<br><br>public <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RestaurantGinsengImpl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RestaurantTemplate</span> </span>&#123;<br><br>    void spotMenu() &#123;<br>        <span class="hljs-type">System</span>.out.println(<span class="hljs-string">&quot;人参&quot;</span>);<br>    &#125;<br><br>    void payment() &#123;<br>        <span class="hljs-type">System</span>.out.println(<span class="hljs-string">&quot;5快&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.lijie;<br><br><span class="hljs-comment">//发送邮件消息</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">EamilSmsService</span> </span>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sendSms</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br><span class="hljs-keyword">package</span> com.lijie;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EamilSmsServiceImpl</span> <span class="hljs-keyword">implements</span>   <span class="hljs-title">EamilSmsService</span></span>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sendSms</span><span class="hljs-params">()</span> </span>&#123;<br>		System.out.println(<span class="hljs-string">&quot;发送邮件消息&quot;</span>);<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <ol>
-<li>具体的模板方法子类 2</li>
+<li>创建微信推送接口</li>
 </ol>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">package</span> com.lijie;<br><br>public <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RestaurantLobsterImpl</span>  <span class="hljs-keyword">extends</span> <span class="hljs-title">RestaurantTemplate</span>  </span>&#123;<br><br>    void spotMenu() &#123;<br>        <span class="hljs-type">System</span>.out.println(<span class="hljs-string">&quot;龙虾&quot;</span>);<br>    &#125;<br><br>    void payment() &#123;<br>        <span class="hljs-type">System</span>.out.println(<span class="hljs-string">&quot;50块&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.lijie;<br><br><span class="hljs-comment">//微信消息推送</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">WeiXinSmsService</span> </span>&#123;<br>   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sendSms</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br><span class="hljs-keyword">package</span> com.lijie;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WeiXinSmsServiceImpl</span> <span class="hljs-keyword">implements</span>  <span class="hljs-title">WeiXinSmsService</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sendSms</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;发送微信消息推送&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <ol>
-<li>客户端测试</li>
+<li>创建门面（门面看起来很简单使用，复杂的东西以及被门面给封装好了）</li>
 </ol>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs arduino">package com.lijie;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> &#123;</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">String</span>[] args)</span> </span>&#123;<br>        <span class="hljs-comment">//调用第一个模板实例</span><br>        RestaurantTemplate restaurantTemplate = <span class="hljs-keyword">new</span> RestaurantGinsengImpl();<br>        restaurantTemplate.<span class="hljs-built_in">process</span>();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs typescript">package com.lijie;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Computer</span> </span>&#123;<br>	AliSmsService aliSmsService;<br>	EamilSmsService eamilSmsService;<br>	WeiXinSmsService weiXinSmsService;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-title">Computer</span>(<span class="hljs-params"></span>)</span> &#123;<br>		aliSmsService = <span class="hljs-keyword">new</span> AliSmsServiceImpl();<br>		eamilSmsService = <span class="hljs-keyword">new</span> EamilSmsServiceImpl();<br>		weiXinSmsService = <span class="hljs-keyword">new</span> WeiXinSmsServiceImpl();<br>	&#125;<br><br>	<span class="hljs-comment">//只需要调用它</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">sendMsg</span>(<span class="hljs-params"></span>)</span> &#123;<br>		aliSmsService.sendSms();<br>		eamilSmsService.sendSms();<br>		weiXinSmsService.sendSms();<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<ol>
+<li>启动测试</li>
+</ol>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">package</span> com.lijie;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> void main(<span class="hljs-keyword">String</span>[] args) &#123;<br>        <span class="hljs-comment">//普通模式需要这样</span><br>        AliSmsService aliSmsService = <span class="hljs-keyword">new</span> <span class="hljs-type">AliSmsServiceImpl</span>();<br>        EamilSmsService eamilSmsService = <span class="hljs-keyword">new</span> <span class="hljs-type">EamilSmsServiceImpl</span>();<br>        WeiXinSmsService weiXinSmsService = <span class="hljs-keyword">new</span> <span class="hljs-type">WeiXinSmsServiceImpl</span>();<br>        aliSmsService.sendSms();<br>        eamilSmsService.sendSms();<br>        weiXinSmsService.sendSms();<br><br>        <span class="hljs-comment">//利用外观模式简化方法</span><br>        <span class="hljs-keyword">new</span> <span class="hljs-type">Computer</span>().sendMsg();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -285,7 +283,7 @@
                     
                       <a class="hover-with-bg" href="/blog/tags/%E8%AE%BE%E8%AE%A1/">设计</a>
                     
-                      <a class="hover-with-bg" href="/blog/tags/%E6%A8%A1%E6%9D%BF/">模板</a>
+                      <a class="hover-with-bg" href="/blog/tags/%E5%A4%96%E8%A7%82/">外观</a>
                     
                   </div>
                 
@@ -298,18 +296,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/07/20/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">外观模式</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/07/18/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
-                        <span class="hidden-mobile">建造者模式</span>
+                      <a href="/blog/2021/07/19/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">
+                        <span class="hidden-mobile">模板方法模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
