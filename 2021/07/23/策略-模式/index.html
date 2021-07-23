@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>原型模式 - 崔笑颜的博客</title>
+  <title>策略模式 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="原型模式">
+            <span class="h2" id="subtitle" title="策略模式">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-21 21:00" pubdate>
-        2021年7月21日 晚上
+      <time datetime="2021-07-23 20:00" pubdate>
+        2021年7月23日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      818 字
+      563 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      7
        分钟
     </span>
   
@@ -233,40 +233,53 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">原型模式</h1>
+            <h1 style="display: none">策略模式</h1>
             
             <div class="markdown-body">
-              <h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><h3 id="1-什么是原型模式"><a href="#1-什么是原型模式" class="headerlink" title="1.什么是原型模式"></a>1.什么是原型模式</h3><ul>
-<li>原型设计模式简单来说就是克隆</li>
-<li>原型表明了有一个样板实例，这个原型是可定制的。原型模式多用于创建复杂的或者构造耗时的实例，因为这种情况下，复制一个已经存在的实例可使程序运行更高效。</li>
+              <h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><h3 id="1-什么是策略模式"><a href="#1-什么是策略模式" class="headerlink" title="1.什么是策略模式"></a>1.什么是策略模式</h3><ul>
+<li>定义了一系列的算法 或 逻辑 或 相同意义的操作，并将每一个算法、逻辑、操作封装起来，而且使它们还可以相互替换。（其实策略模式Java中用的非常非常广泛）</li>
+<li>我觉得主要是为了 简化 if…else 所带来的复杂和难以维护。</li>
 </ul>
-<h3 id="2-原型模式的应用场景"><a href="#2-原型模式的应用场景" class="headerlink" title="2.原型模式的应用场景"></a>2.原型模式的应用场景</h3><ol>
-<li>类初始化需要消化非常多的资源，这个资源包括数据、硬件资源等。这时我们就可以通过原型拷贝避免这些消耗。</li>
-<li>通过new产生的一个对象需要非常繁琐的数据准备或者权限，这时可以使用原型模式。</li>
-<li>一个对象需要提供给其他对象访问，而且各个调用者可能都需要修改其值时，可以考虑使用原型模式拷贝多个对象供调用者使用，即保护性拷贝。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">我们Spring框架中的多例就是使用原型。<br></code></pre></td></tr></table></figure>
-<h3 id="3-原型模式的使用方式"><a href="#3-原型模式的使用方式" class="headerlink" title="3.原型模式的使用方式"></a>3.原型模式的使用方式</h3><ol>
-<li>实现Cloneable接口。在java语言有一个Cloneable接口，它的作用只有一个，就是在运行时通知虚拟机可以安全地在实现了此接口的类上使用clone方法。在java虚拟机中，只有实现了这个接口的类才可以被拷贝，否则在运行时会抛出CloneNotSupportedException异常。</li>
-<li>重写Object类中的clone方法。Java中，所有类的父类都是Object类，Object类中有一个clone方法，作用是返回对象的一个拷贝，但是其作用域protected类型的，一般的类无法调用，因此Prototype类需要将clone方法的作用域修改为public类型。</li>
-</ol>
-<h4 id="3-1原型模式分为浅复制和深复制"><a href="#3-1原型模式分为浅复制和深复制" class="headerlink" title="3.1原型模式分为浅复制和深复制"></a>3.1原型模式分为浅复制和深复制</h4><ol>
-<li>（浅复制）只是拷贝了基本类型的数据，而引用类型数据，只是拷贝了一份引用地址。</li>
-<li>（深复制）在计算机中开辟了一块新的内存地址用于存放复制的对象。</li>
-</ol>
-<h3 id="4-代码演示"><a href="#4-代码演示" class="headerlink" title="4.代码演示"></a>4.代码演示</h3><ol>
-<li>创建User类</li>
-</ol>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs typescript">package com.lijie;<br><br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cloneable</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-built_in">String</span> name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-built_in">String</span> password;<br>    <span class="hljs-keyword">private</span> ArrayList&lt;<span class="hljs-built_in">String</span>&gt; phones;<br><br>    <span class="hljs-keyword">protected</span> User <span class="hljs-function"><span class="hljs-title">clone</span>(<span class="hljs-params"></span>)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            User user = (User) <span class="hljs-built_in">super</span>.clone();<br>            <span class="hljs-comment">//重点，如果要连带引用类型一起复制，需要添加底下一条代码，如果不加就对于是复制了引用地址</span><br>            user.phones = (ArrayList&lt;<span class="hljs-built_in">String</span>&gt;) <span class="hljs-built_in">this</span>.phones.clone();<span class="hljs-comment">//设置深复制</span><br>            <span class="hljs-keyword">return</span> user;<br>        &#125; <span class="hljs-keyword">catch</span> (CloneNotSupportedException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br>	<br>	<span class="hljs-comment">//省略所有属性Git Set方法......</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="2-策略模式应用场景"><a href="#2-策略模式应用场景" class="headerlink" title="2.策略模式应用场景"></a>2.策略模式应用场景</h3><ul>
+<li>策略模式的用意是针对一组算法或逻辑，将每一个算法或逻辑封装到具有共同接口的独立的类中，从而使得它们之间可以相互替换。</li>
+</ul>
 <ol>
-<li>测试复制</li>
+<li>例如：我要做一个不同会员打折力度不同的三种策略，初级会员，中级会员，高级会员（三种不同的计算）。</li>
+<li>例如：我要一个支付模块，我要有微信支付、支付宝支付、银联支付等</li>
 </ol>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">package com.lijie;<br><br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><br><span class="hljs-built_in">public</span> <span class="hljs-keyword">class</span> Client &#123;<br>    <span class="hljs-built_in">public</span> static <span class="hljs-type">void</span> main(String[] args) &#123;<br>        //创建<span class="hljs-keyword">User</span>原型对象<br>        <span class="hljs-keyword">User</span> <span class="hljs-keyword">user</span> = <span class="hljs-built_in">new</span> <span class="hljs-keyword">User</span>();<br>        <span class="hljs-keyword">user</span>.setName(&quot;李三&quot;);<br>        <span class="hljs-keyword">user</span>.setPassword(&quot;123456&quot;);<br>        ArrayList&lt;String&gt; phones = <span class="hljs-built_in">new</span> ArrayList&lt;&gt;();<br>        phones.<span class="hljs-keyword">add</span>(&quot;17674553302&quot;);<br>        <span class="hljs-keyword">user</span>.setPhones(phones);<br><br>        //<span class="hljs-keyword">copy</span>一个<span class="hljs-keyword">user</span>对象,并且对象的属性<br>        <span class="hljs-keyword">User</span> user2 = <span class="hljs-keyword">user</span>.clone();<br>        user2.setPassword(&quot;654321&quot;);<br><br>        //查看俩个对象是否是一个<br>        <span class="hljs-keyword">System</span>.<span class="hljs-keyword">out</span>.println(<span class="hljs-keyword">user</span> == user2);<br><br>        //查看属性内容<br>        <span class="hljs-keyword">System</span>.<span class="hljs-keyword">out</span>.println(<span class="hljs-keyword">user</span>.getName() + &quot; | &quot; + user2.getName());<br>        <span class="hljs-keyword">System</span>.<span class="hljs-keyword">out</span>.println(<span class="hljs-keyword">user</span>.getPassword() + &quot; | &quot; + user2.getPassword());<br>        //查看对于引用类型拷贝<br>        <span class="hljs-keyword">System</span>.<span class="hljs-keyword">out</span>.println(<span class="hljs-keyword">user</span>.getPhones() == user2.getPhones());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="3-策略模式的优点和缺点"><a href="#3-策略模式的优点和缺点" class="headerlink" title="3.策略模式的优点和缺点"></a>3.策略模式的优点和缺点</h3><ul>
+<li>优点： 1、算法可以自由切换。 2、避免使用多重条件判断。 3、扩展性非常良好。</li>
+<li>缺点： 1、策略类会增多。 2、所有策略类都需要对外暴露。</li>
+</ul>
+<h3 id="4-代码演示"><a href="#4-代码演示" class="headerlink" title="4.代码演示"></a>4.代码演示</h3><ul>
+<li>模拟支付模块有微信支付、支付宝支付、银联支付</li>
+</ul>
 <ol>
-<li>如果不需要深复制，需要删除User 中的</li>
+<li>定义抽象的公共方法</li>
 </ol>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-comment">//默认引用类型为浅复制，这是设置了深复制</span><br>user.phones = (ArrayList&lt;<span class="hljs-keyword">String</span>&gt;) <span class="hljs-keyword">this</span>.phones.clone();<br></code></pre></td></tr></table></figure>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.lijie;<br><br><span class="hljs-comment">//策略模式 定义抽象方法 所有支持公共接口</span><br><span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PayStrategy</span> </span>&#123;<br><br>	<span class="hljs-comment">// 支付逻辑方法</span><br>	<span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">algorithmInterface</span><span class="hljs-params">()</span></span>;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+<ol>
+<li>定义实现微信支付</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">package</span> com.lijie;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PayStrategyA</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PayStrategy</span> </span>&#123;<br><br>	void algorithmInterface() &#123;<br>		<span class="hljs-type">System</span>.out.println(<span class="hljs-string">&quot;微信支付&quot;</span>);<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<ol>
+<li>定义实现支付宝支付</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">package</span> com.lijie;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PayStrategyB</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PayStrategy</span> </span>&#123;<br><br>	void algorithmInterface() &#123;<br>		<span class="hljs-type">System</span>.out.println(<span class="hljs-string">&quot;支付宝支付&quot;</span>);<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<ol>
+<li>定义实现银联支付</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-keyword">package</span> com.lijie;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PayStrategyC</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PayStrategy</span> </span>&#123;<br><br>	void algorithmInterface() &#123;<br>		<span class="hljs-type">System</span>.out.println(<span class="hljs-string">&quot;银联支付&quot;</span>);<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<ol>
+<li>定义下文维护算法策略</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs typescript">package com.lijie;<span class="hljs-comment">// 使用上下文维护算法策略</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Context</span> </span>&#123;<br><br>	PayStrategy strategy;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-title">Context</span>(<span class="hljs-params">PayStrategy strategy</span>)</span> &#123;<br>		<span class="hljs-built_in">this</span>.strategy = strategy;<br>	&#125;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">algorithmInterface</span>(<span class="hljs-params"></span>)</span> &#123;<br>		strategy.algorithmInterface();<br>	&#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+<ol>
+<li>运行测试</li>
+</ol>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">package</span> com.lijie;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ClientTestStrategy</span> </span>&#123;<br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> void main(<span class="hljs-keyword">String</span>[] args) &#123;<br>		Context context;<br>		<span class="hljs-comment">//使用支付逻辑A</span><br>		context = <span class="hljs-keyword">new</span> <span class="hljs-type">Context</span>(<span class="hljs-keyword">new</span> <span class="hljs-type">PayStrategyA</span>());<br>		context.algorithmInterface();<br>		<span class="hljs-comment">//使用支付逻辑B</span><br>		context = <span class="hljs-keyword">new</span> <span class="hljs-type">Context</span>(<span class="hljs-keyword">new</span> <span class="hljs-type">PayStrategyB</span>());<br>		context.algorithmInterface();<br>		<span class="hljs-comment">//使用支付逻辑C</span><br>		context = <span class="hljs-keyword">new</span> <span class="hljs-type">Context</span>(<span class="hljs-keyword">new</span> <span class="hljs-type">PayStrategyC</span>());<br>		context.algorithmInterface();<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
             </div>
             <hr>
             <div>
@@ -285,7 +298,7 @@
                     
                       <a class="hover-with-bg" href="/blog/tags/%E8%AE%BE%E8%AE%A1/">设计</a>
                     
-                      <a class="hover-with-bg" href="/blog/tags/%E5%8E%9F%E5%9E%8B/">原型</a>
+                      <a class="hover-with-bg" href="/blog/tags/%E7%AD%96%E7%95%A5/">策略</a>
                     
                   </div>
                 
@@ -298,18 +311,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/07/23/%E7%AD%96%E7%95%A5-%E6%A8%A1%E5%BC%8F/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">策略模式</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/07/20/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/">
-                        <span class="hidden-mobile">外观模式</span>
+                      <a href="/blog/2021/07/21/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/">
+                        <span class="hidden-mobile">原型模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
