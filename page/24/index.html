@@ -186,6 +186,53 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/02/27/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E9%81%8D%E5%8E%86%E5%88%A0%E9%99%A4List%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0(%E6%99%AE%E9%80%9Afor%E5%BE%AA%E7%8E%AF%E3%80%81%E5%A2%9E%E5%BC%BAfor%E5%BE%AA%E7%8E%AF%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8iterator%E3%80%81removeIf+%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8)/">如何正确遍历删除List中的元素(普通for循环、增强for循环、迭代器iterator、removeIf+方法引用)</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/02/27/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E9%81%8D%E5%8E%86%E5%88%A0%E9%99%A4List%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0(%E6%99%AE%E9%80%9Afor%E5%BE%AA%E7%8E%AF%E3%80%81%E5%A2%9E%E5%BC%BAfor%E5%BE%AA%E7%8E%AF%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8iterator%E3%80%81removeIf+%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8)/">
+          
+          
+            
+          
+          遍历删除List中符合条件的元素主要有以下几种方法：
+
+普通for循环 2.增强for循环 foreach 3.迭代器iterator 4.removeIf 和 方法引用 (一行代码搞定) 其中使用普通for循环容易造成遗漏元素的问题，增强for循环foreach会报java.util.ConcurrentModificationException并发修改异常。
+
+所以推荐使用迭代器iterato
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-27 09:20" pubdate>
+              2021-02-27
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/java/">java</a>
+            
+              <a href="/blog/tags/List/">List</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/02/27/SpringBoot%E4%BA%8C%E5%8D%81%E4%B8%AA%E6%B3%A8%E8%A7%A3/">SpringBoot二十个注解</a>
       </h1>
 
@@ -366,62 +413,11 @@ POJO 的英文全称是 Plain Ordinary Java Object，翻译一下就是，简单
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/02/21/JSON%E6%95%B0%E7%BB%84%E5%BD%A2%E5%BC%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E4%B8%BAMap%E6%95%B0%E7%BB%84/">JSON数组形式字符串转换为Map数组</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/02/21/JSON%E6%95%B0%E7%BB%84%E5%BD%A2%E5%BC%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E4%B8%BAMap%E6%95%B0%E7%BB%84/">
-          
-          
-            
-          
-          阿里巴巴封装的FastJSON来转换JSON数组形式字符串
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384package com
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-21 17:00" pubdate>
-              2021-02-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/%E5%B7%A5%E5%85%B7%E7%B1%BB/">工具类</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/java/">java</a>
-            
-              <a href="/blog/tags/FastJSON/">FastJSON</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/23/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/22/">22</a><a class="page-number" href="/blog/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/blog/page/25/">25</a><a class="page-number" href="/blog/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/37/">37</a><a class="extend next" rel="next" href="/blog/page/25/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/23/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/22/">22</a><a class="page-number" href="/blog/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/blog/page/25/">25</a><a class="page-number" href="/blog/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/38/">38</a><a class="extend next" rel="next" href="/blog/page/25/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
