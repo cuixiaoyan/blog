@@ -186,6 +186,112 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/01/10/Centos7Nginx%E7%9A%84SSl%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85/">Centos7Nginx的SSl证书安装</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/01/10/Centos7Nginx%E7%9A%84SSl%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85/">
+          
+          
+            
+          
+          注意路径
+可见，nginx缺少SSL模块支持。这是因为我当年建站的时候根本没用到SSL啊，所以以前编译nginx的时候使用了不带SSL支持的默认编译参数。 为了让nginx添加SSL模块，只能重新编译它。但是，如何在现有nginx的基础上，添加一个支持SSL的编译参数呢？首先要找回原来编译nginx时的编译参数，然后再加上支持SSL的编译参数。如果不这样做，那么编译出来的nginx可能就会有问题（
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-10 10:30" pubdate>
+              2021-01-10
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E9%83%A8%E7%BD%B2/">部署</a>
+            
+              <a href="/blog/tags/Nginx/">Nginx</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/01/10/java%E5%B0%86PDF%E8%BD%AC%E4%B8%BAWord%E3%80%81%E5%9B%BE%E7%89%87%E3%80%81SVG%E3%80%81XPS%E3%80%81Html%E3%80%81PDF%E3%80%82/">java将PDF转为Word、图片、SVG、XPS、Html、PDF。</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/01/10/java%E5%B0%86PDF%E8%BD%AC%E4%B8%BAWord%E3%80%81%E5%9B%BE%E7%89%87%E3%80%81SVG%E3%80%81XPS%E3%80%81Html%E3%80%81PDF%E3%80%82/">
+          
+          
+            
+          
+          本文将介绍通过Java编程来实现PDF文档转换的方法。包括：
+
+PDF转为Word
+
+PDF转为图片
+
+PDF转为Html
+
+PDF转为SVG
+4.1 将PDF每一页转为单个的SVG
+4.2 将一个包含多页的PDF文档转为一个SVG
+
+PDF转为XPS
+
+PDF转为PDF/A
+
+
+使用工具：Free Spire.PDF for Java（免费版）
+Jar文件获取及导入：
+方法1：通过官网下载下载j
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-10 10:20" pubdate>
+              2021-01-10
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/java/">java</a>
+            
+              <a href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/01/10/%E8%A7%A3%E5%86%B3IntellijIDEA%E9%83%A8%E7%BD%B2JavaWeb%E9%A1%B9%E7%9B%AE404%E9%97%AE%E9%A2%98/">解决IntellijIDEA部署JavaWeb项目404问题</a>
       </h1>
 
@@ -307,103 +413,6 @@
               <a href="/blog/tags/%E9%83%A8%E7%BD%B2/">部署</a>
             
               <a href="/blog/tags/%E5%89%8D%E7%AB%AF/">前端</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/01/06/Centos7%E5%AE%89%E8%A3%85redis/">Centos7安装redis</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/01/06/Centos7%E5%AE%89%E8%A3%85redis/">
-          
-          
-            
-          
-          在CentOS和Red Hat系统中，首先添加EPEL仓库，然后更新yum源：
-12sudo yum install epel-releasesudo yum update
-然后安装Redis数据库：
-1sudo yum -y install redis
-安装好后启动Redis服务即可：
-1sudo systemctl start redis
-这里同样可以使用redis-cli进入Redis命令行
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-06 20:10" pubdate>
-              2021-01-06
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E9%83%A8%E7%BD%B2/">部署</a>
-            
-              <a href="/blog/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/01/06/Centos7%E5%AE%89%E8%A3%85Nginx/">Centos7安装Nginx</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/01/06/Centos7%E5%AE%89%E8%A3%85Nginx/">
-          
-          
-            
-          
-          Nginx 是C语言开发的,所以要安装gcc编译器。
-安装 nginx 需要先将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境，则需要安装：
-
-1yum install -y gcc-c++
-
-PCRE(Perl Compatible Regular Expressions) 是一个Perl库，包括 perl 兼容的正则表达式库。nginx 的 http 模块使用 pcre
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-06 20:00" pubdate>
-              2021-01-06
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E9%83%A8%E7%BD%B2/">部署</a>
-            
-              <a href="/blog/tags/%E8%BD%AF%E4%BB%B6/">软件</a>
             
           </div>
         

@@ -1,0 +1,625 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>Java常用API - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java常用API">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-29 20:00" pubdate>
+        2021年7月29日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java常用API</h1>
+            
+            <div class="markdown-body">
+              <h2 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a>常用API</h2><h3 id="String相关"><a href="#String相关" class="headerlink" title="String相关"></a>String相关</h3><h4 id="字符型常量和字符串常量的区别"><a href="#字符型常量和字符串常量的区别" class="headerlink" title="字符型常量和字符串常量的区别"></a>字符型常量和字符串常量的区别</h4><ol>
+<li>形式上: 字符常量是单引号引起的一个字符 字符串常量是双引号引起的若干个字符</li>
+<li>含义上: 字符常量相当于一个整形值(ASCII值),可以参加表达式运算 字符串常量代表一个地址值(该字符串在内存中存放位置)</li>
+<li>占内存大小 字符常量只占一个字节 字符串常量占若干个字节(至少一个字符结束标志)</li>
+</ol>
+<h4 id="什么是字符串常量池？"><a href="#什么是字符串常量池？" class="headerlink" title="什么是字符串常量池？"></a>什么是字符串常量池？</h4><ul>
+<li>字符串常量池位于堆内存中，专门用来存储字符串常量，可以提高内存的使用率，避免开辟多块空间存储相同的字符串，在创建字符串时 JVM 会首先检查字符串常量池，如果该字符串已经存在池中，则返回它的引用，如果不存在，则实例化一个字符串放到池中，并返回其引用。</li>
+</ul>
+<h4 id="String-是最基本的数据类型吗"><a href="#String-是最基本的数据类型吗" class="headerlink" title="String 是最基本的数据类型吗"></a>String 是最基本的数据类型吗</h4><ul>
+<li>不是。Java 中的基本数据类型只有 8 个 ：byte、short、int、long、float、double、char、boolean；除了基本类型（primitive type），剩下的都是引用类型（referencetype），Java 5 以后引入的枚举类型也算是一种比较特殊的引用类型。</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arduino">这是很基础的东西，但是很多初学者却容易忽视，Java 的 <span class="hljs-number">8</span> 种基本数据类型中不包括 <span class="hljs-keyword">String</span>，基本数据类型中用来描述文本数据的是 <span class="hljs-keyword">char</span>，但是它只能表示单个字符，比如 ‘a’,‘好’ 之类的，如果要描述一段文本，就需要用多个 <span class="hljs-keyword">char</span> 类型的变量，也就是一个 <span class="hljs-keyword">char</span> 类型数组，比如“你好” 就是长度为<span class="hljs-number">2</span>的数组 <span class="hljs-keyword">char</span>\[\] chars = &#123;‘你’,‘好’&#125;;<br>但是使用数组过于麻烦，所以就有了 <span class="hljs-keyword">String</span>，<span class="hljs-keyword">String</span> 底层就是一个 <span class="hljs-keyword">char</span> 类型的数组，只是使用的时候开发者不需要直接操作底层数组，用更加简便的方式即可完成对字符串的使用。<br></code></pre></td></tr></table></figure>
+<h4 id="String有哪些特性"><a href="#String有哪些特性" class="headerlink" title="String有哪些特性"></a>String有哪些特性</h4><ul>
+<li>不变性：String 是只读字符串，是一个典型的 immutable 对象，对它进行任何操作，其实都是创建一个新的对象，再把引用指向该对象。不变模式的主要作用在于当一个对象需要被多线程共享并频繁访问时，可以保证数据的一致性。</li>
+<li>常量池优化：String 对象创建之后，会在字符串常量池中进行缓存，如果下次创建同样的对象时，会直接返回缓存的引用。</li>
+<li>final：使用 final 来定义 String 类，表示 String 类不能被继承，提高了系统的安全性。</li>
+</ul>
+<h4 id="String为什么是不可变的吗？"><a href="#String为什么是不可变的吗？" class="headerlink" title="String为什么是不可变的吗？"></a>String为什么是不可变的吗？</h4><ul>
+<li><p>简单来说就是String类利用了final修饰的char类型数组存储字符，源码如下图所以：</p>
+<p>/** The value is used for character storage. */ private final char value[];</p>
+</li>
+</ul>
+<h4 id="String真的是不可变的吗？"><a href="#String真的是不可变的吗？" class="headerlink" title="String真的是不可变的吗？"></a>String真的是不可变的吗？</h4><ul>
+<li>我觉得如果别人问这个问题的话，回答不可变就可以了。 下面只是给大家看两个有代表性的例子：</li>
+</ul>
+<p><strong>1 String不可变但不代表引用不可以变</strong></p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs processing"><span class="hljs-keyword">String</span> <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;Hello&quot;</span>;<br><span class="hljs-built_in">str</span> = <span class="hljs-built_in">str</span> + <span class="hljs-string">&quot; World&quot;</span>;<br>System.out.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;str=&quot;</span> + <span class="hljs-built_in">str</span>);<br>复制代码<br></code></pre></td></tr></table></figure>
+<ul>
+<li><p>结果：</p>
+<p>str=Hello World</p>
+</li>
+<li><p>解析：</p>
+</li>
+<li><p>实际上，原来String的内容是不变的，只是str由原来指向”Hello”的内存地址转为指向”Hello World”的内存地址而已，也就是说多开辟了一块内存区域给”Hello World”字符串。</p>
+</li>
+</ul>
+<p><strong>2.通过反射是可以修改所谓的“不可变”对象</strong></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// 创建字符串&quot;Hello World&quot;， 并赋给引用s</span><br>String s = <span class="hljs-string">&quot;Hello World&quot;</span>;<br><br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-string">&quot;s = &quot;</span> + s); <span class="hljs-comment">// Hello World</span><br><br><span class="hljs-comment">// 获取String类中的value字段</span><br>Field valueFieldOfString = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">String</span>.</span></span><span class="hljs-keyword">class</span>.get<span class="hljs-constructor">DeclaredField(<span class="hljs-string">&quot;value&quot;</span>)</span>;<br><br><span class="hljs-comment">// 改变value属性的访问权限</span><br>valueFieldOfString.set<span class="hljs-constructor">Accessible(<span class="hljs-params">true</span>)</span>;<br><br><span class="hljs-comment">// 获取s对象上的value属性的值</span><br><span class="hljs-built_in">char</span><span class="hljs-literal">[]</span> value = (<span class="hljs-built_in">char</span><span class="hljs-literal">[]</span>) valueFieldOfString.get(s);<br><br><span class="hljs-comment">// 改变value所引用的数组中的第5个字符</span><br>value<span class="hljs-literal">[<span class="hljs-number">5</span>]</span> = <span class="hljs-character">&#x27;_&#x27;</span>;<br><br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-string">&quot;s = &quot;</span> + s); <span class="hljs-comment">// Hello_World</span><br>复制代码<br></code></pre></td></tr></table></figure>
+<ul>
+<li><p>结果：</p>
+<p>s = Hello World s = Hello_World</p>
+</li>
+<li><p>解析：</p>
+</li>
+<li><p>用反射可以访问私有成员， 然后反射出String对象中的value属性， 进而改变通过获得的value引用改变数组的结构。但是一般我们不会这么做，这里只是简单提一下有这个东西。</p>
+</li>
+</ul>
+<h4 id="是否可以继承-String-类"><a href="#是否可以继承-String-类" class="headerlink" title="是否可以继承 String 类"></a>是否可以继承 String 类</h4><ul>
+<li>String 类是 final 类，不可以被继承。</li>
+</ul>
+<h4 id="String-str-”i”与-String-str-new-String-“i”-一样吗？"><a href="#String-str-”i”与-String-str-new-String-“i”-一样吗？" class="headerlink" title="String str=”i”与 String str=new String(“i”)一样吗？"></a>String str=”i”与 String str=new String(“i”)一样吗？</h4><ul>
+<li>不一样，因为内存的分配方式不一样。String str=”i”的方式，java 虚拟机会将其分配到常量池中；而 String str=new String(“i”) 则会被分到堆内存中。</li>
+</ul>
+<h4 id="String-s-new-String-“xyz”-创建了几个字符串对象"><a href="#String-s-new-String-“xyz”-创建了几个字符串对象" class="headerlink" title="String s = new String(“xyz”);创建了几个字符串对象"></a>String s = new String(“xyz”);创建了几个字符串对象</h4><ul>
+<li><p>两个对象，一个是静态区的”xyz”，一个是用new创建在堆上的对象。</p>
+<p>String str1 = “hello”; //str1指向静态区 String str2 = new String(“hello”);  //str2指向堆上的对象 String str3 = “hello”; String str4 = new String(“hello”); System.out.println(str1.equals(str2)); //true System.out.println(str2.equals(str4)); //true System.out.println(str1 == str3); //true System.out.println(str1 == str2); //false System.out.println(str2 == str4); //false System.out.println(str2 == “hello”); //false str2 = str1; System.out.println(str2 == “hello”); //true</p>
+</li>
+</ul>
+<h4 id="如何将字符串反转？"><a href="#如何将字符串反转？" class="headerlink" title="如何将字符串反转？"></a>如何将字符串反转？</h4><ul>
+<li><p>使用 StringBuilder 或者 stringBuffer 的 reverse() 方法。</p>
+</li>
+<li><p>示例代码：</p>
+<p>// StringBuffer reverse StringBuffer stringBuffer = new StringBuffer(); stringBuffer. append(“abcdefg”); System. out. println(stringBuffer. reverse()); // gfedcba // StringBuilder reverse StringBuilder stringBuilder = new StringBuilder(); stringBuilder. append(“abcdefg”); System. out. println(stringBuilder. reverse()); // gfedcba</p>
+</li>
+</ul>
+<h4 id="数组有没有-length-方法？String-有没有-length-方法"><a href="#数组有没有-length-方法？String-有没有-length-方法" class="headerlink" title="数组有没有 length()方法？String 有没有 length()方法"></a>数组有没有 length()方法？String 有没有 length()方法</h4><ul>
+<li>数组没有 length()方法 ，有 length 的属性。String 有 length()方法。JavaScript中，获得字符串的长度是通过 length 属性得到的，这一点容易和 Java 混淆。</li>
+</ul>
+<h4 id="String-类的常用方法都有那些？"><a href="#String-类的常用方法都有那些？" class="headerlink" title="String 类的常用方法都有那些？"></a>String 类的常用方法都有那些？</h4><ul>
+<li>indexOf()：返回指定字符的索引。</li>
+<li>charAt()：返回指定索引处的字符。</li>
+<li>replace()：字符串替换。</li>
+<li>trim()：去除字符串两端空白。</li>
+<li>split()：分割字符串，返回一个分割后的字符串数组。</li>
+<li>getBytes()：返回字符串的 byte 类型数组。</li>
+<li>length()：返回字符串长度。</li>
+<li>toLowerCase()：将字符串转成小写字母。</li>
+<li>toUpperCase()：将字符串转成大写字符。</li>
+<li>substring()：截取字符串。</li>
+<li>equals()：字符串比较。</li>
+</ul>
+<h4 id="在使用-HashMap-的时候，用-String-做-key-有什么好处？"><a href="#在使用-HashMap-的时候，用-String-做-key-有什么好处？" class="headerlink" title="在使用 HashMap 的时候，用 String 做 key 有什么好处？"></a>在使用 HashMap 的时候，用 String 做 key 有什么好处？</h4><ul>
+<li>HashMap 内部实现是通过 key 的 hashcode 来确定 value 的存储位置，因为字符串是不可变的，所以当创建字符串时，它的 hashcode 被缓存下来，不需要再次计算，所以相比于其他对象更快。</li>
+</ul>
+<h4 id="String和StringBuffer、StringBuilder的区别是什么？String为什么是不可变的"><a href="#String和StringBuffer、StringBuilder的区别是什么？String为什么是不可变的" class="headerlink" title="String和StringBuffer、StringBuilder的区别是什么？String为什么是不可变的"></a>String和StringBuffer、StringBuilder的区别是什么？String为什么是不可变的</h4><p><strong>可变性</strong></p>
+<ul>
+<li>String类中使用字符数组保存字符串，private final char value[]，所以string对象是不可变的。StringBuilder与StringBuffer都继承自AbstractStringBuilder类，在AbstractStringBuilder中也是使用字符数组保存字符串，char[] value，这两种对象都是可变的。</li>
+</ul>
+<p><strong>线程安全性</strong></p>
+<ul>
+<li>String中的对象是不可变的，也就可以理解为常量，线程安全。AbstractStringBuilder是StringBuilder与StringBuffer的公共父类，定义了一些字符串的基本操作，如expandCapacity、append、insert、indexOf等公共方法。StringBuffer对方法加了同步锁或者对调用的方法加了同步锁，所以是线程安全的。StringBuilder并没有对方法进行加同步锁，所以是非线程安全的。</li>
+</ul>
+<p><strong>性能</strong></p>
+<ul>
+<li>每次对String 类型进行改变的时候，都会生成一个新的String对象，然后将指针指向新的String 对象。StringBuffer每次都会对StringBuffer对象本身进行操作，而不是生成新的对象并改变对象引用。相同情况下使用StirngBuilder 相比使用StringBuffer 仅能获得10%~15% 左右的性能提升，但却要冒多线程不安全的风险。</li>
+</ul>
+<p><strong>对于三者使用的总结</strong></p>
+<ul>
+<li>如果要操作少量的数据用 = String</li>
+<li>单线程操作字符串缓冲区 下操作大量数据 = StringBuilder</li>
+<li>多线程操作字符串缓冲区 下操作大量数据 = StringBuffer</li>
+</ul>
+<h3 id="Date相关"><a href="#Date相关" class="headerlink" title="Date相关"></a>Date相关</h3><h3 id="包装类相关"><a href="#包装类相关" class="headerlink" title="包装类相关"></a>包装类相关</h3><h4 id="自动装箱与拆箱"><a href="#自动装箱与拆箱" class="headerlink" title="自动装箱与拆箱"></a>自动装箱与拆箱</h4><ul>
+<li><strong>装箱</strong>：将基本类型用它们对应的引用类型包装起来；</li>
+<li><strong>拆箱</strong>：将包装类型转换为基本数据类型；</li>
+</ul>
+<h4 id="int-和-Integer-有什么区别"><a href="#int-和-Integer-有什么区别" class="headerlink" title="int 和 Integer 有什么区别"></a>int 和 Integer 有什么区别</h4><ul>
+<li>Java 是一个近乎纯洁的面向对象编程语言，但是为了编程的方便还是引入了基本数据类型，但是为了能够将这些基本数据类型当成对象操作，Java 为每一个基本数据类型都引入了对应的包装类型（wrapper class），int 的包装类就是 Integer，从 Java 5 开始引入了自动装箱/拆箱机制，使得二者可以相互转换。</li>
+<li>Java 为每个原始类型提供了包装类型：<ul>
+<li>原始类型: boolean，char，byte，short，int，long，float，double</li>
+<li>包装类型：Boolean，Character，Byte，Short，Integer，Long，Float，Double</li>
+</ul>
+</li>
+</ul>
+<h4 id="Integer-a-127-与-Integer-b-127相等吗"><a href="#Integer-a-127-与-Integer-b-127相等吗" class="headerlink" title="Integer a= 127 与 Integer b = 127相等吗"></a>Integer a= 127 与 Integer b = 127相等吗</h4><ul>
+<li>对于对象引用类型：==比较的是对象的内存地址。</li>
+<li>对于基本数据类型：==比较的是值。</li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">如果整型字面量的值在<span class="hljs-number">-128</span>到<span class="hljs-number">127</span>之间，那么自动装箱时不会<span class="hljs-built_in">new</span>新的<span class="hljs-type">Integer</span>对象，而是直接引用常量池中的<span class="hljs-type">Integer</span>对象，超过范围 a1==b1的结果是<span class="hljs-keyword">false</span><br><span class="hljs-built_in">public</span> static <span class="hljs-type">void</span> main(String[] args) &#123;<br>    <span class="hljs-type">Integer</span> a = <span class="hljs-built_in">new</span> <span class="hljs-type">Integer</span>(<span class="hljs-number">3</span>);<br>    <span class="hljs-type">Integer</span> b = <span class="hljs-number">3</span>;  // 将<span class="hljs-number">3</span>自动装箱成<span class="hljs-type">Integer</span>类型<br>    <span class="hljs-type">int</span> c = <span class="hljs-number">3</span>;<br>    <span class="hljs-keyword">System</span>.<span class="hljs-keyword">out</span>.println(a == b); // <span class="hljs-keyword">false</span> 两个引用没有引用同一对象<br>    <span class="hljs-keyword">System</span>.<span class="hljs-keyword">out</span>.println(a == c); // <span class="hljs-keyword">true</span> a自动拆箱成<span class="hljs-type">int</span>类型再和c比较<br>    <span class="hljs-keyword">System</span>.<span class="hljs-keyword">out</span>.println(b == c); // <span class="hljs-keyword">true</span><br><br>    <span class="hljs-type">Integer</span> a1 = <span class="hljs-number">128</span>;<br>    <span class="hljs-type">Integer</span> b1 = <span class="hljs-number">128</span>;<br>    <span class="hljs-keyword">System</span>.<span class="hljs-keyword">out</span>.println(a1 == b1); // <span class="hljs-keyword">false</span><br><br>    <span class="hljs-type">Integer</span> a2 = <span class="hljs-number">127</span>;<br>    <span class="hljs-type">Integer</span> b2 = <span class="hljs-number">127</span>;<br>    <span class="hljs-keyword">System</span>.<span class="hljs-keyword">out</span>.println(a2 == b2); // <span class="hljs-keyword">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/java%E5%9F%BA%E7%A1%80/">java基础</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/API/">API</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E5%B8%B8%E7%94%A8/">常用</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/07/28/IO%E6%B5%81%E5%92%8C%E5%8F%8D%E5%B0%84/">
+                        <span class="hidden-mobile">IO流和反射</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
