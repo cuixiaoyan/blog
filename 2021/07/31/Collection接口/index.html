@@ -1,0 +1,688 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>Collection接口 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Collection接口">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-31 20:00" pubdate>
+        2021年7月31日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      34
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Collection接口</h1>
+            
+            <div class="markdown-body">
+              <h2 id="Collection接口"><a href="#Collection接口" class="headerlink" title="Collection接口"></a>Collection接口</h2><h3 id="List接口"><a href="#List接口" class="headerlink" title="List接口"></a>List接口</h3><h4 id="迭代器-Iterator-是什么？"><a href="#迭代器-Iterator-是什么？" class="headerlink" title="迭代器 Iterator 是什么？"></a>迭代器 Iterator 是什么？</h4><ul>
+<li>Iterator 接口提供遍历任何 Collection 的接口。我们可以从一个 Collection 中使用迭代器方法来获取迭代器实例。迭代器取代了 Java 集合框架中的 Enumeration，迭代器允许调用者在迭代过程中移除元素。</li>
+<li>因为所有Collection接继承了Iterator迭代器</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2020/4/13/17173551e6f6342b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" srcset="/blog/img/loading.gif" alt="在这里插入图片描述"></p>
+<h4 id="Iterator-怎么使用？有什么特点？"><a href="#Iterator-怎么使用？有什么特点？" class="headerlink" title="Iterator 怎么使用？有什么特点？"></a>Iterator 怎么使用？有什么特点？</h4><ul>
+<li><p>Iterator 使用代码如下：</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs livescript">List&lt;<span class="hljs-built_in">String</span>&gt; <span class="hljs-keyword">list</span> = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>Iterator&lt;<span class="hljs-built_in">String</span>&gt; <span class="hljs-literal">it</span> = <span class="hljs-keyword">list</span>. iterator();<br><span class="hljs-keyword">while</span>(<span class="hljs-literal">it</span>. hasNext())&#123;<br>  <span class="hljs-built_in">String</span> obj = <span class="hljs-literal">it</span>. next();<br>  System. out. println(obj);<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
+<li><p>Iterator 的特点是只能单向遍历，但是更加安全，因为它可以确保，在当前遍历的集合元素被更改的时候，就会抛出 ConcurrentModificationException 异常。</p>
+</li>
+</ul>
+<h4 id="如何边遍历边移除-Collection-中的元素？"><a href="#如何边遍历边移除-Collection-中的元素？" class="headerlink" title="如何边遍历边移除 Collection 中的元素？"></a>如何边遍历边移除 Collection 中的元素？</h4><ul>
+<li><p>边遍历边修改 Collection 的唯一正确方式是使用 Iterator.remove() 方法，如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-built_in">Iterator</span>&lt;<span class="hljs-keyword">Integer</span>&gt; it = <span class="hljs-keyword">list</span>.<span class="hljs-built_in">iterator</span>();<br><span class="hljs-keyword">while</span>(it.hasNext())&#123;<br>   *<span class="hljs-comment">// do something*</span><br>   it.remove();<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>一种最常见的<strong>错误</strong>代码如下：</p>
+</li>
+</ul>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">for</span>(Integer <span class="hljs-attribute">i </span>: list)&#123;<br>   <span class="hljs-selector-tag">list</span><span class="hljs-selector-class">.remove</span>(i)<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<ul>
+<li>运行以上错误代码会报 <strong>ConcurrentModificationException 异常</strong>。这是因为当使用 foreach(for(Integer i : list)) 语句时，会自动生成一个iterator 来遍历该 list，但同时该 list 正在被 Iterator.remove() 修改。Java 一般不允许一个线程在遍历 Collection 时另一个线程修改它。</li>
+</ul>
+<h4 id="Iterator-和-ListIterator-有什么区别？"><a href="#Iterator-和-ListIterator-有什么区别？" class="headerlink" title="Iterator 和 ListIterator 有什么区别？"></a>Iterator 和 ListIterator 有什么区别？</h4><ul>
+<li>Iterator 可以遍历 Set 和 List 集合，而 ListIterator 只能遍历 List。</li>
+<li>Iterator 只能单向遍历，而 ListIterator 可以双向遍历（向前/后遍历）。</li>
+<li>ListIterator 实现 Iterator 接口，然后添加了一些额外的功能，比如添加一个元素、替换一个元素、获取前面或后面元素的索引位置。</li>
+</ul>
+<h4 id="遍历一个-List-有哪些不同的方式？每种方法的实现原理是什么？Java-中-List-遍历的最佳实践是什么？"><a href="#遍历一个-List-有哪些不同的方式？每种方法的实现原理是什么？Java-中-List-遍历的最佳实践是什么？" class="headerlink" title="遍历一个 List 有哪些不同的方式？每种方法的实现原理是什么？Java 中 List 遍历的最佳实践是什么？"></a>遍历一个 List 有哪些不同的方式？每种方法的实现原理是什么？Java 中 List 遍历的最佳实践是什么？</h4><ul>
+<li>遍历方式有以下几种：<ol>
+<li>for 循环遍历，基于计数器。在集合外部维护一个计数器，然后依次读取每一个位置的元素，当读取到最后一个元素后停止。</li>
+<li>迭代器遍历，Iterator。Iterator 是面向对象的一个设计模式，目的是屏蔽不同数据集合的特点，统一遍历集合的接口。Java 在 Collections 中支持了 Iterator 模式。</li>
+<li>foreach 循环遍历。foreach 内部也是采用了 Iterator 的方式实现，使用时不需要显式声明 Iterator 或计数器。优点是代码简洁，不易出错；缺点是只能做简单的遍历，不能在遍历过程中操作数据集合，例如删除、替换。</li>
+</ol>
+</li>
+<li>最佳实践：Java Collections 框架中提供了一个 RandomAccess 接口，用来标记 List 实现是否支持 Random Access。<ul>
+<li>如果一个数据集合实现了该接口，就意味着它支持 Random Access，按位置读取元素的平均时间复杂度为 O(1)，如ArrayList。</li>
+<li>如果没有实现该接口，表示不支持 Random Access，如LinkedList。</li>
+<li>推荐的做法就是，支持 Random Access 的列表可用 for 循环遍历，否则建议用 Iterator 或 foreach 遍历。</li>
+</ul>
+</li>
+</ul>
+<h4 id="说一下-ArrayList-的优缺点"><a href="#说一下-ArrayList-的优缺点" class="headerlink" title="说一下 ArrayList 的优缺点"></a>说一下 ArrayList 的优缺点</h4><ul>
+<li>ArrayList的优点如下：<ul>
+<li>ArrayList 底层以数组实现，是一种随机访问模式。ArrayList 实现了 RandomAccess 接口，因此查找的时候非常快。</li>
+<li>ArrayList 在顺序添加一个元素的时候非常方便。</li>
+</ul>
+</li>
+<li>ArrayList 的缺点如下：<ul>
+<li>删除元素的时候，需要做一次元素复制操作。如果要复制的元素很多，那么就会比较耗费性能。</li>
+<li>插入元素的时候，也需要做一次元素复制操作，缺点同上。</li>
+</ul>
+</li>
+<li>ArrayList 比较适合顺序添加、随机访问的场景。</li>
+</ul>
+<h4 id="如何实现数组和-List-之间的转换？"><a href="#如何实现数组和-List-之间的转换？" class="headerlink" title="如何实现数组和 List 之间的转换？"></a>如何实现数组和 List 之间的转换？</h4><ul>
+<li><p>数组转 List：使用 Arrays. asList(array) 进行转换。</p>
+</li>
+<li><p>List 转数组：使用 List 自带的 toArray() 方法。</p>
+</li>
+<li><p>代码示例：</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs smali">// list to array<br>List&lt;String&gt; list =<span class="hljs-built_in"> new </span>ArrayList&lt;String&gt;();<br>list.add(<span class="hljs-string">&quot;123&quot;</span>);<br>list.add(<span class="hljs-string">&quot;456&quot;</span>);<br>list.toArray();<br><br>//<span class="hljs-built_in"> array </span>to list<br>String[]<span class="hljs-built_in"> array </span>=<span class="hljs-built_in"> new </span>String[]&#123;<span class="hljs-string">&quot;123&quot;</span>,<span class="hljs-string">&quot;456&quot;</span>&#125;;<br>Arrays.asList(array);<br><br></code></pre></td></tr></table></figure>
+<h4 id="ArrayList-和-LinkedList-的区别是什么？"><a href="#ArrayList-和-LinkedList-的区别是什么？" class="headerlink" title="ArrayList 和 LinkedList 的区别是什么？"></a>ArrayList 和 LinkedList 的区别是什么？</h4></li>
+<li><p>数据结构实现：ArrayList 是动态数组的数据结构实现，而 LinkedList 是双向链表的数据结构实现。</p>
+</li>
+<li><p>随机访问效率：ArrayList 比 LinkedList 在随机访问的时候效率要高，因为 LinkedList 是线性的数据存储方式，所以需要移动指针从前往后依次查找。</p>
+</li>
+<li><p>增加和删除效率：在非首尾的增加和删除操作，LinkedList 要比 ArrayList 效率要高，因为 ArrayList 增删操作要影响数组内的其他数据的下标。</p>
+</li>
+<li><p>内存空间占用：LinkedList 比 ArrayList 更占内存，因为 LinkedList 的节点除了存储数据，还存储了两个引用，一个指向前一个元素，一个指向后一个元素。</p>
+</li>
+<li><p>线程安全：ArrayList 和 LinkedList 都是不同步的，也就是不保证线程安全；</p>
+</li>
+<li><p>综合来说，在需要频繁读取集合中的元素时，更推荐使用 ArrayList，而在插入和删除操作较多时，更推荐使用 LinkedList。</p>
+</li>
+<li><p>LinkedList 的双向链表也叫双链表，是链表的一种，它的每个数据结点中都有两个指针，分别指向直接后继和直接前驱。所以，从双向链表中的任意一个结点开始，都可以很方便地访问它的前驱结点和后继结点。</p>
+</li>
+</ul>
+<h4 id="ArrayList-和-Vector-的区别是什么？"><a href="#ArrayList-和-Vector-的区别是什么？" class="headerlink" title="ArrayList 和 Vector 的区别是什么？"></a>ArrayList 和 Vector 的区别是什么？</h4><ul>
+<li>这两个类都实现了 List 接口（List 接口继承了 Collection 接口），他们都是有序集合<ul>
+<li>线程安全：Vector 使用了 Synchronized 来实现线程同步，是线程安全的，而 ArrayList 是非线程安全的。</li>
+<li>性能：ArrayList 在性能方面要优于 Vector。</li>
+<li>扩容：ArrayList 和 Vector 都会根据实际的需要动态的调整容量，只不过在 Vector 扩容每次会增加 1 倍，而 ArrayList 只会增加 50%。</li>
+</ul>
+</li>
+<li>Vector类的所有方法都是同步的。可以由两个线程安全地访问一个Vector对象、但是一个线程访问Vector的话代码要在同步操作上耗费大量的时间。</li>
+<li>Arraylist不是同步的，所以在不需要保证线程安全时时建议使用Arraylist。</li>
+</ul>
+<h4 id="插入数据时，ArrayList、LinkedList、Vector谁速度较快？阐述-ArrayList、Vector、LinkedList-的存储性能和特性？"><a href="#插入数据时，ArrayList、LinkedList、Vector谁速度较快？阐述-ArrayList、Vector、LinkedList-的存储性能和特性？" class="headerlink" title="插入数据时，ArrayList、LinkedList、Vector谁速度较快？阐述 ArrayList、Vector、LinkedList 的存储性能和特性？"></a>插入数据时，ArrayList、LinkedList、Vector谁速度较快？阐述 ArrayList、Vector、LinkedList 的存储性能和特性？</h4><ul>
+<li>ArrayList和Vector 底层的实现都是使用数组方式存储数据。数组元素数大于实际存储的数据以便增加和插入元素，它们都允许直接按序号索引元素，但是插入元素要涉及数组元素移动等内存操作，所以索引数据快而插入数据慢。</li>
+<li>Vector 中的方法由于加了 synchronized 修饰，因此 <strong>Vector</strong> <strong>是线程安全容器，但性能上较ArrayList差</strong>。</li>
+<li>LinkedList 使用双向链表实现存储，按序号索引数据需要进行前向或后向遍历，但插入数据时只需要记录当前项的前后项即可，所以 <strong>LinkedList</strong> <strong>插入速度较快</strong>。</li>
+</ul>
+<h4 id="多线程场景下如何使用-ArrayList？"><a href="#多线程场景下如何使用-ArrayList？" class="headerlink" title="多线程场景下如何使用 ArrayList？"></a>多线程场景下如何使用 ArrayList？</h4><ul>
+<li><p>ArrayList 不是线程安全的，如果遇到多线程场景，可以通过 Collections 的 synchronizedList 方法将其转换成线程安全的容器后再使用。例如像下面这样：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs processing">List&lt;<span class="hljs-keyword">String</span>&gt; synchronizedList = Collections.synchronizedList(list);<br>synchronizedList.<span class="hljs-built_in">add</span>(<span class="hljs-string">&quot;aaa&quot;</span>);<br>synchronizedList.<span class="hljs-built_in">add</span>(<span class="hljs-string">&quot;bbb&quot;</span>);<br><br><span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; synchronizedList.<span class="hljs-built_in">size</span>(); i++) &#123;<br>    System.out.<span class="hljs-built_in">println</span>(synchronizedList.<span class="hljs-built_in">get</span>(i));<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h4 id="为什么-ArrayList-的-elementData-加上-transient-修饰？"><a href="#为什么-ArrayList-的-elementData-加上-transient-修饰？" class="headerlink" title="为什么 ArrayList 的 elementData 加上 transient 修饰？"></a>为什么 ArrayList 的 elementData 加上 transient 修饰？</h4></li>
+<li><p>ArrayList 中的数组定义如下：</p>
+<p>private transient Object[] elementData;</p>
+</li>
+<li><p>再看一下 ArrayList 的定义：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scala">public <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArrayList&lt;E&gt;</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractList&lt;E&gt;</span></span><br><span class="hljs-class">     <span class="hljs-title">implements</span> <span class="hljs-title">List&lt;E&gt;</span>, <span class="hljs-title">RandomAccess</span>, <span class="hljs-title">Cloneable</span>, <span class="hljs-title">java</span>.<span class="hljs-title">io</span>.<span class="hljs-title">Serializable</span></span><br><span class="hljs-class"></span><br></code></pre></td></tr></table></figure></li>
+<li><p>可以看到 ArrayList 实现了 Serializable 接口，这意味着 ArrayList 支持序列化。transient 的作用是说不希望 elementData 数组被序列化，重写了 writeObject 实现：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">private</span> void write<span class="hljs-constructor">Object(<span class="hljs-params">java</span>.<span class="hljs-params">io</span>.ObjectOutputStream <span class="hljs-params">s</span>)</span> throws java.io.IOException&#123;<br>    *<span class="hljs-comment">// Write out element count, and any hidden stuff*</span><br>        <span class="hljs-built_in">int</span> expectedModCount = modCount;<br>    s.default<span class="hljs-constructor">WriteObject()</span>;<br>    *<span class="hljs-comment">// Write out array length*</span><br>        s.write<span class="hljs-constructor">Int(<span class="hljs-params">elementData</span>.<span class="hljs-params">length</span>)</span>;<br>    *<span class="hljs-comment">// Write out all elements in the proper order.*</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i=<span class="hljs-number">0</span>; i&lt;size; i++)<br>            s.write<span class="hljs-constructor">Object(<span class="hljs-params">elementData</span>[<span class="hljs-params">i</span>])</span>;<br>    <span class="hljs-keyword">if</span> (modCount != expectedModCount) &#123;<br>        throw <span class="hljs-keyword">new</span> <span class="hljs-constructor">ConcurrentModificationException()</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
+<li><p>每次序列化时，先调用 defaultWriteObject() 方法序列化 ArrayList 中的非 transient 元素，然后遍历 elementData，只序列化已存入的元素，这样既加快了序列化的速度，又减小了序列化之后的文件大小。</p>
+</li>
+</ul>
+<h4 id="List-和-Set-的区别"><a href="#List-和-Set-的区别" class="headerlink" title="List 和 Set 的区别"></a>List 和 Set 的区别</h4><ul>
+<li>List , Set 都是继承自Collection 接口</li>
+<li>List 特点：一个有序（元素存入集合的顺序和取出的顺序一致）容器，元素可以重复，可以插入多个null元素，元素都有索引。常用的实现类有 ArrayList、LinkedList 和 Vector。</li>
+<li>Set 特点：一个无序（存入和取出顺序有可能不一致）容器，不可以存储重复元素，只允许存入一个null元素，必须保证元素唯一性。Set 接口常用实现类是 HashSet、LinkedHashSet 以及 TreeSet。</li>
+<li>另外 List 支持for循环，也就是通过下标来遍历，也可以用迭代器，但是set只能用迭代，因为他无序，无法用下标来取得想要的值。</li>
+<li>Set和List对比<ul>
+<li>Set：检索元素效率低下，删除和插入效率高，插入和删除不会引起元素位置改变。</li>
+<li>List：和数组类似，List可以动态增长，查找元素效率高，插入删除元素效率低，因为会引起其他元素位置改变</li>
+</ul>
+</li>
+</ul>
+<h3 id="Set接口"><a href="#Set接口" class="headerlink" title="Set接口"></a>Set接口</h3><h4 id="说一下-HashSet-的实现原理？"><a href="#说一下-HashSet-的实现原理？" class="headerlink" title="说一下 HashSet 的实现原理？"></a>说一下 HashSet 的实现原理？</h4><ul>
+<li>HashSet 是基于 HashMap 实现的，HashSet的值存放于HashMap的key上，HashMap的value统一为present，因此 HashSet 的实现比较简单，相关 HashSet 的操作，基本上都是直接调用底层 HashMap 的相关方法来完成，HashSet 不允许重复的值。</li>
+</ul>
+<h4 id="HashSet如何检查重复？HashSet是如何保证数据不可重复的？"><a href="#HashSet如何检查重复？HashSet是如何保证数据不可重复的？" class="headerlink" title="HashSet如何检查重复？HashSet是如何保证数据不可重复的？"></a>HashSet如何检查重复？HashSet是如何保证数据不可重复的？</h4><ul>
+<li><p>向HashSet 中add ()元素时，判断元素是否存在的依据，不仅要比较hash值，同时还要结合equles 方法比较。</p>
+</li>
+<li><p>HashSet 中的add ()方法会使用HashMap 的put()方法。</p>
+</li>
+<li><p>HashMap 的 key 是唯一的，由源码可以看出 HashSet 添加进去的值就是作为HashMap 的key，并且在HashMap中如果K/V相同时，会用新的V覆盖掉旧的V，然后返回旧的V。所以不会重复（ HashMap 比较key是否相等是先比较hashcode 再比较equals ）。</p>
+</li>
+<li><p>以下是HashSet 部分源码：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs processing"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">Object</span> PRESENT = <span class="hljs-keyword">new</span> <span class="hljs-keyword">Object</span>();<br><span class="hljs-keyword">private</span> <span class="hljs-keyword">transient</span> <span class="hljs-keyword">HashMap</span>&lt;E,<span class="hljs-keyword">Object</span>&gt; <span class="hljs-built_in">map</span>;<br><br><span class="hljs-keyword">public</span> HashSet() &#123;<br>    <span class="hljs-built_in">map</span> = <span class="hljs-keyword">new</span> <span class="hljs-keyword">HashMap</span>&lt;&gt;();<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-built_in">boolean</span> <span class="hljs-built_in">add</span>(E e) &#123;<br>    <span class="hljs-comment">// 调用HashMap的put方法,PRESENT是一个至始至终都相同的虚值</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">map</span>.put(e, PRESENT)==<span class="hljs-keyword">null</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>hashCode（）与equals（）的相关规定</strong>：</p>
+<ol>
+<li>如果两个对象相等，则hashcode一定也是相同的<ul>
+<li>hashCode是jdk根据对象的地址或者字符串或者数字算出来的int类型的数值</li>
+</ul>
+</li>
+<li>两个对象相等,对两个equals方法返回true</li>
+<li>两个对象有相同的hashcode值，它们也不一定是相等的</li>
+<li>综上，equals方法被覆盖过，则hashCode方法也必须被覆盖</li>
+<li>hashCode()的默认行为是对堆上的对象产生独特值。如果没有重写hashCode()，则该class的两个对象无论如何都不会相等（即使这两个对象指向相同的数据）。</li>
+</ol>
+<p><strong>==与equals的区别</strong></p>
+<ol>
+<li>==是判断两个变量或实例是不是指向同一个内存空间  equals是判断两个变量或实例所指向的内存空间的值是不是相同</li>
+<li>==是指对内存地址进行比较 equals()是对字符串的内容进行比较</li>
+</ol>
+<h4 id="HashSet与HashMap的区别"><a href="#HashSet与HashMap的区别" class="headerlink" title="HashSet与HashMap的区别"></a>HashSet与HashMap的区别</h4><blockquote>
+<table>
+<thead>
+<tr>
+<th>HashMap</th>
+<th>HashSet</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实现了Map接口</td>
+<td>实现Set接口</td>
+</tr>
+<tr>
+<td>存储键值对</td>
+<td>仅存储对象</td>
+</tr>
+<tr>
+<td>调用put（）向map中添加元素</td>
+<td>调用add（）方法向Set中添加元素</td>
+</tr>
+<tr>
+<td>HashMap使用键（Key）计算Hashcode</td>
+<td>HashSet使用成员对象来计算hashcode值，对于两个对象来说hashcode可能相同，所以equals()方法用来判断对象的相等性，如果两个对象不同的话，那么返回false</td>
+</tr>
+<tr>
+<td>HashMap相对于HashSet较快，因为它是使用唯一的键获取对象</td>
+<td>HashSet较HashMap来说比较慢</td>
+</tr>
+</tbody></table>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/java%E9%9B%86%E5%90%88/">java集合</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/Collection/">Collection</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E9%9B%86%E5%90%88/">集合</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2021/08/01/%E5%89%AF%E6%9C%AC/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/07/29/%E5%B8%B8%E7%94%A8API/">
+                        <span class="hidden-mobile">Java常用API</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
