@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>辅助工具类</title>
+    <link href="/blog/2021/08/04/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
+    <url>/blog/2021/08/04/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7%E7%B1%BB/</url>
+    
+    <content type="html"><![CDATA[<h2 id="辅助工具类"><a href="#辅助工具类" class="headerlink" title="辅助工具类"></a>辅助工具类</h2><h3 id="Array-和-ArrayList-有何区别？"><a href="#Array-和-ArrayList-有何区别？" class="headerlink" title="Array 和 ArrayList 有何区别？"></a>Array 和 ArrayList 有何区别？</h3><ul><li>Array 可以存储基本数据类型和对象，ArrayList 只能存储对象。</li><li>Array 是指定固定大小的，而 ArrayList 大小是自动扩展的。</li><li>Array 内置方法没有 ArrayList 多，比如 addAll、removeAll、iteration 等方法只有 ArrayList 有。</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">对于基本类型数据，集合使用自动装箱来减少编码工作量。但是，当处理固定大小的基本数据类型的时候，这种方式相对比较慢。<br></code></pre></td></tr></table></figure><h3 id="如何实现-Array-和-List-之间的转换？"><a href="#如何实现-Array-和-List-之间的转换？" class="headerlink" title="如何实现 Array 和 List 之间的转换？"></a>如何实现 Array 和 List 之间的转换？</h3><ul><li>Array 转 List： Arrays. asList(array) ；</li><li>List 转 Array：List 的 toArray() 方法。</li></ul><h3 id="comparable-和-comparator的区别？"><a href="#comparable-和-comparator的区别？" class="headerlink" title="comparable 和 comparator的区别？"></a>comparable 和 comparator的区别？</h3><ul><li><p>comparable接口实际上是出自java.lang包，它有一个 compareTo(Object obj)方法用来排序</p></li><li><p>comparator接口实际上是出自 java.util 包，它有一个compare(Object obj1, Object obj2)方法用来排序</p></li><li><p>一般我们需要对一个集合使用自定义排序时，我们就要重写compareTo方法或compare方法，当我们需要对某一个集合实现两种排序方式，比如一个song对象中的歌名和歌手名分别采用一种排序方法的话，我们可以重写compareTo方法和使用自制的Comparator方法或者以两个Comparator来实现歌名排序和歌星名排序，第二种代表我们只能使用两个参数版的Collections.sort().</p></li></ul><h3 id="Collection-和-Collections-有什么区别？"><a href="#Collection-和-Collections-有什么区别？" class="headerlink" title="Collection 和 Collections 有什么区别？"></a>Collection 和 Collections 有什么区别？</h3><ul><li>java.util.Collection 是一个集合接口（集合类的一个顶级接口）。它提供了对集合对象进行基本操作的通用接口方法。Collection接口在Java 类库中有很多具体的实现。Collection接口的意义是为各种具体的集合提供了最大化的统一操作方式，其直接继承接口有List与Set。</li><li>Collections则是集合类的一个工具类/帮助类，其中提供了一系列静态方法，用于对集合中元素进行排序、搜索以及线程安全等各种操作。</li></ul><h3 id="TreeMap-和-TreeSet-在排序时如何比较元素？Collections-工具类中的-sort-方法如何比较元素？"><a href="#TreeMap-和-TreeSet-在排序时如何比较元素？Collections-工具类中的-sort-方法如何比较元素？" class="headerlink" title="TreeMap 和 TreeSet 在排序时如何比较元素？Collections 工具类中的 sort()方法如何比较元素？"></a>TreeMap 和 TreeSet 在排序时如何比较元素？Collections 工具类中的 sort()方法如何比较元素？</h3><ul><li>TreeSet 要求存放的对象所属的类必须实现 Comparable 接口，该接口提供了比较元素的 compareTo()方法，当插入元素时会回调该方法比较元素的大小。TreeMap 要求存放的键值对映射的键必须实现 Comparable 接口从而根据键对元素进 行排 序。</li><li>Collections 工具类的 sort 方法有两种重载的形式，</li><li>第一种要求传入的待排序容器中存放的对象比较实现 Comparable 接口以实现元素的比较；</li></ul><p>？</p><ul><li><p>comparable接口实际上是出自java.lang包，它有一个 compareTo(Object obj)方法用来排序</p></li><li><p>comparator接口实际上是出自 java.util 包，它有一个compare(Object obj1, Object obj2)方法用来排序</p></li><li><p>一般我们需要对一个集合使用自定义排序时，我们就要重写compareTo方法或compare方法，当我们需要对某一个集合实现两种排序方式，比如一个song对象中的歌名和歌手名分别采用一种排序方法的话，我们可以重写compareTo方法和使用自制的Comparator方法或者以两个Comparator来实现歌名排序和歌星名排序，第二种代表我们只能使用两个参数版的Collections.sort().</p></li></ul><h3 id="Collection-和-Collections-有什么区别？-1"><a href="#Collection-和-Collections-有什么区别？-1" class="headerlink" title="Collection 和 Collections 有什么区别？"></a>Collection 和 Collections 有什么区别？</h3><ul><li>java.util.Collection 是一个集合接口（集合类的一个顶级接口）。它提供了对集合对象进行基本操作的通用接口方法。Collection接口在Java 类库中有很多具体的实现。Collection接口的意义是为各种具体的集合提供了最大化的统一操作方式，其直接继承接口有List与Set。</li><li>Collections则是集合类的一个工具类/帮助类，其中提供了一系列静态方法，用于对集合中元素进行排序、搜索以及线程安全等各种操作。</li></ul><h3 id="TreeMap-和-TreeSet-在排序时如何比较元素？Collections-工具类中的-sort-方法如何比较元素？-1"><a href="#TreeMap-和-TreeSet-在排序时如何比较元素？Collections-工具类中的-sort-方法如何比较元素？-1" class="headerlink" title="TreeMap 和 TreeSet 在排序时如何比较元素？Collections 工具类中的 sort()方法如何比较元素？"></a>TreeMap 和 TreeSet 在排序时如何比较元素？Collections 工具类中的 sort()方法如何比较元素？</h3><ul><li>TreeSet 要求存放的对象所属的类必须实现 Comparable 接口，该接口提供了比较元素的 compareTo()方法，当插入元素时会回调该方法比较元素的大小。TreeMap 要求存放的键值对映射的键必须实现 Comparable 接口从而根据键对元素进 行排 序。</li><li>Collections 工具类的 sort 方法有两种重载的形式，</li><li>第一种要求传入的待排序容器中存放的对象比较实现 Comparable 接口以实现元素的比较；</li><li>第二种不强制性的要求容器中的元素必须可比较，但是要求传入第二个参数，参数是Comparator 接口的子类型（需要重写 compare 方法实现元素的比较），相当于一个临时定义的排序规则，其实就是通过接口注入比较元素大小的算法，也是对回调模式的应用（Java 中对函数式编程的支持）。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>java集合</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>集合</tag>
+      
+      <tag>辅助</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>集合容器概述</title>
     <link href="/blog/2021/08/01/%E9%9B%86%E5%90%88%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/"/>
     <url>/blog/2021/08/01/%E9%9B%86%E5%90%88%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/</url>
