@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>IO概念</title>
+    <link href="/blog/2021/08/08/IO%E6%A6%82%E5%BF%B5/"/>
+    <url>/blog/2021/08/08/IO%E6%A6%82%E5%BF%B5/</url>
+    
+    <content type="html"><![CDATA[<h4 id="什么是比特-Bit-什么是字节-Byte-什么是字符-Char-它们长度是多少-各有什么区别"><a href="#什么是比特-Bit-什么是字节-Byte-什么是字符-Char-它们长度是多少-各有什么区别" class="headerlink" title="什么是比特(Bit),什么是字节(Byte),什么是字符(Char),它们长度是多少,各有什么区别"></a>什么是比特(Bit),什么是字节(Byte),什么是字符(Char),它们长度是多少,各有什么区别</h4><ul><li>Bit最小的二进制单位 ，是计算机的操作部分取值0或者1</li><li>Byte是计算机中存储数据的单元，是一个8位的二进制数，（计算机内部，一个字节可表示一个英文字母，两个字节可表示一个汉字。） <code>取值（-128-127）</code></li><li>Char是用户的可读写的最小单位，他只是抽象意义上的一个符号。如‘5’，‘中’，‘￥’ 等等等等。在java里面由16位bit组成Char 取值<code>（0-65535）</code></li><li>Bit 是最小单位 计算机他只能认识0或者1</li><li>Byte是8个字节  是给计算机看的</li><li>字符 是看到的东西  一个字符=二个字节</li></ul><h4 id="什么叫对象序列化，什么是反序列化，实现对象序列化需要做哪些工作"><a href="#什么叫对象序列化，什么是反序列化，实现对象序列化需要做哪些工作" class="headerlink" title="什么叫对象序列化，什么是反序列化，实现对象序列化需要做哪些工作"></a>什么叫对象序列化，什么是反序列化，实现对象序列化需要做哪些工作</h4><ul><li>对象序列化，将对象以二进制的形式保存在硬盘上</li><li>反序列化；将二进制的文件转化为对象读取</li><li>实现serializable接口，不想让字段放在硬盘上就加transient</li></ul><h4 id="在实现序列化接口是时候一般要生成一个serialVersionUID字段-它叫做什么-一般有什么用"><a href="#在实现序列化接口是时候一般要生成一个serialVersionUID字段-它叫做什么-一般有什么用" class="headerlink" title="在实现序列化接口是时候一般要生成一个serialVersionUID字段,它叫做什么,一般有什么用"></a>在实现序列化接口是时候一般要生成一个serialVersionUID字段,它叫做什么,一般有什么用</h4><ul><li>如果用户没有自己声明一个serialVersionUID,接口会默认生成一个serialVersionUID</li><li>但是强烈建议用户自定义一个serialVersionUID,因为默认的serialVersinUID对于class的细节非常敏感，反序列化时可能会导致InvalidClassException这个异常。</li><li>（比如说先进行序列化，然后在反序列化之前修改了类，那么就会报错。因为修改了类，对应的SerialversionUID也变化了，而序列化和反序列化就是通过对比其SerialversionUID来进行的，一旦SerialversionUID不匹配，反序列化就无法成功。</li></ul><h4 id="怎么生成SerialversionUID"><a href="#怎么生成SerialversionUID" class="headerlink" title="怎么生成SerialversionUID"></a>怎么生成SerialversionUID</h4><ul><li>可序列化类可以通过声明名为 “serialVersionUID” 的字段（该字段<strong>必须是静态 (static)、最终 (final) 的 long 型字段</strong>）显式声明其自己的 serialVersionUID</li><li>两种显示的生成方式（当你一个类实现了Serializable接口，如果没有显示的定义serialVersionUID，Eclipse会提供这个提示功能告诉你去定义 。在Eclipse中点击类中warning的图标一下，Eclipse就会自动给定两种生成的方式。</li></ul><h4 id="BufferedReader属于哪种流-它主要是用来做什么的-它里面有那些经典的方法"><a href="#BufferedReader属于哪种流-它主要是用来做什么的-它里面有那些经典的方法" class="headerlink" title="BufferedReader属于哪种流,它主要是用来做什么的,它里面有那些经典的方法"></a>BufferedReader属于哪种流,它主要是用来做什么的,它里面有那些经典的方法</h4><ul><li>属于处理流中的缓冲流，可以将读取的内容存在内存里面，有readLine（）方法</li></ul><h4 id="Java中流类的超类主要有那些？"><a href="#Java中流类的超类主要有那些？" class="headerlink" title="Java中流类的超类主要有那些？"></a>Java中流类的超类主要有那些？</h4><ul><li>超类代表顶端的父类（都是抽象类）</li><li>java.io.InputStream</li><li>java.io.OutputStream</li><li>java.io.Reader</li><li>java.io.Writer</li></ul><h4 id="为什么图片、视频、音乐、文件等-都是要字节流来读取"><a href="#为什么图片、视频、音乐、文件等-都是要字节流来读取" class="headerlink" title="为什么图片、视频、音乐、文件等 都是要字节流来读取"></a>为什么图片、视频、音乐、文件等 都是要字节流来读取</h4><ul><li>这个很基础，你看看你电脑文件的属性就好了，CPU规定了计算机存储文件都是按字节算的</li></ul><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/17172a2bae24bd8b~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p><h4 id="IO的常用类和方法，以及如何使用"><a href="#IO的常用类和方法，以及如何使用" class="headerlink" title="IO的常用类和方法，以及如何使用"></a>IO的常用类和方法，以及如何使用</h4><p><a href="#Mark">注意，如果懂IO的普通文件读写操作可以直接点击此处跳过，直接看网络操作IO编程，那个才是重点，点击即会跳转</a></p><p>前面讲了那么多废话，现在我们开始进入主题，后面很长，从开始的文件操作到后面的<strong>网络IO操作</strong>都会有例子：</p><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/17172a2bb4bd288c~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p><p><a href="#Mark">注意，如果懂IO的普通文件读写操作可以直接点击此处跳过，直接看网络操作IO编程，那个才是重点，点击即会跳转</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>JavaIO</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>五种IO模型</title>
     <link href="/blog/2021/08/07/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/"/>
     <url>/blog/2021/08/07/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/</url>
