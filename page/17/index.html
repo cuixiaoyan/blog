@@ -186,49 +186,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/03/23/%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/">函数式接口(Functional Interfaces)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/23/%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/">
-          
-          
-            
-          
-          Java 语言设计者们投入了大量精力来思考如何使现有的函数友好地支持Lambda。最终采取的方法是：增加函数式接口的概念。“函数式接口”是指仅仅只包含一个抽象方法,但是可以有多个非抽象方法(也就是上面提到的默认方法)的接口。 像这样的接口，可以被隐式转换为lambda表达式。java.lang.Runnable 与 java.util.concurrent.Callable 是函数式接口最典型的两
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-23 20:10" pubdate>
-              2021-03-23
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/java/">java</a>
-            
-              <a href="/blog/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/">函数式接口</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
         <a href="/blog/2021/03/23/Java8Tutorial/">Java8Tutorial</a>
       </h1>
 
@@ -376,6 +333,50 @@ JDK 1.5 以后的 AtomicStampedReference 类就提供了此种能力，其中的
               <a href="/blog/tags/Java/">Java</a>
             
               <a href="/blog/tags/%E4%B9%90%E8%A7%82%E9%94%81/">乐观锁</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/03/21/%E4%BD%95%E8%B0%93%E6%82%B2%E8%A7%82%E9%94%81%E4%B8%8E%E4%B9%90%E8%A7%82%E9%94%81/">何谓悲观锁与乐观锁</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/21/%E4%BD%95%E8%B0%93%E6%82%B2%E8%A7%82%E9%94%81%E4%B8%8E%E4%B9%90%E8%A7%82%E9%94%81/">
+          
+          
+            
+          
+          乐观锁对应于生活中乐观的人总是想着事情往好的方向发展，悲观锁对应于生活中悲观的人总是想着事情往坏的方向发展。这两种人各有优缺点，不能不以场景而定说一种人好于另外一种人。
+悲观锁总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻塞直到它拿到锁（共享资源每次只给一个线程使用，其它线程阻塞，用完后再把资源转让给其它线程）。传统的关系型数据库
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-21 16:10" pubdate>
+              2021-03-21
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E4%B9%90%E8%A7%82%E9%94%81/">乐观锁</a>
+            
+              <a href="/blog/tags/%E6%82%B2%E8%A7%82%E9%94%81/">悲观锁</a>
             
           </div>
         

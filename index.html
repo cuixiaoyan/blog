@@ -186,63 +186,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/08/14/%E7%BD%91%E7%BB%9C%E6%93%8D%E4%BD%9CIO%E8%AE%B2%E8%A7%A3/">网络操作IO讲解</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/08/14/%E7%BD%91%E7%BB%9C%E6%93%8D%E4%BD%9CIO%E8%AE%B2%E8%A7%A3/">
-          
-          
-            
-          
-          网络操作IO讲解
-我这使用Socket简单的来模拟网络编程IO会带来的问题
-不懂Socket可以看我之前的文章，这个东西很容易懂的，就是基于TCP实现的网络通信，比http要快，很多实现网络通信的框架都是基于Socket来实现 
-
-网络操作IO编程演变历史1 BIO编程会出现什么问题？
-BIO是阻塞的
-
-例子： 阻塞IO（blocking I/O） A拿着一支鱼竿在河边钓鱼，并且一直在鱼竿前等，在
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-14 20:00" pubdate>
-              2021-08-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/JavaIO/">JavaIO</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/IO/">IO</a>
-            
-              <a href="/blog/tags/%E7%BD%91%E7%BB%9C%E6%93%8D%E4%BD%9C/">网络操作</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
         <a href="/blog/2021/08/13/IO%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E8%AE%B2%E8%A7%A3/">IO基本操作讲解</a>
       </h1>
 
@@ -425,6 +368,67 @@ Char是用户的可读写的最小单位，他只是抽象意义上的一个符�
             
           </div>
         
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/08/07/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/">五种IO模型</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/08/07/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/">
+          
+          
+            
+          
+          五种IO模型
+注意：我这里的用户空间就是应用程序空间
+
+1.阻塞BIO（blocking I/O）
+A拿着一支鱼竿在河边钓鱼，并且一直在鱼竿前等，在等的时候不做其他的事情，十分专心。只有鱼上钩的时，才结束掉等的动作，把鱼钓上来。
+
+在内核将数据准备好之前，系统调用会一直等待所有的套接字，默认的是阻塞方式。
+
+
+
+2.非阻塞NIO（noblocking I/O）
+B也在河边钓鱼，但是B不想将自己的所
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-07 20:00" pubdate>
+              2021-08-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/JavaIO/">JavaIO</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E5%B8%B8%E7%94%A8/">常用</a>
+            
+              <a href="/blog/tags/IO%E6%A8%A1%E5%9E%8B/">IO模型</a>
+            
+          </div>
         
       </div>
     </article>
