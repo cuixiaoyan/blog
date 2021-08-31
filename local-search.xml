@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>线程的sleep()方法和yield()</title>
+    <link href="/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84%20sleep()%E6%96%B9%E6%B3%95%E5%92%8C%20yield/"/>
+    <url>/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84%20sleep()%E6%96%B9%E6%B3%95%E5%92%8C%20yield/</url>
+    
+    <content type="html"><![CDATA[<h4 id="线程的-sleep-方法和-yield-方法有什么区别？"><a href="#线程的-sleep-方法和-yield-方法有什么区别？" class="headerlink" title="线程的 sleep()方法和 yield()方法有什么区别？"></a>线程的 sleep()方法和 yield()方法有什么区别？</h4><ul><li>（1） sleep()方法给其他线程运行机会时不考虑线程的优先级，因此会给低优先级的线程以运行的机会；yield()方法只会给相同优先级或更高优先级的线程以运行的机会；</li><li>（2） 线程执行 sleep()方法后转入阻塞（blocked）状态，而执行 yield()方法后转入就绪（ready）状态；</li><li>（3）sleep()方法声明抛出 InterruptedException，而 yield()方法没有声明任何异常；</li><li>（4）sleep()方法比 yield()方法（跟操作系统 CPU 调度相关）具有更好的可移植性，通常不建议使用yield()方法来控制并发线程的执行。</li></ul><h4 id="如何停止一个正在运行的线程？"><a href="#如何停止一个正在运行的线程？" class="headerlink" title="如何停止一个正在运行的线程？"></a>如何停止一个正在运行的线程？</h4><ul><li>在java中有以下3种方法可以终止正在运行的线程：<ul><li>使用退出标志，使线程正常退出，也就是当run方法完成后线程终止。</li><li>使用stop方法强行终止，但是不推荐这个方法，因为stop和suspend及resume一样都是过期作废的方法。</li><li>使用interrupt方法中断线程。</li></ul></li></ul><h4 id="Java-中-interrupted-和-isInterrupted-方法的区别？"><a href="#Java-中-interrupted-和-isInterrupted-方法的区别？" class="headerlink" title="Java 中 interrupted 和 isInterrupted 方法的区别？"></a>Java 中 interrupted 和 isInterrupted 方法的区别？</h4><ul><li><p>interrupt：用于中断线程。调用该方法的线程的状态为将被置为”中断”状态。</p><p>注意：线程中断仅仅是置线程的中断状态位，不会停止线程。需要用户自己去监视线程的状态为并做处理。支持线程中断的方法（也就是线程中断后会抛出interruptedException 的方法）就是在监视线程的中断状态，一旦线程的中断状态被置为“中断状态”，就会抛出中断异常。</p></li><li><p>interrupted：是静态方法，查看当前中断信号是true还是false并且清除中断信号。如果一个线程被中断了，第一次调用 interrupted 则返回 true，第二次和后面的就返回 false 了。</p></li><li><p>isInterrupted：是可以返回当前中断信号是true还是false，与interrupt最大的差别</p></li></ul><h4 id="什么是阻塞式方法？"><a href="#什么是阻塞式方法？" class="headerlink" title="什么是阻塞式方法？"></a>什么是阻塞式方法？</h4><ul><li>阻塞式方法是指程序会一直等待该方法完成期间不做其他事情，ServerSocket 的accept()方法就是一直等待客户端连接。这里的阻塞是指调用结果返回之前，当前线程会被挂起，直到得到结果之后才会返回。此外，还有异步和非阻塞式方法在任务完成前就返回。</li></ul><h4 id="Java-中你怎样唤醒一个阻塞的线程？"><a href="#Java-中你怎样唤醒一个阻塞的线程？" class="headerlink" title="Java 中你怎样唤醒一个阻塞的线程？"></a>Java 中你怎样唤醒一个阻塞的线程？</h4><ul><li>首先 ，wait()、notify() 方法是针对对象的，调用任意对象的 wait()方法都将导致线程阻塞，阻塞的同时也将释放该对象的锁，相应地，调用任意对象的 notify()方法则将随机解除该对象阻塞的线程，但它需要重新获取该对象的锁，直到获取成功才能往下执行；</li><li>其次，wait、notify 方法必须在 synchronized 块或方法中被调用，并且要保证同步块或方法的锁对象与调用 wait、notify 方法的对象是同一个，如此一来在调用 wait 之前当前线程就已经成功获取某对象的锁，执行 wait 阻塞后当前线程就将之前获取的对象锁释放。</li></ul><h4 id="notify-和-notifyAll-有什么区别？"><a href="#notify-和-notifyAll-有什么区别？" class="headerlink" title="notify() 和 notifyAll() 有什么区别？"></a>notify() 和 notifyAll() 有什么区别？</h4><ul><li>如果线程调用了对象的 wait()方法，那么线程便会处于该对象的等待池中，等待池中的线程不会去竞争该对象的锁。</li><li>notifyAll() 会唤醒所有的线程，notify() 只会唤醒一个线程。</li><li>notifyAll() 调用后，会将全部线程由等待池移到锁池，然后参与锁的竞争，竞争成功则继续执行，如果不成功则留在锁池等待锁被释放后再次参与竞争。而 notify()只会唤醒一个线程，具体唤醒哪一个线程由虚拟机控制。</li></ul><h4 id="如何在两个线程间共享数据？"><a href="#如何在两个线程间共享数据？" class="headerlink" title="如何在两个线程间共享数据？"></a>如何在两个线程间共享数据？</h4><ul><li>在两个线程间共享变量即可实现共享。</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">一般来说，共享变量要求变量本身是线程安全的，然后在线程内使用的时候，如果有对共享变量的复合操作，那么也得保证复合操作的线程安全性。<br></code></pre></td></tr></table></figure><h4 id="Java-如何实现多线程之间的通讯和协作？"><a href="#Java-如何实现多线程之间的通讯和协作？" class="headerlink" title="Java 如何实现多线程之间的通讯和协作？"></a>Java 如何实现多线程之间的通讯和协作？</h4><ul><li>可以通过中断 和 共享变量的方式实现线程间的通讯和协作</li><li>比如说最经典的生产者-消费者模型：当队列满时，生产者需要等待队列有空间才能继续往里面放入商品，而在等待的期间内，生产者必须释放对临界资源（即队列）的占用权。因为生产者如果不释放对临界资源的占用权，那么消费者就无法消费队列中的商品，就不会让队列有空间，那么生产者就会一直无限等待下去。因此，一般情况下，当队列满时，会让生产者交出对临界资源的占用权，并进入挂起状态。然后等待消费者消费了商品，然后消费者通知生产者队列有空间了。同样地，当队列空时，消费者也必须等待，等待生产者通知它队列中有商品了。这种互相通信的过程就是线程间的协作。</li><li>Java中线程通信协作的最常见方式：<ul><li>一.syncrhoized加锁的线程的Object类的wait()/notify()/notifyAll()</li><li>二.ReentrantLock类加锁的线程的Condition类的await()/signal()/signalAll()</li></ul></li><li>线程间直接的数据交换：<ul><li>三.通过管道进行线程间通信：字节流、字符流</li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java并发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>sleep</tag>
+      
+      <tag>yield</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>线程的sleep()方法和yield()</title>
+    <link href="/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84sleep()%E6%96%B9%E6%B3%95%E5%92%8Cyield()/"/>
+    <url>/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84sleep()%E6%96%B9%E6%B3%95%E5%92%8Cyield()/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>Java并发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>sleep</tag>
+      
+      <tag>yield</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>线程的状态</title>
     <link href="/blog/2021/08/29/%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81/"/>
     <url>/blog/2021/08/29/%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81/</url>
