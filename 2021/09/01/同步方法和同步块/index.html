@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>崔笑颜的博客</title>
+  <title>同步方法和同步块 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="">
+            <span class="h2" id="subtitle" title="同步方法和同步块">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-20 10:00" pubdate>
-        2021年8月20日 上午
+      <time datetime="2021-09-01 21:00" pubdate>
+        2021年9月1日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      1.7k 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      17
        分钟
     </span>
   
@@ -233,10 +233,64 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">同步方法和同步块</h1>
             
             <div class="markdown-body">
-              
+              <h4 id="同步方法和同步块，哪个是更好的选择？"><a href="#同步方法和同步块，哪个是更好的选择？" class="headerlink" title="同步方法和同步块，哪个是更好的选择？"></a>同步方法和同步块，哪个是更好的选择？</h4><ul>
+<li>同步块是更好的选择，因为它不会锁住整个对象（当然你也可以让它锁住整个对象）。同步方法会锁住整个对象，哪怕这个类中有多个不相关联的同步块，这通常会导致他们停止执行并需要等待获得这个对象上的锁。</li>
+<li>同步块更要符合开放调用的原则，只在需要锁住的代码块锁住相应的对象，这样从侧面来说也可以避免死锁。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">请知道一条原则：同步的范围越小越好。<br></code></pre></td></tr></table></figure>
+<h4 id="什么是线程同步和线程互斥，有哪几种实现方式？"><a href="#什么是线程同步和线程互斥，有哪几种实现方式？" class="headerlink" title="什么是线程同步和线程互斥，有哪几种实现方式？"></a>什么是线程同步和线程互斥，有哪几种实现方式？</h4><ul>
+<li>当一个线程对共享的数据进行操作时，应使之成为一个”原子操作“，即在没有完成相关操作之前，不允许其他线程打断它，否则，就会破坏数据的完整性，必然会得到错误的处理结果，这就是线程的同步。</li>
+<li>在多线程应用中，考虑不同线程之间的数据同步和防止死锁。当两个或多个线程之间同时等待对方释放资源的时候就会形成线程之间的死锁。为了防止死锁的发生，需要通过同步来实现线程安全。</li>
+<li>线程互斥是指对于共享的进程系统资源，在各单个线程访问时的排它性。当有若干个线程都要使用某一共享资源时，任何时刻最多只允许一个线程去使用，其它要使用该资源的线程必须等待，直到占用资源者释放该资源。线程互斥可以看成是一种特殊的线程同步。</li>
+<li>线程间的同步方法大体可分为两类：用户模式和内核模式。顾名思义，内核模式就是指利用系统内核对象的单一性来进行同步，使用时需要切换内核态与用户态，而用户模式就是不需要切换到内核态，只在用户态完成操作。</li>
+<li>用户模式下的方法有：原子操作（例如一个单一的全局变量），临界区。内核模式下的方法有：事件，信号量，互斥量。</li>
+<li>实现线程同步的方法<ul>
+<li>同步代码方法：sychronized 关键字修饰的方法</li>
+<li>同步代码块：sychronized 关键字修饰的代码块</li>
+<li>使用特殊变量域volatile实现线程同步：volatile关键字为域变量的访问提供了一种免锁机制</li>
+<li>使用重入锁实现线程同步：reentrantlock类是可冲入、互斥、实现了lock接口的锁他与sychronized方法具有相同的基本行为和语义</li>
+</ul>
+</li>
+</ul>
+<h4 id="在监视器-Monitor-内部，是如何做线程同步的？程序应该做哪种级别的同步？"><a href="#在监视器-Monitor-内部，是如何做线程同步的？程序应该做哪种级别的同步？" class="headerlink" title="在监视器(Monitor)内部，是如何做线程同步的？程序应该做哪种级别的同步？"></a>在监视器(Monitor)内部，是如何做线程同步的？程序应该做哪种级别的同步？</h4><ul>
+<li>在 java 虚拟机中，监视器和锁在Java虚拟机中是一块使用的。监视器监视一块同步代码块，确保一次只有一个线程执行同步代码块。每一个监视器都和一个对象引用相关联。线程在获取锁之前不允许执行同步代码。</li>
+<li>一旦方法或者代码块被 synchronized 修饰，那么这个部分就放入了监视器的监视区域，确保一次只能有一个线程执行该部分的代码，线程在获取锁之前不允许执行该部分的代码</li>
+<li>另外 java 还提供了显式监视器( Lock )和隐式监视器( synchronized )两种锁方案</li>
+</ul>
+<h4 id="如果你提交任务时，线程池队列已满，这时会发生什么"><a href="#如果你提交任务时，线程池队列已满，这时会发生什么" class="headerlink" title="如果你提交任务时，线程池队列已满，这时会发生什么"></a>如果你提交任务时，线程池队列已满，这时会发生什么</h4><ul>
+<li><p>有俩种可能：</p>
+<p>（1）如果使用的是无界队列 LinkedBlockingQueue，也就是无界队列的话，没关系，继续添加任务到阻塞队列中等待执行，因为 LinkedBlockingQueue 可以近乎认为是一个无穷大的队列，可以无限存放任务</p>
+<p>（2）如果使用的是有界队列比如 ArrayBlockingQueue，任务首先会被添加到ArrayBlockingQueue 中，ArrayBlockingQueue 满了，会根据maximumPoolSize 的值增加线程数量，如果增加了线程数量还是处理不过来，ArrayBlockingQueue 继续满，那么则会使用拒绝策略RejectedExecutionHandler 处理满了的任务，默认是 AbortPolicy</p>
+</li>
+</ul>
+<h4 id="什么叫线程安全？servlet-是线程安全吗"><a href="#什么叫线程安全？servlet-是线程安全吗" class="headerlink" title="什么叫线程安全？servlet 是线程安全吗?"></a>什么叫线程安全？servlet 是线程安全吗?</h4><ul>
+<li>线程安全是编程中的术语，指某个方法在多线程环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。</li>
+<li>Servlet 不是线程安全的，servlet 是单实例多线程的，当多个线程同时访问同一个方法，是不能保证共享变量的线程安全性的。</li>
+<li>Struts2 的 action 是多实例多线程的，是线程安全的，每个请求过来都会 new 一个新的 action 分配给这个请求，请求完成后销毁。</li>
+<li>SpringMVC 的 Controller 是线程安全的吗？不是的，和 Servlet 类似的处理流程。</li>
+<li>Struts2 好处是不用考虑线程安全问题；Servlet 和 SpringMVC 需要考虑线程安全问题，但是性能可以提升不用处理太多的 gc，可以使用 ThreadLocal 来处理多线程的问题。</li>
+</ul>
+<h4 id="在-Java-程序中怎么保证多线程的运行安全？"><a href="#在-Java-程序中怎么保证多线程的运行安全？" class="headerlink" title="在 Java 程序中怎么保证多线程的运行安全？"></a>在 Java 程序中怎么保证多线程的运行安全？</h4><ul>
+<li><p>方法一：使用安全类，比如 java.util.concurrent 下的类，使用原子类AtomicInteger</p>
+</li>
+<li><p>方法二：使用自动锁 synchronized。</p>
+</li>
+<li><p>方法三：使用手动锁 Lock。</p>
+</li>
+<li><p>手动锁 Java 示例代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs csharp">Lock <span class="hljs-keyword">lock</span> = <span class="hljs-keyword">new</span> ReentrantLock();<br><span class="hljs-keyword">lock</span>. <span class="hljs-keyword">lock</span>();<br><span class="hljs-keyword">try</span> &#123;<br>    System. <span class="hljs-keyword">out</span>. println(<span class="hljs-string">&quot;获得锁&quot;</span>);<br>&#125; catch (Exception e) &#123;<br>    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> handle exception</span><br>&#125; <span class="hljs-keyword">finally</span> &#123;<br>    System. <span class="hljs-keyword">out</span>. println(<span class="hljs-string">&quot;释放锁&quot;</span>);<br>    <span class="hljs-keyword">lock</span>. unlock();<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+<h4 id="你对线程优先级的理解是什么？"><a href="#你对线程优先级的理解是什么？" class="headerlink" title="你对线程优先级的理解是什么？"></a>你对线程优先级的理解是什么？</h4></li>
+<li><p>每一个线程都是有优先级的，一般来说，高优先级的线程在运行时会具有优先权，但这依赖于线程调度的实现，这个实现是和操作系统相关的(OS dependent)。我们可以定义线程的优先级，但是这并不能保证高优先级的线程会在低优先级的线程前执行。线程优先级是一个 int 变量(从 1-10)，1 代表最低优先级，10 代表最高优先级。</p>
+</li>
+<li><p>Java 的线程优先级调度会委托给操作系统去处理，所以与具体的操作系统优先级有关，如非特别需要，一般无需设置线程优先级。</p>
+</li>
+<li><p>当然，如果你真的想设置优先级可以通过setPriority()方法设置，但是设置了不一定会该变，这个是不准确的</p>
+</li>
+</ul>
+
             </div>
             <hr>
             <div>
@@ -250,6 +304,15 @@
                   </div>
                 
                 
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E5%90%8C%E6%AD%A5/">同步</a>
+                    
+                  </div>
+                
               </div>
               
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
@@ -259,9 +322,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/08/27/%E7%BA%BF%E7%A8%8B%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2/">
+                      <a href="/blog/2021/09/01/%E5%89%AF%E6%9C%AC/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">什么是上下文切换</span>
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -269,8 +332,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/08/14/%E7%BD%91%E7%BB%9C%E6%93%8D%E4%BD%9CIO%E8%AE%B2%E8%A7%A3/">
-                        <span class="hidden-mobile">网络操作IO讲解</span>
+                      <a href="/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84%20sleep()%E6%96%B9%E6%B3%95%E5%92%8C%20yield/">
+                        <span class="hidden-mobile">线程的sleep()方法和yield()</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -4,11 +4,30 @@
   
   
   <entry>
-    <title>线程的sleep()方法和yield()</title>
-    <link href="/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84%20sleep()%E6%96%B9%E6%B3%95%E5%92%8C%20yield/"/>
-    <url>/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84%20sleep()%E6%96%B9%E6%B3%95%E5%92%8C%20yield/</url>
+    <title></title>
+    <link href="/blog/2021/09/01/%E5%89%AF%E6%9C%AC/"/>
+    <url>/blog/2021/09/01/%E5%89%AF%E6%9C%AC/</url>
     
-    <content type="html"><![CDATA[<h4 id="线程的-sleep-方法和-yield-方法有什么区别？"><a href="#线程的-sleep-方法和-yield-方法有什么区别？" class="headerlink" title="线程的 sleep()方法和 yield()方法有什么区别？"></a>线程的 sleep()方法和 yield()方法有什么区别？</h4><ul><li>（1） sleep()方法给其他线程运行机会时不考虑线程的优先级，因此会给低优先级的线程以运行的机会；yield()方法只会给相同优先级或更高优先级的线程以运行的机会；</li><li>（2） 线程执行 sleep()方法后转入阻塞（blocked）状态，而执行 yield()方法后转入就绪（ready）状态；</li><li>（3）sleep()方法声明抛出 InterruptedException，而 yield()方法没有声明任何异常；</li><li>（4）sleep()方法比 yield()方法（跟操作系统 CPU 调度相关）具有更好的可移植性，通常不建议使用yield()方法来控制并发线程的执行。</li></ul><h4 id="如何停止一个正在运行的线程？"><a href="#如何停止一个正在运行的线程？" class="headerlink" title="如何停止一个正在运行的线程？"></a>如何停止一个正在运行的线程？</h4><ul><li>在java中有以下3种方法可以终止正在运行的线程：<ul><li>使用退出标志，使线程正常退出，也就是当run方法完成后线程终止。</li><li>使用stop方法强行终止，但是不推荐这个方法，因为stop和suspend及resume一样都是过期作废的方法。</li><li>使用interrupt方法中断线程。</li></ul></li></ul><h4 id="Java-中-interrupted-和-isInterrupted-方法的区别？"><a href="#Java-中-interrupted-和-isInterrupted-方法的区别？" class="headerlink" title="Java 中 interrupted 和 isInterrupted 方法的区别？"></a>Java 中 interrupted 和 isInterrupted 方法的区别？</h4><ul><li><p>interrupt：用于中断线程。调用该方法的线程的状态为将被置为”中断”状态。</p><p>注意：线程中断仅仅是置线程的中断状态位，不会停止线程。需要用户自己去监视线程的状态为并做处理。支持线程中断的方法（也就是线程中断后会抛出interruptedException 的方法）就是在监视线程的中断状态，一旦线程的中断状态被置为“中断状态”，就会抛出中断异常。</p></li><li><p>interrupted：是静态方法，查看当前中断信号是true还是false并且清除中断信号。如果一个线程被中断了，第一次调用 interrupted 则返回 true，第二次和后面的就返回 false 了。</p></li><li><p>isInterrupted：是可以返回当前中断信号是true还是false，与interrupt最大的差别</p></li></ul><h4 id="什么是阻塞式方法？"><a href="#什么是阻塞式方法？" class="headerlink" title="什么是阻塞式方法？"></a>什么是阻塞式方法？</h4><ul><li>阻塞式方法是指程序会一直等待该方法完成期间不做其他事情，ServerSocket 的accept()方法就是一直等待客户端连接。这里的阻塞是指调用结果返回之前，当前线程会被挂起，直到得到结果之后才会返回。此外，还有异步和非阻塞式方法在任务完成前就返回。</li></ul><h4 id="Java-中你怎样唤醒一个阻塞的线程？"><a href="#Java-中你怎样唤醒一个阻塞的线程？" class="headerlink" title="Java 中你怎样唤醒一个阻塞的线程？"></a>Java 中你怎样唤醒一个阻塞的线程？</h4><ul><li>首先 ，wait()、notify() 方法是针对对象的，调用任意对象的 wait()方法都将导致线程阻塞，阻塞的同时也将释放该对象的锁，相应地，调用任意对象的 notify()方法则将随机解除该对象阻塞的线程，但它需要重新获取该对象的锁，直到获取成功才能往下执行；</li><li>其次，wait、notify 方法必须在 synchronized 块或方法中被调用，并且要保证同步块或方法的锁对象与调用 wait、notify 方法的对象是同一个，如此一来在调用 wait 之前当前线程就已经成功获取某对象的锁，执行 wait 阻塞后当前线程就将之前获取的对象锁释放。</li></ul><h4 id="notify-和-notifyAll-有什么区别？"><a href="#notify-和-notifyAll-有什么区别？" class="headerlink" title="notify() 和 notifyAll() 有什么区别？"></a>notify() 和 notifyAll() 有什么区别？</h4><ul><li>如果线程调用了对象的 wait()方法，那么线程便会处于该对象的等待池中，等待池中的线程不会去竞争该对象的锁。</li><li>notifyAll() 会唤醒所有的线程，notify() 只会唤醒一个线程。</li><li>notifyAll() 调用后，会将全部线程由等待池移到锁池，然后参与锁的竞争，竞争成功则继续执行，如果不成功则留在锁池等待锁被释放后再次参与竞争。而 notify()只会唤醒一个线程，具体唤醒哪一个线程由虚拟机控制。</li></ul><h4 id="如何在两个线程间共享数据？"><a href="#如何在两个线程间共享数据？" class="headerlink" title="如何在两个线程间共享数据？"></a>如何在两个线程间共享数据？</h4><ul><li>在两个线程间共享变量即可实现共享。</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">一般来说，共享变量要求变量本身是线程安全的，然后在线程内使用的时候，如果有对共享变量的复合操作，那么也得保证复合操作的线程安全性。<br></code></pre></td></tr></table></figure><h4 id="Java-如何实现多线程之间的通讯和协作？"><a href="#Java-如何实现多线程之间的通讯和协作？" class="headerlink" title="Java 如何实现多线程之间的通讯和协作？"></a>Java 如何实现多线程之间的通讯和协作？</h4><ul><li>可以通过中断 和 共享变量的方式实现线程间的通讯和协作</li><li>比如说最经典的生产者-消费者模型：当队列满时，生产者需要等待队列有空间才能继续往里面放入商品，而在等待的期间内，生产者必须释放对临界资源（即队列）的占用权。因为生产者如果不释放对临界资源的占用权，那么消费者就无法消费队列中的商品，就不会让队列有空间，那么生产者就会一直无限等待下去。因此，一般情况下，当队列满时，会让生产者交出对临界资源的占用权，并进入挂起状态。然后等待消费者消费了商品，然后消费者通知生产者队列有空间了。同样地，当队列空时，消费者也必须等待，等待生产者通知它队列中有商品了。这种互相通信的过程就是线程间的协作。</li><li>Java中线程通信协作的最常见方式：<ul><li>一.syncrhoized加锁的线程的Object类的wait()/notify()/notifyAll()</li><li>二.ReentrantLock类加锁的线程的Condition类的await()/signal()/signalAll()</li></ul></li><li>线程间直接的数据交换：<ul><li>三.通过管道进行线程间通信：字节流、字符流</li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>Java并发</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>同步方法和同步块</title>
+    <link href="/blog/2021/09/01/%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95%E5%92%8C%E5%90%8C%E6%AD%A5%E5%9D%97/"/>
+    <url>/blog/2021/09/01/%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95%E5%92%8C%E5%90%8C%E6%AD%A5%E5%9D%97/</url>
+    
+    <content type="html"><![CDATA[<h4 id="同步方法和同步块，哪个是更好的选择？"><a href="#同步方法和同步块，哪个是更好的选择？" class="headerlink" title="同步方法和同步块，哪个是更好的选择？"></a>同步方法和同步块，哪个是更好的选择？</h4><ul><li>同步块是更好的选择，因为它不会锁住整个对象（当然你也可以让它锁住整个对象）。同步方法会锁住整个对象，哪怕这个类中有多个不相关联的同步块，这通常会导致他们停止执行并需要等待获得这个对象上的锁。</li><li>同步块更要符合开放调用的原则，只在需要锁住的代码块锁住相应的对象，这样从侧面来说也可以避免死锁。</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">请知道一条原则：同步的范围越小越好。<br></code></pre></td></tr></table></figure><h4 id="什么是线程同步和线程互斥，有哪几种实现方式？"><a href="#什么是线程同步和线程互斥，有哪几种实现方式？" class="headerlink" title="什么是线程同步和线程互斥，有哪几种实现方式？"></a>什么是线程同步和线程互斥，有哪几种实现方式？</h4><ul><li>当一个线程对共享的数据进行操作时，应使之成为一个”原子操作“，即在没有完成相关操作之前，不允许其他线程打断它，否则，就会破坏数据的完整性，必然会得到错误的处理结果，这就是线程的同步。</li><li>在多线程应用中，考虑不同线程之间的数据同步和防止死锁。当两个或多个线程之间同时等待对方释放资源的时候就会形成线程之间的死锁。为了防止死锁的发生，需要通过同步来实现线程安全。</li><li>线程互斥是指对于共享的进程系统资源，在各单个线程访问时的排它性。当有若干个线程都要使用某一共享资源时，任何时刻最多只允许一个线程去使用，其它要使用该资源的线程必须等待，直到占用资源者释放该资源。线程互斥可以看成是一种特殊的线程同步。</li><li>线程间的同步方法大体可分为两类：用户模式和内核模式。顾名思义，内核模式就是指利用系统内核对象的单一性来进行同步，使用时需要切换内核态与用户态，而用户模式就是不需要切换到内核态，只在用户态完成操作。</li><li>用户模式下的方法有：原子操作（例如一个单一的全局变量），临界区。内核模式下的方法有：事件，信号量，互斥量。</li><li>实现线程同步的方法<ul><li>同步代码方法：sychronized 关键字修饰的方法</li><li>同步代码块：sychronized 关键字修饰的代码块</li><li>使用特殊变量域volatile实现线程同步：volatile关键字为域变量的访问提供了一种免锁机制</li><li>使用重入锁实现线程同步：reentrantlock类是可冲入、互斥、实现了lock接口的锁他与sychronized方法具有相同的基本行为和语义</li></ul></li></ul><h4 id="在监视器-Monitor-内部，是如何做线程同步的？程序应该做哪种级别的同步？"><a href="#在监视器-Monitor-内部，是如何做线程同步的？程序应该做哪种级别的同步？" class="headerlink" title="在监视器(Monitor)内部，是如何做线程同步的？程序应该做哪种级别的同步？"></a>在监视器(Monitor)内部，是如何做线程同步的？程序应该做哪种级别的同步？</h4><ul><li>在 java 虚拟机中，监视器和锁在Java虚拟机中是一块使用的。监视器监视一块同步代码块，确保一次只有一个线程执行同步代码块。每一个监视器都和一个对象引用相关联。线程在获取锁之前不允许执行同步代码。</li><li>一旦方法或者代码块被 synchronized 修饰，那么这个部分就放入了监视器的监视区域，确保一次只能有一个线程执行该部分的代码，线程在获取锁之前不允许执行该部分的代码</li><li>另外 java 还提供了显式监视器( Lock )和隐式监视器( synchronized )两种锁方案</li></ul><h4 id="如果你提交任务时，线程池队列已满，这时会发生什么"><a href="#如果你提交任务时，线程池队列已满，这时会发生什么" class="headerlink" title="如果你提交任务时，线程池队列已满，这时会发生什么"></a>如果你提交任务时，线程池队列已满，这时会发生什么</h4><ul><li><p>有俩种可能：</p><p>（1）如果使用的是无界队列 LinkedBlockingQueue，也就是无界队列的话，没关系，继续添加任务到阻塞队列中等待执行，因为 LinkedBlockingQueue 可以近乎认为是一个无穷大的队列，可以无限存放任务</p><p>（2）如果使用的是有界队列比如 ArrayBlockingQueue，任务首先会被添加到ArrayBlockingQueue 中，ArrayBlockingQueue 满了，会根据maximumPoolSize 的值增加线程数量，如果增加了线程数量还是处理不过来，ArrayBlockingQueue 继续满，那么则会使用拒绝策略RejectedExecutionHandler 处理满了的任务，默认是 AbortPolicy</p></li></ul><h4 id="什么叫线程安全？servlet-是线程安全吗"><a href="#什么叫线程安全？servlet-是线程安全吗" class="headerlink" title="什么叫线程安全？servlet 是线程安全吗?"></a>什么叫线程安全？servlet 是线程安全吗?</h4><ul><li>线程安全是编程中的术语，指某个方法在多线程环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。</li><li>Servlet 不是线程安全的，servlet 是单实例多线程的，当多个线程同时访问同一个方法，是不能保证共享变量的线程安全性的。</li><li>Struts2 的 action 是多实例多线程的，是线程安全的，每个请求过来都会 new 一个新的 action 分配给这个请求，请求完成后销毁。</li><li>SpringMVC 的 Controller 是线程安全的吗？不是的，和 Servlet 类似的处理流程。</li><li>Struts2 好处是不用考虑线程安全问题；Servlet 和 SpringMVC 需要考虑线程安全问题，但是性能可以提升不用处理太多的 gc，可以使用 ThreadLocal 来处理多线程的问题。</li></ul><h4 id="在-Java-程序中怎么保证多线程的运行安全？"><a href="#在-Java-程序中怎么保证多线程的运行安全？" class="headerlink" title="在 Java 程序中怎么保证多线程的运行安全？"></a>在 Java 程序中怎么保证多线程的运行安全？</h4><ul><li><p>方法一：使用安全类，比如 java.util.concurrent 下的类，使用原子类AtomicInteger</p></li><li><p>方法二：使用自动锁 synchronized。</p></li><li><p>方法三：使用手动锁 Lock。</p></li><li><p>手动锁 Java 示例代码如下：</p><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs csharp">Lock <span class="hljs-keyword">lock</span> = <span class="hljs-keyword">new</span> ReentrantLock();<br><span class="hljs-keyword">lock</span>. <span class="hljs-keyword">lock</span>();<br><span class="hljs-keyword">try</span> &#123;<br>    System. <span class="hljs-keyword">out</span>. println(<span class="hljs-string">&quot;获得锁&quot;</span>);<br>&#125; catch (Exception e) &#123;<br>    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> handle exception</span><br>&#125; <span class="hljs-keyword">finally</span> &#123;<br>    System. <span class="hljs-keyword">out</span>. println(<span class="hljs-string">&quot;释放锁&quot;</span>);<br>    <span class="hljs-keyword">lock</span>. unlock();<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure><h4 id="你对线程优先级的理解是什么？"><a href="#你对线程优先级的理解是什么？" class="headerlink" title="你对线程优先级的理解是什么？"></a>你对线程优先级的理解是什么？</h4></li><li><p>每一个线程都是有优先级的，一般来说，高优先级的线程在运行时会具有优先权，但这依赖于线程调度的实现，这个实现是和操作系统相关的(OS dependent)。我们可以定义线程的优先级，但是这并不能保证高优先级的线程会在低优先级的线程前执行。线程优先级是一个 int 变量(从 1-10)，1 代表最低优先级，10 代表最高优先级。</p></li><li><p>Java 的线程优先级调度会委托给操作系统去处理，所以与具体的操作系统优先级有关，如非特别需要，一般无需设置线程优先级。</p></li><li><p>当然，如果你真的想设置优先级可以通过setPriority()方法设置，但是设置了不一定会该变，这个是不准确的</p></li></ul>]]></content>
     
     
     <categories>
@@ -20,9 +39,9 @@
     
     <tags>
       
-      <tag>sleep</tag>
+      <tag>线程</tag>
       
-      <tag>yield</tag>
+      <tag>同步</tag>
       
     </tags>
     
@@ -32,10 +51,10 @@
   
   <entry>
     <title>线程的sleep()方法和yield()</title>
-    <link href="/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84sleep()%E6%96%B9%E6%B3%95%E5%92%8Cyield()/"/>
-    <url>/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84sleep()%E6%96%B9%E6%B3%95%E5%92%8Cyield()/</url>
+    <link href="/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84%20sleep()%E6%96%B9%E6%B3%95%E5%92%8C%20yield/"/>
+    <url>/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84%20sleep()%E6%96%B9%E6%B3%95%E5%92%8C%20yield/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h4 id="线程的-sleep-方法和-yield-方法有什么区别？"><a href="#线程的-sleep-方法和-yield-方法有什么区别？" class="headerlink" title="线程的 sleep()方法和 yield()方法有什么区别？"></a>线程的 sleep()方法和 yield()方法有什么区别？</h4><ul><li>（1） sleep()方法给其他线程运行机会时不考虑线程的优先级，因此会给低优先级的线程以运行的机会；yield()方法只会给相同优先级或更高优先级的线程以运行的机会；</li><li>（2） 线程执行 sleep()方法后转入阻塞（blocked）状态，而执行 yield()方法后转入就绪（ready）状态；</li><li>（3）sleep()方法声明抛出 InterruptedException，而 yield()方法没有声明任何异常；</li><li>（4）sleep()方法比 yield()方法（跟操作系统 CPU 调度相关）具有更好的可移植性，通常不建议使用yield()方法来控制并发线程的执行。</li></ul><h4 id="如何停止一个正在运行的线程？"><a href="#如何停止一个正在运行的线程？" class="headerlink" title="如何停止一个正在运行的线程？"></a>如何停止一个正在运行的线程？</h4><ul><li>在java中有以下3种方法可以终止正在运行的线程：<ul><li>使用退出标志，使线程正常退出，也就是当run方法完成后线程终止。</li><li>使用stop方法强行终止，但是不推荐这个方法，因为stop和suspend及resume一样都是过期作废的方法。</li><li>使用interrupt方法中断线程。</li></ul></li></ul><h4 id="Java-中-interrupted-和-isInterrupted-方法的区别？"><a href="#Java-中-interrupted-和-isInterrupted-方法的区别？" class="headerlink" title="Java 中 interrupted 和 isInterrupted 方法的区别？"></a>Java 中 interrupted 和 isInterrupted 方法的区别？</h4><ul><li><p>interrupt：用于中断线程。调用该方法的线程的状态为将被置为”中断”状态。</p><p>注意：线程中断仅仅是置线程的中断状态位，不会停止线程。需要用户自己去监视线程的状态为并做处理。支持线程中断的方法（也就是线程中断后会抛出interruptedException 的方法）就是在监视线程的中断状态，一旦线程的中断状态被置为“中断状态”，就会抛出中断异常。</p></li><li><p>interrupted：是静态方法，查看当前中断信号是true还是false并且清除中断信号。如果一个线程被中断了，第一次调用 interrupted 则返回 true，第二次和后面的就返回 false 了。</p></li><li><p>isInterrupted：是可以返回当前中断信号是true还是false，与interrupt最大的差别</p></li></ul><h4 id="什么是阻塞式方法？"><a href="#什么是阻塞式方法？" class="headerlink" title="什么是阻塞式方法？"></a>什么是阻塞式方法？</h4><ul><li>阻塞式方法是指程序会一直等待该方法完成期间不做其他事情，ServerSocket 的accept()方法就是一直等待客户端连接。这里的阻塞是指调用结果返回之前，当前线程会被挂起，直到得到结果之后才会返回。此外，还有异步和非阻塞式方法在任务完成前就返回。</li></ul><h4 id="Java-中你怎样唤醒一个阻塞的线程？"><a href="#Java-中你怎样唤醒一个阻塞的线程？" class="headerlink" title="Java 中你怎样唤醒一个阻塞的线程？"></a>Java 中你怎样唤醒一个阻塞的线程？</h4><ul><li>首先 ，wait()、notify() 方法是针对对象的，调用任意对象的 wait()方法都将导致线程阻塞，阻塞的同时也将释放该对象的锁，相应地，调用任意对象的 notify()方法则将随机解除该对象阻塞的线程，但它需要重新获取该对象的锁，直到获取成功才能往下执行；</li><li>其次，wait、notify 方法必须在 synchronized 块或方法中被调用，并且要保证同步块或方法的锁对象与调用 wait、notify 方法的对象是同一个，如此一来在调用 wait 之前当前线程就已经成功获取某对象的锁，执行 wait 阻塞后当前线程就将之前获取的对象锁释放。</li></ul><h4 id="notify-和-notifyAll-有什么区别？"><a href="#notify-和-notifyAll-有什么区别？" class="headerlink" title="notify() 和 notifyAll() 有什么区别？"></a>notify() 和 notifyAll() 有什么区别？</h4><ul><li>如果线程调用了对象的 wait()方法，那么线程便会处于该对象的等待池中，等待池中的线程不会去竞争该对象的锁。</li><li>notifyAll() 会唤醒所有的线程，notify() 只会唤醒一个线程。</li><li>notifyAll() 调用后，会将全部线程由等待池移到锁池，然后参与锁的竞争，竞争成功则继续执行，如果不成功则留在锁池等待锁被释放后再次参与竞争。而 notify()只会唤醒一个线程，具体唤醒哪一个线程由虚拟机控制。</li></ul><h4 id="如何在两个线程间共享数据？"><a href="#如何在两个线程间共享数据？" class="headerlink" title="如何在两个线程间共享数据？"></a>如何在两个线程间共享数据？</h4><ul><li>在两个线程间共享变量即可实现共享。</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">一般来说，共享变量要求变量本身是线程安全的，然后在线程内使用的时候，如果有对共享变量的复合操作，那么也得保证复合操作的线程安全性。<br></code></pre></td></tr></table></figure><h4 id="Java-如何实现多线程之间的通讯和协作？"><a href="#Java-如何实现多线程之间的通讯和协作？" class="headerlink" title="Java 如何实现多线程之间的通讯和协作？"></a>Java 如何实现多线程之间的通讯和协作？</h4><ul><li>可以通过中断 和 共享变量的方式实现线程间的通讯和协作</li><li>比如说最经典的生产者-消费者模型：当队列满时，生产者需要等待队列有空间才能继续往里面放入商品，而在等待的期间内，生产者必须释放对临界资源（即队列）的占用权。因为生产者如果不释放对临界资源的占用权，那么消费者就无法消费队列中的商品，就不会让队列有空间，那么生产者就会一直无限等待下去。因此，一般情况下，当队列满时，会让生产者交出对临界资源的占用权，并进入挂起状态。然后等待消费者消费了商品，然后消费者通知生产者队列有空间了。同样地，当队列空时，消费者也必须等待，等待生产者通知它队列中有商品了。这种互相通信的过程就是线程间的协作。</li><li>Java中线程通信协作的最常见方式：<ul><li>一.syncrhoized加锁的线程的Object类的wait()/notify()/notifyAll()</li><li>二.ReentrantLock类加锁的线程的Condition类的await()/signal()/signalAll()</li></ul></li><li>线程间直接的数据交换：<ul><li>三.通过管道进行线程间通信：字节流、字符流</li></ul></li></ul>]]></content>
     
     
     <categories>
@@ -131,25 +150,6 @@
       <tag>线程</tag>
       
     </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title></title>
-    <link href="/blog/2021/08/20/%E5%89%AF%E6%9C%AC/"/>
-    <url>/blog/2021/08/20/%E5%89%AF%E6%9C%AC/</url>
-    
-    <content type="html"><![CDATA[]]></content>
-    
-    
-    <categories>
-      
-      <category>Java并发</category>
-      
-    </categories>
-    
     
   </entry>
   
