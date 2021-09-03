@@ -50,6 +50,33 @@
   
   
   <entry>
+    <title>线程类的构造方法</title>
+    <link href="/blog/2021/09/01/%E7%BA%BF%E7%A8%8B%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/"/>
+    <url>/blog/2021/09/01/%E7%BA%BF%E7%A8%8B%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<h4 id="线程类的构造方法、静态块是被哪个线程调用的"><a href="#线程类的构造方法、静态块是被哪个线程调用的" class="headerlink" title="线程类的构造方法、静态块是被哪个线程调用的"></a>线程类的构造方法、静态块是被哪个线程调用的</h4><ul><li>这是一个非常刁钻和狡猾的问题。请记住：线程类的构造方法、静态块是被 new这个线程类所在的线程所调用的，而 run 方法里面的代码才是被线程自身所调用的。</li><li>如果说上面的说法让你感到困惑，那么我举个例子，假设 Thread2 中 new 了Thread1，main 函数中 new 了 Thread2，那么：</li></ul><p>（1）Thread2 的构造方法、静态块是 main 线程调用的，Thread2 的 run()方法是Thread2 自己调用的</p><p>（2）Thread1 的构造方法、静态块是 Thread2 调用的，Thread1 的 run()方法是Thread1 自己调用的</p><h4 id="Java-中怎么获取一份线程-dump-文件？你如何在-Java-中获取线程堆栈？"><a href="#Java-中怎么获取一份线程-dump-文件？你如何在-Java-中获取线程堆栈？" class="headerlink" title="Java 中怎么获取一份线程 dump 文件？你如何在 Java 中获取线程堆栈？"></a>Java 中怎么获取一份线程 dump 文件？你如何在 Java 中获取线程堆栈？</h4><ul><li>Dump文件是进程的内存镜像。可以把程序的执行状态通过调试器保存到dump文件中。</li><li>在 Linux 下，你可以通过命令 kill -3 PID （Java 进程的进程 ID）来获取 Java应用的 dump 文件。</li><li>在 Windows 下，你可以按下 Ctrl + Break 来获取。这样 JVM 就会将线程的 dump 文件打印到标准输出或错误文件中，它可能打印在控制台或者日志文件中，具体位置依赖应用的配置。</li></ul><h4 id="一个线程运行时发生异常会怎样？"><a href="#一个线程运行时发生异常会怎样？" class="headerlink" title="一个线程运行时发生异常会怎样？"></a>一个线程运行时发生异常会怎样？</h4><ul><li>如果异常没有被捕获该线程将会停止执行。Thread.UncaughtExceptionHandler是用于处理未捕获异常造成线程突然中断情况的一个内嵌接口。当一个未捕获异常将造成线程中断的时候，JVM 会使用 Thread.getUncaughtExceptionHandler()来查询线程的 UncaughtExceptionHandler 并将线程和异常作为参数传递给 handler 的 uncaughtException()方法进行处理。</li></ul><h4 id="Java-线程数过多会造成什么异常？"><a href="#Java-线程数过多会造成什么异常？" class="headerlink" title="Java 线程数过多会造成什么异常？"></a>Java 线程数过多会造成什么异常？</h4><ul><li><p>线程的生命周期开销非常高</p></li><li><p>消耗过多的 CPU</p><p>资源如果可运行的线程数量多于可用处理器的数量，那么有线程将会被闲置。大量空闲的线程会占用许多内存，给垃圾回收器带来压力，而且大量的线程在竞争 CPU资源时还将产生其他性能的开销。</p></li><li><p>降低稳定性JVM</p><p>在可创建线程的数量上存在一个限制，这个限制值将随着平台的不同而不同，并且承受着多个因素制约，包括 JVM 的启动参数、Thread 构造函数中请求栈的大小，以及底层操作系统对线程的限制等。如果破坏了这些限制，那么可能抛出OutOfMemoryError 异常。</p></li></ul><h4 id="多线程的常用方法"><a href="#多线程的常用方法" class="headerlink" title="多线程的常用方法"></a>多线程的常用方法</h4><table><thead><tr><th>方法 名</th><th>描述</th></tr></thead><tbody><tr><td>sleep()</td><td>强迫一个线程睡眠Ｎ毫秒</td></tr><tr><td>isAlive()</td><td>判断一个线程是否存活。</td></tr><tr><td>join()</td><td>等待线程终止。</td></tr><tr><td>activeCount()</td><td>程序中活跃的线程数。</td></tr><tr><td>enumerate()</td><td>枚举程序中的线程。</td></tr><tr><td>currentThread()</td><td>得到当前线程。</td></tr><tr><td>isDaemon()</td><td>一个线程是否为守护线程。</td></tr><tr><td>setDaemon()</td><td>设置一个线程为守护线程。</td></tr><tr><td>setName()</td><td>为线程设置一个名称。</td></tr><tr><td>wait()</td><td>强迫一个线程等待。</td></tr><tr><td>notify()</td><td>通知一个线程继续运行。</td></tr><tr><td>setPriority()</td><td>设置一个线程的优先级。</td></tr></tbody></table>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java并发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>线程</tag>
+      
+      <tag>构造方法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>线程的sleep()方法和yield()</title>
     <link href="/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84%20sleep()%E6%96%B9%E6%B3%95%E5%92%8C%20yield/"/>
     <url>/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84%20sleep()%E6%96%B9%E6%B3%95%E5%92%8C%20yield/</url>
