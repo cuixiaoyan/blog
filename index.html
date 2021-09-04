@@ -186,6 +186,116 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/09/04/%E5%B9%B6%E5%8F%91%E7%90%86%E8%AE%BA/">并发理论</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/09/04/%E5%B9%B6%E5%8F%91%E7%90%86%E8%AE%BA/">
+          
+          
+            
+          
+          并发理论Java中垃圾回收有什么目的？什么时候进行垃圾回收？
+垃圾回收是在内存中存在没有引用的对象或超过作用域的对象时进行的。
+垃圾回收的目的是识别并且丢弃应用不再使用的对象来释放和重用资源。
+
+线程之间如何通信及线程之间如何同步
+在并发编程中，我们需要处理两个关键问题：线程之间如何通信及线程之间如何同步。通信是指线程之间以如何来交换信息。一般线程之间的通信机制有两种：共享内存和消息传递。
+Jav
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-09-04 21:00" pubdate>
+              2021-09-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+            
+              <a href="/blog/tags/%E5%B9%B6%E5%8F%91/">并发</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/09/03/%E7%BA%BF%E7%A8%8B%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/">线程类的构造方法</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/09/03/%E7%BA%BF%E7%A8%8B%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/">
+          
+          
+            
+          
+          线程类的构造方法、静态块是被哪个线程调用的
+这是一个非常刁钻和狡猾的问题。请记住：线程类的构造方法、静态块是被 new这个线程类所在的线程所调用的，而 run 方法里面的代码才是被线程自身所调用的。
+如果说上面的说法让你感到困惑，那么我举个例子，假设 Thread2 中 new 了Thread1，main 函数中 new 了 Thread2，那么：
+
+（1）Thread2 的构造方法、静态块是 m
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-09-03 21:00" pubdate>
+              2021-09-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
+            
+              <a href="/blog/tags/%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/">构造方法</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/09/01/%E5%89%AF%E6%9C%AC/"></a>
       </h1>
 
@@ -282,60 +392,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/09/01/%E7%BA%BF%E7%A8%8B%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/">线程类的构造方法</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/09/01/%E7%BA%BF%E7%A8%8B%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/">
-          
-          
-            
-          
-          线程类的构造方法、静态块是被哪个线程调用的
-这是一个非常刁钻和狡猾的问题。请记住：线程类的构造方法、静态块是被 new这个线程类所在的线程所调用的，而 run 方法里面的代码才是被线程自身所调用的。
-如果说上面的说法让你感到困惑，那么我举个例子，假设 Thread2 中 new 了Thread1，main 函数中 new 了 Thread2，那么：
-
-（1）Thread2 的构造方法、静态块是 m
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-01 21:00" pubdate>
-              2021-09-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
-            
-              <a href="/blog/tags/%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/">构造方法</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
         <a href="/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84%20sleep()%E6%96%B9%E6%B3%95%E5%92%8C%20yield/">线程的sleep()方法和yield()</a>
       </h1>
 
@@ -376,58 +432,6 @@
               <a href="/blog/tags/sleep/">sleep</a>
             
               <a href="/blog/tags/yield/">yield</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/08/29/%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81/">线程的状态</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/08/29/%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81/">
-          
-          
-            
-          
-          线程的状态
-
-新建(new)：新创建了一个线程对象。
-就绪（可运行状态）(runnable)：线程对象创建后，当调用线程对象的 start()方法，该线程处于就绪状态，等待被线程调度选中，获取cpu的使用权。
-运行(running)：可运行状态(runnable)的线程获得了cpu时间片（timeslice），执行程序代码。注：就绪状态是进入到运行状态的唯一入口，也就是说，线程要想进入运行状态执行
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-29 10:00" pubdate>
-              2021-08-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
             
           </div>
         
