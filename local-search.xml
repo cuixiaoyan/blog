@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>什么是线程池</title>
+    <link href="/blog/2021/09/09/%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    <url>/blog/2021/09/09/%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
+    
+    <content type="html"><![CDATA[<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><h4 id="什么是线程池？"><a href="#什么是线程池？" class="headerlink" title="什么是线程池？"></a>什么是线程池？</h4><ul><li>Java中的线程池是运用场景最多的并发框架，几乎所有需要异步或并发执行任务的程序都可以使用线程池。在开发过程中，合理地使用线程池能够带来许多好处。<ul><li>降低资源消耗。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。</li><li>提高响应速度。当任务到达时，任务可以不需要等到线程创建就能立即执行。</li><li>提高线程的可管理性。线程是稀缺资源，如果无限制地创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一分配、调优和监控。但是，要做到合理利用</li></ul></li></ul><h4 id="线程池作用？"><a href="#线程池作用？" class="headerlink" title="线程池作用？"></a>线程池作用？</h4><ul><li>线程池是为突然大量爆发的线程设计的，通过有限的几个固定线程为大量的操作服务，减少了创建和销毁线程所需的时间，从而提高效率。</li><li>如果一个线程所需要执行的时间非常长的话，就没必要用线程池了(不是不能作长时间操作，而是不宜。本来降低线程创建和销毁，结果你那么久我还不好控制还不如直接创建线程)，况且我们还不能控制线程池中线程的开始、挂起、和中止。</li></ul><h4 id="线程池有什么优点？"><a href="#线程池有什么优点？" class="headerlink" title="线程池有什么优点？"></a>线程池有什么优点？</h4><ul><li>降低资源消耗：重用存在的线程，减少对象创建销毁的开销。</li><li>提高响应速度。可有效的控制最大并发线程数，提高系统资源的使用率，同时避免过多资源竞争，避免堵塞。当任务到达时，任务可以不需要的等到线程创建就能立即执行。</li><li>提高线程的可管理性。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。</li><li>附加功能：提供定时执行、定期执行、单线程、并发数控制等功能。</li></ul><h4 id="什么是ThreadPoolExecutor？"><a href="#什么是ThreadPoolExecutor？" class="headerlink" title="什么是ThreadPoolExecutor？"></a>什么是ThreadPoolExecutor？</h4><ul><li><p><strong>ThreadPoolExecutor就是线程池</strong></p><p>ThreadPoolExecutor其实也是JAVA的一个类，我们一般通过Executors工厂类的方法，通过传入不同的参数，就可以构造出适用于不同应用场景下的ThreadPoolExecutor（线程池）</p></li></ul><p>构造参数图：</p><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/17172babf4c562f1~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">构造参数参数介绍：<br></code></pre></td></tr></table></figure><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs aspectj">corePoolSize 核心线程数量<br>maximumPoolSize 最大线程数量<br>keepAliveTime 线程保持时间，N个时间单位<br>unit 时间单位（比如秒，分）<br>workQueue 阻塞队列<br>threadFactory 线程工厂<br><span class="hljs-keyword">handler</span> 线程池拒绝策略<br>复制代码<br></code></pre></td></tr></table></figure><h4 id="什么是Executors？"><a href="#什么是Executors？" class="headerlink" title="什么是Executors？"></a>什么是Executors？</h4><ul><li><p><strong>Executors框架实现的就是线程池的功能。</strong></p><p>Executors工厂类中提供的newCachedThreadPool、newFixedThreadPool 、newScheduledThreadPool 、newSingleThreadExecutor 等方法其实也只是ThreadPoolExecutor的构造函数参数不同而已。通过传入不同的参数，就可以构造出适用于不同应用场景下的线程池，</p></li></ul><p>Executor工厂类如何创建线程池图：</p><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/17172bab8fc18fd3~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java并发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+      <tag>线程池</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>synchronized和volatile的区别</title>
     <link href="/blog/2021/09/08/synchronized%E5%92%8Cvolatile%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
     <url>/blog/2021/09/08/synchronized%E5%92%8Cvolatile%E7%9A%84%E5%8C%BA%E5%88%AB/</url>

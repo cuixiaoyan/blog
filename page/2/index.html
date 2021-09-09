@@ -186,6 +186,60 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/09/03/%E7%BA%BF%E7%A8%8B%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/">线程类的构造方法</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/09/03/%E7%BA%BF%E7%A8%8B%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/">
+          
+          
+            
+          
+          线程类的构造方法、静态块是被哪个线程调用的
+这是一个非常刁钻和狡猾的问题。请记住：线程类的构造方法、静态块是被 new这个线程类所在的线程所调用的，而 run 方法里面的代码才是被线程自身所调用的。
+如果说上面的说法让你感到困惑，那么我举个例子，假设 Thread2 中 new 了Thread1，main 函数中 new 了 Thread2，那么：
+
+（1）Thread2 的构造方法、静态块是 m
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-09-03 21:00" pubdate>
+              2021-09-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
+            
+              <a href="/blog/tags/%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/">构造方法</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/09/01/%E5%89%AF%E6%9C%AC/"></a>
       </h1>
 
@@ -381,64 +435,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/08/28/%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">创建线程的四种方式</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/08/28/%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">
-          
-          
-            
-          
-          创建线程的四种方式
-继承 Thread 类；
-12345public class MyThread extends Thread &#123;@Overridepublic void run() &#123;    System.out.println(Thread.currentThread().getName() + &quot; run()方法正在执行...&quot;);&#125;
-实现
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-28 11:00" pubdate>
-              2021-08-28
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E6%96%B9%E5%BC%8F/">方式</a>
-            
-              <a href="/blog/tags/%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B/">创建线程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/42/">42</a><a class="extend next" rel="next" href="/blog/page/3/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/43/">43</a><a class="extend next" rel="next" href="/blog/page/3/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
