@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>并发容器</title>
+    <link href="/blog/2021/09/17/%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8/"/>
+    <url>/blog/2021/09/17/%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8/</url>
+    
+    <content type="html"><![CDATA[<h2 id="并发容器"><a href="#并发容器" class="headerlink" title="并发容器"></a>并发容器</h2><h4 id="你经常使用什么并发容器，为什么？"><a href="#你经常使用什么并发容器，为什么？" class="headerlink" title="你经常使用什么并发容器，为什么？"></a>你经常使用什么并发容器，为什么？</h4><ul><li>答：Vector、ConcurrentHashMap、HasTable</li><li>一般软件开发中容器用的最多的就是HashMap、ArrayList，LinkedList ，等等</li><li>但是在多线程开发中就不能乱用容器，如果使用了未加锁（非同步）的的集合，你的数据就会非常的混乱。由此在多线程开发中需要使用的容器必须是加锁（同步）的容器。</li></ul><h4 id="什么是Vector"><a href="#什么是Vector" class="headerlink" title="什么是Vector"></a>什么是Vector</h4><ul><li><p>Vector与ArrayList一样，也是通过数组实现的，不同的是它支持线程的同步，即某一时刻只有一个线程能够写Vector，避免多线程同时写而引起的不一致性，但实现同步需要很高的花费，访问它比访问ArrayList慢很多</p><p>（<code>ArrayList是最常用的List实现类，内部是通过数组实现的，它允许对元素进行快速随机访问。当从ArrayList的中间位置插入或者删除元素时，需要对数组进行复制、移动、代价比较高。因此，它适合随机查找和遍历，不适合插入和删除。ArrayList的缺点是每个元素之间不能有间隔。</code>）</p></li></ul><h4 id="ArrayList和Vector有什么不同之处？"><a href="#ArrayList和Vector有什么不同之处？" class="headerlink" title="ArrayList和Vector有什么不同之处？"></a>ArrayList和Vector有什么不同之处？</h4><ul><li>Vector方法带上了synchronized关键字，是线程同步的</li></ul><ol><li><p>ArrayList添加方法源码</p><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/17172bac57d8b760~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p></li><li><p>Vector添加源码（加锁了synchronized关键字）</p><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/17172bac5bc35f22~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p></li></ol><h4 id="为什么HashTable是线程安全的？"><a href="#为什么HashTable是线程安全的？" class="headerlink" title="为什么HashTable是线程安全的？"></a>为什么HashTable是线程安全的？</h4><ul><li>因为HasTable的内部方法都被synchronized修饰了，所以是线程安全的。其他的都和HashMap一样</li></ul><ol><li><p>HashMap添加方法的源码</p><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/17172bac5c47d65f~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p></li><li><p>HashTable添加方法的源码</p><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/17172bac599568da~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p></li></ol><h4 id="用过ConcurrentHashMap，讲一下他和HashTable的不同之处？"><a href="#用过ConcurrentHashMap，讲一下他和HashTable的不同之处？" class="headerlink" title="用过ConcurrentHashMap，讲一下他和HashTable的不同之处？"></a>用过ConcurrentHashMap，讲一下他和HashTable的不同之处？</h4><ul><li>ConcurrentHashMap是Java5中支持高并发、高吞吐量的线程安全HashMap实现。它由Segment数组结构和HashEntry数组结构组成。Segment数组在ConcurrentHashMap里扮演锁的角色，HashEntry则用于存储键-值对数据。一个ConcurrentHashMap里包含一个Segment数组，Segment的结构和HashMap类似，是一种数组和链表结构；一个Segment里包含一个HashEntry数组，每个HashEntry是一个链表结构的元素；每个Segment守护着一个HashEntry数组里的元素，当对HashEntry数组的数据进行修改时，必须首先获得它对应的Segment锁。</li><li>看不懂？？？很正常，我也看不懂</li><li>总结：<ol><li>HashTable就是实现了HashMap加上了synchronized，而ConcurrentHashMap底层采用分段的数组+链表实现，线程安全</li><li>ConcurrentHashMap通过把整个Map分为N个Segment，可以提供相同的线程安全，但是效率提升N倍，默认提升16倍。</li><li>并且读操作不加锁，由于HashEntry的value变量是 volatile的，也能保证读取到最新的值。</li><li>Hashtable的synchronized是针对整张Hash表的，即每次锁住整张表让线程独占，ConcurrentHashMap允许多个修改操作并发进行，其关键在于使用了锁分离技术</li><li>扩容：段内扩容（段内元素超过该段对应Entry数组长度的75%触发扩容，不会对整个Map进行扩容），插入前检测需不需要扩容，有效避免无效扩容</li></ol></li></ul><h4 id="Collections-synchronized-是什么？"><a href="#Collections-synchronized-是什么？" class="headerlink" title="Collections.synchronized * 是什么？"></a>Collections.synchronized * 是什么？</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">注意：* 号代表后面是还有内容的<br></code></pre></td></tr></table></figure><ul><li>此方法是干什么的呢，他完完全全的可以把List、Map、Set接口底下的集合变成线程安全的集合</li><li>Collections.synchronized *  ：原理是什么，我猜的话是代理模式：<a href="https://link.juejin.cn/?target=https://blog.csdn.net/weixin_43122090/article/details/104883274">Java代理模式理解</a></li></ul><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/17172bac6e2aff60~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p><h4 id="Java-中-ConcurrentHashMap-的并发度是什么？"><a href="#Java-中-ConcurrentHashMap-的并发度是什么？" class="headerlink" title="Java 中 ConcurrentHashMap 的并发度是什么？"></a>Java 中 ConcurrentHashMap 的并发度是什么？</h4><ul><li>ConcurrentHashMap 把实际 map 划分成若干部分来实现它的可扩展性和线程安全。这种划分是使用并发度获得的，它是 ConcurrentHashMap 类构造函数的一个可选参数，默认值为 16，这样在多线程情况下就能避免争用。</li><li>在 JDK8 后，它摒弃了 Segment（锁段）的概念，而是启用了一种全新的方式实现,利用 CAS 算法。同时加入了更多的辅助变量来提高并发度，具体内容还是查看源码吧。</li></ul><h4 id="什么是并发容器的实现？"><a href="#什么是并发容器的实现？" class="headerlink" title="什么是并发容器的实现？"></a>什么是并发容器的实现？</h4><ul><li>何为同步容器：可以简单地理解为通过 synchronized 来实现同步的容器，如果有多个线程调用同步容器的方法，它们将会串行执行。比如 Vector，Hashtable，以及 Collections.synchronizedSet，synchronizedList 等方法返回的容器。可以通过查看 Vector，Hashtable 等这些同步容器的实现代码，可以看到这些容器实现线程安全的方式就是将它们的状态封装起来，并在需要同步的方法上加上关键字 synchronized。</li><li>并发容器使用了与同步容器完全不同的加锁策略来提供更高的并发性和伸缩性，例如在 ConcurrentHashMap 中采用了一种粒度更细的加锁机制，可以称为分段锁，在这种锁机制下，允许任意数量的读线程并发地访问 map，并且执行读操作的线程和写操作的线程也可以并发的访问 map，同时允许一定数量的写操作线程并发地修改 map，所以它可以在并发环境下实现更高的吞吐量。</li></ul><h4 id="Java-中的同步集合与并发集合有什么区别？"><a href="#Java-中的同步集合与并发集合有什么区别？" class="headerlink" title="Java 中的同步集合与并发集合有什么区别？"></a>Java 中的同步集合与并发集合有什么区别？</h4><ul><li>同步集合与并发集合都为多线程和并发提供了合适的线程安全的集合，不过并发集合的可扩展性更高。在 Java1.5 之前程序员们只有同步集合来用且在多线程并发的时候会导致争用，阻碍了系统的扩展性。Java5 介绍了并发集合像ConcurrentHashMap，不仅提供线程安全还用锁分离和内部分区等现代技术提高了可扩展性。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java并发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+      <tag>并发</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>线程池都有哪些状态</title>
     <link href="/blog/2021/09/12/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E7%8A%B6%E6%80%81/"/>
     <url>/blog/2021/09/12/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E7%8A%B6%E6%80%81/</url>
