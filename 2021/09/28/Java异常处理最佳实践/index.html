@@ -1,0 +1,629 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>Java异常处理最佳实践 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java异常处理最佳实践">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-28 21:00" pubdate>
+        2021年9月28日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      49
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java异常处理最佳实践</h1>
+            
+            <div class="markdown-body">
+              <h2 id="Java异常处理最佳实践"><a href="#Java异常处理最佳实践" class="headerlink" title="Java异常处理最佳实践"></a>Java异常处理最佳实践</h2><ul>
+<li>在 Java 中处理异常并不是一个简单的事情。不仅仅初学者很难理解，即使一些有经验的开发者也需要花费很多时间来思考如何处理异常，包括需要处理哪些异常，怎样处理等等。这也是绝大多数开发团队都会制定一些规则来规范进行异常处理的原因。而团队之间的这些规范往往是截然不同的。</li>
+<li>本文给出几个被很多团队使用的异常处理最佳实践。</li>
+</ul>
+<h3 id="1-在-finally-块中清理资源或者使用-try-with-resource-语句"><a href="#1-在-finally-块中清理资源或者使用-try-with-resource-语句" class="headerlink" title="1. 在 finally 块中清理资源或者使用 try-with-resource 语句"></a>1. 在 finally 块中清理资源或者使用 try-with-resource 语句</h3><ul>
+<li>当使用类似InputStream这种需要使用后关闭的资源时，一个常见的错误就是在try块的最后关闭资源。</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doNotCloseResourceInTry</span><span class="hljs-params">()</span> </span>&#123;<br>    FileInputStream inputStream = null;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-built_in">File</span> file = <span class="hljs-keyword">new</span> <span class="hljs-built_in">File</span>(<span class="hljs-string">&quot;./tmp.txt&quot;</span>);<br>        inputStream = <span class="hljs-keyword">new</span> FileInputStream(file);<br>        <span class="hljs-comment">// use the inputStream to read a file</span><br>        <span class="hljs-comment">// do NOT do this</span><br>        inputStream.<span class="hljs-built_in">close</span>();<br>    &#125; <span class="hljs-keyword">catch</span> (FileNotFoundException e) &#123;<br>        <span class="hljs-built_in">log</span>.error(e);<br>    &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>        <span class="hljs-built_in">log</span>.error(e);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>问题就是，只有没有异常抛出的时候，这段代码才可以正常工作。try 代码块内代码会正常执行，并且资源可以正常关闭。但是，使用 try 代码块是有原因的，一般调用一个或多个可能抛出异常的方法，而且，你自己也可能会抛出一个异常，这意味着代码可能不会执行到 try 代码块的最后部分。结果就是，你并没有关闭资源。</li>
+</ul>
+<p>所以，你应该把清理工作的代码放到 finally 里去，或者使用 try-with-resource 特性。</p>
+<h4 id="1-1-使用-finally-代码块"><a href="#1-1-使用-finally-代码块" class="headerlink" title="1.1 使用 finally 代码块"></a>1.1 使用 finally 代码块</h4><ul>
+<li>与前面几行 try 代码块不同，finally 代码块总是会被执行。不管 try 代码块成功执行之后还是你在 catch 代码块中处理完异常后都会执行。因此，你可以确保你清理了所有打开的资源。</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">closeResourceInFinally</span>(<span class="hljs-params"></span>)</span> &#123;<br>    FileInputStream inputStream = <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">try</span> &#123;<br>        File file = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;./tmp.txt&quot;</span>);<br>        inputStream = <span class="hljs-keyword">new</span> FileInputStream(file);<br>        <span class="hljs-comment">// use the inputStream to read a file</span><br>    &#125; <span class="hljs-keyword">catch</span> (FileNotFoundException e) &#123;<br>        log.error(e);<br>    &#125; <span class="hljs-keyword">finally</span> &#123;<br>        <span class="hljs-keyword">if</span> (inputStream != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                inputStream.close();<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                log.error(e);<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="1-2-Java-7-的-try-with-resource-语法"><a href="#1-2-Java-7-的-try-with-resource-语法" class="headerlink" title="1.2 Java 7 的 try-with-resource 语法"></a>1.2 Java 7 的 try-with-resource 语法</h4><ul>
+<li>如果你的资源实现了 AutoCloseable 接口，你可以使用这个语法。大多数的 Java 标准资源都继承了这个接口。当你在 try 子句中打开资源，资源会在 try 代码块执行后或异常处理后自动关闭。</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">automaticallyCloseResource</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-built_in">File</span> file = <span class="hljs-keyword">new</span> <span class="hljs-built_in">File</span>(<span class="hljs-string">&quot;./tmp.txt&quot;</span>);<br>    <span class="hljs-keyword">try</span> (FileInputStream inputStream = <span class="hljs-keyword">new</span> FileInputStream(file);) &#123;<br>        <span class="hljs-comment">// use the inputStream to read a file</span><br>    &#125; <span class="hljs-keyword">catch</span> (FileNotFoundException e) &#123;<br>        <span class="hljs-built_in">log</span>.error(e);<br>    &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>        <span class="hljs-built_in">log</span>.error(e);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="2-优先明确的异常"><a href="#2-优先明确的异常" class="headerlink" title="2. 优先明确的异常"></a>2. 优先明确的异常</h3><ul>
+<li>你抛出的异常越明确越好，永远记住，你的同事或者几个月之后的你，将会调用你的方法并且处理异常。</li>
+<li>因此需要保证提供给他们尽可能多的信息。这样你的 API 更容易被理解。你的方法的调用者能够更好的处理异常并且避免额外的检查。</li>
+<li>因此，总是尝试寻找最适合你的异常事件的类，例如，抛出一个 NumberFormatException 来替换一个 IllegalArgumentException 。避免抛出一个不明确的异常。</li>
+</ul>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">doNotDoThis</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>    ...<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">doThis</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> NumberFormatException </span>&#123;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="3-对异常进行文档说明"><a href="#3-对异常进行文档说明" class="headerlink" title="3. 对异常进行文档说明"></a>3. 对异常进行文档说明</h3><ul>
+<li>当在方法上声明抛出异常时，也需要进行文档说明。目的是为了给调用者提供尽可能多的信息，从而可以更好地避免或处理异常。<br> 在 Javadoc 添加 @throws 声明，并且描述抛出异常的场景。</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doSomething</span><span class="hljs-params">(<span class="hljs-keyword">String</span> input)</span> throws MyBusinessException </span>&#123;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="4-使用描述性消息抛出异常"><a href="#4-使用描述性消息抛出异常" class="headerlink" title="4. 使用描述性消息抛出异常"></a>4. 使用描述性消息抛出异常</h3><ul>
+<li>在抛出异常时，需要尽可能精确地描述问题和相关信息，这样无论是打印到日志中还是在监控工具中，都能够更容易被人阅读，从而可以更好地定位具体错误信息、错误的严重程度等。</li>
+<li>但这里并不是说要对错误信息长篇大论，因为本来 Exception 的类名就能够反映错误的原因，因此只需要用一到两句话描述即可。</li>
+<li>如果抛出一个特定的异常，它的类名很可能已经描述了这种错误。所以，你不需要提供很多额外的信息。一个很好的例子是 NumberFormatException 。当你以错误的格式提供 String 时，它将被 java.lang.Long 类的构造函数抛出。</li>
+</ul>
+<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs monkey"><span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">new</span> Long(<span class="hljs-string">&quot;xyz&quot;</span>);<br>&#125; <span class="hljs-keyword">catch</span> (NumberFormatException e) &#123;<br>    <span class="hljs-built_in">log</span>.<span class="hljs-built_in">error</span>(e);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="5-优先捕获最具体的异常"><a href="#5-优先捕获最具体的异常" class="headerlink" title="5. 优先捕获最具体的异常"></a>5. 优先捕获最具体的异常</h3><ul>
+<li>大多数 IDE 都可以帮助你实现这个最佳实践。当你尝试首先捕获较不具体的异常时，它们会报告无法访问的代码块。</li>
+<li>但问题在于，只有匹配异常的第一个 catch 块会被执行。 因此，如果首先捕获 IllegalArgumentException ，则永远不会到达应该处理更具体的 NumberFormatException 的 catch 块，因为它是 IllegalArgumentException 的子类。</li>
+<li>总是优先捕获最具体的异常类，并将不太具体的 catch 块添加到列表的末尾。</li>
+<li>你可以在下面的代码片断中看到这样一个 try-catch 语句的例子。 第一个 catch 块处理所有 NumberFormatException 异常，第二个处理所有非 NumberFormatException 异常的IllegalArgumentException 异常。</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">catchMostSpecificExceptionFirst</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        doSomething(<span class="hljs-string">&quot;A message&quot;</span>);<br>    &#125; <span class="hljs-keyword">catch</span> (NumberFormatException e) &#123;<br>        log.error(e);<br>    &#125; <span class="hljs-keyword">catch</span> (IllegalArgumentException e) &#123;<br>        log.error(e)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="6-不要捕获-Throwable-类"><a href="#6-不要捕获-Throwable-类" class="headerlink" title="6. 不要捕获 Throwable 类"></a>6. 不要捕获 Throwable 类</h3><ul>
+<li>Throwable 是所有异常和错误的超类。你可以在 catch 子句中使用它，但是你永远不应该这样做！</li>
+<li>如果在 catch 子句中使用 Throwable ，它不仅会捕获所有异常，也将捕获所有的错误。JVM 抛出错误，指出不应该由应用程序处理的严重问题。 典型的例子是 OutOfMemoryError 或者 StackOverflowError 。两者都是由应用程序控制之外的情况引起的，无法处理。</li>
+<li>所以，最好不要捕获 Throwable ，除非你确定自己处于一种特殊的情况下能够处理错误。</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">doNotCatchThrowable</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-comment">// do something</span><br>    &#125; <span class="hljs-keyword">catch</span> (Throwable t) &#123;<br>        <span class="hljs-comment">// don&#x27;t do this!</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="7-不要忽略异常"><a href="#7-不要忽略异常" class="headerlink" title="7. 不要忽略异常"></a>7. 不要忽略异常</h3><ul>
+<li>很多时候，开发者很有自信不会抛出异常，因此写了一个catch块，但是没有做任何处理或者记录日志。</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">doNotIgnoreExceptions</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-comment">// do something</span><br>    &#125; <span class="hljs-keyword">catch</span> (NumberFormatException e) &#123;<br>        <span class="hljs-comment">// this will never happen</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>但现实是经常会出现无法预料的异常，或者无法确定这里的代码未来是不是会改动(删除了阻止异常抛出的代码)，而此时由于异常被捕获，使得无法拿到足够的错误信息来定位问题。</li>
+<li>合理的做法是至少要记录异常的信息。</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">logAnException</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-comment">// do something</span><br>    &#125; <span class="hljs-keyword">catch</span> (NumberFormatException e) &#123;<br>        log.error(<span class="hljs-string">&quot;This should never happen: &quot;</span> + e);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="8-不要记录并抛出异常"><a href="#8-不要记录并抛出异常" class="headerlink" title="8. 不要记录并抛出异常"></a>8. 不要记录并抛出异常</h3><ul>
+<li>这可能是本文中最常被忽略的最佳实践。可以发现很多代码甚至类库中都会有捕获异常、记录日志并再次抛出的逻辑。如下：</li>
+</ul>
+<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs monkey"><span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">new</span> Long(<span class="hljs-string">&quot;xyz&quot;</span>);<br>&#125; <span class="hljs-keyword">catch</span> (NumberFormatException e) &#123;<br>    <span class="hljs-built_in">log</span>.<span class="hljs-built_in">error</span>(e);<br>    <span class="hljs-keyword">throw</span> e;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>这个处理逻辑看着是合理的。但这经常会给同一个异常输出多条日志。如下：</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css">17<span class="hljs-selector-pseudo">:44</span><span class="hljs-selector-pseudo">:28</span>,945 <span class="hljs-selector-tag">ERROR</span> <span class="hljs-selector-tag">TestExceptionHandling</span><span class="hljs-selector-pseudo">:65</span> <span class="hljs-selector-tag">-</span> <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.lang</span><span class="hljs-selector-class">.NumberFormatException</span>: <span class="hljs-selector-tag">For</span> <span class="hljs-selector-tag">input</span> <span class="hljs-selector-tag">string</span>: &quot;<span class="hljs-selector-tag">xyz</span>&quot;<br><span class="hljs-selector-tag">Exception</span> <span class="hljs-selector-tag">in</span> <span class="hljs-selector-tag">thread</span> &quot;<span class="hljs-selector-tag">main</span>&quot; <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.lang</span><span class="hljs-selector-class">.NumberFormatException</span>: <span class="hljs-selector-tag">For</span> <span class="hljs-selector-tag">input</span> <span class="hljs-selector-tag">string</span>: &quot;<span class="hljs-selector-tag">xyz</span>&quot;<br><span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.lang</span><span class="hljs-selector-class">.NumberFormatException</span><span class="hljs-selector-class">.forInputString</span>(<span class="hljs-selector-tag">NumberFormatException</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:65)</span><br><span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.lang</span><span class="hljs-selector-class">.Long</span><span class="hljs-selector-class">.parseLong</span>(<span class="hljs-selector-tag">Long</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:589)</span><br><span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.lang</span><span class="hljs-selector-class">.Long</span>.(<span class="hljs-selector-tag">Long</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:965)</span><br><span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">com</span><span class="hljs-selector-class">.stackify</span><span class="hljs-selector-class">.example</span><span class="hljs-selector-class">.TestExceptionHandling</span><span class="hljs-selector-class">.logAndThrowException</span>(<span class="hljs-selector-tag">TestExceptionHandling</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:63)</span><br><span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">com</span><span class="hljs-selector-class">.stackify</span><span class="hljs-selector-class">.example</span><span class="hljs-selector-class">.TestExceptionHandling</span><span class="hljs-selector-class">.main</span>(<span class="hljs-selector-tag">TestExceptionHandling</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:58)</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>如上所示，后面的日志也没有附加更有用的信息。如果想要提供更加有用的信息，那么可以将异常包装为自定义异常。</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">wrapException</span><span class="hljs-params">(<span class="hljs-keyword">String</span> input)</span> throws MyBusinessException </span>&#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-comment">// do something</span><br>    &#125; <span class="hljs-keyword">catch</span> (NumberFormatException e) &#123;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> MyBusinessException(<span class="hljs-string">&quot;A message that describes the error.&quot;</span>, e);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>因此，仅仅当想要处理异常时才去捕获，否则只需要在方法签名中声明让调用者去处理。</li>
+</ul>
+<h3 id="9-包装异常时不要抛弃原始的异常"><a href="#9-包装异常时不要抛弃原始的异常" class="headerlink" title="9. 包装异常时不要抛弃原始的异常"></a>9. 包装异常时不要抛弃原始的异常</h3><ul>
+<li>捕获标准异常并包装为自定义异常是一个很常见的做法。这样可以添加更为具体的异常信息并能够做针对的异常处理。<br> 在你这样做时，请确保将原始异常设置为原因（注：参考下方代码 NumberFormatException e 中的原始异常 e ）。Exception 类提供了特殊的构造函数方法，它接受一个 Throwable 作为参数。否则，你将会丢失堆栈跟踪和原始异常的消息，这将会使分析导致异常的异常事件变得困难。</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">wrapException</span><span class="hljs-params">(<span class="hljs-keyword">String</span> input)</span> throws MyBusinessException </span>&#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-comment">// do something</span><br>    &#125; <span class="hljs-keyword">catch</span> (NumberFormatException e) &#123;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> MyBusinessException(<span class="hljs-string">&quot;A message that describes the error.&quot;</span>, e);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="10-不要使用异常控制程序的流程"><a href="#10-不要使用异常控制程序的流程" class="headerlink" title="10. 不要使用异常控制程序的流程"></a>10. 不要使用异常控制程序的流程</h3><ul>
+<li>不应该使用异常控制应用的执行流程，例如，本应该使用if语句进行条件判断的情况下，你却使用异常处理，这是非常不好的习惯，会严重影响应用的性能。</li>
+</ul>
+<h3 id="11-使用标准异常"><a href="#11-使用标准异常" class="headerlink" title="11. 使用标准异常"></a>11. 使用标准异常</h3><ul>
+<li>如果使用内建的异常可以解决问题，就不要定义自己的异常。Java API 提供了上百种针对不同情况的异常类型，在开发中首先尽可能使用 Java API 提供的异常，如果标准的异常不能满足你的要求，这时候创建自己的定制异常。尽可能得使用标准异常有利于新加入的开发者看懂项目代码。</li>
+</ul>
+<h3 id="12-异常会影响性能"><a href="#12-异常会影响性能" class="headerlink" title="12. 异常会影响性能"></a>12. 异常会影响性能</h3><ul>
+<li>异常处理的性能成本非常高，每个 Java 程序员在开发时都应牢记这句话。创建一个异常非常慢，抛出一个异常又会消耗1~5ms，当一个异常在应用的多个层级之间传递时，会拖累整个应用的性能。<ul>
+<li>仅在异常情况下使用异常；</li>
+<li>在可恢复的异常情况下使用异常；</li>
+</ul>
+</li>
+<li>尽管使用异常有利于 Java 开发，但是在应用中最好不要捕获太多的调用栈，因为在很多情况下都不需要打印调用栈就知道哪里出错了。因此，异常消息应该提供恰到好处的信息。</li>
+</ul>
+<h3 id="13-总结"><a href="#13-总结" class="headerlink" title="13. 总结"></a>13. 总结</h3><ul>
+<li>综上所述，当你抛出或捕获异常的时候，有很多不同的情况需要考虑，而且大部分事情都是为了改善代码的可读性或者 API 的可用性。</li>
+<li>异常不仅仅是一个错误控制机制，也是一个通信媒介。因此，为了和同事更好的合作，一个团队必须要制定出一个最佳实践和规则，只有这样，团队成员才能理解这些通用概念，同时在工作中使用它。</li>
+</ul>
+<h3 id="异常处理-阿里巴巴Java开发手册"><a href="#异常处理-阿里巴巴Java开发手册" class="headerlink" title="异常处理-阿里巴巴Java开发手册"></a>异常处理-阿里巴巴Java开发手册</h3><ol>
+<li>【强制】Java 类库中定义的可以通过预检查方式规避的RuntimeException异常不应该通过catch 的方式来处理，比如：NullPointerException，IndexOutOfBoundsException等等。 说明：无法通过预检查的异常除外，比如，在解析字符串形式的数字时，可能存在数字格式错误，不得不通过catch NumberFormatException来实现。 正例：if (obj != null) {…} 反例：try { obj.method(); } catch (NullPointerException e) {…}</li>
+<li>【强制】异常不要用来做流程控制，条件控制。 说明：异常设计的初衷是解决程序运行中的各种意外情况，且异常的处理效率比条件判断方式要低很多。</li>
+<li>【强制】catch时请分清稳定代码和非稳定代码，稳定代码指的是无论如何不会出错的代码。对于非稳定代码的catch尽可能进行区分异常类型，再做对应的异常处理。 说明：对大段代码进行try-catch，使程序无法根据不同的异常做出正确的应激反应，也不利于定位问题，这是一种不负责任的表现。 正例：用户注册的场景中，如果用户输入非法字符，或用户名称已存在，或用户输入密码过于简单，在程序上作出分门别类的判断，并提示给用户。</li>
+<li>【强制】捕获异常是为了处理它，不要捕获了却什么都不处理而抛弃之，如果不想处理它，请将该异常抛给它的调用者。最外层的业务使用者，必须处理异常，将其转化为用户可以理解的内容。</li>
+<li>【强制】有try块放到了事务代码中，catch异常后，如果需要回滚事务，一定要注意手动回滚事务。</li>
+<li>【强制】finally块必须对资源对象、流对象进行关闭，有异常也要做try-catch。 说明：如果JDK7及以上，可以使用try-with-resources方式。</li>
+<li>【强制】不要在finally块中使用return。 说明：try块中的return语句执行成功后，并不马上返回，而是继续执行finally块中的语句，如果此处存在return语句，则在此直接返回，无情丢弃掉try块中的返回点。 反例：</li>
+</ol>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> x = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">checkReturn</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-comment">// x等于1，此处不返回</span><br>        <span class="hljs-keyword">return</span> ++x;<br>    &#125; <span class="hljs-keyword">finally</span> &#123;<br>        <span class="hljs-comment">// 返回的结果是2</span><br>        <span class="hljs-keyword">return</span> ++x;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<ol>
+<li>【强制】捕获异常与抛异常，必须是完全匹配，或者捕获异常是抛异常的父类。 说明：如果预期对方抛的是绣球，实际接到的是铅球，就会产生意外情况。</li>
+<li>【强制】在调用RPC、二方包、或动态生成类的相关方法时，捕捉异常必须使用Throwable类来进行拦截。 说明：通过反射机制来调用方法，如果找不到方法，抛出NoSuchMethodException。什么情况会抛出NoSuchMethodError呢？二方包在类冲突时，仲裁机制可能导致引入非预期的版本使类的方法签名不匹配，或者在字节码修改框架（比如：ASM）动态创建或修改类时，修改了相应的方法签名。这些情况，即使代码编译期是正确的，但在代码运行期时，会抛出NoSuchMethodError。</li>
+<li>【推荐】方法的返回值可以为null，不强制返回空集合，或者空对象等，必须添加注释充分说明什么情况下会返回null值。 说明：本手册明确防止NPE是调用者的责任。即使被调用方法返回空集合或者空对象，对调用者来说，也并非高枕无忧，必须考虑到远程调用失败、序列化失败、运行时异常等场景返回null的情况。</li>
+<li>【推荐】防止NPE，是程序员的基本修养，注意NPE产生的场景： 1） 返回类型为基本数据类型，return包装数据类型的对象时，自动拆箱有可能产生NPE。 反例：public int f() { return Integer对象}， 如果为null，自动解箱抛NPE。 2） 数据库的查询结果可能为null。 3） 集合里的元素即使isNotEmpty，取出的数据元素也可能为null。 4） 远程调用返回对象时，一律要求进行空指针判断，防止NPE。 5） 对于Session中获取的数据，建议进行NPE检查，避免空指针。 6） 级联调用obj.getA().getB().getC()；一连串调用，易产生NPE。<br> 正例：使用JDK8的Optional类来防止NPE问题。</li>
+<li>【推荐】定义时区分unchecked / checked 异常，避免直接抛出new RuntimeException()，更不允许抛出Exception或者Throwable，应使用有业务含义的自定义异常。推荐业界已定义过的自定义异常，如：DAOException / ServiceException等。</li>
+<li>【参考】对于公司外的http/api开放接口必须使用“错误码”；而应用内部推荐异常抛出；跨应用间RPC调用优先考虑使用Result方式，封装isSuccess()方法、“错误码”、“错误简短信息”。 说明：关于RPC方法返回方式使用Result方式的理由： 1）使用抛异常返回方式，调用方如果没有捕获到就会产生运行时错误。 2）如果不加栈信息，只是new自定义异常，加入自己的理解的error message，对于调用端解决问题的帮助不会太多。如果加了栈信息，在频繁调用出错的情况下，数据序列化和传输的性能损耗也是问题。</li>
+<li>【参考】避免出现重复的代码（Don’t Repeat Yourself），即DRY原则。 说明：随意复制和粘贴代码，必然会导致代码的重复，在以后需要修改时，需要修改所有的副本，容易遗漏。必要时抽取共性方法，或者抽象公共类，甚至是组件化。 正例：一个类中有多个public方法，都需要进行数行相同的参数校验操作，这个时候请抽取：<br> private boolean checkParam(DTO dto) {…}</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/Java%E5%BC%82%E5%B8%B8/">Java异常</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/Java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">Java异常处理</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">最佳实践</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/09/27/Java%E5%BC%82%E5%B8%B8%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/">
+                        <span class="hidden-mobile">Java异常常见面试题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
