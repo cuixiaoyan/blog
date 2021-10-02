@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>对象什么时候可以被垃圾器回收</title>
+    <link href="/blog/2021/10/02/%E5%AF%B9%E8%B1%A1%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%8F%AF%E4%BB%A5%E8%A2%AB%E5%9E%83%E5%9C%BE%E5%99%A8%E5%9B%9E%E6%94%B6/"/>
+    <url>/blog/2021/10/02/%E5%AF%B9%E8%B1%A1%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%8F%AF%E4%BB%A5%E8%A2%AB%E5%9E%83%E5%9C%BE%E5%99%A8%E5%9B%9E%E6%94%B6/</url>
+    
+    <content type="html"><![CDATA[<h3 id="对象什么时候可以被垃圾器回收"><a href="#对象什么时候可以被垃圾器回收" class="headerlink" title="对象什么时候可以被垃圾器回收"></a>对象什么时候可以被垃圾器回收</h3><ul><li>当对象对当前使用这个对象的应用程序变得不可触及的时候，这个对象就可以被回收了。</li><li>垃圾回收不会发生在永久代，如果永久代满了或者是超过了临界值，会触发完全垃圾回收(Full GC)。如果你仔细查看垃圾收集器的输出信息，就会发现永久代也是被回收的。这就是为什么正确的永久代大小对避免Full GC是非常重要的原因。</li></ul><h3 id="JVM-垃圾回收算法有哪些？"><a href="#JVM-垃圾回收算法有哪些？" class="headerlink" title="JVM 垃圾回收算法有哪些？"></a>JVM 垃圾回收算法有哪些？</h3><ul><li>标记-清除算法：标记无用对象，然后进行清除回收。缺点：效率不高，无法清除垃圾碎片。</li><li>复制算法：按照容量划分二个大小相等的内存区域，当一块用完的时候将活着的对象复制到另一块上，然后再把已使用的内存空间一次清理掉。缺点：内存使用率不高，只有原来的一半。</li><li>标记-整理算法：标记无用对象，让所有存活的对象都向一端移动，然后直接清除掉端边界以外的内存。</li><li>分代算法：根据对象存活周期的不同将内存划分为几块，一般是新生代和老年代，新生代基本采用复制算法，老年代采用标记整理算法。</li></ul><h4 id="标记-清除算法"><a href="#标记-清除算法" class="headerlink" title="标记-清除算法"></a>标记-清除算法</h4><ul><li>标记无用对象，然后进行清除回收。</li><li>标记-清除算法（Mark-Sweep）是一种常见的基础垃圾收集算法，它将垃圾收集分为两个阶段：<ul><li>标记阶段：标记出可以回收的对象。</li><li>清除阶段：回收被标记的对象所占用的空间。</li></ul></li><li>标记-清除算法之所以是基础的，是因为后面讲到的垃圾收集算法都是在此算法的基础上进行改进的。</li><li><strong>优点</strong>：实现简单，不需要对象进行移动。</li><li><strong>缺点</strong>：标记、清除过程效率低，产生大量不连续的内存碎片，提高了垃圾回收的频率。</li><li>标记-清除算法的执行的过程如下图所示</li></ul><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/171729fce4d05e44~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p><h4 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h4><ul><li>为了解决标记-清除算法的效率不高的问题，产生了复制算法。它把内存空间划为两个相等的区域，每次只使用其中一个区域。垃圾收集时，遍历当前使用的区域，把存活对象复制到另外一个区域中，最后将当前使用的区域的可回收的对象进行回收。</li><li><strong>优点</strong>：按顺序分配内存即可，实现简单、运行高效，不用考虑内存碎片。</li><li><strong>缺点</strong>：可用的内存大小缩小为原来的一半，对象存活率高时会频繁进行复制。</li><li>复制算法的执行过程如下图所示</li></ul><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/171729fcd22194ad~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p><h4 id="标记-整理算法"><a href="#标记-整理算法" class="headerlink" title="标记-整理算法"></a>标记-整理算法</h4><ul><li>在新生代中可以使用复制算法，但是在老年代就不能选择复制算法了，因为老年代的对象存活率会较高，这样会有较多的复制操作，导致效率变低。标记-清除算法可以应用在老年代中，但是它效率不高，在内存回收后容易产生大量内存碎片。因此就出现了一种标记-整理算法（Mark-Compact）算法，与标记-整理算法不同的是，在标记可回收的对象后将所有存活的对象压缩到内存的一端，使他们紧凑的排列在一起，然后对端边界以外的内存进行回收。回收后，已用和未用的内存都各自一边。</li><li><strong>优点</strong>：解决了标记-清理算法存在的内存碎片问题。</li><li><strong>缺点</strong>：仍需要进行局部对象移动，一定程度上降低了效率。</li><li>标记-整理算法的执行过程如下图所示</li></ul><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/171729fce7bb60b1~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p><h4 id="分代收集算法"><a href="#分代收集算法" class="headerlink" title="分代收集算法"></a>分代收集算法</h4><ul><li>当前商业虚拟机都采用 <code>分代收集</code>的垃圾收集算法。分代收集算法，顾名思义是根据对象的<code>存活周期</code>将内存划分为几块。一般包括<code>年轻代</code>、<code>老年代</code>和 <code>永久代</code>，如图所示：<code>（后面有重点讲解）</code></li></ul><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/171729fcf6f94e92~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p><h3 id="JVM中的永久代中会发生垃圾回收吗"><a href="#JVM中的永久代中会发生垃圾回收吗" class="headerlink" title="JVM中的永久代中会发生垃圾回收吗"></a>JVM中的永久代中会发生垃圾回收吗</h3><ul><li>垃圾回收不会发生在永久代，如果永久代满了或者是超过了临界值，会触发完全垃圾回收(Full GC)。如果你仔细查看垃圾收集器的输出信息，就会发现永久代也是被回收的。这就是为什么正确的永久代大小对避免Full GC是非常重要的原因。请参考下Java8：从永久代到元数据区<br> (注：Java8中已经移除了永久代，新加了一个叫做元数据区的native内存区)</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java虚拟机</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>对象</tag>
+      
+      <tag>垃圾器回收</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>垃圾回收机制及算法</title>
     <link href="/blog/2021/10/01/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%8F%8A%E7%AE%97%E6%B3%95/"/>
     <url>/blog/2021/10/01/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%8F%8A%E7%AE%97%E6%B3%95/</url>
