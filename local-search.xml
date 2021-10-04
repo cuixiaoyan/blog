@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>收集器分配</title>
+    <link href="/blog/2021/10/04/%E6%94%B6%E9%9B%86%E5%99%A8%E5%88%86%E9%85%8D/"/>
+    <url>/blog/2021/10/04/%E6%94%B6%E9%9B%86%E5%99%A8%E5%88%86%E9%85%8D/</url>
+    
+    <content type="html"><![CDATA[<h3 id="收集器可以这么分配？（了解就好了）"><a href="#收集器可以这么分配？（了解就好了）" class="headerlink" title="收集器可以这么分配？（了解就好了）"></a>收集器可以这么分配？（了解就好了）</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-type">Serial</span> / <span class="hljs-type">Serial</span> <span class="hljs-built_in">Old</span><br><span class="hljs-type">Serial</span> / CMS<br>ParNew / <span class="hljs-type">Serial</span> <span class="hljs-built_in">Old</span><br>ParNew / CMS<br>Parallel Scavenge / <span class="hljs-type">Serial</span> <span class="hljs-built_in">Old</span><br>Parallel Scavenge / Parallel <span class="hljs-built_in">Old</span><br>G1<br></code></pre></td></tr></table></figure><h3 id="新生代垃圾回收器和老年代垃圾回收器都有哪些？有什么区别？"><a href="#新生代垃圾回收器和老年代垃圾回收器都有哪些？有什么区别？" class="headerlink" title="新生代垃圾回收器和老年代垃圾回收器都有哪些？有什么区别？"></a>新生代垃圾回收器和老年代垃圾回收器都有哪些？有什么区别？</h3><ul><li>新生代回收器：Serial、ParNew、Parallel Scavenge</li><li>老年代回收器：Serial Old、Parallel Old、CMS</li><li>整堆回收器：G1</li></ul><p>新生代垃圾回收器一般采用的是复制算法，复制算法的优点是效率高，缺点是内存利用率低；老年代回收器一般采用的是标记-整理的算法进行垃圾回收。</p><h3 id="简述分代垃圾回收器是怎么工作的？"><a href="#简述分代垃圾回收器是怎么工作的？" class="headerlink" title="简述分代垃圾回收器是怎么工作的？"></a>简述分代垃圾回收器是怎么工作的？</h3><ul><li>分代回收器有两个分区：老生代和新生代，新生代默认的空间占比总空间的 1/3，老生代的默认占比是 2/3。</li><li>新生代使用的是复制算法，新生代里有 3 个分区：Eden、To Survivor、From Survivor，它们的默认占比是 8:1:1，它的执行流程如下：<ul><li>把 Eden + From Survivor 存活的对象放入 To Survivor 区；</li><li>清空 Eden 和 From Survivor 分区；</li><li>From Survivor 和 To Survivor 分区交换，From Survivor 变 To Survivor，To Survivor 变 From Survivor。</li></ul></li><li>每次在 From Survivor 到 To Survivor 移动时都存活的对象，年龄就 +1，当年龄到达 15（默认配置是 15）时，升级为老生代。大对象也会直接进入老生代。</li><li>老生代当空间占用到达某个值之后就会触发全局垃圾收回，一般使用标记整理的执行算法。以上这些循环往复就构成了整个分代垃圾回收的整体执行流程。</li></ul><h2 id="内存分配策略"><a href="#内存分配策略" class="headerlink" title="内存分配策略"></a>内存分配策略</h2><h3 id="简述java内存分配与回收策率以及Minor-GC和Major-GC"><a href="#简述java内存分配与回收策率以及Minor-GC和Major-GC" class="headerlink" title="简述java内存分配与回收策率以及Minor GC和Major GC"></a>简述java内存分配与回收策率以及Minor GC和Major GC</h3><ul><li>所谓自动内存管理，最终要解决的也就是内存分配和内存回收两个问题。前面我们介绍了内存回收，这里我们再来聊聊内存分配。</li><li>对象的内存分配通常是在 Java 堆上分配（随着虚拟机优化技术的诞生，某些场景下也会在栈上分配，后面会详细介绍），对象主要分配在新生代的 Eden 区，如果启动了本地线程缓冲，将按照线程优先在 TLAB 上分配。少数情况下也会直接在老年代上分配。总的来说分配规则不是百分百固定的，其细节取决于哪一种垃圾收集器组合以及虚拟机相关参数有关，但是虚拟机对于内存的分配还是会遵循以下几种「普世」规则：</li></ul><h4 id="对象优先在-Eden-区分配"><a href="#对象优先在-Eden-区分配" class="headerlink" title="对象优先在 Eden 区分配"></a>对象优先在 Eden 区分配</h4><ul><li>多数情况，对象都在新生代 Eden 区分配。当 Eden 区分配没有足够的空间进行分配时，虚拟机将会发起一次 Minor GC。如果本次 GC 后还是没有足够的空间，则将启用分配担保机制在老年代中分配内存。<ul><li>这里我们提到 Minor GC，如果你仔细观察过 GC 日常，通常我们还能从日志中发现 Major GC/Full GC。</li><li><strong>Minor GC</strong> 是指发生在新生代的 GC，因为 Java 对象大多都是朝生夕死，所有 Minor GC 非常频繁，一般回收速度也非常快；</li><li><strong>Major GC/Full GC</strong> 是指发生在老年代的 GC，出现了 Major GC 通常会伴随至少一次 Minor GC。Major GC 的速度通常会比 Minor GC 慢 10 倍以上。</li></ul></li></ul><h4 id="为什么大对象直接进入老年代"><a href="#为什么大对象直接进入老年代" class="headerlink" title="为什么大对象直接进入老年代"></a>为什么大对象直接进入老年代</h4><ul><li>所谓大对象是指需要大量连续内存空间的对象，频繁出现大对象是致命的，会导致在内存还有不少空间的情况下提前触发 GC 以获取足够的连续空间来安置新对象。</li><li>前面我们介绍过新生代使用的是标记-清除算法来处理垃圾回收的，如果大对象直接在新生代分配就会导致 Eden 区和两个 Survivor 区之间发生大量的内存复制。因此对于大对象都会直接在老年代进行分配。</li></ul><h4 id="长期存活对象将进入老年代"><a href="#长期存活对象将进入老年代" class="headerlink" title="长期存活对象将进入老年代"></a>长期存活对象将进入老年代</h4><ul><li>虚拟机采用分代收集的思想来管理内存，那么内存回收时就必须判断哪些对象应该放在新生代，哪些对象应该放在老年代。因此虚拟机给每个对象定义了一个对象年龄的计数器，如果对象在 Eden 区出生，并且能够被 Survivor 容纳，将被移动到 Survivor 空间中，这时设置对象年龄为 1。对象在 Survivor 区中每「熬过」一次 Minor GC 年龄就加 1，当年龄达到一定程度（默认 15） 就会被晋升到老年代。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java虚拟机</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>收集器</tag>
+      
+      <tag>垃圾</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>垃圾收集器</title>
     <link href="/blog/2021/10/03/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"/>
     <url>/blog/2021/10/03/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/</url>
