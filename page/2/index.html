@@ -186,16 +186,21 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2021/10/01/%E5%89%AF%E6%9C%AC/"></a>
+        <a href="/blog/2021/10/02/%E5%AF%B9%E8%B1%A1%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%8F%AF%E4%BB%A5%E8%A2%AB%E5%9E%83%E5%9C%BE%E5%99%A8%E5%9B%9E%E6%94%B6/">对象什么时候可以被垃圾器回收</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2021/10/01/%E5%89%AF%E6%9C%AC/">
+        <a href="/blog/2021/10/02/%E5%AF%B9%E8%B1%A1%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%8F%AF%E4%BB%A5%E8%A2%AB%E5%9E%83%E5%9C%BE%E5%99%A8%E5%9B%9E%E6%94%B6/">
           
           
             
           
-          
+          对象什么时候可以被垃圾器回收
+当对象对当前使用这个对象的应用程序变得不可触及的时候，这个对象就可以被回收了。
+垃圾回收不会发生在永久代，如果永久代满了或者是超过了临界值，会触发完全垃圾回收(Full GC)。如果你仔细查看垃圾收集器的输出信息，就会发现永久代也是被回收的。这就是为什么正确的永久代大小对避免Full GC是非常重要的原因。
+
+JVM 垃圾回收算法有哪些？
+标记-清除算法：标记无用对象
         </a>
       </p>
 
@@ -203,7 +208,61 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-01 21:00" pubdate>
+            <time datetime="2021-10-02 21:00" pubdate>
+              2021-10-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/">Java虚拟机</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E5%AF%B9%E8%B1%A1/">对象</a>
+            
+              <a href="/blog/tags/%E5%9E%83%E5%9C%BE%E5%99%A8%E5%9B%9E%E6%94%B6/">垃圾器回收</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/10/01/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%8F%8A%E7%AE%97%E6%B3%95/">垃圾回收机制及算法</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/10/01/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%8F%8A%E7%AE%97%E6%B3%95/">
+          
+          
+            
+          
+          垃圾回收机制及算法简述Java垃圾回收机制
+在java中，程序员是不需要显示的去释放一个对象的内存的，而是由虚拟机自行执行。在JVM中，有一个垃圾回收线程，它是低优先级的，在正常情况下是不会执行的，只有在虚拟机空闲或者当前堆内存不足时，才会触发执行，扫面那些没有被任何引用的对象，并将它们添加到要回收的集合中，进行回收。
+
+GC是什么？为什么要GC
+GC 是垃圾收集的意思（Gabage Collec
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-01 22:00" pubdate>
               2021-10-01
             </time>
           </div>
@@ -216,6 +275,15 @@
             
           </div>
         
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">垃圾回收</a>
+            
+              <a href="/blog/tags/%E6%9C%BA%E5%88%B6%E5%8F%8A%E7%AE%97%E6%B3%95/">机制及算法</a>
+            
+          </div>
         
       </div>
     </article>
@@ -381,58 +449,6 @@ Java文件编译的过程
               <a href="/blog/tags/Java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">Java异常处理</a>
             
               <a href="/blog/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">最佳实践</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/09/27/Java%E5%BC%82%E5%B8%B8%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/">Java异常常见面试题</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/09/27/Java%E5%BC%82%E5%B8%B8%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/">
-          
-          
-            
-          
-          Java异常常见面试题1. Error 和 Exception 区别是什么？
-Error 类型的错误通常为虚拟机相关错误，如系统崩溃，内存不足，堆栈溢出等，编译器不会对这类错误进行检测，JAVA 应用程序也不应对这类错误进行捕获，一旦这类错误发生，通常应用程序会被终止，仅靠应用程序本身无法恢复；
-Exception 类的错误是可以在应用程序中进行捕获并处理的，通常遇到这种错误，应对其进行处理，使应
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-27 21:00" pubdate>
-              2021-09-27
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Java%E5%BC%82%E5%B8%B8/">Java异常</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/Java%E5%BC%82%E5%B8%B8/">Java异常</a>
-            
-              <a href="/blog/tags/%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/">常见面试题</a>
             
           </div>
         

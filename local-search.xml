@@ -4,6 +4,52 @@
   
   
   <entry>
+    <title></title>
+    <link href="/blog/2021/10/06/%E5%89%AF%E6%9C%AC/"/>
+    <url>/blog/2021/10/06/%E5%89%AF%E6%9C%AC/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>Spring</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Spring概述</title>
+    <link href="/blog/2021/10/06/Spring%E6%A6%82%E8%BF%B0/"/>
+    <url>/blog/2021/10/06/Spring%E6%A6%82%E8%BF%B0/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Spring概述"><a href="#Spring概述" class="headerlink" title="Spring概述"></a>Spring概述</h2><h3 id="什么是spring"><a href="#什么是spring" class="headerlink" title="什么是spring?"></a>什么是spring?</h3><ul><li>Spring是<strong>一个轻量级Java开发框架</strong>，最早有<strong>Rod Johnson</strong>创建，目的是为了解决企业级应用开发的业务逻辑层和其他各层的耦合问题。它是一个分层的JavaSE/JavaEE full-stack（一站式）轻量级开源框架，为开发Java应用程序提供全面的基础架构支持。Spring负责基础架构，因此Java开发者可以专注于应用程序的开发。</li><li>Spring最根本的使命是<strong>解决企业级应用开发的复杂性，即简化Java开发</strong>。</li><li>Spring可以做很多事情，它为企业级开发提供给了丰富的功能，但是这些功能的底层都依赖于它的两个核心特性，也就是<strong>依赖注入（dependency injection，DI）\</strong>和**面向切面编程（aspect-oriented programming，AOP）**。</li></ul><p><strong>为了降低Java开发的复杂性，Spring采取了以下4种关键策略</strong></p><ul><li>基于POJO的轻量级和最小侵入性编程；</li><li>通过依赖注入和面向接口实现松耦合；</li><li>基于切面和惯例进行声明式编程；</li><li>通过切面和模板减少样板式代码。</li></ul><h3 id="Spring的俩大核心概念"><a href="#Spring的俩大核心概念" class="headerlink" title="Spring的俩大核心概念"></a>Spring的俩大核心概念</h3><ul><li>IOC（控制翻转）：<ul><li>控制翻转，也叫依赖注入，他就是不会直接创建对象，只是把对象声明出来，在代码 中不直接与对象和服务进行连接，但是在配置文件中描述了哪一项组件需要哪一项服 务，容器将他们组件起来。在一般的IOC场景中容器创建了所有的对象，并设置了必 要的属性将他们联系在一起，等到需要使用的时候才把他们声明出来，使用注解就跟 方便了，容器会自动根据注解把对象组合起来</li></ul></li><li>AOP（面对切面编程）<ul><li>面对切面编程，这是一种编程模式，他允许程序员通过自定义的横切点进行模块 化，将那些影响多个类的行为封装到课重用的模块中。 例子：比如日志输出，不使用AOP的话就需要把日志的输出语句放在所有类中，方法 中，但是有了AOP就可以把日志输出语句封装一个可重用模块，在以声明的方式将他 们放在类中，每次使用类就自动完成了日志输出。</li></ul></li></ul><h3 id="Spring框架的设计目标，设计理念，和核心是什么"><a href="#Spring框架的设计目标，设计理念，和核心是什么" class="headerlink" title="Spring框架的设计目标，设计理念，和核心是什么"></a>Spring框架的设计目标，设计理念，和核心是什么</h3><ul><li><strong>Spring设计目标</strong>：Spring为开发者提供一个一站式轻量级应用开发平台；</li><li><strong>Spring设计理念</strong>：在JavaEE开发中，支持POJO和JavaBean开发方式，使应用面向接口开发，充分支持OOP（面向对象）设计方法；Spring通过IOC容器实现对象耦合关系的管理，并实现依赖反转，将对象之间的依赖关系交给IOC容器，实现解耦；</li><li><strong>Spring框架的核心</strong>：IOC容器和AOP模块。通过IOC容器管理POJO对象以及他们之间的耦合关系；通过AOP以动态非侵入的方式增强服务。</li><li>IOC让相互协作的组件保持松散的耦合，而AOP编程允许你把遍布于应用各层的功能分离出来形成可重用的功能组件。</li></ul><h3 id="Spring的优缺点是什么？"><a href="#Spring的优缺点是什么？" class="headerlink" title="Spring的优缺点是什么？"></a>Spring的优缺点是什么？</h3><p><strong>优点</strong></p><ul><li><p>方便解耦，简化开发</p><p>Spring就是一个大工厂，可以将所有对象的创建和依赖关系的维护，交给Spring管理。</p></li><li><p>AOP编程的支持</p><p>Spring提供面向切面编程，可以方便的实现对程序进行权限拦截、运行监控等功能。</p></li><li><p>声明式事务的支持</p><p>只需要通过配置就可以完成对事务的管理，而无需手动编程。</p></li><li><p>方便程序的测试</p><p>Spring对Junit4支持，可以通过注解方便的测试Spring程序。</p></li><li><p>方便集成各种优秀框架</p><p>Spring不排斥各种优秀的开源框架，其内部提供了对各种优秀框架的直接支持（如：Struts、Hibernate、MyBatis等）。</p></li><li><p>降低JavaEE API的使用难度</p><p>Spring对JavaEE开发中非常难用的一些API（JDBC、JavaMail、远程调用等），都提供了封装，使这些API应用难度大大降低。</p></li></ul><p><strong>缺点</strong></p><ul><li>Spring明明一个很轻量级的框架，却给人感觉大而全</li><li>Spring依赖反射，反射影响性能</li><li>使用门槛升高，入门Spring需要较长时间</li></ul><h3 id="Spring有哪些应用场景"><a href="#Spring有哪些应用场景" class="headerlink" title="Spring有哪些应用场景"></a>Spring有哪些应用场景</h3><ul><li><strong>应用场景</strong>：JavaEE企业应用开发，包括SSH、SSM等</li></ul><p><strong>Spring价值</strong>：</p><ul><li>Spring是非侵入式的框架，目标是使应用程序代码对框架依赖最小化；</li><li>Spring提供一个一致的编程模型，使应用直接使用POJO开发，与运行环境隔离开来；</li><li>Spring推动应用设计风格向面向对象和面向接口开发转变，提高了代码的重用性和可测试性；</li></ul><h3 id="Spring由哪些模块组成？"><a href="#Spring由哪些模块组成？" class="headerlink" title="Spring由哪些模块组成？"></a>Spring由哪些模块组成？</h3><ul><li><p>Spring 总共大约有 20 个模块， 由 1300 多个不同的文件构成。 而这些组件被分别整合在<code>核心容器（Core Container）</code> 、 <code>AOP（Aspect Oriented Programming）和设备支持（Instrmentation）</code> 、<code>数据访问与集成（Data Access/Integeration）</code> 、 <code>Web</code>、 <code>消息（Messaging）</code> 、 <code>Test</code>等 6 个模块中。 以下是 Spring 5 的模块结构图： <img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/1717443eb25a3d9b~tplv-t2oaga2asx-watermark.awebp" alt="在这里插入图片描述"></p></li><li><p>spring core：提供了框架的基本组成部分，包括控制反转（Inversion of Control，IOC）和依赖注入（Dependency Injection，DI）功能。</p></li><li><p>spring beans：提供了BeanFactory，是工厂模式的一个经典实现，Spring将管理对象称为Bean。</p></li><li><p>spring context：构建于 core 封装包基础上的 context 封装包，提供了一种框架式的对象访问方法。</p></li><li><p>spring jdbc：提供了一个JDBC的抽象层，消除了烦琐的JDBC编码和数据库厂商特有的错误代码解析， 用于简化JDBC。</p></li><li><p>spring aop：提供了面向切面的编程实现，让你可以自定义拦截器、切点等。</p></li><li><p>spring Web：提供了针对 Web 开发的集成特性，例如文件上传，利用 servlet listeners 进行 ioc 容器初始化和针对 Web 的 ApplicationContext。</p></li><li><p>spring test：主要为测试提供支持的，支持使用JUnit或TestNG对Spring组件进行单元测试和集成测试。</p></li></ul><h3 id="Spring-框架中都用到了哪些设计模式？"><a href="#Spring-框架中都用到了哪些设计模式？" class="headerlink" title="Spring 框架中都用到了哪些设计模式？"></a>Spring 框架中都用到了哪些设计模式？</h3><ol><li>工厂模式：BeanFactory就是简单工厂模式的体现，用来创建对象的实例；</li><li>单例模式：Bean默认为单例模式。</li><li>代理模式：Spring的AOP功能用到了JDK的动态代理和CGLIB字节码生成技术；</li><li>模板方法：用来解决代码重复的问题。比如. RestTemplate, JmsTemplate, JpaTemplate。</li><li>观察者模式：定义对象键一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都会得到通知被制动更新，如Spring中listener的实现–ApplicationListener。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>Spring</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Spring</tag>
+      
+      <tag>概述</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>虚拟机类加载机制</title>
     <link href="/blog/2021/10/05/%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/"/>
     <url>/blog/2021/10/05/%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</url>
@@ -133,25 +179,6 @@
       <tag>机制及算法</tag>
       
     </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title></title>
-    <link href="/blog/2021/10/01/%E5%89%AF%E6%9C%AC/"/>
-    <url>/blog/2021/10/01/%E5%89%AF%E6%9C%AC/</url>
-    
-    <content type="html"><![CDATA[]]></content>
-    
-    
-    <categories>
-      
-      <category>Java虚拟机</category>
-      
-    </categories>
-    
     
   </entry>
   

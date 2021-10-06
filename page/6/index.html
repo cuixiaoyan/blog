@@ -186,6 +186,61 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/09/01/%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95%E5%92%8C%E5%90%8C%E6%AD%A5%E5%9D%97/">同步方法和同步块</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/09/01/%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95%E5%92%8C%E5%90%8C%E6%AD%A5%E5%9D%97/">
+          
+          
+            
+          
+          同步方法和同步块，哪个是更好的选择？
+同步块是更好的选择，因为它不会锁住整个对象（当然你也可以让它锁住整个对象）。同步方法会锁住整个对象，哪怕这个类中有多个不相关联的同步块，这通常会导致他们停止执行并需要等待获得这个对象上的锁。
+同步块更要符合开放调用的原则，只在需要锁住的代码块锁住相应的对象，这样从侧面来说也可以避免死锁。
+
+1请知道一条原则：同步的范围越小越好。
+什么是线程同步和线程互斥，有哪
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-09-01 21:00" pubdate>
+              2021-09-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
+            
+              <a href="/blog/tags/%E5%90%8C%E6%AD%A5/">同步</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84%20sleep()%E6%96%B9%E6%B3%95%E5%92%8C%20yield/">线程的sleep()方法和yield()</a>
       </h1>
 
@@ -383,63 +438,6 @@
               <a href="/blog/tags/Java/">Java</a>
             
               <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/08/14/%E7%BD%91%E7%BB%9C%E6%93%8D%E4%BD%9CIO%E8%AE%B2%E8%A7%A3/">网络操作IO讲解</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/08/14/%E7%BD%91%E7%BB%9C%E6%93%8D%E4%BD%9CIO%E8%AE%B2%E8%A7%A3/">
-          
-          
-            
-          
-          网络操作IO讲解
-我这使用Socket简单的来模拟网络编程IO会带来的问题
-不懂Socket可以看我之前的文章，这个东西很容易懂的，就是基于TCP实现的网络通信，比http要快，很多实现网络通信的框架都是基于Socket来实现 
-
-网络操作IO编程演变历史1 BIO编程会出现什么问题？
-BIO是阻塞的
-
-例子： 阻塞IO（blocking I/O） A拿着一支鱼竿在河边钓鱼，并且一直在鱼竿前等，在
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-14 20:00" pubdate>
-              2021-08-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/JavaIO/">JavaIO</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/IO/">IO</a>
-            
-              <a href="/blog/tags/%E7%BD%91%E7%BB%9C%E6%93%8D%E4%BD%9C/">网络操作</a>
             
           </div>
         
