@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>Spring如何处理线程并发问题</title>
+    <link href="/blog/2021/10/13/Spring%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98/"/>
+    <url>/blog/2021/10/13/Spring%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h3 id="Spring如何处理线程并发问题？"><a href="#Spring如何处理线程并发问题？" class="headerlink" title="Spring如何处理线程并发问题？"></a>Spring如何处理线程并发问题？</h3><ul><li>在一般情况下，只有无状态的Bean才可以在多线程环境下共享，在Spring中，绝大部分Bean都可以声明为singleton作用域，因为Spring对一些Bean中非线程安全状态采用ThreadLocal进行处理，解决线程安全问题。</li><li>ThreadLocal和线程同步机制都是为了解决多线程中相同变量的访问冲突问题。同步机制采用了“时间换空间”的方式，仅提供一份变量，不同的线程在访问前需要获取锁，没获得锁的线程则需要排队。而ThreadLocal采用了“空间换时间”的方式。</li><li>ThreadLocal会为每一个线程提供一个独立的变量副本，从而隔离了多个线程对数据的访问冲突。因为每一个线程都拥有自己的变量副本，从而也就没有必要对该变量进行同步了。ThreadLocal提供了线程安全的共享对象，在编写多线程代码时，可以把不安全的变量封装进ThreadLocal。</li></ul><h3 id="解释Spring框架中bean的生命周期"><a href="#解释Spring框架中bean的生命周期" class="headerlink" title="解释Spring框架中bean的生命周期"></a>解释Spring框架中bean的生命周期</h3><ul><li>在传统的Java应用中，bean的生命周期很简单。使用Java关键字new进行bean实例化，然后该bean就可以使用了。一旦该bean不再被使用，则由Java自动进行垃圾回收。相比之下，Spring容器中的bean的生命周期就显得相对复杂多了。正确理解Spring bean的生命周期非常重要，因为你或许要利用Spring提供的扩展点来自定义bean的创建过程。下图展示了bean装载到Spring应用上下文中的一个典型的生命周期过程。</li></ul><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/1717443ebe68c24f~tplv-t2oaga2asx-watermark.awebp" alt="img"></p><ul><li>bean在Spring容器中从创建到销毁经历了若干阶段，每一阶段都可以针对Spring如何管理bean进行个性化定制。</li><li>正如你所见，在bean准备就绪之前，bean工厂执行了若干启动步骤。</li></ul><p><strong>我们对上图进行详细描述：</strong></p><ul><li>Spring对bean进行实例化；</li><li>Spring将值和bean的引用注入到bean对应的属性中；</li><li>如果bean实现了BeanNameAware接口，Spring将bean的ID传递给setBean-Name()方法；</li><li>如果bean实现了BeanFactoryAware接口，Spring将调用setBeanFactory()方法，将BeanFactory容器实例传入；</li><li>如果bean实现了ApplicationContextAware接口，Spring将调用setApplicationContext()方法，将bean所在的应用上下文的引用传入进来；</li><li>如果bean实现了BeanPostProcessor接口，Spring将调用它们的post-ProcessBeforeInitialization()方法；</li><li>如果bean实现了InitializingBean接口，Spring将调用它们的after-PropertiesSet()方法。类似地，如果bean使用initmethod声明了初始化方法，该方法也会被调用；</li><li>如果bean实现了BeanPostProcessor接口，Spring将调用它们的post-ProcessAfterInitialization()方法；</li><li>此时，bean已经准备就绪，可以被应用程序使用了，它们将一直驻留在应用上下文中，直到该应用上下文被销毁；</li><li>如果bean实现了DisposableBean接口，Spring将调用它的destroy()接口方法。同样，如果bean使用destroy-method声明了销毁方法，该方法也会被调用。</li></ul><figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl">现在你已经了解了如何创建和加载一个<span class="hljs-variable">Spring</span>容器。但是一个空的容器并没有太大的价值，在你把东西放进去之前，它里面什么都没有。为了从<span class="hljs-variable">Spring</span>的<span class="hljs-function"><span class="hljs-title">DI</span>(依赖注入)中受益，我们必须将应用对象装配进<span class="hljs-variable">Spring</span>容器中。</span><br></code></pre></td></tr></table></figure><h3 id="哪些是重要的bean生命周期方法？-你能重载它们吗？"><a href="#哪些是重要的bean生命周期方法？-你能重载它们吗？" class="headerlink" title="哪些是重要的bean生命周期方法？ 你能重载它们吗？"></a>哪些是重要的bean生命周期方法？ 你能重载它们吗？</h3><ul><li>有两个重要的bean 生命周期方法，第一个是setup ， 它是在容器加载bean的时候被调用。第二个方法是 teardown 它是在容器卸载类的时候被调用。</li><li>bean 标签有两个重要的属性（init-method和destroy-method）。用它们你可以自己定制初始化和注销方法。它们也有相应的注解（@PostConstruct和@PreDestroy）。</li></ul><h3 id="什么是Spring的内部bean？什么是Spring-inner-beans？"><a href="#什么是Spring的内部bean？什么是Spring-inner-beans？" class="headerlink" title="什么是Spring的内部bean？什么是Spring inner beans？"></a>什么是Spring的内部bean？什么是Spring inner beans？</h3><ul><li>在Spring框架中，当一个bean仅被用作另一个bean的属性时，它能被声明为一个内部bean。内部bean可以用setter注入“属性”和构造方法注入“构造参数”的方式来实现，内部bean通常是匿名的，它们的Scope一般是prototype。</li></ul><h3 id="在-Spring中如何注入一个java集合？"><a href="#在-Spring中如何注入一个java集合？" class="headerlink" title="在 Spring中如何注入一个java集合？"></a>在 Spring中如何注入一个java集合？</h3><ul><li>Spring提供了以下四种集合类的配置元素(配置标签)：</li></ul><table><thead><tr><th></th><th>该标签用来装配可重复的list值。</th></tr></thead><tbody><tr><td></td><td>该标签用来装配没有重复的set值。</td></tr><tr><td></td><td>该标签可用来注入键和值可以为任何类型的键值对。</td></tr><tr><td></td><td>该标签支持注入键和值都是字符串类型的键值对。</td></tr></tbody></table><h3 id="什么是bean装配？"><a href="#什么是bean装配？" class="headerlink" title="什么是bean装配？"></a>什么是bean装配？</h3><ul><li>装配，或bean 装配是指在Spring 容器中把bean组装到一起，前提是容器需要知道bean的依赖关系，如何通过依赖注入来把它们装配到一起。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Spring</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Spring如何</tag>
+      
+      <tag>线程并发问题</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title></title>
     <link href="/blog/2021/10/10/%E5%89%AF%E6%9C%AC/"/>
     <url>/blog/2021/10/10/%E5%89%AF%E6%9C%AC/</url>
