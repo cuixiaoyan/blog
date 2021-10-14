@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>什么是bean的自动装配</title>
+    <link href="/blog/2021/10/14/%E4%BB%80%E4%B9%88%E6%98%AFbean%E7%9A%84%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/"/>
+    <url>/blog/2021/10/14/%E4%BB%80%E4%B9%88%E6%98%AFbean%E7%9A%84%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/</url>
+    
+    <content type="html"><![CDATA[<h3 id="什么是bean的自动装配？"><a href="#什么是bean的自动装配？" class="headerlink" title="什么是bean的自动装配？"></a>什么是bean的自动装配？</h3><ul><li>在Spring框架中，在配置文件中设定bean的依赖关系是一个很好的机制，Spring 容器能够自动装配相互合作的bean，这意味着容器不需要和配置，能通过Bean工厂自动处理bean之间的协作。这意味着 Spring可以通过向Bean Factory中注入的方式自动搞定bean之间的依赖关系。自动装配可以设置在每个bean上，也可以设定在特定的bean上。</li></ul><h3 id="解释不同方式的自动装配，spring-自动装配-bean-有哪些方式？"><a href="#解释不同方式的自动装配，spring-自动装配-bean-有哪些方式？" class="headerlink" title="解释不同方式的自动装配，spring 自动装配 bean 有哪些方式？"></a>解释不同方式的自动装配，spring 自动装配 bean 有哪些方式？</h3><ul><li>在spring中，对象无需自己查找或创建与其关联的其他对象，由容器负责把需要相互协作的对象引用赋予各个对象，使用autowire来配置自动装载模式。</li><li>在Spring框架xml配置中共有5种自动装配：<ul><li>no：默认的方式是不进行自动装配的，通过手工设置ref属性来进行装配bean。</li><li>byName：通过bean的名称进行自动装配，如果一个bean的 property 与另一bean 的name 相同，就进行自动装配。</li><li>byType：通过参数的数据类型进行自动装配。</li><li>constructor：利用构造函数进行装配，并且构造函数的参数通过byType进行装配。</li><li>autodetect：自动探测，如果有构造方法，通过 construct的方式自动装配，否则使用 byType的方式自动装配。</li></ul></li></ul><h3 id="使用-Autowired注解自动装配的过程是怎样的？"><a href="#使用-Autowired注解自动装配的过程是怎样的？" class="headerlink" title="使用@Autowired注解自动装配的过程是怎样的？"></a>使用@Autowired注解自动装配的过程是怎样的？</h3><ul><li>使用@Autowired注解来自动装配指定的bean。在使用@Autowired注解之前需要在Spring配置文件进行配置，&lt;context:annotation-config /&gt;。</li><li>在启动spring IOC时，容器自动装载了一个AutowiredAnnotationBeanPostProcessor后置处理器，当容器扫描到@Autowied、@Resource或@Inject时，就会在IOC容器自动查找需要的bean，并装配给该对象的属性。在使用@Autowired时，首先在容器中查询对应类型的bean：<ul><li>如果查询结果刚好为一个，就将该bean装配给@Autowired指定的数据；</li><li>如果查询的结果不止一个，那么@Autowired会根据名称来查找；</li><li>如果上述查找的结果为空，那么会抛出异常。解决方法时，使用required=false。</li></ul></li></ul><h3 id="自动装配有哪些局限性？"><a href="#自动装配有哪些局限性？" class="headerlink" title="自动装配有哪些局限性？"></a>自动装配有哪些局限性？</h3><ul><li>自动装配的局限性是：<ul><li><strong>重写</strong>：你仍需用 和 配置来定义依赖，意味着总要重写自动装配。</li><li><strong>基本数据类型</strong>：你不能自动装配简单的属性，如基本数据类型，String字符串，和类。</li><li><strong>模糊特性</strong>：自动装配不如显式装配精确，如果有可能，建议使用显式装配。</li></ul></li></ul><h3 id="你可以在Spring中注入一个null-和一个空字符串吗？"><a href="#你可以在Spring中注入一个null-和一个空字符串吗？" class="headerlink" title="你可以在Spring中注入一个null 和一个空字符串吗？"></a>你可以在Spring中注入一个null 和一个空字符串吗？</h3><ul><li>可以。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Spring</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>什么是bean</tag>
+      
+      <tag>自动装配</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Spring如何处理线程并发问题</title>
     <link href="/blog/2021/10/13/Spring%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98/"/>
     <url>/blog/2021/10/13/Spring%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98/</url>
