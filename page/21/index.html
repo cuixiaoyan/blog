@@ -186,6 +186,103 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/04/04/%E5%88%86%E4%BA%AB50%E4%B8%AA%E8%AE%A9%E4%BD%A0%E4%BB%A3%E7%A0%81%E6%9B%B4%E5%A5%BD%E7%9A%84%E5%B0%8F%E5%BB%BA%E8%AE%AE/">工作四年，分享50个让你代码更好的小建议</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/04/04/%E5%88%86%E4%BA%AB50%E4%B8%AA%E8%AE%A9%E4%BD%A0%E4%BB%A3%E7%A0%81%E6%9B%B4%E5%A5%BD%E7%9A%84%E5%B0%8F%E5%BB%BA%E8%AE%AE/">
+          
+          
+            
+          
+          1. 仅是判断是否存在时，select count 比 select 具体的列，更好。我们经常遇到类似的业务场景，如，判断某个用户userId是否是会员。
+（反例）：  一些小伙伴会这样实现，先查从用户信息表查出用户记录，然后再去判断是否是会员:
+123456789&lt;select id=&quot;selectUserByUserId&quot; resultMap=&quot;BaseRe
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-04 10:00" pubdate>
+              2021-04-04
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/java/">java</a>
+            
+              <a href="/blog/tags/%E6%8A%80%E5%B7%A7/">技巧</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/03/28/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">策略模式</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/28/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
+          
+          
+            
+          
+          需求这里虚拟一个业务需求，让大家容易理解。假设有一个订单系统，里面的一个功能是根据订单的不同类型作出不同的处理。
+订单实体：
+
+service接口：
+
+传统实现根据订单类型写一堆的if else：
+![img](data:image/svg+xml;utf8,)
+策略模式实现利用策略模式，只需要两行即可实现业务逻辑：
+![img](data:image/svg+xml;utf8,)
+可以看到上面的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-28 10:00" pubdate>
+              2021-03-28
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">策略模式</a>
+            
+              <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/03/26/%E9%80%9A%E4%BF%97%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">通俗讲解分布式锁</a>
       </h1>
 
@@ -321,98 +418,11 @@ print得到一系列随机数,执行一次得到一个随机数:
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/03/25/Java%E4%BD%BF%E7%94%A8zxing%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81(%E5%B8%A6%E6%9C%89logo)/">Java使用zxing生成二维码(带有logo)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/25/Java%E4%BD%BF%E7%94%A8zxing%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81(%E5%B8%A6%E6%9C%89logo)/">
-          
-          
-            
-          
-          首先要添加zxing依赖123456789101112&lt;!-- 二维码生成依赖 --&gt;&lt;dependency&gt;    &lt;groupId&gt;com.google.zxing&lt;/groupId&gt;    &lt;artifactId&gt;core&lt;/artifactId&gt;    &lt;version&gt;3.4.0&lt;/version&
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-25 20:20" pubdate>
-              2021-03-25
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/Java/">Java</a>
-            
-              <a href="/blog/tags/zxing/">zxing</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/03/25/java%E4%B8%ADpoi%E5%AF%BC%E5%87%BA%E6%A8%A1%E6%9D%BF%E4%B8%8B%E6%8B%89%E6%A1%86%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BA%A7%E8%81%94%E5%8A%A8/">java中poi导出模板下拉框实现二级联动</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/25/java%E4%B8%ADpoi%E5%AF%BC%E5%87%BA%E6%A8%A1%E6%9D%BF%E4%B8%8B%E6%8B%89%E6%A1%86%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BA%A7%E8%81%94%E5%8A%A8/">
-          
-          
-            
-          
-          代码实现如下： 需要加入的jar包:
-1234567891011&lt;dependency&gt;   &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;   &lt;artifactId&gt;poi&lt;/artifactId&gt;   &lt;version&gt;3.14&lt;/version&gt;&lt;/dependency&gt;&l
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-25 20:10" pubdate>
-              2021-03-25
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/poi/">poi</a>
-            
-              <a href="/blog/tags/%E4%BA%8C%E7%BA%A7%E8%81%94%E5%8A%A8/">二级联动</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/20/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/19/">19</a><a class="page-number" href="/blog/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/blog/page/22/">22</a><a class="page-number" href="/blog/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/47/">47</a><a class="extend next" rel="next" href="/blog/page/22/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/20/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/19/">19</a><a class="page-number" href="/blog/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/blog/page/22/">22</a><a class="page-number" href="/blog/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/48/">48</a><a class="extend next" rel="next" href="/blog/page/22/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

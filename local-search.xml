@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>Spring注解</title>
+    <link href="/blog/2021/10/17/Spring%E6%B3%A8%E8%A7%A3/"/>
+    <url>/blog/2021/10/17/Spring%E6%B3%A8%E8%A7%A3/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Spring注解"><a href="#Spring注解" class="headerlink" title="Spring注解"></a>Spring注解</h2><h3 id="什么是基于Java的Spring注解配置-给一些注解的例子"><a href="#什么是基于Java的Spring注解配置-给一些注解的例子" class="headerlink" title="什么是基于Java的Spring注解配置? 给一些注解的例子"></a>什么是基于Java的Spring注解配置? 给一些注解的例子</h3><ul><li><p>基于Java的配置，允许你在少量的Java注解的帮助下，进行你的大部分Spring配置而非通过XML文件。</p></li><li><p>以@Configuration 注解为例，它用来标记类可以当做一个bean的定义，被Spring IOC容器使用。</p></li><li><p>另一个例子是@Bean注解，它表示此方法将要返回一个对象，作为一个bean注册进Spring应用上下文。</p><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StudentConfig</span> </span>&#123;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> StudentBean <span class="hljs-function"><span class="hljs-title">myStudent</span>(<span class="hljs-params"></span>)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StudentBean();<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure><h3 id="怎样开启注解装配？"><a href="#怎样开启注解装配？" class="headerlink" title="怎样开启注解装配？"></a>怎样开启注解装配？</h3></li><li><p>注解装配在默认情况下是不开启的，为了使用注解装配，我们必须在Spring配置文件中配置 <code>&lt;context:annotation-config/&gt;</code>元素。</p></li></ul><h3 id="Component-Controller-Repository-Service-有何区别？"><a href="#Component-Controller-Repository-Service-有何区别？" class="headerlink" title="@Component, @Controller, @Repository, @Service 有何区别？"></a>@Component, @Controller, @Repository, @Service 有何区别？</h3><ul><li>@Component：这将 java 类标记为 bean。它是任何 Spring 管理组件的通用构造型。spring 的组件扫描机制现在可以将其拾取并将其拉入应用程序环境中。</li><li>@Controller：这将一个类标记为 Spring Web MVC 控制器。标有它的 Bean 会自动导入到 IOC 容器中。</li><li>@Service：此注解是组件注解的特化。它不会对 @Component 注解提供任何其他行为。您可以在服务层类中使用 @Service 而不是 @Component，因为它以更好的方式指定了意图。</li><li>@Repository：这个注解是具有类似用途和功能的 @Component 注解的特化。它为 DAO 提供了额外的好处。它将 DAO 导入 IOC 容器，并使未经检查的异常有资格转换为 Spring DataAccessException。</li></ul><h3 id="Required-注解有什么作用"><a href="#Required-注解有什么作用" class="headerlink" title="@Required 注解有什么作用"></a>@Required 注解有什么作用</h3><ul><li>这个注解表明bean的属性必须在配置的时候设置，通过一个bean定义的显式的属性值或通过自动装配，若@Required注解的bean属性未被设置，容器将抛出BeanInitializationException。示例：</li></ul><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Employee</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-built_in">String</span> name;<br>    <span class="hljs-meta">@Required</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">setName</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> name</span>)</span>&#123;<br>        <span class="hljs-built_in">this</span>.name=name;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-function"><span class="hljs-title">getName</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> name;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure><h3 id="Autowired-注解有什么作用"><a href="#Autowired-注解有什么作用" class="headerlink" title="@Autowired 注解有什么作用"></a>@Autowired 注解有什么作用</h3><ul><li>@Autowired默认是按照类型装配注入的，默认情况下它要求依赖对象必须存在（可以设置它required属性为false）。@Autowired 注解提供了更细粒度的控制，包括在何处以及如何完成自动装配。它的用法和@Required一样，修饰setter方法、构造器、属性或者具有任意名称和/或多个参数的PN方法。</li></ul><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Employee</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-built_in">String</span> name;<br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">setName</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> name</span>)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name=name;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-function"><span class="hljs-title">getName</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> name;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure><h3 id="Autowired和-Resource之间的区别"><a href="#Autowired和-Resource之间的区别" class="headerlink" title="@Autowired和@Resource之间的区别"></a>@Autowired和@Resource之间的区别</h3><ul><li>@Autowired和@Resource可用于：构造函数、成员变量、Setter方法</li><li>@Autowired和@Resource之间的区别在于<ul><li>@Autowired默认是按照类型装配注入的，默认情况下它要求依赖对象必须存在（可以设置它required属性为false）。</li><li>@Resource默认是按照名称来装配注入的，只有当找不到与名称匹配的bean才会按照类型来装配注入。</li></ul></li></ul><h3 id="Qualifier-注解有什么作用"><a href="#Qualifier-注解有什么作用" class="headerlink" title="@Qualifier 注解有什么作用"></a>@Qualifier 注解有什么作用</h3><ul><li>当您创建多个相同类型的 bean 并希望仅使用属性装配其中一个 bean 时，您可以使用@Qualifier 注解和 @Autowired 通过指定应该装配哪个确切的 bean 来消除歧义。</li></ul><h3 id="RequestMapping-注解有什么用？"><a href="#RequestMapping-注解有什么用？" class="headerlink" title="@RequestMapping 注解有什么用？"></a>@RequestMapping 注解有什么用？</h3><ul><li>@RequestMapping 注解用于将特定 HTTP 请求方法映射到将处理相应请求的控制器中的特定类/方法。此注释可应用于两个级别：<ul><li>类级别：映射请求的 URL</li><li>方法级别：映射 URL 以及 HTTP 请求方法</li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Spring</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>注解</tag>
+      
+      <tag>Spring</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Spring数据访问</title>
+    <link href="/blog/2021/10/17/Spring%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE/"/>
+    <url>/blog/2021/10/17/Spring%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Spring数据访问"><a href="#Spring数据访问" class="headerlink" title="Spring数据访问"></a>Spring数据访问</h2><h3 id="解释对象-关系映射集成模块"><a href="#解释对象-关系映射集成模块" class="headerlink" title="解释对象/关系映射集成模块"></a>解释对象/关系映射集成模块</h3><ul><li>Spring 通过提供ORM模块，支持我们在直接JDBC之上使用一个对象/关系映射映射(ORM)工具，Spring 支持集成主流的ORM框架，如Hiberate，JDO和 MyBatis，JPA，TopLink，JDO，OJB等待 。Spring的事务管理同样支持以上所有ORM框架及JDBC。</li></ul><h3 id="在Spring框架中如何更有效地使用JDBC？"><a href="#在Spring框架中如何更有效地使用JDBC？" class="headerlink" title="在Spring框架中如何更有效地使用JDBC？"></a>在Spring框架中如何更有效地使用JDBC？</h3><ul><li>使用Spring JDBC 框架，资源管理和错误处理的代价都会被减轻。所以开发者只需写statements 和 queries从数据存取数据，JDBC也可以在Spring框架提供的模板类的帮助下更有效地被使用，这个模板叫JdbcTemplate</li></ul><h3 id="解释JDBC抽象和DAO模块"><a href="#解释JDBC抽象和DAO模块" class="headerlink" title="解释JDBC抽象和DAO模块"></a>解释JDBC抽象和DAO模块</h3><ul><li>通过使用JDBC抽象和DAO模块，保证数据库代码的简洁，并能避免数据库资源错误关闭导致的问题，它在各种不同的数据库的错误信息之上，提供了一个统一的异常访问层。它还利用Spring的AOP 模块给Spring应用中的对象提供事务管理服务。</li></ul><h3 id="spring-DAO-有什么用？"><a href="#spring-DAO-有什么用？" class="headerlink" title="spring DAO 有什么用？"></a>spring DAO 有什么用？</h3><ul><li>Spring DAO（数据访问对象） 使得 JDBC，Hibernate 或 JDO 这样的数据访问技术更容易以一种统一的方式工作。这使得用户容易在持久性技术之间切换。它还允许您在编写代码时，无需考虑捕获每种技术不同的异常。</li></ul><h3 id="spring-JDBC-API-中存在哪些类？"><a href="#spring-JDBC-API-中存在哪些类？" class="headerlink" title="spring JDBC API 中存在哪些类？"></a>spring JDBC API 中存在哪些类？</h3><ul><li>JdbcTemplate</li><li>SimpleJdbcTemplate</li><li>NamedParameterJdbcTemplate</li><li>SimpleJdbcInsert</li><li>SimpleJdbcCall</li></ul><h3 id="JdbcTemplate是什么"><a href="#JdbcTemplate是什么" class="headerlink" title="JdbcTemplate是什么"></a>JdbcTemplate是什么</h3><ul><li>JdbcTemplate 类提供了很多便利的方法解决诸如把数据库数据转变成基本数据类型或对象，执行写好的或可调用的数据库操作语句，提供自定义的数据错误处理。</li></ul><h3 id="使用Spring通过什么方式访问Hibernate？使用-Spring-访问-Hibernate-的方法有哪些？"><a href="#使用Spring通过什么方式访问Hibernate？使用-Spring-访问-Hibernate-的方法有哪些？" class="headerlink" title="使用Spring通过什么方式访问Hibernate？使用 Spring 访问 Hibernate 的方法有哪些？"></a>使用Spring通过什么方式访问Hibernate？使用 Spring 访问 Hibernate 的方法有哪些？</h3><ul><li>在Spring中有两种方式访问Hibernate：<ul><li>使用 Hibernate 模板和回调进行控制反转</li><li>扩展 HibernateDAOSupport 并应用 AOP 拦截器节点</li></ul></li></ul><h3 id="如何通过HibernateDaoSupport将Spring和Hibernate结合起来？"><a href="#如何通过HibernateDaoSupport将Spring和Hibernate结合起来？" class="headerlink" title="如何通过HibernateDaoSupport将Spring和Hibernate结合起来？"></a>如何通过HibernateDaoSupport将Spring和Hibernate结合起来？</h3><ul><li>用Spring的 SessionFactory 调用 LocalSessionFactory。集成过程分三步：<ul><li>配置the Hibernate SessionFactory</li><li>继承HibernateDaoSupport实现一个DAO</li><li>在AOP支持的事务中装配</li></ul></li></ul><h3 id="Spring支持的事务管理类型，-spring-事务实现方式有哪些？"><a href="#Spring支持的事务管理类型，-spring-事务实现方式有哪些？" class="headerlink" title="Spring支持的事务管理类型， spring 事务实现方式有哪些？"></a>Spring支持的事务管理类型， spring 事务实现方式有哪些？</h3><ul><li>Spring支持两种类型的事务管理：<ul><li><strong>编程式事务管理</strong>：这意味你通过编程的方式管理事务，给你带来极大的灵活性，但是难维护。</li><li><strong>声明式事务管理</strong>：这意味着你可以将业务代码和事务管理分离，你只需用注解和XML配置来管理事务。</li></ul></li></ul><h3 id="Spring事务的实现方式和实现原理"><a href="#Spring事务的实现方式和实现原理" class="headerlink" title="Spring事务的实现方式和实现原理"></a>Spring事务的实现方式和实现原理</h3><ul><li>Spring事务的本质其实就是数据库对事务的支持，没有数据库的事务支持，spring是无法提供事务功能的。真正的数据库层的事务提交和回滚是通过binlog或者redo log实现的。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Spring</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Spring</tag>
+      
+      <tag>数据访问</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>什么是bean的自动装配</title>
     <link href="/blog/2021/10/14/%E4%BB%80%E4%B9%88%E6%98%AFbean%E7%9A%84%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/"/>
     <url>/blog/2021/10/14/%E4%BB%80%E4%B9%88%E6%98%AFbean%E7%9A%84%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/</url>

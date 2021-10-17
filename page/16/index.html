@@ -186,6 +186,104 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/06/20/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E4%B8%AD%E5%A6%82%E4%BD%95%E5%87%8F%E5%B0%91bug/">日常开发中如何减少bug</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/06/20/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E4%B8%AD%E5%A6%82%E4%BD%95%E5%87%8F%E5%B0%91bug/">
+          
+          
+            
+          
+          1. 数据库篇
+数据库篇的话，哪些地方容易导致bug出现呢？我总结了7个方面：慢查询、数据库字段注意点、事务失效的场景、死锁、主从延迟、新老数据兼容、一些SQL经典注意点。
+1.1 慢查询
+1.1.1 是否命中索引提起慢查询，我们马上就会想到加索引。如果一条SQL没加索引，或者没有命中索引的话，就会产生慢查询。
+索引哪些情况会失效？
+
+查询条件包含or，可能导致索引失效
+如何字段类型是字符串，wh
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-06-20 20:00" pubdate>
+              2021-06-20
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E5%87%8F%E5%B0%91bug/">减少bug</a>
+            
+              <a href="/blog/tags/%E6%97%A5%E5%B8%B8/">日常</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/06/19/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B8%B8%E7%94%A8/">Java多线程常用</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/06/19/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B8%B8%E7%94%A8/">
+          
+          
+            
+          
+          在实际工作中，错误使用多线程非但不能提高效率还可能使程序崩溃。以在路上开车为例：
+在一个单向行驶的道路上，每辆汽车都遵守交通规则，这时候整体通行是正常的。『单向车道』意味着『一个线程』，『多辆车』意味着『多个job任务』。
+单线程顺利同行
+如果需要提升车辆的同行效率，一般的做法就是扩展车道，对应程序来说就是『加线程池』，增加线程数。这样在同一时间内，通行的车辆数远远大于单车道。
+多线程顺利同行
+然
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-06-19 10:00" pubdate>
+              2021-06-19
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/Java/">Java</a>
+            
+              <a href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/06/14/json%E8%A7%A3%E6%9E%90%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%90%88%E9%9B%86/">json解析工具类合集</a>
       </h1>
 
@@ -324,100 +422,11 @@ Context（环境）：运
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/06/07/JAVA%E5%90%8C%E4%B8%80IP%E8%AE%BF%E9%97%AE%E5%90%8C%E4%B8%80%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E9%A2%91%E7%8E%87%E9%99%90%E5%88%B6/">JAVA同一IP访问同一接口进行频率限制</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/06/07/JAVA%E5%90%8C%E4%B8%80IP%E8%AE%BF%E9%97%AE%E5%90%8C%E4%B8%80%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E9%A2%91%E7%8E%87%E9%99%90%E5%88%B6/">
-          
-          
-            
-          
-          1.如何对同一IP访问同一接口进行每秒、每分钟、每小时频率限制话不多说，直接开干，首先写一个注解类
-1234567891011121314151617import java.lang.annotation.*;/** * 接口限流 * @author rs * */@Inherited@Documented@Target(&#123;ElementType.FIELD,ElementType.TY
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-06-07 20:00" pubdate>
-              2021-06-07
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/JAVA/">JAVA</a>
-            
-              <a href="/blog/tags/IP/">IP</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/06/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%9D%A1%E4%BB%B6%E4%B8%8B%E5%88%86%E6%AE%B5%E5%A4%84%E7%90%86List%E9%9B%86%E5%90%88/">多线程条件下分段处理List集合</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/06/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%9D%A1%E4%BB%B6%E4%B8%8B%E5%88%86%E6%AE%B5%E5%A4%84%E7%90%86List%E9%9B%86%E5%90%88/">
-          
-          
-            
-          
-          第一次接触到多线程处理同一个任务，是使用IO多线程下载文件，之后也一直没有再处理这一块的任务，直到前几天有同事问我，为什么多线程处理一个list集合会出现各种bug，以及如何使用多线程的方式处理同一个list集合。
-第一、为什么会出现类似于重复处理某一个模块的问题？
-我们都知道，在Java中，每个线程都有自己独立的工作内存，线程对共享变量的所有操作都必须在自己的工作内存中进行，不能直接从主内存中读
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-06-06 12:00" pubdate>
-              2021-06-06
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/List/">List</a>
-            
-              <a href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/15/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/14/">14</a><a class="page-number" href="/blog/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/blog/page/17/">17</a><a class="page-number" href="/blog/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/47/">47</a><a class="extend next" rel="next" href="/blog/page/17/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/15/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/14/">14</a><a class="page-number" href="/blog/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/blog/page/17/">17</a><a class="page-number" href="/blog/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/48/">48</a><a class="extend next" rel="next" href="/blog/page/17/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
