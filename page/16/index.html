@@ -186,6 +186,96 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/07/02/%E4%B9%A6%E5%86%99%E9%AB%98%E8%B4%A8%E9%87%8FSQL%E7%9A%8430%E6%9D%A1%E5%BB%BA%E8%AE%AE/">书写高质量SQL的30条建议</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/07/02/%E4%B9%A6%E5%86%99%E9%AB%98%E8%B4%A8%E9%87%8FSQL%E7%9A%8430%E6%9D%A1%E5%BB%BA%E8%AE%AE/">
+          
+          
+            
+          
+          1、查询SQL尽量不要使用select *，而是select具体字段。12345- 反例子：- select * from employee;- 正例子：- select id，name from employee;
+理由：
+只取需要的字段，节省资源、减少网络开销。 select * 进行查询时，很可能就不会使用到覆盖索引了，就会造成回表查询。
+2、如果知道查询结果只有一条或者只要最大/最小一条记
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-02 20:00" pubdate>
+              2021-07-02
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/sql/">sql</a>
+            
+              <a href="/blog/tags/%E5%BB%BA%E8%AE%AE/">建议</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/07/01/SpringBoot%E6%8B%A6%E6%88%AA%E5%99%A8/">SpringBoot拦截器</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/07/01/SpringBoot%E6%8B%A6%E6%88%AA%E5%99%A8/">
+          
+          
+            
+          
+          HandlerInterceptor 详解HandlerInterceptor 允许定制 handler 处理器执行链的工作流接口。我们可以自定义拦截器用于拦截 handlers 处理器（你可以理解为 controller 层的接口），从而可以添加一些共同的重复性的处理行为（例如接口鉴权，接口日志记录，性能监控等），而不用修改每一个 handler 的实现。
+注意，此基于 SpringBoot 2
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-01 21:00" pubdate>
+              2021-07-01
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/SpringBoot/">SpringBoot</a>
+            
+              <a href="/blog/tags/%E6%8B%A6%E6%88%AA%E5%99%A8/">拦截器</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/06/30/%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8BOOM%E5%90%8E%E5%85%B6%E4%BB%96%E7%BA%BF%E7%A8%8B%E8%BF%98%E8%83%BD%E8%BF%90%E8%A1%8C%E5%90%97/">一个线程OOM后其他线程还能运行吗</a>
       </h1>
 
@@ -328,104 +418,11 @@ Windows系统从1985年开始至今，已经经历了30多年，陪伴了很多�
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/06/19/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B8%B8%E7%94%A8/">Java多线程常用</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/06/19/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B8%B8%E7%94%A8/">
-          
-          
-            
-          
-          在实际工作中，错误使用多线程非但不能提高效率还可能使程序崩溃。以在路上开车为例：
-在一个单向行驶的道路上，每辆汽车都遵守交通规则，这时候整体通行是正常的。『单向车道』意味着『一个线程』，『多辆车』意味着『多个job任务』。
-单线程顺利同行
-如果需要提升车辆的同行效率，一般的做法就是扩展车道，对应程序来说就是『加线程池』，增加线程数。这样在同一时间内，通行的车辆数远远大于单车道。
-多线程顺利同行
-然
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-06-19 10:00" pubdate>
-              2021-06-19
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/Java/">Java</a>
-            
-              <a href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/06/14/json%E8%A7%A3%E6%9E%90%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%90%88%E9%9B%86/">json解析工具类合集</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/06/14/json%E8%A7%A3%E6%9E%90%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%90%88%E9%9B%86/">
-          
-          
-            
-          
-          在工作中，少不了Json解析处理，一般我们常用的就是FastJson、Jackson、Gson这三大工具类，他们都有各自的优缺点，本篇文章我们来使用一下他们各自的API，对比一下。
-一、各个JSON技术的简介1.1 FastJson角色
-fastjson是阿里巴巴的开源JSON解析库，它可以解析JSON格式的字符串，支持将Java Bean序列化为JSON字符串，也可以从JSON字符串反序列化到J
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-06-14 11:00" pubdate>
-              2021-06-14
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
-            
-              <a href="/blog/tags/json/">json</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/15/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/14/">14</a><a class="page-number" href="/blog/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/blog/page/17/">17</a><a class="page-number" href="/blog/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/48/">48</a><a class="extend next" rel="next" href="/blog/page/17/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/15/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/14/">14</a><a class="page-number" href="/blog/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/blog/page/17/">17</a><a class="page-number" href="/blog/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/49/">49</a><a class="extend next" rel="next" href="/blog/page/17/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

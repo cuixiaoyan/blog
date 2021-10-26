@@ -186,6 +186,111 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/08/28/%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">创建线程的四种方式</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/08/28/%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">
+          
+          
+            
+          
+          创建线程的四种方式
+继承 Thread 类；
+12345public class MyThread extends Thread &#123;@Overridepublic void run() &#123;    System.out.println(Thread.currentThread().getName() + &quot; run()方法正在执行...&quot;);&#125;
+实现
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-28 11:00" pubdate>
+              2021-08-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E6%96%B9%E5%BC%8F/">方式</a>
+            
+              <a href="/blog/tags/%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B/">创建线程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/08/27/%E7%BA%BF%E7%A8%8B%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2/">什么是上下文切换</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/08/27/%E7%BA%BF%E7%A8%8B%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2/">
+          
+          
+            
+          
+          什么是上下文切换?
+多线程编程中一般线程的个数都大于 CPU 核心的个数，而一个 CPU 核心在任意时刻只能被一个线程使用，为了让这些线程都能得到有效执行，CPU 采取的策略是为每个线程分配时间片并轮转的形式。当一个线程的时间片用完的时候就会重新处于就绪状态让给其他线程使用，这个过程就属于一次上下文切换。
+概括来说就是：当前任务在执行完 CPU 时间片切换到另一个任务之前会先保存自己的状态，以便下
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-27 20:00" pubdate>
+              2021-08-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/Java/">Java</a>
+            
+              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/08/14/%E7%BD%91%E7%BB%9C%E6%93%8D%E4%BD%9CIO%E8%AE%B2%E8%A7%A3/">网络操作IO讲解</a>
       </h1>
 
@@ -345,116 +450,11 @@ BIO是阻塞的
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/08/08/IO%E6%A6%82%E5%BF%B5/">IO概念</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/08/08/IO%E6%A6%82%E5%BF%B5/">
-          
-          
-            
-          
-          什么是比特(Bit),什么是字节(Byte),什么是字符(Char),它们长度是多少,各有什么区别
-Bit最小的二进制单位 ，是计算机的操作部分取值0或者1
-Byte是计算机中存储数据的单元，是一个8位的二进制数，（计算机内部，一个字节可表示一个英文字母，两个字节可表示一个汉字。） 取值（-128-127）
-Char是用户的可读写的最小单位，他只是抽象意义上的一个符号。如‘5’，‘中’，‘￥’ 等
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-08 20:00" pubdate>
-              2021-08-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/JavaIO/">JavaIO</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/08/07/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/">五种IO模型</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/08/07/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/">
-          
-          
-            
-          
-          五种IO模型
-注意：我这里的用户空间就是应用程序空间
-
-1.阻塞BIO（blocking I/O）
-A拿着一支鱼竿在河边钓鱼，并且一直在鱼竿前等，在等的时候不做其他的事情，十分专心。只有鱼上钩的时，才结束掉等的动作，把鱼钓上来。
-
-在内核将数据准备好之前，系统调用会一直等待所有的套接字，默认的是阻塞方式。
-
-
-
-2.非阻塞NIO（noblocking I/O）
-B也在河边钓鱼，但是B不想将自己的所
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-07 20:00" pubdate>
-              2021-08-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/JavaIO/">JavaIO</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E5%B8%B8%E7%94%A8/">常用</a>
-            
-              <a href="/blog/tags/IO%E6%A8%A1%E5%9E%8B/">IO模型</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/8/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/7/">7</a><a class="page-number" href="/blog/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/blog/page/10/">10</a><a class="page-number" href="/blog/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/48/">48</a><a class="extend next" rel="next" href="/blog/page/10/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/8/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/7/">7</a><a class="page-number" href="/blog/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/blog/page/10/">10</a><a class="page-number" href="/blog/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/49/">49</a><a class="extend next" rel="next" href="/blog/page/10/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
