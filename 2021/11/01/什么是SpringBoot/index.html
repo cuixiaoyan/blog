@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>崔笑颜的博客</title>
+  <title>什么是SpringBoot - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="">
+            <span class="h2" id="subtitle" title="什么是SpringBoot">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-10-20 21:00" pubdate>
-        2021年10月20日 晚上
+      <time datetime="2021-11-01 21:00" pubdate>
+        2021年11月1日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      848 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      9
        分钟
     </span>
   
@@ -233,10 +233,81 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">什么是SpringBoot</h1>
             
             <div class="markdown-body">
-              
+              <h3 id="什么是-Spring-Boot？"><a href="#什么是-Spring-Boot？" class="headerlink" title="什么是 Spring Boot？"></a>什么是 Spring Boot？</h3><ul>
+<li>Spring Boot 是 Spring 开源组织下的子项目，是 Spring 组件一站式解决方案，主要是简化了使用 Spring 的难度，简省了繁重的配置，提供了各种启动器，使开发者能快速上手。</li>
+</ul>
+<h3 id="为什么要用SpringBoot"><a href="#为什么要用SpringBoot" class="headerlink" title="为什么要用SpringBoot"></a>为什么要用SpringBoot</h3><ul>
+<li>快速开发，快速整合，配置简化、内嵌服务容器</li>
+</ul>
+<h3 id="SpringBoot与SpringCloud-区别"><a href="#SpringBoot与SpringCloud-区别" class="headerlink" title="SpringBoot与SpringCloud 区别"></a>SpringBoot与SpringCloud 区别</h3><ul>
+<li>SpringBoot是快速开发的Spring框架，SpringCloud是完整的微服务框架，SpringCloud依赖于SpringBoot。</li>
+</ul>
+<h3 id="Spring-Boot-有哪些优点？"><a href="#Spring-Boot-有哪些优点？" class="headerlink" title="Spring Boot 有哪些优点？"></a>Spring Boot 有哪些优点？</h3><ul>
+<li>Spring Boot 主要有如下优点：<ol>
+<li>容易上手，提升开发效率，为 Spring 开发提供一个更快、更简单的开发框架。</li>
+<li>开箱即用，远离繁琐的配置。</li>
+<li>提供了一系列大型项目通用的非业务性功能，例如：内嵌服务器、安全管理、运行数据监控、运行状况检查和外部化配置等。</li>
+<li>SpringBoot总结就是使编码变简单、配置变简单、部署变简单、监控变简单等等</li>
+</ol>
+</li>
+</ul>
+<h3 id="Spring-Boot-的核心注解是哪个？它主要由哪几个注解组成的？"><a href="#Spring-Boot-的核心注解是哪个？它主要由哪几个注解组成的？" class="headerlink" title="Spring Boot 的核心注解是哪个？它主要由哪几个注解组成的？"></a>Spring Boot 的核心注解是哪个？它主要由哪几个注解组成的？</h3><ul>
+<li>启动类上面的注解是@SpringBootApplication，它也是 Spring Boot 的核心注解，主要组合包含了以下 3 个注解：<ul>
+<li>@SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。</li>
+<li>@EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项， 例如：<code>java 如关闭数据源自动配置功能： @SpringBootApplication(exclude = &#123; DataSourceAutoConfiguration.class &#125;)。</code></li>
+<li>@ComponentScan：Spring组件扫描。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Spring-Boot-支持哪些日志框架？推荐和默认的日志框架是哪个？"><a href="#Spring-Boot-支持哪些日志框架？推荐和默认的日志框架是哪个？" class="headerlink" title="Spring Boot 支持哪些日志框架？推荐和默认的日志框架是哪个？"></a>Spring Boot 支持哪些日志框架？推荐和默认的日志框架是哪个？</h3><ul>
+<li>Spring Boot 支持 Java Util Logging, Log4j2, Lockback 作为日志框架，如果你使用 Starters 启动器，Spring Boot 将使用 Logback 作为默认日志框架，但是不管是那种日志框架他都支持将配置文件输出到控制台或者文件中。</li>
+</ul>
+<h3 id="SpringBoot-Starter的工作原理"><a href="#SpringBoot-Starter的工作原理" class="headerlink" title="SpringBoot Starter的工作原理"></a>SpringBoot Starter的工作原理</h3><ul>
+<li><code>我个人理解SpringBoot就是由各种Starter组合起来的，我们自己也可以开发Starter</code></li>
+<li>在sprinBoot启动时由@SpringBootApplication注解会自动去maven中读取每个starter中的spring.factories文件,该文件里配置了所有需要被创建spring容器中的bean，并且进行自动配置把bean注入SpringContext中 //（SpringContext是Spring的配置文件）</li>
+</ul>
+<h3 id="Spring-Boot-2-X-有什么新特性？与-1-X-有什么区别？"><a href="#Spring-Boot-2-X-有什么新特性？与-1-X-有什么区别？" class="headerlink" title="Spring Boot 2.X 有什么新特性？与 1.X 有什么区别？"></a>Spring Boot 2.X 有什么新特性？与 1.X 有什么区别？</h3><ul>
+<li>配置变更</li>
+<li>JDK 版本升级</li>
+<li>第三方类库升级</li>
+<li>响应式 Spring 编程支持</li>
+<li>HTTP/2 支持</li>
+<li>配置属性绑定</li>
+<li>更多改进与加强</li>
+</ul>
+<h3 id="SpringBoot支持什么前端模板，"><a href="#SpringBoot支持什么前端模板，" class="headerlink" title="SpringBoot支持什么前端模板，"></a>SpringBoot支持什么前端模板，</h3><ul>
+<li>thymeleaf，freemarker，jsp，官方不推荐JSP会有限制</li>
+</ul>
+<h3 id="SpringBoot的缺点"><a href="#SpringBoot的缺点" class="headerlink" title="SpringBoot的缺点"></a>SpringBoot的缺点</h3><ul>
+<li>我觉得是为难人，SpringBoot在目前我觉得没有什么缺点，非要找一个出来我觉得就是<ul>
+<li>由于不用自己做的配置，报错时很难定位。</li>
+</ul>
+</li>
+</ul>
+<h3 id="运行-Spring-Boot-有哪几种方式？"><a href="#运行-Spring-Boot-有哪几种方式？" class="headerlink" title="运行 Spring Boot 有哪几种方式？"></a>运行 Spring Boot 有哪几种方式？</h3><ol>
+<li>打包用命令或者放到容器中运行</li>
+<li>用 Maven/ Gradle 插件运行</li>
+<li>直接执行 main 方法运行</li>
+</ol>
+<h3 id="Spring-Boot-需要独立的容器运行吗？"><a href="#Spring-Boot-需要独立的容器运行吗？" class="headerlink" title="Spring Boot 需要独立的容器运行吗？"></a>Spring Boot 需要独立的容器运行吗？</h3><ul>
+<li>可以不需要，内置了 Tomcat/ Jetty 等容器。</li>
+</ul>
+<h3 id="开启-Spring-Boot-特性有哪几种方式？"><a href="#开启-Spring-Boot-特性有哪几种方式？" class="headerlink" title="开启 Spring Boot 特性有哪几种方式？"></a>开启 Spring Boot 特性有哪几种方式？</h3><ol>
+<li>继承spring-boot-starter-parent项目</li>
+<li>导入spring-boot-dependencies项目依赖</li>
+</ol>
+<h3 id="SpringBoot-实现热部署有哪几种方式？"><a href="#SpringBoot-实现热部署有哪几种方式？" class="headerlink" title="SpringBoot 实现热部署有哪几种方式？"></a>SpringBoot 实现热部署有哪几种方式？</h3><ul>
+<li>热部署就是可以不用重新运行SpringBoot项目可以实现操作后台代码自动更新到以运行的项目中</li>
+<li>主要有两种方式：<ul>
+<li>Spring Loaded</li>
+<li>Spring-boot-devtools</li>
+</ul>
+</li>
+</ul>
+
             </div>
             <hr>
             <div>
@@ -245,10 +316,17 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/blog/categories/SpringMVC/">SpringMVC</a>
+                      <a class="hover-with-bg" href="/blog/categories/SpringBoot/">SpringBoot</a>
                     
                   </div>
                 
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/Boot/">Boot</a>
+                    
+                  </div>
                 
               </div>
               
@@ -259,9 +337,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2021/10/22/Spring%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/">
+                      <a href="/blog/2021/11/01/%E5%89%AF%E6%9C%AC/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Spring面向切面编程</span>
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -269,8 +347,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/10/19/spring%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD/">
-                        <span class="hidden-mobile">Spring的事务传播</span>
+                      <a href="/blog/2021/10/29/SpringMVC%E4%B8%8EStruts2%E5%8C%BA%E5%88%AB/">
+                        <span class="hidden-mobile">SpringMVC与Struts2区别</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
