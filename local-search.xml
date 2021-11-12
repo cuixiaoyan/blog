@@ -4,6 +4,52 @@
   
   
   <entry>
+    <title>什么是SpringProfiles</title>
+    <link href="/blog/2021/11/12/%E4%BB%80%E4%B9%88%E6%98%AFSpringProfiles/"/>
+    <url>/blog/2021/11/12/%E4%BB%80%E4%B9%88%E6%98%AFSpringProfiles/</url>
+    
+    <content type="html"><![CDATA[<h3 id="什么是-Spring-Profiles？"><a href="#什么是-Spring-Profiles？" class="headerlink" title="什么是 Spring Profiles？"></a>什么是 Spring Profiles？</h3><ul><li>在项目的开发中，有些配置文件在开发、测试或者生产等不同环境中可能是不同的，例如数据库连接、redis的配置等等。那我们如何在不同环境中自动实现配置的切换呢？Spring给我们提供了profiles机制给我们提供的就是来回切换配置文件的功能</li><li>Spring Profiles 允许用户根据配置文件（dev，test，prod 等）来注册 bean。因此，当应用程序在开发中运行时，只有某些 bean 可以加载，而在 PRODUCTION中，某些其他 bean 可以加载。假设我们的要求是 Swagger 文档仅适用于 QA 环境，并且禁用所有其他文档。这可以使用配置文件来完成。Spring Boot 使得使用配置文件非常简单。</li></ul><h3 id="SpringBoot多数据源拆分的思路"><a href="#SpringBoot多数据源拆分的思路" class="headerlink" title="SpringBoot多数据源拆分的思路"></a>SpringBoot多数据源拆分的思路</h3><ul><li>先在properties配置文件中配置两个数据源，创建分包mapper，使用@ConfigurationProperties读取properties中的配置，使用@MapperScan注册到对应的mapper包中</li></ul><h3 id="SpringBoot多数据源事务如何管理"><a href="#SpringBoot多数据源事务如何管理" class="headerlink" title="SpringBoot多数据源事务如何管理"></a>SpringBoot多数据源事务如何管理</h3><ul><li>第一种方式是在service层的@TransactionManager中使用transactionManager指定DataSourceConfig中配置的事务</li><li>第二种是使用jta-atomikos实现分布式事务管理</li></ul><h3 id="保护-Spring-Boot-应用有哪些方法？"><a href="#保护-Spring-Boot-应用有哪些方法？" class="headerlink" title="保护 Spring Boot 应用有哪些方法？"></a>保护 Spring Boot 应用有哪些方法？</h3><ul><li>在生产中使用HTTPS</li><li>使用Snyk检查你的依赖关系</li><li>升级到最新版本</li><li>启用CSRF保护</li><li>使用内容安全策略防止XSS攻击</li></ul><h3 id="如何实现-Spring-Boot-应用程序的安全性？"><a href="#如何实现-Spring-Boot-应用程序的安全性？" class="headerlink" title="如何实现 Spring Boot 应用程序的安全性？"></a>如何实现 Spring Boot 应用程序的安全性？</h3><ul><li>为了实现 Spring Boot 的安全性，我们使用 spring-boot-starter-security 依赖项，并且必须添加安全配置。它只需要很少的代码。配置类将必须扩展WebSecurityConfigurerAdapter 并覆盖其方法。</li></ul><h3 id="比较一下-Spring-Security-和-Shiro-各自的优缺点"><a href="#比较一下-Spring-Security-和-Shiro-各自的优缺点" class="headerlink" title="比较一下 Spring Security 和 Shiro 各自的优缺点 ?"></a>比较一下 Spring Security 和 Shiro 各自的优缺点 ?</h3><ul><li>由于 Spring Boot 官方提供了大量的非常方便的开箱即用的 Starter ，包括 Spring Security 的 Starter ，使得在 Spring Boot 中使用 Spring Security 变得更加容易，甚至只需要添加一个依赖就可以保护所有的接口，所以，如果是 Spring Boot 项目，一般选择 Spring Security 。当然这只是一个建议的组合，单纯从技术上来说，无论怎么组合，都是没有问题的。Shiro 和 Spring Security 相比，主要有如下一些特点：<ul><li>Spring Security 是一个重量级的安全管理框架；Shiro 则是一个轻量级的安全管理框架</li><li>Spring Security 概念复杂，配置繁琐；Shiro 概念简单、配置简单</li><li>Spring Security 功能强大；Shiro 功能简单</li></ul></li></ul><h3 id="Spring-Boot-中如何解决跨域问题"><a href="#Spring-Boot-中如何解决跨域问题" class="headerlink" title="Spring Boot 中如何解决跨域问题 ?"></a>Spring Boot 中如何解决跨域问题 ?</h3><ul><li>跨域可以在前端通过 JSONP 来解决，但是 JSONP 只可以发送 GET 请求，无法发送其他类型的请求，在 RESTful 风格的应用中，就显得非常鸡肋，因此我们推荐在后端通过 （CORS，Cross-origin resource sharing） 来解决跨域问题。这种解决方案并非 Spring Boot 特有的，在传统的 SSM 框架中，就可以通过 CORS 来解决跨域问题，只不过之前我们是在 XML 文件中配置 CORS ，现在可以通过实现WebMvcConfigurer接口然后重写addCorsMappings方法解决跨域问题。</li></ul><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">@Configuration<br>public class CorsConfig implements WebMvcConfigurer &#123;<br><br>    @Override<br>    public void addCorsMappings(CorsRegistry registry) &#123;<br>        registry.addMapping(<span class="hljs-string">&quot;/**&quot;</span>)<br>                .allowedOrigins(<span class="hljs-string">&quot;*&quot;</span>)<br>                .allowCredentials(true)<br>                .allowedMethods(<span class="hljs-string">&quot;<span class="hljs-keyword">GET</span>&quot;</span>, <span class="hljs-string">&quot;<span class="hljs-keyword">POST</span>&quot;</span>, <span class="hljs-string">&quot;<span class="hljs-keyword">PUT</span>&quot;</span>, <span class="hljs-string">&quot;<span class="hljs-keyword">DELETE</span>&quot;</span>, <span class="hljs-string">&quot;<span class="hljs-keyword">OPTIONS</span>&quot;</span>)<br>                .maxAge(<span class="hljs-number">3600</span>);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure><h3 id="Spring-Boot-中的监视器是什么？"><a href="#Spring-Boot-中的监视器是什么？" class="headerlink" title="Spring Boot 中的监视器是什么？"></a>Spring Boot 中的监视器是什么？</h3><ul><li>Spring boot actuator 是 spring 启动框架中的重要功能之一。Spring boot 监视器可帮助您访问生产环境中正在运行的应用程序的当前状态。有几个指标必须在生产环境中进行检查和监控。即使一些外部应用程序可能正在使用这些服务来向相关人员触发警报消息。监视器模块公开了一组可直接作为 HTTP URL 访问的REST 端点来检查状态。</li></ul><h3 id="如何使用-Spring-Boot-实现全局异常处理？"><a href="#如何使用-Spring-Boot-实现全局异常处理？" class="headerlink" title="如何使用 Spring Boot 实现全局异常处理？"></a>如何使用 Spring Boot 实现全局异常处理？</h3><ul><li>Spring 提供了一种使用 ControllerAdvice 处理异常的非常有用的方法。 我们通过实现一个 ControlerAdvice 类，来处理控制器类抛出的所有异常。</li></ul><h3 id="我们如何监视所有-Spring-Boot-微服务？"><a href="#我们如何监视所有-Spring-Boot-微服务？" class="headerlink" title="我们如何监视所有 Spring Boot 微服务？"></a>我们如何监视所有 Spring Boot 微服务？</h3><ul><li>Spring Boot 提供监视器端点以监控各个微服务的度量。这些端点对于获取有关应用程序的信息（如它们是否已启动）以及它们的组件（如数据库等）是否正常运行很有帮助。但是，使用监视器的一个主要缺点或困难是，我们必须单独打开应用程序的知识点以了解其状态或健康状况。想象一下涉及 50 个应用程序的微服务，管理员将不得不击中所有 50 个应用程序的执行终端。为了帮助我们处理这种情况，我们将使用位于的开源项目。 它建立在 Spring Boot Actuator 之上，它提供了一个 Web UI，使我们能够可视化多个应用程序的度量。</li></ul><h3 id="SpringBoot性能如何优化"><a href="#SpringBoot性能如何优化" class="headerlink" title="SpringBoot性能如何优化"></a>SpringBoot性能如何优化</h3><ul><li>如果项目比较大，类比较多，不使用@SpringBootApplication，采用@Compoment指定扫包范围</li><li>在项目启动时设置JVM初始内存和最大内存相同</li><li>将springboot内置服务器由tomcat设置为undertow</li></ul><h3 id="如何重新加载-Spring-Boot-上的更改，而无需重新启动服务器？Spring-Boot项目如何热部署？"><a href="#如何重新加载-Spring-Boot-上的更改，而无需重新启动服务器？Spring-Boot项目如何热部署？" class="headerlink" title="如何重新加载 Spring Boot 上的更改，而无需重新启动服务器？Spring Boot项目如何热部署？"></a>如何重新加载 Spring Boot 上的更改，而无需重新启动服务器？Spring Boot项目如何热部署？</h3><ul><li>这可以使用 DEV 工具来实现。通过这种依赖关系，您可以节省任何更改，嵌入式tomcat 将重新启动。Spring Boot 有一个开发工具（DevTools）模块，它有助于提高开发人员的生产力。Java 开发人员面临的一个主要挑战是将文件更改自动部署到服务器并自动重启服务器。开发人员可以重新加载 Spring Boot 上的更改，而无需重新启动服务器。这将消除每次手动部署更改的需要。Spring Boot 在发布它的第一个版本时没有这个功能。这是开发人员最需要的功能。DevTools 模块完全满足开发人员的需求。该模块将在生产环境中被禁用。它还提供 H2 数据库控制台以更好地测试应用程序。</li></ul><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-devtools<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>SpringBoot</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Spring</tag>
+      
+      <tag>Profiles</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title></title>
+    <link href="/blog/2021/11/10/%E5%89%AF%E6%9C%AC/"/>
+    <url>/blog/2021/11/10/%E5%89%AF%E6%9C%AC/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>SpringBoot</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>SpringBoot事物的使用</title>
     <link href="/blog/2021/11/03/SpringBoot%E4%BA%8B%E7%89%A9%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
     <url>/blog/2021/11/03/SpringBoot%E4%BA%8B%E7%89%A9%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
@@ -25,25 +71,6 @@
       <tag>事物</tag>
       
     </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title></title>
-    <link href="/blog/2021/11/01/%E5%89%AF%E6%9C%AC/"/>
-    <url>/blog/2021/11/01/%E5%89%AF%E6%9C%AC/</url>
-    
-    <content type="html"><![CDATA[]]></content>
-    
-    
-    <categories>
-      
-      <category>SpringBoot</category>
-      
-    </categories>
-    
     
   </entry>
   
