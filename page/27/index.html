@@ -186,6 +186,51 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/03/23/Lamda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/">Lamda表达式作用域(Lambda Scopes)</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/23/Lamda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/">
+          
+          
+            
+          
+          访问局部变量我们可以直接在 lambda 表达式中访问外部的局部变量：
+12345final int num = 1;Converter&lt;Integer, String&gt; stringConverter =        (from) -&gt; String.valueOf(from + num); stringConverter.convert(2);     // 3
+但是和匿名
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-23 20:30" pubdate>
+              2021-03-23
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/Lamda/">Lamda</a>
+            
+              <a href="/blog/tags/%E4%BD%9C%E7%94%A8%E5%9F%9F/">作用域</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/03/23/%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/">函数式接口(Functional Interfaces)</a>
       </h1>
 
@@ -339,55 +384,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/03/21/%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E7%BC%BA%E7%82%B9/">乐观锁的缺点</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/21/%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E7%BC%BA%E7%82%B9/">
-          
-          
-            
-          
-          ABA 问题如果一个变量V初次读取的时候是A值，并且在准备赋值的时候检查到它仍然是A值，那我们就能说明它的值没有被其他线程修改过了吗？很明显是不能的，因为在这段时间它的值可能被改为其他值，然后又改回A，那CAS操作就会误认为它从来没有被修改过。这个问题被称为CAS操作的 “ABA”问题。
-JDK 1.5 以后的 AtomicStampedReference 类就提供了此种能力，其中的 compar
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-21 16:30" pubdate>
-              2021-03-21
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/Java/">Java</a>
-            
-              <a href="/blog/tags/%E4%B9%90%E8%A7%82%E9%94%81/">乐观锁</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/26/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/25/">25</a><a class="page-number" href="/blog/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/blog/page/28/">28</a><a class="page-number" href="/blog/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/50/">50</a><a class="extend next" rel="next" href="/blog/page/28/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/26/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/25/">25</a><a class="page-number" href="/blog/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/blog/page/28/">28</a><a class="page-number" href="/blog/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/51/">51</a><a class="extend next" rel="next" href="/blog/page/28/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
