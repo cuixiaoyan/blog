@@ -186,6 +186,62 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/09/17/%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8/">并发容器</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/09/17/%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8/">
+          
+          
+            
+          
+          并发容器你经常使用什么并发容器，为什么？
+答：Vector、ConcurrentHashMap、HasTable
+一般软件开发中容器用的最多的就是HashMap、ArrayList，LinkedList ，等等
+但是在多线程开发中就不能乱用容器，如果使用了未加锁（非同步）的的集合，你的数据就会非常的混乱。由此在多线程开发中需要使用的容器必须是加锁（同步）的容器。
+
+什么是Vector
+Vector
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-09-17 21:00" pubdate>
+              2021-09-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/Java/">Java</a>
+            
+              <a href="/blog/tags/%E5%B9%B6%E5%8F%91/">并发</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/09/12/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E7%8A%B6%E6%80%81/">线程池都有哪些状态</a>
       </h1>
 
@@ -392,56 +448,6 @@ volatile 仅能实现
               <a href="/blog/tags/synchronized/">synchronized</a>
             
               <a href="/blog/tags/volatile/">volatile</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/09/06/%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E6%97%8B/">什么是自旋</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/09/06/%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E6%97%8B/">
-          
-          
-            
-          
-          什么是自旋
-很多 synchronized 里面的代码只是一些很简单的代码，执行时间非常快，此时等待的线程都加锁可能是一种不太值得的操作，因为线程阻塞涉及到用户态和内核态切换的问题。既然 synchronized 里面的代码执行得非常快，不妨让等待锁的线程不要被阻塞，而是在 synchronized 的边界做忙循环，这就是自旋。如果做了多次循环发现还没有获得锁，再阻塞，这样可能是一种更好的策略。
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-06 21:00" pubdate>
-              2021-09-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E8%87%AA%E6%97%8B/">自旋</a>
             
           </div>
         
