@@ -186,6 +186,61 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/12/06/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">事务</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/12/06/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">
+          
+          
+            
+          
+          Redis主要消耗什么物理资源？
+内存。
+
+Redis的内存用完了会发生什么？
+如果达到设置的上限，Redis的写命令会返回错误信息（但是读命令还可以正常返回。）或者你可以配置内存淘汰机制，当Redis达到内存上限时会冲刷掉旧的内容。
+
+Redis如何做内存优化？
+可以好好利用Hash,list,sorted set,set等集合类型数据，因为通常情况下很多小的Key-Value可以用更紧凑的方式
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-06 21:00" pubdate>
+              2021-12-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Redis/">Redis</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">线程模型</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/12/05/Redis%E6%8C%81%E4%B9%85%E5%8C%96/">Redis持久化</a>
       </h1>
 
@@ -389,59 +444,6 @@ Redis 是一个使用 C 语言写成的，开源的高性能key-value非关系�
             
           </div>
         
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/12/01/SpringCloud%E4%B8%BB%E8%A6%81%E9%A1%B9%E7%9B%AE/">SpringCloud主要项目</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/12/01/SpringCloud%E4%B8%BB%E8%A6%81%E9%A1%B9%E7%9B%AE/">
-          
-          
-            
-          
-          SpringCloud主要项目
-Spring Cloud的子项目，大致可分成两类，一类是对现有成熟框架”Spring Boot化”的封装和抽象，也是数量最多的项目；第二类是开发了一部分分布式系统的基础设施的实现，如Spring Cloud Stream扮演的就是kafka, ActiveMQ这样的角色。
-
-Spring Cloud Config
-Config能够管理所有微服务的配置文件
-集中配置管
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-01 21:00" pubdate>
-              2021-12-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/SpringCloud/">SpringCloud</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/SpringCloud/">SpringCloud</a>
-            
-          </div>
         
       </div>
     </article>
