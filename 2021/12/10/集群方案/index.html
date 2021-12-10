@@ -1,0 +1,675 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>集群方案 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="集群方案">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-10 21:00" pubdate>
+        2021年12月10日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">集群方案</h1>
+            
+            <div class="markdown-body">
+              <h2 id="集群方案"><a href="#集群方案" class="headerlink" title="集群方案"></a>集群方案</h2><h3 id="1、哨兵模式"><a href="#1、哨兵模式" class="headerlink" title="1、哨兵模式"></a>1、哨兵模式</h3><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/14/171744941b28481b~tplv-t2oaga2asx-watermark.awebp" srcset="/blog/img/loading.gif" alt="在这里插入图片描述"></p>
+<p><strong>哨兵的介绍</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">sentinel，中文名是哨兵。哨兵是 redis 集群机构中非常重要的一个组件，主要有以下功能：<br></code></pre></td></tr></table></figure>
+<ul>
+<li>集群监控：负责监控 redis master 和 slave 进程是否正常工作。</li>
+<li>消息通知：如果某个 redis 实例有故障，那么哨兵负责发送消息作为报警通知给管理员。</li>
+<li>故障转移：如果 master node 挂掉了，会自动转移到 slave node 上。</li>
+<li>配置中心：如果故障转移发生了，通知 client 客户端新的 master 地址。</li>
+</ul>
+<p><strong>哨兵用于实现 redis 集群的高可用</strong>，本身也是分布式的，作为一个哨兵集群去运行，互相协同工作。</p>
+<ul>
+<li>故障转移时，判断一个 master node 是否宕机了，需要大部分的哨兵都同意才行，涉及到了分布式选举的问题。</li>
+<li>即使部分哨兵节点挂掉了，哨兵集群还是能正常工作的，因为如果一个作为高可用机制重要组成部分的故障转移系统本身是单点的，那就很坑爹了。</li>
+</ul>
+<p><strong>哨兵的核心知识</strong></p>
+<ul>
+<li>哨兵至少需要 3 个实例，来保证自己的健壮性。</li>
+<li>哨兵 + redis 主从的部署架构，是<strong>不保证数据零丢失</strong>的，只能保证 redis 集群的高可用性。</li>
+<li>对于哨兵 + redis 主从这种复杂的部署架构，尽量在测试环境和生产环境，都进行充足的测试和演练。</li>
+</ul>
+<h3 id="2、官方Redis-Cluster-方案-服务端路由查询"><a href="#2、官方Redis-Cluster-方案-服务端路由查询" class="headerlink" title="2、官方Redis Cluster 方案(服务端路由查询)"></a>2、官方Redis Cluster 方案(服务端路由查询)</h3><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/14/171744941e2adfa4~tplv-t2oaga2asx-watermark.awebp" srcset="/blog/img/loading.gif" alt="在这里插入图片描述"></p>
+<ul>
+<li>redis 集群模式的工作原理能说一下么？在集群模式下，redis 的 key 是如何寻址的？分布式寻址都有哪些算法？了解一致性 hash 算法吗？</li>
+</ul>
+<p><strong>简介</strong></p>
+<ul>
+<li>Redis Cluster是一种服务端Sharding技术，3.0版本开始正式提供。Redis Cluster并没有使用一致性hash，而是采用slot(槽)的概念，一共分成16384个槽。将请求发送到任意节点，接收到请求的节点会将查询请求发送到正确的节点上执行</li>
+</ul>
+<p><strong>方案说明</strong></p>
+<ol>
+<li>通过哈希的方式，将数据分片，每个节点均分存储一定哈希槽(哈希值)区间的数据，默认分配了16384 个槽位</li>
+<li>每份数据分片会存储在多个互为主从的多节点上</li>
+<li>数据写入先写主节点，再同步到从节点(支持配置为阻塞同步)</li>
+<li>同一分片多个节点间的数据不保持一致性</li>
+<li>读取数据时，当客户端操作的key没有分配在该节点上时，redis会返回转向指令，指向正确的节点</li>
+<li>扩容时时需要需要把旧节点的数据迁移一部分到新节点</li>
+</ol>
+<ul>
+<li>在 redis cluster 架构下，每个 redis 要放开两个端口号，比如一个是 6379，另外一个就是 加1w 的端口号，比如 16379。<ul>
+<li>16379 端口号是用来进行节点间通信的，也就是 cluster bus 的东西，cluster bus 的通信，用来进行故障检测、配置更新、故障转移授权。cluster bus 用了另外一种二进制的协议，<code>gossip</code> 协议，用于节点间进行高效的数据交换，占用更少的网络带宽和处理时间。</li>
+</ul>
+</li>
+</ul>
+<p><strong>节点间的内部通信机制</strong></p>
+<ul>
+<li>基本通信原理</li>
+<li>集群元数据的维护有两种方式：集中式、Gossip 协议。redis cluster 节点间采用 gossip 协议进行通信。</li>
+</ul>
+<p><strong>分布式寻址算法</strong></p>
+<ul>
+<li>hash 算法（大量缓存重建）</li>
+<li>一致性 hash 算法（自动缓存迁移）+ 虚拟节点（自动负载均衡）</li>
+<li>redis cluster 的 hash slot 算法</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>无中心架构，支持动态扩容，对业务透明</li>
+<li>具备Sentinel的监控和自动Failover(故障转移)能力</li>
+<li>客户端不需要连接集群所有节点，连接集群中任何一个可用节点即可</li>
+<li>高性能，客户端直连redis服务，免去了proxy代理的损耗</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>运维也很复杂，数据迁移需要人工干预</li>
+<li>只能使用0号数据库</li>
+<li>不支持批量操作(pipeline管道操作)</li>
+<li>分布式逻辑和存储模块耦合等</li>
+</ul>
+<h3 id="3、基于客户端分配"><a href="#3、基于客户端分配" class="headerlink" title="3、基于客户端分配"></a>3、基于客户端分配</h3><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/14/171744941eba6627~tplv-t2oaga2asx-watermark.awebp" srcset="/blog/img/loading.gif" alt="在这里插入图片描述"></p>
+<p><strong>简介</strong></p>
+<ul>
+<li>Redis Sharding是Redis Cluster出来之前，业界普遍使用的多Redis实例集群方法。其主要思想是采用哈希算法将Redis数据的key进行散列，通过hash函数，特定的key会映射到特定的Redis节点上。Java redis客户端驱动jedis，支持Redis Sharding功能，即ShardedJedis以及结合缓存池的ShardedJedisPool</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>优势在于非常简单，服务端的Redis实例彼此独立，相互无关联，每个Redis实例像单服务器一样运行，非常容易线性扩展，系统的灵活性很强</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>由于sharding处理放到客户端，规模进一步扩大时给运维带来挑战。</li>
+<li>客户端sharding不支持动态增删节点。服务端Redis实例群拓扑结构有变化时，每个客户端都需要更新调整。连接不能共享，当应用规模增大时，资源浪费制约优化</li>
+</ul>
+<h3 id="4、基于代理服务器分片"><a href="#4、基于代理服务器分片" class="headerlink" title="4、基于代理服务器分片"></a>4、基于代理服务器分片</h3><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/14/171744941f4fe2e4~tplv-t2oaga2asx-watermark.awebp" srcset="/blog/img/loading.gif" alt="在这里插入图片描述"></p>
+<p><strong>简介</strong></p>
+<ul>
+<li>客户端发送请求到一个代理组件，代理解析客户端的数据，并将请求转发至正确的节点，最后将结果回复给客户端</li>
+</ul>
+<p><strong>特征</strong></p>
+<ul>
+<li>透明接入，业务程序不用关心后端Redis实例，切换成本低</li>
+<li>Proxy 的逻辑和存储的逻辑是隔离的</li>
+<li>代理层多了一次转发，性能有所损耗</li>
+</ul>
+<p><strong>业界开源方案</strong></p>
+<ul>
+<li>Twtter开源的Twemproxy</li>
+<li>豌豆荚开源的Codis</li>
+</ul>
+<h3 id="5、Redis-主从架构"><a href="#5、Redis-主从架构" class="headerlink" title="5、Redis 主从架构"></a>5、Redis 主从架构</h3><ul>
+<li>单机的 redis，能够承载的 QPS 大概就在上万到几万不等。对于缓存来说，一般都是用来支撑<strong>读高并发</strong>的。因此架构做成主从(master-slave)架构，一主多从，主负责写，并且将数据复制到其它的 slave 节点，从节点负责读。所有的<strong>读请求全部走从节点</strong>。这样也可以很轻松实现水平扩容，<strong>支撑读高并发</strong>。</li>
+</ul>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/14/171744945c7745d8~tplv-t2oaga2asx-watermark.awebp" srcset="/blog/img/loading.gif" alt="在这里插入图片描述"></p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clean">redis replication -&gt; 主从架构 -&gt; 读写分离 -&gt; 水平扩容支撑读高并发<br></code></pre></td></tr></table></figure>
+<p><strong>redis replication 的核心机制</strong></p>
+<ul>
+<li>redis 采用<strong>异步方式</strong>复制数据到 slave 节点，不过 redis2.8 开始，slave node 会周期性地确认自己每次复制的数据量；</li>
+<li>一个 master node 是可以配置多个 slave node 的；</li>
+<li>slave node 也可以连接其他的 slave node；</li>
+<li>slave node 做复制的时候，不会 block master node 的正常工作；</li>
+<li>slave node 在做复制的时候，也不会 block 对自己的查询操作，它会用旧的数据集来提供服务；但是复制完成的时候，需要删除旧数据集，加载新数据集，这个时候就会暂停对外服务了；</li>
+<li>slave node 主要用来进行横向扩容，做读写分离，扩容的 slave node 可以提高读的吞吐量。</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li>如果采用了主从架构，那么建议必须<strong>开启</strong> master node 的持久化，不建议用 slave node 作为 master node 的数据热备，因为那样的话，如果你关掉 master 的持久化，可能在 master 宕机重启的时候数据是空的，然后可能一经过复制， slave node 的数据也丢了。</li>
+<li>另外，master 的各种备份方案，也需要做。万一本地的所有文件丢失了，从备份中挑选一份 rdb 去恢复 master，这样才能<strong>确保启动的时候，是有数据的</strong>，即使采用了后续讲解的高可用机制，slave node 可以自动接管 master node，但也可能 sentinel 还没检测到 master failure，master node 就自动重启了，还是可能导致上面所有的 slave node 数据被清空。</li>
+</ul>
+<p><strong>redis 主从复制的核心原理</strong></p>
+<ul>
+<li>当启动一个 slave node 的时候，它会发送一个 <code>PSYNC</code> 命令给 master node。</li>
+<li>如果这是 slave node 初次连接到 master node，那么会触发一次 <code>full resynchronization</code> 全量复制。此时 master 会启动一个后台线程，开始生成一份 <code>RDB</code> 快照文件，</li>
+<li>同时还会将从客户端 client 新收到的所有写命令缓存在内存中。<code>RDB</code> 文件生成完毕后， master 会将这个 <code>RDB</code> 发送给 slave，slave 会先<strong>写入本地磁盘，然后再从本地磁盘加载到内存</strong>中，</li>
+<li>接着 master 会将内存中缓存的写命令发送到 slave，slave 也会同步这些数据。</li>
+<li>slave node 如果跟 master node 有网络故障，断开了连接，会自动重连，连接之后 master node 仅会复制给 slave 部分缺少的数据。</li>
+</ul>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/14/171744945c8008f8~tplv-t2oaga2asx-watermark.awebp" srcset="/blog/img/loading.gif" alt="在这里插入图片描述"></p>
+<p><strong>过程原理</strong></p>
+<ol>
+<li>当从库和主库建立MS关系后，会向主数据库发送SYNC命令</li>
+<li>主库接收到SYNC命令后会开始在后台保存快照(RDB持久化过程)，并将期间接收到的写命令缓存起来</li>
+<li>当快照完成后，主Redis会将快照文件和所有缓存的写命令发送给从Redis</li>
+<li>从Redis接收到后，会载入快照文件并且执行收到的缓存的命令</li>
+<li>之后，主Redis每当接收到写命令时就会将命令发送从Redis，从而保证数据的一致</li>
+</ol>
+<p><strong>缺点</strong></p>
+<ul>
+<li>所有的slave节点数据的复制和同步都由master节点来处理，会照成master节点压力太大，使用主从从结构来解决</li>
+</ul>
+<h3 id="Redis集群的主从复制模型是怎样的？"><a href="#Redis集群的主从复制模型是怎样的？" class="headerlink" title="Redis集群的主从复制模型是怎样的？"></a>Redis集群的主从复制模型是怎样的？</h3><ul>
+<li>为了使在部分节点失败或者大部分节点无法通信的情况下集群仍然可用，所以集群使用了主从复制模型，每个节点都会有N-1个复制品</li>
+</ul>
+<h3 id="生产环境中的-redis-是怎么部署的？"><a href="#生产环境中的-redis-是怎么部署的？" class="headerlink" title="生产环境中的 redis 是怎么部署的？"></a>生产环境中的 redis 是怎么部署的？</h3><ul>
+<li>redis cluster，10 台机器，5 台机器部署了 redis 主实例，另外 5 台机器部署了 redis 的从实例，每个主实例挂了一个从实例，5 个节点对外提供读写服务，每个节点的读写高峰qps可能可以达到每秒 5 万，5 台机器最多是 25 万读写请求/s。</li>
+<li>机器是什么配置？32G 内存+ 8 核 CPU + 1T 磁盘，但是分配给 redis 进程的是10g内存，一般线上生产环境，redis 的内存尽量不要超过 10g，超过 10g 可能会有问题。</li>
+<li>5 台机器对外提供读写，一共有 50g 内存。</li>
+<li>因为每个主实例都挂了一个从实例，所以是高可用的，任何一个主实例宕机，都会自动故障迁移，redis 从实例会自动变成主实例继续提供读写服务。</li>
+<li>你往内存里写的是什么数据？每条数据的大小是多少？商品数据，每条数据是 10kb。100 条数据是 1mb，10 万条数据是 1g。常驻内存的是 200 万条商品数据，占用内存是 20g，仅仅不到总内存的 50%。目前高峰期每秒就是 3500 左右的请求量。</li>
+</ul>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran">其实大型的公司，会有基础架构的 <span class="hljs-built_in">team</span> 负责缓存集群的运维。<br></code></pre></td></tr></table></figure>
+<h3 id="说说Redis哈希槽的概念？"><a href="#说说Redis哈希槽的概念？" class="headerlink" title="说说Redis哈希槽的概念？"></a>说说Redis哈希槽的概念？</h3><ul>
+<li>Redis集群没有使用一致性hash,而是引入了哈希槽的概念，Redis集群有16384个哈希槽，每个key通过CRC16校验后对16384取模来决定放置哪个槽，集群的每个节点负责一部分hash槽。</li>
+</ul>
+<h3 id="Redis集群会有写操作丢失吗？为什么？"><a href="#Redis集群会有写操作丢失吗？为什么？" class="headerlink" title="Redis集群会有写操作丢失吗？为什么？"></a>Redis集群会有写操作丢失吗？为什么？</h3><ul>
+<li>Redis并不能保证数据的强一致性，这意味这在实际中集群在特定的条件下可能会丢失写操作。</li>
+</ul>
+<h3 id="Redis集群之间是如何复制的？"><a href="#Redis集群之间是如何复制的？" class="headerlink" title="Redis集群之间是如何复制的？"></a>Redis集群之间是如何复制的？</h3><ul>
+<li>异步复制</li>
+</ul>
+<h3 id="Redis集群最大节点个数是多少？"><a href="#Redis集群最大节点个数是多少？" class="headerlink" title="Redis集群最大节点个数是多少？"></a>Redis集群最大节点个数是多少？</h3><ul>
+<li>16384个</li>
+</ul>
+<h3 id="Redis集群如何选择数据库？"><a href="#Redis集群如何选择数据库？" class="headerlink" title="Redis集群如何选择数据库？"></a>Redis集群如何选择数据库？</h3><ul>
+<li>Redis集群目前无法做数据库选择，默认在0数据库。</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/Redis/">Redis</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88/">集群方案</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2021/12/10/%E5%89%AF%E6%9C%AC/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/12/06/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">
+                        <span class="hidden-mobile">事务</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
