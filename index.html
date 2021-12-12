@@ -186,6 +186,51 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/12/12/redis%E5%88%86%E5%8C%BA/">redis分区</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/12/12/redis%E5%88%86%E5%8C%BA/">
+          
+          
+            
+          
+          分区Redis是单线程的，如何提高多核CPU的利用率？
+可以在同一个服务器部署多个Redis的实例，并把他们当作不同的服务器来使用，在某些时候，无论如何一个服务器是不够的， 所以，如果你想使用多个CPU，你可以考虑一下分片（shard）。
+
+为什么要做Redis分区？
+分区可以让Redis管理更大的内存，Redis将可以使用所有机器的内存。如果没有分区，你最多只能使用一台机器的内存。分区使Redi
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-12 21:00" pubdate>
+              2021-12-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Redis/">Redis</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/12/10/%E5%89%AF%E6%9C%AC/"></a>
       </h1>
 
@@ -386,80 +431,11 @@ RDB是Redis默认的持久化方式。按照一定的时间将内存的数据以
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/12/04/Redis%E6%9C%89%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">Redis有哪些数据类型</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/12/04/Redis%E6%9C%89%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
-          
-          
-            
-          
-          Redis有哪些数据类型
-Redis主要有5种数据类型，包括String，List，Set，Zset，Hash，满足大部分的使用要求
-
-
-
-
-数据类型
-可以存储的值
-操作
-应用场景
-
-
-
-String
-字符串、整数或者浮点数
-对整个字符串或者字符串的其中一部分执行操作 对整数和浮点数执行自增或者自减操作
-做简单的键值对缓存
-
-
-List
-列表
-从两端压入或者弹出元素 对单个或者多个元素进行修剪， 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-04 21:00" pubdate>
-              2021-12-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Redis/">Redis</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">数据类型</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/52/">52</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/53/">53</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
