@@ -186,6 +186,118 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/12/19/Redis%E5%85%B6%E4%BB%96%E9%97%AE%E9%A2%98/">Redis其他问题</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/12/19/Redis%E5%85%B6%E4%BB%96%E9%97%AE%E9%A2%98/">
+          
+          
+            
+          
+          Redis与Memcached的区别
+两者都是非关系型内存键值数据库，现在公司一般都是用 Redis 来实现缓存，而且 Redis 自身也越来越强大了！Redis 与 Memcached 主要有以下不同：
+
+
+
+
+
+对比参数
+Redis
+Memcached
+
+
+
+类型
+1. 支持内存 2. 非关系型数据库
+1. 支持内存 2. 键值对形式 3. 缓存形式
+
+
+数据存储类型
+1. String 2.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-19 21:00" pubdate>
+              2021-12-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Redis/">Redis</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/12/18/%E7%83%AD%E7%82%B9%E6%95%B0%E6%8D%AE%E5%92%8C%E5%86%B7%E6%95%B0%E6%8D%AE/">热点数据和冷数据</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/12/18/%E7%83%AD%E7%82%B9%E6%95%B0%E6%8D%AE%E5%92%8C%E5%86%B7%E6%95%B0%E6%8D%AE/">
+          
+          
+            
+          
+          热点数据和冷数据
+热点数据，缓存才有价值
+对于冷数据而言，大部分数据可能还没有再次访问到就已经被挤出内存，不仅占用内存，而且价值不大。频繁修改的数据，看情况考虑使用缓存
+对于热点数据，比如我们的某IM产品，生日祝福模块，当天的寿星列表，缓存以后可能读取数十万次。再举个例子，某导航产品，我们将导航信息，缓存以后可能读取数百万次。
+数据更新前至少读取两次，缓存才有意义。这个是最基本的策略，如果缓存还没
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-18 21:00" pubdate>
+              2021-12-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Redis/">Redis</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E7%83%AD%E7%82%B9/">热点</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/12/17/RedLock/">RedLock</a>
       </h1>
 
@@ -328,116 +440,6 @@ Redlock
             <i class="iconfont icon-tags"></i>
             
               <a href="/blog/tags/%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88/">集群方案</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/12/06/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">事务</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/12/06/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">
-          
-          
-            
-          
-          Redis主要消耗什么物理资源？
-内存。
-
-Redis的内存用完了会发生什么？
-如果达到设置的上限，Redis的写命令会返回错误信息（但是读命令还可以正常返回。）或者你可以配置内存淘汰机制，当Redis达到内存上限时会冲刷掉旧的内容。
-
-Redis如何做内存优化？
-可以好好利用Hash,list,sorted set,set等集合类型数据，因为通常情况下很多小的Key-Value可以用更紧凑的方式
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-06 21:00" pubdate>
-              2021-12-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Redis/">Redis</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">线程模型</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/12/05/Redis%E6%8C%81%E4%B9%85%E5%8C%96/">Redis持久化</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/12/05/Redis%E6%8C%81%E4%B9%85%E5%8C%96/">
-          
-          
-            
-          
-          持久化
-什么是Redis持久化？ 持久化就是把内存的数据写到磁盘中去，防止服务宕机了内存数据丢失。
-
-Redis 的持久化机制是什么？各自的优缺点？
-Redis 提供两种持久化机制 RDB（默认） 和 AOF 机制:
-
-RDB：是Redis DataBase缩写快照
-RDB是Redis默认的持久化方式。按照一定的时间将内存的数据以快照的形式保存到硬盘中，对应产生的数据文件为dump.rdb。通过配
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-05 21:00" pubdate>
-              2021-12-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Redis/">Redis</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E6%8C%81%E4%B9%85%E5%8C%96/">持久化</a>
             
           </div>
         
