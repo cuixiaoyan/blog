@@ -186,6 +186,58 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/08/29/%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81/">线程的状态</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/08/29/%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81/">
+          
+          
+            
+          
+          线程的状态
+
+新建(new)：新创建了一个线程对象。
+就绪（可运行状态）(runnable)：线程对象创建后，当调用线程对象的 start()方法，该线程处于就绪状态，等待被线程调度选中，获取cpu的使用权。
+运行(running)：可运行状态(runnable)的线程获得了cpu时间片（timeslice），执行程序代码。注：就绪状态是进入到运行状态的唯一入口，也就是说，线程要想进入运行状态执行
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-29 10:00" pubdate>
+              2021-08-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/08/28/%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">创建线程的四种方式</a>
       </h1>
 
@@ -393,56 +445,6 @@ BIO是阻塞的
               <a href="/blog/tags/IO/">IO</a>
             
               <a href="/blog/tags/%E5%9F%BA%E6%9C%AC/">基本</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/08/10/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">为什么要使用并发编程</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/08/10/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
-          
-          
-            
-          
-          为什么要使用并发编程
-提升多核CPU的利用率：一般来说一台主机上的会有多个CPU核心，我们可以创建多个线程，理论上讲操作系统可以将多个线程分配给不同的CPU去执行，每个CPU执行一个线程，这样就提高了CPU的使用效率，如果使用单线程就只能有一个CPU核心被使用。
-比如当我们在网上购物时，为了提升响应速度，需要拆分，减库存，生成订单等等这些操作，就可以进行拆分利用多线程的技术完成。面对复杂业务模型，
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-10 20:00" pubdate>
-              2021-08-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
             
           </div>
         
