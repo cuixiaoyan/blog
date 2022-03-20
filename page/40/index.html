@@ -186,6 +186,47 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/03/07/Java%E8%A7%A3%E5%86%B3Emoji%E8%A1%A8%E6%83%85%E8%BF%87%E6%BB%A4%E9%97%AE%E9%A2%98/">Java解决Emoji表情过滤问题</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/03/07/Java%E8%A7%A3%E5%86%B3Emoji%E8%A1%A8%E6%83%85%E8%BF%87%E6%BB%A4%E9%97%AE%E9%A2%98/">
+          
+          
+            
+          
+          问题：
+Emoji表情从三方数据中获取没有过滤，导致存入DB的时候报错。
+原因：
+UTF-8编码有可能是两个、三个、四个字节。Emoji表情是4个字节，而Mysql的utf8编码最多3个字节，所以数据插不进去。
+解决方案：
+1.将已经建好的表也转换成utf8mb4，这个方法不可行，有的时候就不灵了。
+2，写个工具类：过滤掉emoji表情符号
+1234567891011121314151617181
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-07 16:10" pubdate>
+              2021-03-07
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/03/07/SpringCloud%E5%85%A5%E9%97%A8%E4%B9%8BFeign%E7%AF%87/">SpringCloud入门之Feign篇</a>
       </h1>
 
@@ -359,57 +400,6 @@ Feign 是一个声明式的 Web Service 客户端。使用 Feign 能让编写 We
               <a href="/blog/tags/Ribbon/">Ribbon</a>
             
               <a href="/blog/tags/SpringCloud/">SpringCloud</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/03/02/Eureka%E9%9B%86%E7%BE%A4/">Eureka集群</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/03/02/Eureka%E9%9B%86%E7%BE%A4/">
-          
-          
-            
-          
-          Eureka 作为注册中心，保存了系统服务的相关信息，如果注册中心挂掉，那么系统就瘫痪了。因此，对 Eureka 做集群实现高可用是必不可少的。
-本次测试使用一台机器部署 Eureka 集群，通过名字和端口区分不同的 eureka 服务。 Eureka 名称 端口号 eureka01 9001 eureka02 9002 由于使用一台机器，使用两个名称还需要修改 C:\Windows\System
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-02 20:10" pubdate>
-              2021-03-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/spring/">spring</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/Eureka/">Eureka</a>
-            
-              <a href="/blog/tags/spring/">spring</a>
             
           </div>
         
