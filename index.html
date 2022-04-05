@@ -186,6 +186,54 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/04/05/%E7%B4%A2%E5%BC%95%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">索引使用场景</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/04/05/%E7%B4%A2%E5%BC%95%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">
+          
+          
+            
+          
+          索引使用场景
+当数据多且字段值有相同的值得时候用普通索引。
+当字段多且字段值没有重复的时候用唯一索引。
+当有多个字段名都经常被查询的话用复合索引。
+普通索引不支持空值，唯一索引支持空值。
+但是，若是这张表增删改多而查询较少的话，就不要创建索引了，因为如果你给一列创建了索引，那么对该列进行增删改的时候，都会先访问这一列的索引，
+若是增，则在这一列的索引内以新填入的这个字段名的值为名创建索引的子集，
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-05 21:00" pubdate>
+              2022-04-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/MySql/">MySql</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/04/01/%E5%89%AF%E6%9C%AC/"></a>
       </h1>
 
@@ -354,54 +402,11 @@ MyIASM引擎(原本Mysql的默认引擎)：不提供事务的支持，也
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/03/01/Mybatis%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%98%A0%E5%B0%84Enum%E6%9E%9A%E4%B8%BE%E7%B1%BB/">Mybatis是否可以映射Enum枚举类</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/03/01/Mybatis%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%98%A0%E5%B0%84Enum%E6%9E%9A%E4%B8%BE%E7%B1%BB/">
-          
-          
-            
-          
-          Mybatis是否可以映射Enum枚举类？
-Mybatis可以映射枚举类，不单可以映射枚举类，Mybatis可以映射任何对象到表的一列上。映射方式为自定义一个TypeHandler，实现TypeHandler的setParameter()和getResult()接口方法。
-TypeHandler有两个作用，一是完成从javaType至jdbcType的转换，二是完成jdbcType至javaTyp
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-03-01 21:00" pubdate>
-              2022-03-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/MyBatis/">MyBatis</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/55/">55</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/56/">56</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

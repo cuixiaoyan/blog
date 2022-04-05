@@ -186,6 +186,58 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/10/04/%E6%94%B6%E9%9B%86%E5%99%A8%E5%88%86%E9%85%8D/">收集器分配</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/10/04/%E6%94%B6%E9%9B%86%E5%99%A8%E5%88%86%E9%85%8D/">
+          
+          
+            
+          
+          收集器可以这么分配？（了解就好了）1234567Serial / Serial OldSerial / CMSParNew / Serial OldParNew / CMSParallel Scavenge / Serial OldParallel Scavenge / Parallel OldG1
+新生代垃圾回收器和老年代垃圾回收器都有哪些？有什么区别？
+新生代回收器：Serial、ParNew
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-04 21:00" pubdate>
+              2021-10-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/">Java虚拟机</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E6%94%B6%E9%9B%86%E5%99%A8/">收集器</a>
+            
+              <a href="/blog/tags/%E5%9E%83%E5%9C%BE/">垃圾</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/10/03/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">垃圾收集器</a>
       </h1>
 
@@ -398,68 +450,11 @@ Java文件编译的过程
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/10/01/%E6%A0%88%E6%8C%87%E5%90%91%E5%A0%86%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D/">栈指向堆是什么意思</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/10/01/%E6%A0%88%E6%8C%87%E5%90%91%E5%A0%86%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D/">
-          
-          
-            
-          
-          一个方法调用另一个方法，会创建很多栈帧吗？
-答：会创建。如果一个栈中有动态链接调用别的方法，就会去创建新的栈帧，栈中是由顺序的，一个栈帧调用另一个栈帧，另一个栈帧就会排在调用者下面
-
-栈指向堆是什么意思？
-栈指向堆是什么意思，就是栈中要使用成员变量怎么办，栈中不会存储成员变量，只会存储一个应用地址
-
-递归的调用自己会创建很多栈帧吗？
-答：递归的话也会创建多个栈帧，就是在栈中一直从上往下排下去
-
-你
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-01 21:00" pubdate>
-              2021-10-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/">Java虚拟机</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E6%A0%88%E6%8C%87%E5%90%91%E5%A0%86/">栈指向堆</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/10/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/9/">9</a><a class="page-number" href="/blog/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/blog/page/12/">12</a><a class="page-number" href="/blog/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/55/">55</a><a class="extend next" rel="next" href="/blog/page/12/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/10/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/9/">9</a><a class="page-number" href="/blog/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/blog/page/12/">12</a><a class="page-number" href="/blog/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/56/">56</a><a class="extend next" rel="next" href="/blog/page/12/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
