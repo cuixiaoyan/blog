@@ -186,6 +186,110 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/04/17/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">索引的基本原理</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/04/17/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
+          
+          
+            
+          
+          索引的基本原理
+索引用来快速地寻找那些具有特定值的记录。如果没有索引，一般来说执行查询时遍历整张表。
+索引的原理很简单，就是把无序的数据变成有序的查询
+把创建了索引的列的内容进行排序
+对排序结果生成倒排表
+在倒排表内容上拼上数据地址链
+在查询的时候，先拿到倒排表内容，再取出数据地址链，从而拿到具体数据
+
+
+
+索引算法有哪些？
+索引算法有 BTree算法和Hash算法
+
+1、BTree算法
+
+BTr
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-17 21:00" pubdate>
+              2022-04-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/MySql/">MySql</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E7%B4%A2%E5%BC%95/">索引</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2022/04/10/%E5%89%AF%E6%9C%AC/"></a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/04/10/%E5%89%AF%E6%9C%AC/">
+          
+          
+            
+          
+          
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-10 21:00" pubdate>
+              2022-04-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/MySql/">MySql</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/04/05/%E7%B4%A2%E5%BC%95%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">索引使用场景</a>
       </h1>
 
@@ -212,47 +316,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2022-04-05 21:00" pubdate>
               2022-04-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/MySql/">MySql</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/04/01/%E5%89%AF%E6%9C%AC/"></a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/04/01/%E5%89%AF%E6%9C%AC/">
-          
-          
-            
-          
-          
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-01 21:00" pubdate>
-              2022-04-01
             </time>
           </div>
         
@@ -332,51 +395,6 @@
 
 statement模式下，每一条会修改数据的sql都会记录在binlog中。不需要记录每一行的变化，减少了binlog日志量，节约了IO，提高性能。由于sql的执行是有上下文的，因此在保存的时候需要保存相关的信息，同时还有一些使用了函数之类的语句无法被记录复制。
 row级别下，不记录
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-03-20 21:00" pubdate>
-              2022-03-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/MySql/">MySql</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/03/20/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">MySQL存储引擎</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/03/20/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">
-          
-          
-            
-          
-          MySQL存储引擎MyISAM与InnoDB区别
-存储引擎Storage engine：MySQL中的数据、索引以及其他对象是如何存储的，是一套文件系统的实现。
-常用的存储引擎有以下：
-Innodb引擎：Innodb引擎提供了对数据库ACID事务的支持。并且还提供了行级锁和外键的约束。它的设计的目标就是处理大数据容量的数据库系统。
-MyIASM引擎(原本Mysql的默认引擎)：不提供事务的支持，也
         </a>
       </p>
 
