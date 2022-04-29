@@ -186,6 +186,50 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/04/29/mysql%E4%BA%8B%E5%8A%A1/">mysql事务</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/04/29/mysql%E4%BA%8B%E5%8A%A1/">
+          
+          
+            
+          
+          事务什么是数据库事务？
+事务是一个不可分割的数据库操作序列，也是数据库并发控制的基本单位，其执行的结果必须使数据库从一种一致性状态变到另一种一致性状态。事务是逻辑上的一组操作，要么都执行，要么都不执行。
+事务最经典也经常被拿出来说例子就是转账了。
+假如小明要给小红转账1000元，这个转账会涉及到两个关键操作就是：将小明的余额减少1000元，将小红的余额增加1000元。万一在这两个操作之间突然出现错
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-29 21:00" pubdate>
+              2022-04-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/MySql/">MySql</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/04/28/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8B+%E6%A0%91%E8%80%8C%E4%B8%8D%E6%98%AFB%E6%A0%91/">数据库为什么使用B+树而不是B树</a>
       </h1>
 
@@ -372,54 +416,6 @@ BTr
               <a href="/blog/tags/%E7%B4%A2%E5%BC%95/">索引</a>
             
           </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/04/05/%E7%B4%A2%E5%BC%95%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">索引使用场景</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/04/05/%E7%B4%A2%E5%BC%95%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">
-          
-          
-            
-          
-          索引使用场景
-当数据多且字段值有相同的值得时候用普通索引。
-当字段多且字段值没有重复的时候用唯一索引。
-当有多个字段名都经常被查询的话用复合索引。
-普通索引不支持空值，唯一索引支持空值。
-但是，若是这张表增删改多而查询较少的话，就不要创建索引了，因为如果你给一列创建了索引，那么对该列进行增删改的时候，都会先访问这一列的索引，
-若是增，则在这一列的索引内以新填入的这个字段名的值为名创建索引的子集，
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-05 21:00" pubdate>
-              2022-04-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/MySql/">MySql</a>
-            
-          </div>
-        
         
       </div>
     </article>
