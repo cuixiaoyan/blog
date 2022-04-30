@@ -186,6 +186,61 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/12/17/RedLock/">RedLock</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/12/17/RedLock/">
+          
+          
+            
+          
+          什么是 RedLock
+Redis 官方站提出了一种权威的基于 Redis 实现分布式锁的方式名叫 
+Redlock
+，此种方式比原先的单节点的方法更安全。它可以保证以下特性：
+
+安全特性：互斥访问，即永远只有一个 client 能拿到锁
+避免死锁：最终 client 都可能拿到锁，不会出现死锁的情况，即使原本锁住某资源的 client crash 了或者出现了网络分区
+容错性：只要大部分 Red
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-17 21:00" pubdate>
+              2021-12-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Redis/">Redis</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/RedLock/">RedLock</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/12/12/redis%E5%88%86%E5%8C%BA/">redis分区</a>
       </h1>
 
@@ -390,80 +445,11 @@ RDB是Redis默认的持久化方式。按照一定的时间将内存的数据以
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/12/04/Redis%E6%9C%89%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">Redis有哪些数据类型</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/12/04/Redis%E6%9C%89%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
-          
-          
-            
-          
-          Redis有哪些数据类型
-Redis主要有5种数据类型，包括String，List，Set，Zset，Hash，满足大部分的使用要求
-
-
-
-
-数据类型
-可以存储的值
-操作
-应用场景
-
-
-
-String
-字符串、整数或者浮点数
-对整个字符串或者字符串的其中一部分执行操作 对整数和浮点数执行自增或者自减操作
-做简单的键值对缓存
-
-
-List
-列表
-从两端压入或者弹出元素 对单个或者多个元素进行修剪， 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-04 21:00" pubdate>
-              2021-12-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Redis/">Redis</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">数据类型</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/4/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/blog/page/6/">6</a><a class="page-number" href="/blog/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/56/">56</a><a class="extend next" rel="next" href="/blog/page/6/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/4/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/blog/page/6/">6</a><a class="page-number" href="/blog/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/57/">57</a><a class="extend next" rel="next" href="/blog/page/6/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
