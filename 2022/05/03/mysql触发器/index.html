@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>崔笑颜的博客</title>
+  <title>mysql触发器 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="">
+            <span class="h2" id="subtitle" title="mysql触发器">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-05-01 21:00" pubdate>
-        2022年5月1日 晚上
+      <time datetime="2022-05-03 21:00" pubdate>
+        2022年5月3日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      1.2k 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      14
        分钟
     </span>
   
@@ -233,10 +233,110 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">mysql触发器</h1>
             
             <div class="markdown-body">
-              
+              <h2 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h2><h3 id="什么是触发器？触发器的使用场景有哪些？"><a href="#什么是触发器？触发器的使用场景有哪些？" class="headerlink" title="什么是触发器？触发器的使用场景有哪些？"></a>什么是触发器？触发器的使用场景有哪些？</h3><ul>
+<li>触发器是用户定义在关系表上的一类由事件驱动的特殊的存储过程。触发器是指一段代码，当触发某个事件时，自动执行这些代码。</li>
+</ul>
+<p><strong>使用场景</strong></p>
+<ul>
+<li>可以通过数据库中的相关表实现级联更改。</li>
+<li>实时监控某张表中的某个字段的更改而需要做出相应的处理。</li>
+<li>例如可以生成某些业务的编号。</li>
+<li>注意不要滥用，否则会造成数据库及应用程序的维护困难。</li>
+<li>大家需要牢记以上基础知识点，重点是理解数据类型CHAR和VARCHAR的差异，表存储引擎InnoDB和MyISAM的区别。</li>
+</ul>
+<h3 id="MySQL中都有哪些触发器？"><a href="#MySQL中都有哪些触发器？" class="headerlink" title="MySQL中都有哪些触发器？"></a>MySQL中都有哪些触发器？</h3><p><strong>在MySQL数据库中有如下六种触发器：</strong></p>
+<ul>
+<li>Before Insert</li>
+<li>After Insert</li>
+<li>Before Update</li>
+<li>After Update</li>
+<li>Before Delete</li>
+<li>After Delete</li>
+</ul>
+<h2 id="常用SQL语句"><a href="#常用SQL语句" class="headerlink" title="常用SQL语句"></a>常用SQL语句</h2><h3 id="SQL语句主要分为哪几类"><a href="#SQL语句主要分为哪几类" class="headerlink" title="SQL语句主要分为哪几类"></a>SQL语句主要分为哪几类</h3><ul>
+<li><p>数据定义语言DDL（Data Ddefinition Language）CREATE，DROP，ALTER</p>
+<p>主要为以上操作 即对逻辑结构等有操作的，其中包括表结构，视图和索引。</p>
+</li>
+<li><p>数据查询语言DQL（Data Query Language）SELECT</p>
+<p>这个较为好理解 即查询操作，以select关键字。各种简单查询，连接查询等 都属于DQL。</p>
+</li>
+<li><p>数据操纵语言DML（Data Manipulation Language）INSERT，UPDATE，DELETE</p>
+<p>主要为以上操作 即对数据进行操作的，对应上面所说的查询操作 DQL与DML共同构建了多数初级程序员常用的增删改查操作。而查询是较为特殊的一种 被划分到DQL中。</p>
+</li>
+<li><p>数据控制功能DCL（Data Control Language）GRANT，REVOKE，COMMIT，ROLLBACK</p>
+<p>主要为以上操作 即对数据库安全性完整性等有操作的，可以简单的理解为权限控制等。</p>
+</li>
+</ul>
+<h3 id="SQL语句的语法顺序："><a href="#SQL语句的语法顺序：" class="headerlink" title="SQL语句的语法顺序："></a>SQL语句的语法顺序：</h3><ol>
+<li>SELECT</li>
+<li>FROM</li>
+<li>JOIN</li>
+<li>ON</li>
+<li>WHERE</li>
+<li>GROUP BY</li>
+<li>HAVING</li>
+<li>UNION</li>
+<li>ORDER BY</li>
+<li>LIMIT</li>
+</ol>
+<h3 id="超键、候选键、主键、外键分别是什么？"><a href="#超键、候选键、主键、外键分别是什么？" class="headerlink" title="超键、候选键、主键、外键分别是什么？"></a>超键、候选键、主键、外键分别是什么？</h3><ul>
+<li>超键：在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。</li>
+<li>候选键：是最小超键，即没有冗余元素的超键。</li>
+<li>主键：数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。</li>
+<li>外键：在一个表中存在的另一个表的主键称此表的外键。</li>
+</ul>
+<h3 id="SQL-约束有哪几种？"><a href="#SQL-约束有哪几种？" class="headerlink" title="SQL 约束有哪几种？"></a>SQL 约束有哪几种？</h3><blockquote>
+<p>SQL 约束有哪几种？</p>
+</blockquote>
+<ul>
+<li>NOT NULL: 用于控制字段的内容一定不能为空（NULL）。</li>
+<li>UNIQUE: 控件字段内容不能重复，一个表允许有多个 Unique 约束。</li>
+<li>PRIMARY KEY: 也是用于控件字段内容不能重复，但它在一个表只允许出现一个。</li>
+<li>FOREIGN KEY: 用于预防破坏表之间连接的动作，也能防止非法数据插入外键列，因为它必须是它指向的那个表中的值之一。</li>
+<li>CHECK: 用于控制字段的值范围。</li>
+</ul>
+<h3 id="六种关联查询"><a href="#六种关联查询" class="headerlink" title="六种关联查询"></a>六种关联查询</h3><ul>
+<li><p>交叉连接（CROSS JOIN）</p>
+</li>
+<li><p>内连接（INNER JOIN）</p>
+</li>
+<li><p>外连接（LEFT JOIN/RIGHT JOIN）</p>
+</li>
+<li><p>联合查询（UNION与UNION ALL）</p>
+</li>
+<li><p>全连接（FULL JOIN）</p>
+</li>
+<li><p>交叉连接（CROSS JOIN）</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> A,B(,C)或者<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> A <span class="hljs-keyword">CROSS</span> <span class="hljs-keyword">JOIN</span> B (<span class="hljs-keyword">CROSS</span> <span class="hljs-keyword">JOIN</span> C)#没有任何关联条件，结果是笛卡尔积，结果集会很大，没有意义，很少使用内连接（<span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span>）<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> A,B <span class="hljs-keyword">WHERE</span> A.id=B.id或者<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> A <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> B <span class="hljs-keyword">ON</span> A.id=B.id多表中同时符合某种条件的数据记录的集合，<span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span>可以缩写为<span class="hljs-keyword">JOIN</span><br>复制代码<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>内连接分为三类</strong></p>
+<ul>
+<li>等值连接：ON A.id=B.id</li>
+<li>不等值连接：ON A.id &gt; B.id</li>
+<li>自连接：SELECT * FROM A T1 INNER JOIN A T2 ON T1.id=T2.pid</li>
+</ul>
+<p><strong>外连接（LEFT JOIN/RIGHT JOIN）</strong></p>
+<ul>
+<li>左外连接：LEFT OUTER JOIN, 以左表为主，先查询出左表，按照ON后的关联条件匹配右表，没有匹配到的用NULL填充，可以简写成LEFT JOIN</li>
+<li>右外连接：RIGHT OUTER JOIN, 以右表为主，先查询出右表，按照ON后的关联条件匹配左表，没有匹配到的用NULL填充，可以简写成RIGHT JOIN</li>
+</ul>
+<p><strong>联合查询（UNION与UNION ALL）</strong></p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> A <span class="hljs-keyword">UNION</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> B <span class="hljs-keyword">UNION</span> ...<br>复制代码<br></code></pre></td></tr></table></figure>
+<ul>
+<li>就是把多个结果集集中在一起，UNION前的结果为基准，需要注意的是联合查询的列数要相等，相同的记录行会合并</li>
+<li>如果使用UNION ALL，不会合并重复的记录行</li>
+<li>效率 UNION 高于 UNION ALL</li>
+</ul>
+<p><strong>全连接（FULL JOIN）</strong></p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> A <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> B <span class="hljs-keyword">ON</span> A.id=B.id UNIONSELECT * <span class="hljs-keyword">FROM</span> A <span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">JOIN</span> B <span class="hljs-keyword">ON</span> A.id=B.id<br>复制代码<br></code></pre></td></tr></table></figure>
+<ul>
+<li>MySQL不支持全连接</li>
+<li>可以使用LEFT JOIN 和UNION和RIGHT JOIN联合使用</li>
+</ul>
+
             </div>
             <hr>
             <div>
@@ -259,18 +359,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2022/05/03/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">mysql触发器</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2022/05/01/mysql%E8%A7%86%E5%9B%BE/">
-                        <span class="hidden-mobile">mysql视图</span>
+                      <a href="/blog/2022/05/01/%E5%89%AF%E6%9C%AC/">
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
