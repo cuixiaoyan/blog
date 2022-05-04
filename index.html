@@ -327,6 +327,113 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/05/01/mysql%E9%9D%A2%E8%AF%95%E9%A2%98/">mysql面试题</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/05/01/mysql%E9%9D%A2%E8%AF%95%E9%A2%98/">
+          
+          
+            
+          
+          表连接面试题有2张表。
+1张R、1张S，R表有ABC三列，S表有CD两列，表中各有三条记录
+
+R表
+
+
+
+A
+B
+C
+
+
+
+a1
+b1
+c1
+
+
+a2
+b2
+c2
+
+
+a3
+b3
+c3
+
+
+S表
+
+
+
+C
+D
+
+
+
+c1
+d1
+
+
+c2
+d2
+
+
+c4
+d3
+
+
+1、交叉连接(笛卡尔积)
+SQL
+
+12select r.*,s.* from r,s复制代码
+
+结果
+
+
+
+
+A
+B
+C
+C
+D
+
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-01 21:00" pubdate>
+              2022-05-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/MySql/">MySql</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/04/30/mysql%E9%94%81/">mysql锁</a>
       </h1>
 
@@ -370,50 +477,6 @@
               <a href="/blog/tags/mysql%E9%94%81/">mysql锁</a>
             
           </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/04/29/mysql%E4%BA%8B%E5%8A%A1/">mysql事务</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/04/29/mysql%E4%BA%8B%E5%8A%A1/">
-          
-          
-            
-          
-          事务什么是数据库事务？
-事务是一个不可分割的数据库操作序列，也是数据库并发控制的基本单位，其执行的结果必须使数据库从一种一致性状态变到另一种一致性状态。事务是逻辑上的一组操作，要么都执行，要么都不执行。
-事务最经典也经常被拿出来说例子就是转账了。
-假如小明要给小红转账1000元，这个转账会涉及到两个关键操作就是：将小明的余额减少1000元，将小红的余额增加1000元。万一在这两个操作之间突然出现错
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-29 21:00" pubdate>
-              2022-04-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/MySql/">MySql</a>
-            
-          </div>
-        
         
       </div>
     </article>
