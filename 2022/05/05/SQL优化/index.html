@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>SQL优化 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SQL优化">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-05 21:00" pubdate>
+        2022年5月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SQL优化</h1>
+            
+            <div class="markdown-body">
+              <h2 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h2><h3 id="说出一些数据库优化方面的经验"><a href="#说出一些数据库优化方面的经验" class="headerlink" title="说出一些数据库优化方面的经验?"></a>说出一些数据库优化方面的经验?</h3><ol>
+<li>有外键约束的话会影响增删改的性能，如果应用程序可以保证数据库的完整性那就去除外键</li>
+<li>Sql语句全部大写，特别是列名大写，因为数据库的机制是这样的，sql语句发送到数据库服务器，数据库首先就会把sql编译成大写在执行，如果一开始就编译成大写就不需要了把sql编译成大写这个步骤了</li>
+<li>如果应用程序可以保证数据库的完整性，可以不需要按照三大范式来设计数据库</li>
+<li>其实可以不必要创建很多索引，索引可以加快查询速度，但是索引会消耗磁盘空间</li>
+<li>如果是jdbc的话，使用PreparedStatement不使用Statement，来创建SQl，PreparedStatement的性能比Statement的速度要快，使用PreparedStatement对象SQL语句会预编译在此对象中，PreparedStatement对象可以多次高效的执行</li>
+</ol>
+<h3 id="怎么优化SQL查询语句吗"><a href="#怎么优化SQL查询语句吗" class="headerlink" title="怎么优化SQL查询语句吗"></a>怎么优化SQL查询语句吗</h3><ol>
+<li>对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引</li>
+<li>用索引可以提高查询</li>
+<li>SELECT子句中避免使用*号，尽量全部大写SQL</li>
+<li>应尽量避免在 where 子句中对字段进行 is null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，使用 IS NOT NULL</li>
+<li>where 子句中使用 or 来连接条件，也会导致引擎放弃使用索引而进行全表扫描</li>
+<li>in 和 not in 也要慎用，否则会导致全表扫描</li>
+</ol>
+<h3 id="你怎么知道SQL语句性能是高还是低"><a href="#你怎么知道SQL语句性能是高还是低" class="headerlink" title="你怎么知道SQL语句性能是高还是低"></a>你怎么知道SQL语句性能是高还是低</h3><ol>
+<li>查看SQL的执行时间</li>
+<li>使用explain关键字可以模拟优化器执行SQL查询语句，从而知道MYSQL是如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈。</li>
+</ol>
+<h3 id="SQL的执行顺序"><a href="#SQL的执行顺序" class="headerlink" title="SQL的执行顺序"></a>SQL的执行顺序</h3><ol>
+<li>FROM：将数据从硬盘加载到数据缓冲区，方便对接下来的数据进行操作。</li>
+<li>WHERE：从基表或视图中选择满足条件的元组。（不能使用聚合函数）</li>
+<li>JOIN（如right left 右连接——-从右边表中读取某个元组，并且找到该元组在左边表中对应的元组或元组集）</li>
+<li>ON：join on实现多表连接查询，推荐该种方式进行多表查询，不使用子查询。</li>
+<li>GROUP BY：分组，一般和聚合函数一起使用。</li>
+<li>HAVING：在元组的基础上进行筛选，选出符合条件的元组。（一般与GROUP BY进行连用）</li>
+<li>SELECT：查询到得所有元组需要罗列的哪些列。</li>
+<li>DISTINCT：去重的功能。</li>
+<li>UNION：将多个查询结果合并（默认去掉重复的记录）。</li>
+<li>ORDER BY：进行相应的排序。</li>
+<li>LIMIT 1：显示输出一条数据记录（元组）</li>
+</ol>
+<h3 id="如何定位及优化SQL语句的性能问题？创建的索引有没有被使用到-或者说怎么才可以知道这条语句运行很慢的原因？"><a href="#如何定位及优化SQL语句的性能问题？创建的索引有没有被使用到-或者说怎么才可以知道这条语句运行很慢的原因？" class="headerlink" title="如何定位及优化SQL语句的性能问题？创建的索引有没有被使用到?或者说怎么才可以知道这条语句运行很慢的原因？"></a>如何定位及优化SQL语句的性能问题？创建的索引有没有被使用到?或者说怎么才可以知道这条语句运行很慢的原因？</h3><ul>
+<li>对于低性能的SQL语句的定位，最重要也是最有效的方法就是使用执行计划，MySQL提供了explain命令来查看语句的执行计划。 我们知道，不管是哪种数据库，或者是哪种数据库引擎，在对一条SQL语句进行执行的过程中都会做很多相关的优化，<strong>对于查询语句，最重要的优化方式就是使用索引</strong>。 而<strong>执行计划，就是显示数据库引擎对于SQL语句的执行的详细情况，其中包含了是否使用索引，使用什么索引，使用的索引的相关信息等</strong>。</li>
+</ul>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/171735c720eda1ef~tplv-t2oaga2asx-zoom-in-crop-mark:1304:0:0:0.awebp" srcset="/blog/img/loading.gif" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>执行计划包含的信息 </p>
+<p>id</p>
+<p> 有一组数字组成。表示一个查询中各个子查询的执行顺序;</p>
+<ul>
+<li>id相同执行顺序由上至下。</li>
+<li>id不同，id值越大优先级越高，越先被执行。</li>
+<li>id为null时表示一个结果集，不需要使用它查询，常出现在包含union等查询语句中。</li>
+</ul>
+</li>
+</ul>
+<p><strong>select_type</strong> 每个子查询的查询类型，一些常见的查询类型。</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>select_type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>SIMPLE</td>
+<td>不包含任何子查询或union等查询</td>
+</tr>
+<tr>
+<td>2</td>
+<td>PRIMARY</td>
+<td>包含子查询最外层查询就显示为 PRIMARY</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SUBQUERY</td>
+<td>在select或 where字句中包含的查询</td>
+</tr>
+<tr>
+<td>4</td>
+<td>DERIVED</td>
+<td>from字句中包含的查询</td>
+</tr>
+<tr>
+<td>5</td>
+<td>UNION</td>
+<td>出现在union后的查询语句中</td>
+</tr>
+<tr>
+<td>6</td>
+<td>UNION RESULT</td>
+<td>从UNION中获取结果集，例如上文的第三个例子</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>table</strong> 查询的数据表，当从衍生表中查数据时会显示 x 表示对应的执行计划id <strong>partitions</strong> 表分区、表创建的时候可以指定通过那个列进行表分区。 举个例子：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> tmp (<br>    id <span class="hljs-type">int</span> unsigned <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> AUTO_INCREMENT,<br>    name <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>),<br>    <span class="hljs-keyword">PRIMARY</span> <span class="hljs-keyword">KEY</span> (id)<br>) engine <span class="hljs-operator">=</span> innodb<br><span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> key (id) partitions <span class="hljs-number">5</span>;<br>复制代码<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>type</strong>(非常重要，可以看到有没有走索引) 访问类型<ul>
+<li>ALL 扫描全表数据</li>
+<li>index 遍历索引</li>
+<li>range 索引范围查找</li>
+<li>index_subquery 在子查询中使用 ref</li>
+<li>unique_subquery 在子查询中使用 eq_ref</li>
+<li>ref_or_null 对Null进行索引的优化的 ref</li>
+<li>fulltext 使用全文索引</li>
+<li>ref 使用非唯一索引查找数据</li>
+<li>eq_ref 在join查询中使用PRIMARY KEYorUNIQUE NOT NULL索引关联。</li>
+</ul>
+</li>
+<li><strong>possible_keys</strong> 可能使用的索引，注意不一定会使用。查询涉及到的字段上若存在索引，则该索引将被列出来。当该列为 NULL时就要考虑当前的SQL是否需要优化了。</li>
+<li><strong>key</strong> 显示MySQL在查询中实际使用的索引，若没有使用索引，显示为NULL。</li>
+<li><strong>TIPS</strong>:查询中若使用了覆盖索引(覆盖索引：索引的数据覆盖了需要查询的所有数据)，则该索引仅出现在key列表中</li>
+<li><strong>key_length</strong> 索引长度</li>
+<li><strong>ref</strong> 表示上述表的连接匹配条件，即哪些列或常量被用于查找索引列上的值</li>
+<li><strong>rows</strong> 返回估算的结果集数目，并不是一个准确的值。</li>
+<li><strong>extra</strong> 的信息非常丰富，常见的有：<ol>
+<li>Using index 使用覆盖索引</li>
+<li>Using where 使用了用where子句来过滤结果集</li>
+<li>Using filesort 使用文件排序，使用非索引列进行排序时出现，非常消耗性能，尽量优化。</li>
+<li>Using temporary 使用了临时表 sql优化的目标可以参考阿里开发手册</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">【推荐】<span class="hljs-keyword">SQL</span>性能优化的目标：至少要达到 range 级别，要求是<span class="hljs-keyword">ref</span>级别，如果可以是consts最好。 <br>说明： <br><span class="hljs-number">1</span>） consts 单表中最多只有一个匹配行（主键或者唯一索引），在优化阶段即可读取到数据。 <br><span class="hljs-number">2</span>） <span class="hljs-keyword">ref</span> 指的是使用普通的索引（normal <span class="hljs-keyword">index</span>）。 <br><span class="hljs-number">3</span>） range 对索引进行范围检索。 <br>反例：<span class="hljs-keyword">explain</span>表的结果，<span class="hljs-keyword">type</span>=<span class="hljs-keyword">index</span>，索引物理文件全扫描，速度非常慢，这个<span class="hljs-keyword">index</span>级别比较range还低，与全表扫描是小巫见大巫。<br><br>复制代码<br></code></pre></td></tr></table></figure>
+<h3 id="SQL的生命周期？"><a href="#SQL的生命周期？" class="headerlink" title="SQL的生命周期？"></a>SQL的生命周期？</h3><ol>
+<li>应用服务器与数据库服务器建立一个连接</li>
+<li>数据库进程拿到请求sql</li>
+<li>解析并生成执行计划，执行</li>
+<li>读取数据到内存并进行逻辑处理</li>
+<li>通过步骤一的连接，发送结果到客户端</li>
+<li>关掉连接，释放资源</li>
+</ol>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/13/171735c7211423d0~tplv-t2oaga2asx-zoom-in-crop-mark:1304:0:0:0.awebp" srcset="/blog/img/loading.gif" alt="在这里插入图片描述"></p>
+<h3 id="大表数据查询，怎么优化"><a href="#大表数据查询，怎么优化" class="headerlink" title="大表数据查询，怎么优化"></a>大表数据查询，怎么优化</h3><ol>
+<li>优化shema、sql语句+索引；</li>
+<li>第二加缓存，memcached, redis；</li>
+<li>主从复制，读写分离；</li>
+<li>垂直拆分，根据你模块的耦合度，将一个大的系统分为多个小的系统，也就是分布式系统；</li>
+<li>水平切分，针对数据量大的表，这一步最麻烦，最能考验技术水平，要选择一个合理的sharding key, 为了有好的查询效率，表结构也要改动，做一定的冗余，应用也要改，sql中尽量带sharding key，将数据定位到限定的表上去查，而不是扫描全部的表；</li>
+</ol>
+<h3 id="超大分页怎么处理？"><a href="#超大分页怎么处理？" class="headerlink" title="超大分页怎么处理？"></a>超大分页怎么处理？</h3><p><strong>超大的分页一般从两个方向上来解决.</strong></p>
+<ul>
+<li>数据库层面,这也是我们主要集中关注的(虽然收效没那么大),类似于<code>select * from table where age &gt; 20 limit 1000000,10</code>这种查询其实也是有可以优化的余地的. 这条语句需要load1000000数据然后基本上全部丢弃,只取10条当然比较慢. 当时我们可以修改为<code>select * from table where id in (select id from table where age &gt; 20 limit 1000000,10)</code>.这样虽然也load了一百万的数据,但是由于索引覆盖,要查询的所有字段都在索引中,所以速度会很快. 同时如果ID连续的好,我们还可以<code>select * from table where id &gt; 1000000 limit 10</code>,效率也是不错的,优化的可能性有许多种,但是核心思想都一样,就是减少load的数据.</li>
+<li>从需求的角度减少这种请求…主要是不做类似的需求(直接跳转到几百万页之后的具体某一页.只允许逐页查看或者按照给定的路线走,这样可预测,可缓存)以及防止ID泄漏且连续被人恶意攻击.</li>
+</ul>
+<p><strong>解决超大分页,其实主要是靠缓存,可预测性的提前查到内容,缓存至redis等k-V数据库中,直接返回即可</strong></p>
+<h3 id="mysql-分页"><a href="#mysql-分页" class="headerlink" title="mysql 分页"></a>mysql 分页</h3><ul>
+<li><p>LIMIT 子句可以被用于强制 SELECT 语句返回指定的记录数。LIMIT 接受一个或两个数字参数。参数必须是一个整数常量。如果给定两个参数，第一个参数指定第一个返回记录行的偏移量，第二个参数指定返回记录行的最大数目。初始记录行的偏移量是 0(而不是 1)</p>
+<p>SELECT * FROM table LIMIT 5,10; // 检索记录行 6-15</p>
+</li>
+<li><p>为了检索从某一个偏移量到记录集的结束所有的记录行，可以指定第二个参数为 -1：</p>
+<p>SELECT * FROM table LIMIT 95,-1; // 检索记录行 96-last.</p>
+</li>
+<li><p>如果只给定一个参数，它表示返回最大的记录行数目：</p>
+<p>SELECT * FROM table LIMIT 5; //检索前 5 个记录行</p>
+</li>
+<li><p>换句话说，LIMIT n 等价于 LIMIT 0,n。</p>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/MySql/">MySql</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2022/05/03/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">
+                        <span class="hidden-mobile">mysql触发器</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>

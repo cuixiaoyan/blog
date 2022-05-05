@@ -186,6 +186,51 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/05/05/SQL%E4%BC%98%E5%8C%96/">SQL优化</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/05/05/SQL%E4%BC%98%E5%8C%96/">
+          
+          
+            
+          
+          SQL优化说出一些数据库优化方面的经验?
+有外键约束的话会影响增删改的性能，如果应用程序可以保证数据库的完整性那就去除外键
+Sql语句全部大写，特别是列名大写，因为数据库的机制是这样的，sql语句发送到数据库服务器，数据库首先就会把sql编译成大写在执行，如果一开始就编译成大写就不需要了把sql编译成大写这个步骤了
+如果应用程序可以保证数据库的完整性，可以不需要按照三大范式来设计数据库
+其实可以不
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-05 21:00" pubdate>
+              2022-05-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/MySql/">MySql</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/05/03/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">mysql触发器</a>
       </h1>
 
@@ -423,60 +468,6 @@ D
             
           </div>
         
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/04/30/mysql%E9%94%81/">mysql锁</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/04/30/mysql%E9%94%81/">
-          
-          
-            
-          
-          锁对MySQL的锁了解吗
-当数据库有并发事务的时候，可能会产生数据的不一致，这时候需要一些机制来保证访问的次序，锁机制就是这样的一个机制。
-就像酒店的房间，如果大家随意进出，就会出现多人抢夺同一个房间的情况，而在房间上装上锁，申请到钥匙的人才可以入住并且将房间锁起来，其他人只有等他使用完毕才可以再次使用。
-
-从锁的类别上分MySQL都有哪些锁呢？从锁的类别上来讲，有共享锁和排他锁。
-
-共享锁: 又
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-30 21:00" pubdate>
-              2022-04-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/MySql/">MySql</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/mysql%E9%94%81/">mysql锁</a>
-            
-          </div>
         
       </div>
     </article>
