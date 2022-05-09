@@ -186,16 +186,20 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/blog/2022/05/01/%E5%89%AF%E6%9C%AC/"></a>
+        <a href="/blog/2022/05/05/SQL%E4%BC%98%E5%8C%96/">SQL优化</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/blog/2022/05/01/%E5%89%AF%E6%9C%AC/">
+        <a href="/blog/2022/05/05/SQL%E4%BC%98%E5%8C%96/">
           
           
             
           
-          
+          SQL优化说出一些数据库优化方面的经验?
+有外键约束的话会影响增删改的性能，如果应用程序可以保证数据库的完整性那就去除外键
+Sql语句全部大写，特别是列名大写，因为数据库的机制是这样的，sql语句发送到数据库服务器，数据库首先就会把sql编译成大写在执行，如果一开始就编译成大写就不需要了把sql编译成大写这个步骤了
+如果应用程序可以保证数据库的完整性，可以不需要按照三大范式来设计数据库
+其实可以不
         </a>
       </p>
 
@@ -203,8 +207,58 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-01 21:00" pubdate>
-              2022-05-01
+            <time datetime="2022-05-05 21:00" pubdate>
+              2022-05-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/MySql/">MySql</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2022/05/03/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">mysql触发器</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/05/03/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">
+          
+          
+            
+          
+          触发器什么是触发器？触发器的使用场景有哪些？
+触发器是用户定义在关系表上的一类由事件驱动的特殊的存储过程。触发器是指一段代码，当触发某个事件时，自动执行这些代码。
+
+使用场景
+
+可以通过数据库中的相关表实现级联更改。
+实时监控某张表中的某个字段的更改而需要做出相应的处理。
+例如可以生成某些业务的编号。
+注意不要滥用，否则会造成数据库及应用程序的维护困难。
+大家需要牢记以上基础知识点，重点是理解数据
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-03 21:00" pubdate>
+              2022-05-03
             </time>
           </div>
         
@@ -427,50 +481,6 @@ D
               <a href="/blog/tags/mysql%E9%94%81/">mysql锁</a>
             
           </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/04/29/mysql%E4%BA%8B%E5%8A%A1/">mysql事务</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/04/29/mysql%E4%BA%8B%E5%8A%A1/">
-          
-          
-            
-          
-          事务什么是数据库事务？
-事务是一个不可分割的数据库操作序列，也是数据库并发控制的基本单位，其执行的结果必须使数据库从一种一致性状态变到另一种一致性状态。事务是逻辑上的一组操作，要么都执行，要么都不执行。
-事务最经典也经常被拿出来说例子就是转账了。
-假如小明要给小红转账1000元，这个转账会涉及到两个关键操作就是：将小明的余额减少1000元，将小红的余额增加1000元。万一在这两个操作之间突然出现错
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-29 21:00" pubdate>
-              2022-04-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/MySql/">MySql</a>
-            
-          </div>
-        
         
       </div>
     </article>
