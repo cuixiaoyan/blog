@@ -186,6 +186,113 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/05/01/mysql%E9%9D%A2%E8%AF%95%E9%A2%98/">mysql面试题</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/05/01/mysql%E9%9D%A2%E8%AF%95%E9%A2%98/">
+          
+          
+            
+          
+          表连接面试题有2张表。
+1张R、1张S，R表有ABC三列，S表有CD两列，表中各有三条记录
+
+R表
+
+
+
+A
+B
+C
+
+
+
+a1
+b1
+c1
+
+
+a2
+b2
+c2
+
+
+a3
+b3
+c3
+
+
+S表
+
+
+
+C
+D
+
+
+
+c1
+d1
+
+
+c2
+d2
+
+
+c4
+d3
+
+
+1、交叉连接(笛卡尔积)
+SQL
+
+12select r.*,s.* from r,s复制代码
+
+结果
+
+
+
+
+A
+B
+C
+C
+D
+
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-01 21:00" pubdate>
+              2022-05-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/MySql/">MySql</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/04/30/mysql%E9%94%81/">mysql锁</a>
       </h1>
 
@@ -371,74 +478,11 @@ B+树空间利用率更高，可减少I/O次数，磁盘读写代价更低。一
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/04/17/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">索引的基本原理</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/04/17/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
-          
-          
-            
-          
-          索引的基本原理
-索引用来快速地寻找那些具有特定值的记录。如果没有索引，一般来说执行查询时遍历整张表。
-索引的原理很简单，就是把无序的数据变成有序的查询
-把创建了索引的列的内容进行排序
-对排序结果生成倒排表
-在倒排表内容上拼上数据地址链
-在查询的时候，先拿到倒排表内容，再取出数据地址链，从而拿到具体数据
-
-
-
-索引算法有哪些？
-索引算法有 BTree算法和Hash算法
-
-1、BTree算法
-
-BTr
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-17 21:00" pubdate>
-              2022-04-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/MySql/">MySql</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E7%B4%A2%E5%BC%95/">索引</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><a class="page-number" href="/blog/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/58/">58</a><a class="extend next" rel="next" href="/blog/page/4/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><a class="page-number" href="/blog/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/59/">59</a><a class="extend next" rel="next" href="/blog/page/4/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
