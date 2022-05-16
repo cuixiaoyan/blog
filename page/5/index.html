@@ -186,6 +186,69 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/04/17/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">索引的基本原理</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/04/17/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
+          
+          
+            
+          
+          索引的基本原理
+索引用来快速地寻找那些具有特定值的记录。如果没有索引，一般来说执行查询时遍历整张表。
+索引的原理很简单，就是把无序的数据变成有序的查询
+把创建了索引的列的内容进行排序
+对排序结果生成倒排表
+在倒排表内容上拼上数据地址链
+在查询的时候，先拿到倒排表内容，再取出数据地址链，从而拿到具体数据
+
+
+
+索引算法有哪些？
+索引算法有 BTree算法和Hash算法
+
+1、BTree算法
+
+BTr
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-17 21:00" pubdate>
+              2022-04-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/MySql/">MySql</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E7%B4%A2%E5%BC%95/">索引</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/04/05/%E7%B4%A2%E5%BC%95%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">索引使用场景</a>
       </h1>
 
@@ -353,49 +416,6 @@ MyIASM引擎(原本Mysql的默认引擎)：不提供事务的支持，也
             <i class="iconfont icon-category"></i>
             
               <a href="/blog/categories/MySql/">MySql</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/03/01/Mybatis%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%98%A0%E5%B0%84Enum%E6%9E%9A%E4%B8%BE%E7%B1%BB/">Mybatis是否可以映射Enum枚举类</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/03/01/Mybatis%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%98%A0%E5%B0%84Enum%E6%9E%9A%E4%B8%BE%E7%B1%BB/">
-          
-          
-            
-          
-          Mybatis是否可以映射Enum枚举类？
-Mybatis可以映射枚举类，不单可以映射枚举类，Mybatis可以映射任何对象到表的一列上。映射方式为自定义一个TypeHandler，实现TypeHandler的setParameter()和getResult()接口方法。
-TypeHandler有两个作用，一是完成从javaType至jdbcType的转换，二是完成jdbcType至javaTyp
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-03-01 21:00" pubdate>
-              2022-03-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/MyBatis/">MyBatis</a>
             
           </div>
         

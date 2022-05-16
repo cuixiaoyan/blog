@@ -1,0 +1,703 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>常用HTTP状态码 - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="常用HTTP状态码">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-16 21:00" pubdate>
+        2022年5月16日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">常用HTTP状态码</h1>
+            
+            <div class="markdown-body">
+              <h4 id="常用HTTP状态码是怎么分类的，有哪些常见的状态码？"><a href="#常用HTTP状态码是怎么分类的，有哪些常见的状态码？" class="headerlink" title="常用HTTP状态码是怎么分类的，有哪些常见的状态码？"></a>常用HTTP状态码是怎么分类的，有哪些常见的状态码？</h4><ul>
+<li>HTTP状态码表示客户端HTTP请求的返回结果、标识服务器处理是否正常、表明请求出现的错误等。</li>
+<li>状态码的类别：</li>
+</ul>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1xx：</td>
+<td>指示信息–表示请求已接收，正在处理</td>
+</tr>
+<tr>
+<td>2xx：</td>
+<td>成功–表示请求已被成功接收、理解、接受</td>
+</tr>
+<tr>
+<td>3xx：</td>
+<td>重定向–要完成请求必须进行更进一步的操作</td>
+</tr>
+<tr>
+<td>4xx：</td>
+<td>客户端错误–请求有语法错误或请求无法实现</td>
+</tr>
+<tr>
+<td>5xx：</td>
+<td>服务器端错误–服务器未能实现合法的请求</td>
+</tr>
+</tbody></table>
+</blockquote>
+<ul>
+<li>常见的状态码：</li>
+</ul>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200：</td>
+<td>请求被正常处理</td>
+</tr>
+<tr>
+<td>204：</td>
+<td>请求被受理但没有资源可以返回</td>
+</tr>
+<tr>
+<td>206：</td>
+<td>客户端只是请求资源的一部分，服务器只对请求的部分资源执行GET方法，相应报文中通过Content-Range指定范围的资源。</td>
+</tr>
+<tr>
+<td>301：</td>
+<td>永久性重定向</td>
+</tr>
+<tr>
+<td>302：</td>
+<td>临时重定向</td>
+</tr>
+<tr>
+<td>303：</td>
+<td>与302状态码有相似功能，只是它希望客户端在请求一个URI的时候，能通过GET方法重定向到另一个URI上</td>
+</tr>
+<tr>
+<td>304：</td>
+<td>发送附带条件的请求时，条件不满足时返回，与重定向无关</td>
+</tr>
+<tr>
+<td>307：</td>
+<td>临时重定向，与302类似，只是强制要求使用POST方法</td>
+</tr>
+<tr>
+<td>400：</td>
+<td>请求报文语法有误，服务器无法识别</td>
+</tr>
+<tr>
+<td>401：</td>
+<td>请求需要认证</td>
+</tr>
+<tr>
+<td>403：</td>
+<td>请求的对应资源禁止被访问</td>
+</tr>
+<tr>
+<td>404：</td>
+<td>服务器无法找到对应资源</td>
+</tr>
+<tr>
+<td>500：</td>
+<td>服务器内部错误</td>
+</tr>
+<tr>
+<td>503：</td>
+<td>服务器正忙</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h4 id="Http协议中有那些请求方式"><a href="#Http协议中有那些请求方式" class="headerlink" title="Http协议中有那些请求方式"></a>Http协议中有那些请求方式</h4><blockquote>
+<table>
+<thead>
+<tr>
+<th>请求方式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET：</td>
+<td>用于请求访问已经被URI（统一资源标识符）识别的资源，可以通过URL传参给服务器</td>
+</tr>
+<tr>
+<td>POST：</td>
+<td>用于传输信息给服务器，主要功能与GET方法类似，但一般推荐使用POST方式。</td>
+</tr>
+<tr>
+<td>PUT：</td>
+<td>传输文件，报文主体中包含文件内容，保存到对应URI位置。</td>
+</tr>
+<tr>
+<td>HEAD：</td>
+<td>获得报文首部，与GET方法类似，只是不返回报文主体，一般用于验证URI是否有 &gt; 效。</td>
+</tr>
+<tr>
+<td>PATCH：</td>
+<td>客户端向服务器传送的数据取代指定的文档的内容(部分取代)</td>
+</tr>
+<tr>
+<td>TRACE：</td>
+<td>回显客户端请求服务器的原始请求报文，用于”回环”诊断</td>
+</tr>
+<tr>
+<td>DELETE：</td>
+<td>删除文件，与PUT方法相反，删除对应URI位置的文件。</td>
+</tr>
+<tr>
+<td>OPTIONS：</td>
+<td>查询相应URI支持的HTTP方法。</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h4 id="GET方法与POST方法的区别"><a href="#GET方法与POST方法的区别" class="headerlink" title="GET方法与POST方法的区别"></a>GET方法与POST方法的区别</h4><ul>
+<li><strong>区别一</strong>： get重点在从服务器上获取资源，post重点在向服务器发送数据；</li>
+<li><strong>区别二</strong>： Get传输的数据量小，因为受URL长度限制，但效率较高； Post可以传输大量数据，所以上传文件时只能用Post方式；</li>
+<li><strong>区别三</strong>： get是不安全的，因为get请求发送数据是在URL上，是可见的，可能会泄露私密信息，如密码等； post是放在请求头部的，是安全的</li>
+</ul>
+<h4 id="http版本的对比"><a href="#http版本的对比" class="headerlink" title="http版本的对比"></a>http版本的对比</h4><ul>
+<li>HTTP1.0版本的特性：<ul>
+<li>早先1.0的HTTP版本，是一种无状态、无连接的应用层协议。</li>
+<li>HTTP1.0规定浏览器和服务器保持短暂的连接，浏览器的每次请求都需要与服务器建立一个TCP连接，服务器处理完成后立即断开TCP连接（无连接），服务器不跟踪每个客户端也不记录过去的请求（无状态）。</li>
+</ul>
+</li>
+<li>HTTP1.1版本新特性<ul>
+<li>默认持久连接节省通信量，只要客户端服务端任意一端没有明确提出断开TCP连接，就一直保持连接，可以发送多次HTTP请求</li>
+<li>管线化，客户端可以同时发出多个HTTP请求，而不用一个个等待响应</li>
+<li>断点续传原理</li>
+</ul>
+</li>
+<li>HTTP2.0版本的特性<ul>
+<li>二进制分帧（采用二进制格式的编码将其封装）</li>
+<li>首部压缩（设置了专门的首部压缩设计的HPACK算法。）</li>
+<li>流量控制（设置了接收某个数据流的多少字节一些流量控制）</li>
+<li>多路复用（可以在共享TCP链接的基础上同时发送请求和响应）</li>
+<li>请求优先级（可以通过优化这些帧的交错和传输顺序进一步优化性能）</li>
+<li>服务器推送（就是服务器可以对一个客户端请求发送多个响应。服务器向客户端推送资 源无需客户端明确的请求。（重大更新））</li>
+</ul>
+</li>
+</ul>
+<h4 id="什么是对称加密与非对称加密"><a href="#什么是对称加密与非对称加密" class="headerlink" title="什么是对称加密与非对称加密"></a>什么是对称加密与非对称加密</h4><ul>
+<li>对称密钥加密是指加密和解密使用同一个密钥的方式，这种方式存在的最大问题就是密钥发送问题，即如何安全地将密钥发给对方；</li>
+<li>而非对称加密是指使用一对非对称密钥，即公钥和私钥，公钥可以随意发布，但私钥只有自己知道。发送密文的一方使用对方的公钥进行加密处理，对方接收到加密信息后，使用自己的私钥进行解密。 由于非对称加密的方式不需要发送用来解密的私钥，所以可以保证安全性；但是和对称加密比起来，非常的慢</li>
+</ul>
+<h4 id="cookie和session对于HTTP有什么用？"><a href="#cookie和session对于HTTP有什么用？" class="headerlink" title="cookie和session对于HTTP有什么用？"></a>cookie和session对于HTTP有什么用？</h4><ul>
+<li>HTTP协议本身是无法判断用户身份。所以需要cookie或者session</li>
+</ul>
+<h5 id="什么是cookie"><a href="#什么是cookie" class="headerlink" title="什么是cookie"></a>什么是cookie</h5><ul>
+<li>cookie是由Web服务器保存在用户浏览器上的文件（key-value格式），可以包含用户相关的信息。客户端向服务器发起请求，就提取浏览器中的用户信息由http发送给服务器</li>
+</ul>
+<h5 id="什么是session"><a href="#什么是session" class="headerlink" title="什么是session"></a>什么是session</h5><ul>
+<li>session 是浏览器和服务器会话过程中，服务器会分配的一块储存空间给session。</li>
+<li>服务器默认为客户浏览器的cookie中设置 sessionid，这个sessionid就和cookie对应，浏览器在向服务器请求过程中传输的cookie 包含 sessionid ，服务器根据传输cookie 中的 sessionid 获取出会话中存储的信息，然后确定会话的身份信息。</li>
+</ul>
+<h5 id="cookie与session区别"><a href="#cookie与session区别" class="headerlink" title="cookie与session区别"></a>cookie与session区别</h5><ol>
+<li>cookie数据存放在客户端上，安全性较差，session数据放在服务器上，安全性相对更高</li>
+<li>单个cookie保存的数据不能超过4K，session无此限制 信息后，使用自己的私钥进行解密。 由于非对称加密的方式不需要发送用来解密的私钥，所以可以保证安全性；但是和对称加密比起来，非常的慢</li>
+</ol>
+<h4 id="cookie和session对于HTTP有什么用？-1"><a href="#cookie和session对于HTTP有什么用？-1" class="headerlink" title="cookie和session对于HTTP有什么用？"></a>cookie和session对于HTTP有什么用？</h4><ul>
+<li>HTTP协议本身是无法判断用户身份。所以需要cookie或者session</li>
+</ul>
+<h5 id="什么是cookie-1"><a href="#什么是cookie-1" class="headerlink" title="什么是cookie"></a>什么是cookie</h5><ul>
+<li>cookie是由Web服务器保存在用户浏览器上的文件（key-value格式），可以包含用户相关的信息。客户端向服务器发起请求，就提取浏览器中的用户信息由http发送给服务器</li>
+</ul>
+<h5 id="什么是session-1"><a href="#什么是session-1" class="headerlink" title="什么是session"></a>什么是session</h5><ul>
+<li>session 是浏览器和服务器会话过程中，服务器会分配的一块储存空间给session。</li>
+<li>服务器默认为客户浏览器的cookie中设置 sessionid，这个sessionid就和cookie对应，浏览器在向服务器请求过程中传输的cookie 包含 sessionid ，服务器根据传输cookie 中的 sessionid 获取出会话中存储的信息，然后确定会话的身份信息。</li>
+</ul>
+<h5 id="cookie与session区别-1"><a href="#cookie与session区别-1" class="headerlink" title="cookie与session区别"></a>cookie与session区别</h5><ol>
+<li>cookie数据存放在客户端上，安全性较差，session数据放在服务器上，安全性相对更高</li>
+<li>单个cookie保存的数据不能超过4K，session无此限制</li>
+<li>session一定时间内保存在服务器上，当访问增多，占用服务器性能，考虑到服务器性能方面，应当使用cookie。</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">网络编程</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2022/05/15/%E4%BB%80%E4%B9%88%E6%98%AFHttp%E5%8D%8F%E8%AE%AE/">
+                        <span class="hidden-mobile">什么是Http协议</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
