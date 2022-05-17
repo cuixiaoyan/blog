@@ -1,0 +1,549 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="https://cuixiaoyande.oss-cn-shanghai.aliyuncs.com/%E6%99%B4_1562464329327_1562474498717.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cuixiaoyan">
+  <meta name="keywords" content="">
+  <title>什么是Nginx - 崔笑颜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>cuixiaoyan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://gitee.com/cuixiaoyan/uPic/raw/master/uPic/wallhaven-76vmmy.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="什么是Nginx">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-17 21:00" pubdate>
+        2022年5月17日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">什么是Nginx</h1>
+            
+            <div class="markdown-body">
+              <h3 id="什么是Nginx？"><a href="#什么是Nginx？" class="headerlink" title="什么是Nginx？"></a>什么是Nginx？</h3><ul>
+<li>Nginx是一个 轻量级/高性能的反向代理Web服务器，他实现非常高效的反向代理、负载平衡，他可以处理2-3万并发连接数，官方监测能支持5万并发，现在中国使用nginx网站用户有很多，例如：新浪、网易、 腾讯等。</li>
+</ul>
+<h3 id="为什么要用Nginx？"><a href="#为什么要用Nginx？" class="headerlink" title="为什么要用Nginx？"></a>为什么要用Nginx？</h3><ul>
+<li>跨平台、配置简单、方向代理、高并发连接：处理2-3万并发连接数，官方监测能支持5万并发，内存消耗小：开启10个nginx才占150M内存 ，nginx处理静态文件好，耗费内存少，</li>
+<li>而且Nginx内置的健康检查功能：如果有一个服务器宕机，会做一个健康检查，再发送的请求就不会发送到宕机的服务器了。重新将请求提交到其他的节点上。</li>
+<li>使用Nginx的话还能：<ol>
+<li>节省宽带：支持GZIP压缩，可以添加浏览器本地缓存</li>
+<li>稳定性高：宕机的概率非常小</li>
+<li>接收用户请求是异步的</li>
+</ol>
+</li>
+</ul>
+<h3 id="为什么Nginx性能这么高？"><a href="#为什么Nginx性能这么高？" class="headerlink" title="为什么Nginx性能这么高？"></a>为什么Nginx性能这么高？</h3><ul>
+<li>因为他的事件处理机制：异步非阻塞事件处理机制：运用了epoll模型，提供了一个队列，排队解决</li>
+</ul>
+<h3 id="Nginx怎么处理请求的？"><a href="#Nginx怎么处理请求的？" class="headerlink" title="Nginx怎么处理请求的？"></a>Nginx怎么处理请求的？</h3><ul>
+<li>nginx接收一个请求后，首先由listen和server_name指令匹配server模块，再匹配server模块里的location，location就是实际地址</li>
+</ul>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs axapta">    <span class="hljs-keyword">server</span> &#123;            		    	<span class="hljs-meta"># 第一个Server区块开始，表示一个独立的虚拟主机站点</span><br>        listen       <span class="hljs-number">80</span>；      		        <span class="hljs-meta"># 提供服务的端口，默认80</span><br>        server_name  localhost；    		<span class="hljs-meta"># 提供服务的域名主机名</span><br>        location / &#123;            	        <span class="hljs-meta"># 第一个location区块开始</span><br>            root   html；       		<span class="hljs-meta"># 站点的根目录，相当于Nginx的安装目录</span><br>            <span class="hljs-keyword">index</span>  <span class="hljs-keyword">index</span>.html <span class="hljs-keyword">index</span>.htm；    	<span class="hljs-meta"># 默认的首页文件，多个用空格分开</span><br>        &#125;          				<span class="hljs-meta"># 第一个location区块结果</span><br>    &#125;           <br>复制代码<br></code></pre></td></tr></table></figure>
+<h3 id="什么是正向代理和反向代理？"><a href="#什么是正向代理和反向代理？" class="headerlink" title="什么是正向代理和反向代理？"></a>什么是正向代理和反向代理？</h3><ol>
+<li>正向代理就是一个人发送一个请求直接就到达了目标的服务器</li>
+<li>反方代理就是请求统一被Nginx接收，nginx反向代理服务器接收到之后，按照一定的规    则分发给了后端的业务处理服务器进行处理了</li>
+</ol>
+<h3 id="使用“反向代理服务器的优点是什么"><a href="#使用“反向代理服务器的优点是什么" class="headerlink" title="使用“反向代理服务器的优点是什么?"></a>使用“反向代理服务器的优点是什么?</h3><ul>
+<li>反向代理服务器可以隐藏源服务器的存在和特征。它充当互联网云和web服务器之间的中间层。这对于安全方面来说是很好的，特别是当您使用web托管服务时。</li>
+</ul>
+<h3 id="Nginx的优缺点？"><a href="#Nginx的优缺点？" class="headerlink" title="Nginx的优缺点？"></a>Nginx的优缺点？</h3><ul>
+<li>优点：<ol>
+<li>占内存小，可实现高并发连接，处理响应快</li>
+<li>可实现http服务器、虚拟主机、方向代理、负载均衡</li>
+<li>Nginx配置简单</li>
+<li>可以不暴露正式的服务器IP地址</li>
+</ol>
+</li>
+<li>缺点： 动态处理差：nginx处理静态文件好,耗费内存少，但是处理动态页面则很鸡肋，现在一般前端用nginx作为反向代理抗住压力，</li>
+</ul>
+<h3 id="Nginx应用场景？"><a href="#Nginx应用场景？" class="headerlink" title="Nginx应用场景？"></a>Nginx应用场景？</h3><ol>
+<li>http服务器。Nginx是一个http服务可以独立提供http服务。可以做网页静态服务器。</li>
+<li>虚拟主机。可以实现在一台服务器虚拟出多个网站，例如个人网站使用的虚拟机。</li>
+<li>反向代理，负载均衡。当网站的访问量达到一定程度后，单台服务器不能满足用户的请求时，需要用多台服务器集群可以使用nginx做反向代理。并且多台服务器可以平均分担负载，不会应为某台服务器负载高宕机而某台服务器闲置的情况。</li>
+<li>nginz 中也可以配置安全管理、比如可以使用Nginx搭建API接口网关,对每个接口服务进行拦截。</li>
+</ol>
+<h3 id="Nginx目录结构有哪些？"><a href="#Nginx目录结构有哪些？" class="headerlink" title="Nginx目录结构有哪些？"></a>Nginx目录结构有哪些？</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs ruby">[root<span class="hljs-variable">@localhost</span> ~]<span class="hljs-comment"># tree /usr/local/nginx</span><br>/usr/local/nginx<br>├── client_body_temp<br>├── conf                             <span class="hljs-comment"># Nginx所有配置文件的目录</span><br>│   ├── fastcgi.conf                 <span class="hljs-comment"># fastcgi相关参数的配置文件</span><br>│   ├── fastcgi.conf.default         <span class="hljs-comment"># fastcgi.conf的原始备份文件</span><br>│   ├── fastcgi_params               <span class="hljs-comment"># fastcgi的参数文件</span><br>│   ├── fastcgi_params.<span class="hljs-function"><span class="hljs-keyword">def</span><span class="hljs-title">ault</span>       </span><br>│   ├── koi-utf<br>│   ├── koi-win<br>│   ├── mime.types                   <span class="hljs-comment"># 媒体类型</span><br>│   ├── mime.types.<span class="hljs-function"><span class="hljs-keyword">def</span><span class="hljs-title">ault</span></span><br>│   ├── nginx.conf                   <span class="hljs-comment"># Nginx主配置文件</span><br>│   ├── nginx.conf.<span class="hljs-function"><span class="hljs-keyword">def</span><span class="hljs-title">ault</span></span><br>│   ├── scgi_params                  <span class="hljs-comment"># scgi相关参数文件</span><br>│   ├── scgi_params.<span class="hljs-function"><span class="hljs-keyword">def</span><span class="hljs-title">ault</span>  </span><br>│   ├── uwsgi_params                 <span class="hljs-comment"># uwsgi相关参数文件</span><br>│   ├── uwsgi_params.<span class="hljs-function"><span class="hljs-keyword">def</span><span class="hljs-title">ault</span></span><br>│   └── win-utf<br>├── fastcgi_temp                     <span class="hljs-comment"># fastcgi临时数据目录</span><br>├── html                             <span class="hljs-comment"># Nginx默认站点目录</span><br>│   ├── 50x.html                     <span class="hljs-comment"># 错误页面优雅替代显示文件，例如当出现502错误时会调用此页面</span><br>│   └── index.html                   <span class="hljs-comment"># 默认的首页文件</span><br>├── logs                             <span class="hljs-comment"># Nginx日志目录</span><br>│   ├── access.log                   <span class="hljs-comment"># 访问日志文件</span><br>│   ├── error.log                    <span class="hljs-comment"># 错误日志文件</span><br>│   └── nginx.pid                    <span class="hljs-comment"># pid文件，Nginx进程启动后，会把所有进程的ID号写到此文件</span><br>├── proxy_temp                       <span class="hljs-comment"># 临时目录</span><br>├── sbin                             <span class="hljs-comment"># Nginx命令目录</span><br>│   └── nginx                        <span class="hljs-comment"># Nginx的启动命令</span><br>├── scgi_temp                        <span class="hljs-comment"># 临时目录</span><br>└── uwsgi_temp                       <span class="hljs-comment"># 临时目录</span><br>复制代码<br></code></pre></td></tr></table></figure>
+<h3 id="Nginx配置文件nginx-conf有哪些属性模块"><a href="#Nginx配置文件nginx-conf有哪些属性模块" class="headerlink" title="Nginx配置文件nginx.conf有哪些属性模块?"></a>Nginx配置文件nginx.conf有哪些属性模块?</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">worker_processes</span>  <span class="hljs-number">1</span>；                			<span class="hljs-comment"># worker进程的数量</span><br>events &#123;                              			<span class="hljs-comment"># 事件区块开始</span><br>    <span class="hljs-attribute">worker_connections</span>  <span class="hljs-number">1024</span>；          		<span class="hljs-comment"># 每个worker进程支持的最大连接数</span><br>&#125;                               			<span class="hljs-comment"># 事件区块结束</span><br>http &#123;                           			<span class="hljs-comment"># HTTP区块开始</span><br>    <span class="hljs-attribute">include</span>       mime.types；         			<span class="hljs-comment"># Nginx支持的媒体类型库文件</span><br>    default_type  application/octet-stream；            <span class="hljs-comment"># 默认的媒体类型</span><br>    sendfile        <span class="hljs-literal">on</span>；       				<span class="hljs-comment"># 开启高效传输模式</span><br>    keepalive_timeout  <span class="hljs-number">65</span>；       			<span class="hljs-comment"># 连接超时</span><br>    server &#123;            		                <span class="hljs-comment"># 第一个Server区块开始，表示一个独立的虚拟主机站点</span><br>        <span class="hljs-attribute">listen</span>       <span class="hljs-number">80</span>；      			        <span class="hljs-comment"># 提供服务的端口，默认80</span><br>        server_name  localhost；    			<span class="hljs-comment"># 提供服务的域名主机名</span><br>        location / &#123;            	        	<span class="hljs-comment"># 第一个location区块开始</span><br>            <span class="hljs-attribute">root</span>   html；       			<span class="hljs-comment"># 站点的根目录，相当于Nginx的安装目录</span><br>            index  index.html index.htm；       	<span class="hljs-comment"># 默认的首页文件，多个用空格分开</span><br>        &#125;          				        <span class="hljs-comment"># 第一个location区块结果</span><br>        error_page   <span class="hljs-number">500502503504</span>  /50x.html；          <span class="hljs-comment"># 出现对应的http状态码时，使用50x.html回应客户</span><br>        location = /50x.html &#123;          	        <span class="hljs-comment"># location区块开始，访问50x.html</span><br>            <span class="hljs-attribute">root</span>   html；      		      	        <span class="hljs-comment"># 指定对应的站点目录为html</span><br>        &#125;<br>    &#125;  <br>    ......<br>复制代码<br></code></pre></td></tr></table></figure>
+<h3 id="Nginx静态资源"><a href="#Nginx静态资源" class="headerlink" title="Nginx静态资源?"></a>Nginx静态资源?</h3><ul>
+<li>静态资源访问，就是存放在nginx的html页面，我们可以自己编写</li>
+</ul>
+<h3 id="如何用Nginx解决前端跨域问题？"><a href="#如何用Nginx解决前端跨域问题？" class="headerlink" title="如何用Nginx解决前端跨域问题？"></a>如何用Nginx解决前端跨域问题？</h3><ul>
+<li>使用Nginx转发请求。把跨域的接口写成调本域的接口，然后将这些接口转发到真正的请求地址。</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/Nginx/">Nginx</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2022/05/16/%E5%B8%B8%E7%94%A8HTTP%E7%8A%B6%E6%80%81%E7%A0%81/">
+                        <span class="hidden-mobile">常用HTTP状态码</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "55Wn8cr3lOMRDrIvOPa99oFp-gzGzoHsz",
+          app_key: "JNGtsKo81rNkmQNAspsS7IEV",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "5",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
