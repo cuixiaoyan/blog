@@ -186,6 +186,50 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/03/20/MySQL%E7%9A%84binlog/">MySQL的binlog</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/03/20/MySQL%E7%9A%84binlog/">
+          
+          
+            
+          
+          MySQL的binlog有有几种录入格式？分别有什么区别？1有三种格式，statement，row和mixed。
+
+statement模式下，每一条会修改数据的sql都会记录在binlog中。不需要记录每一行的变化，减少了binlog日志量，节约了IO，提高性能。由于sql的执行是有上下文的，因此在保存的时候需要保存相关的信息，同时还有一些使用了函数之类的语句无法被记录复制。
+row级别下，不记录
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-20 21:00" pubdate>
+              2022-03-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/MySql/">MySql</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/03/20/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">MySQL存储引擎</a>
       </h1>
 
@@ -342,51 +386,6 @@ index    指定一个名字，用于表示在迭代过程中，每次迭代�
             <i class="iconfont icon-date"></i>
             <time datetime="2022-02-26 21:00" pubdate>
               2022-02-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/MyBatis/">MyBatis</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/02/20/%E6%98%A0%E5%B0%84%E5%99%A8/">映射器</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/02/20/%E6%98%A0%E5%B0%84%E5%99%A8/">
-          
-          
-            
-          
-          映射器#{}和${}的区别
-#{}是占位符，预编译处理；${}是拼接符，字符串替换，没有预编译处理。
-Mybatis在处理#{}时，#{}传入参数是以字符串传入，会将SQL中的#{}替换为?号，调用PreparedStatement的set方法来赋值。
-#{} 可以有效的防止SQL注入，提高系统安全性；${} 不能防止SQL 注入
-#{} 的变量替换是在DBMS 中；${} 的变量替换是在 DBM
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-02-20 21:00" pubdate>
-              2022-02-20
             </time>
           </div>
         
