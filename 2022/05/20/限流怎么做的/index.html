@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>崔笑颜的博客</title>
+  <title>限流怎么做的 - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="">
+            <span class="h2" id="subtitle" title="限流怎么做的">
               
             </span>
 
@@ -181,8 +181,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-05-10 21:00" pubdate>
-        2022年5月10日 晚上
+      <time datetime="2022-05-20 21:00" pubdate>
+        2022年5月20日 晚上
       </time>
     </span>
   
@@ -193,7 +193,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      839 字
     </span>
   
 
@@ -203,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      9
        分钟
     </span>
   
@@ -233,10 +233,44 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">限流怎么做的</h1>
             
             <div class="markdown-body">
-              
+              <h3 id="限流怎么做的？"><a href="#限流怎么做的？" class="headerlink" title="限流怎么做的？"></a>限流怎么做的？</h3><ul>
+<li>Nginx限流就是限制用户请求速度，防止服务器受不了</li>
+<li>限流有3种<ol>
+<li>正常限制访问频率（正常流量）</li>
+<li>突发限制访问频率（突发流量）</li>
+<li>限制并发连接数</li>
+</ol>
+</li>
+<li>Nginx的限流都是基于漏桶流算法，底下会说道什么是桶铜流</li>
+</ul>
+<p><strong>实现三种限流算法</strong></p>
+<h5 id="1、正常限制访问频率（正常流量）："><a href="#1、正常限制访问频率（正常流量）：" class="headerlink" title="1、正常限制访问频率（正常流量）："></a>1、正常限制访问频率（正常流量）：</h5><ul>
+<li>限制一个用户发送的请求，我Nginx多久接收一个请求。</li>
+<li>Nginx中使用ngx_http_limit_req_module模块来限制的访问频率，限制的原理实质是基于漏桶算法原理来实现的。在nginx.conf配置文件中可以使用limit_req_zone命令及limit_req命令限制单个IP的请求处理频率。</li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs awk">	<span class="hljs-comment">#定义限流维度，一个用户一分钟一个请求进来，多余的全部漏掉</span><br>	limit_req_zone <span class="hljs-variable">$binary_remote_addr</span> zone=one:<span class="hljs-number">10</span>m rate=<span class="hljs-number">1</span>r/m;<br><br>	<span class="hljs-comment">#绑定限流维度</span><br>	server&#123;<br>		<br>		location/seckill.html&#123;<br>			limit_req zone=zone;	<br>			proxy_pass http:<span class="hljs-regexp">//</span>lj_seckill;<br>		&#125;<br><br>	&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+<ul>
+<li>1r/s代表1秒一个请求，1r/m一分钟接收一个请求， 如果Nginx这时还有别人的请求没有处理完，Nginx就会拒绝处理该用户请求。</li>
+</ul>
+<h5 id="2、突发限制访问频率（突发流量）："><a href="#2、突发限制访问频率（突发流量）：" class="headerlink" title="2、突发限制访问频率（突发流量）："></a>2、突发限制访问频率（突发流量）：</h5><ul>
+<li>限制一个用户发送的请求，我Nginx多久接收一个。</li>
+<li>上面的配置一定程度可以限制访问频率，但是也存在着一个问题：如果突发流量超出请求被拒绝处理，无法处理活动时候的突发流量，这时候应该如何进一步处理呢？Nginx提供burst参数结合nodelay参数可以解决流量突发的问题，可以设置能处理的超过设置的请求数外能额外处理的请求数。我们可以将之前的例子添加burst参数以及nodelay参数：</li>
+</ul>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs nix">	<span class="hljs-comment">#定义限流维度，一个用户一分钟一个请求进来，多余的全部漏掉</span><br>	limit_req_zone $binary_remote_addr <span class="hljs-attr">zone=one:10m</span> <span class="hljs-attr">rate=1r/m;</span><br><br>	<span class="hljs-comment">#绑定限流维度</span><br>	server&#123;<br>		<br>		location/seckill.html&#123;<br>			limit_req <span class="hljs-attr">zone=zone</span> <span class="hljs-attr">burst=5</span> nodelay;<br>			proxy_pass http://lj_seckill;<br>		&#125;<br><br>	&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+<ul>
+<li>为什么就多了一个  burst=5 nodelay; 呢，多了这个可以代表Nginx对于一个用户的请求会立即处理前五个，多余的就慢慢来落，没有其他用户的请求我就处理你的，有其他的请求的话我Nginx就漏掉不接受你的请求</li>
+</ul>
+<h5 id="3、-限制并发连接数"><a href="#3、-限制并发连接数" class="headerlink" title="3、 限制并发连接数"></a>3、 限制并发连接数</h5><ul>
+<li>Nginx中的ngx_http_limit_conn_module模块提供了限制并发连接数的功能，可以使用limit_conn_zone指令以及limit_conn执行进行配置。接下来我们可以通过一个简单的例子来看下：</li>
+</ul>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs puppet">    <span class="hljs-keyword">http</span> &#123;<br>	limit_conn_zone <span class="hljs-variable">$binary_remote_addr</span> zone=myip:<span class="hljs-number">10</span>m;<br>	limit_conn_zone <span class="hljs-variable">$server_name</span> zone=myServerName:<span class="hljs-number">10</span>m;<br>    &#125;<br><br>    <span class="hljs-keyword">server</span> &#123;<br>        location / &#123;<br>            limit_conn myip <span class="hljs-number">10</span>;<br>            limit_conn myServerName <span class="hljs-number">100</span>;<br>            rewrite / http://www.lijie.net permanent;<br>        &#125;<br>    &#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+<ul>
+<li>上面配置了单个IP同时并发连接数最多只能10个连接，并且设置了整个虚拟服务器同时最大并发数最多只能100个链接。当然，只有当请求的header被服务器处理后，虚拟服务器的连接数才会计数。刚才有提到过Nginx是基于漏桶算法原理实现的，实际上限流一般都是基于漏桶算法和令牌桶算法实现的。接下来我们来看看两个算法的介绍：</li>
+</ul>
+
             </div>
             <hr>
             <div>
@@ -250,6 +284,13 @@
                   </div>
                 
                 
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E9%99%90%E6%B5%81/">限流</a>
+                    
+                  </div>
+                
               </div>
               
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
@@ -259,9 +300,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2022/05/11/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AF%B9%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%88%86%E5%B1%82/">
+                      <a href="/blog/2022/05/20/%E5%89%AF%E6%9C%AC/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">为什么要对网络协议分层</span>
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -269,8 +310,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2022/05/10/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E9%9D%A2%E8%AF%95%E9%A2%98/">
-                        <span class="hidden-mobile">网络编程面试题</span>
+                      <a href="/blog/2022/05/18/Nginx%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E6%80%8E%E4%B9%88%E9%85%8D%E7%BD%AE/">
+                        <span class="hidden-mobile">Nginx虚拟主机怎么配置</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
