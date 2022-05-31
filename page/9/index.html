@@ -186,6 +186,52 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/02/08/MyBatis%E7%9A%84%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%9E%84%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84/">MyBatis的功能架构是怎样的</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/02/08/MyBatis%E7%9A%84%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%9E%84%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84/">
+          
+          
+            
+          
+          MyBatis的功能架构是怎样的
+
+我们把Mybatis的功能架构分为三层：
+API接口层：提供给外部使用的接口API，开发人员通过这些本地API来操纵数据库。接口层一接收到调用请求就会调用数据处理层来完成具体的数据处理。
+数据处理层：负责具体的SQL查找、SQL解析、SQL执行和执行结果映射处理等。它主要的目的是根据调用的请求完成一次数据库操作。
+基础支撑层：负责最基础的功能支撑，包括连接管理、
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-02-08 21:00" pubdate>
+              2022-02-08
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/MyBatis/">MyBatis</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/01/16/MyBatis%E7%9A%84%E6%9E%B6%E6%9E%84/">MyBatis的架构</a>
       </h1>
 
@@ -384,63 +430,11 @@ Memcached
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/12/18/%E7%83%AD%E7%82%B9%E6%95%B0%E6%8D%AE%E5%92%8C%E5%86%B7%E6%95%B0%E6%8D%AE/">热点数据和冷数据</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/12/18/%E7%83%AD%E7%82%B9%E6%95%B0%E6%8D%AE%E5%92%8C%E5%86%B7%E6%95%B0%E6%8D%AE/">
-          
-          
-            
-          
-          热点数据和冷数据
-热点数据，缓存才有价值
-对于冷数据而言，大部分数据可能还没有再次访问到就已经被挤出内存，不仅占用内存，而且价值不大。频繁修改的数据，看情况考虑使用缓存
-对于热点数据，比如我们的某IM产品，生日祝福模块，当天的寿星列表，缓存以后可能读取数十万次。再举个例子，某导航产品，我们将导航信息，缓存以后可能读取数百万次。
-数据更新前至少读取两次，缓存才有意义。这个是最基本的策略，如果缓存还没
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-18 21:00" pubdate>
-              2021-12-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Redis/">Redis</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E7%83%AD%E7%82%B9/">热点</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/8/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/7/">7</a><a class="page-number" href="/blog/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/blog/page/10/">10</a><a class="page-number" href="/blog/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/61/">61</a><a class="extend next" rel="next" href="/blog/page/10/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/8/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/7/">7</a><a class="page-number" href="/blog/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/blog/page/10/">10</a><a class="page-number" href="/blog/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/62/">62</a><a class="extend next" rel="next" href="/blog/page/10/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

@@ -186,6 +186,50 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/06/07/JAVA%E5%90%8C%E4%B8%80IP%E8%AE%BF%E9%97%AE%E5%90%8C%E4%B8%80%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E9%A2%91%E7%8E%87%E9%99%90%E5%88%B6/">JAVA同一IP访问同一接口进行频率限制</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/06/07/JAVA%E5%90%8C%E4%B8%80IP%E8%AE%BF%E9%97%AE%E5%90%8C%E4%B8%80%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E9%A2%91%E7%8E%87%E9%99%90%E5%88%B6/">
+          
+          
+            
+          
+          1.如何对同一IP访问同一接口进行每秒、每分钟、每小时频率限制话不多说，直接开干，首先写一个注解类
+1234567891011121314151617import java.lang.annotation.*;/** * 接口限流 * @author rs * */@Inherited@Documented@Target(&#123;ElementType.FIELD,ElementType.TY
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-06-07 20:00" pubdate>
+              2021-06-07
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/JAVA/">JAVA</a>
+            
+              <a href="/blog/tags/IP/">IP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/06/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%9D%A1%E4%BB%B6%E4%B8%8B%E5%88%86%E6%AE%B5%E5%A4%84%E7%90%86List%E9%9B%86%E5%90%88/">多线程条件下分段处理List集合</a>
       </h1>
 
@@ -367,61 +411,11 @@ www.graphicsmagick.org/convert.h
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/05/30/%E4%B8%BB%E6%B5%81%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%99%90%E6%B5%81%E7%AD%96%E7%95%A5%E9%83%BD%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87redis%E5%AE%9E%E7%8E%B0/">主流的四种限流策略都可以通过redis实现</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/05/30/%E4%B8%BB%E6%B5%81%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%99%90%E6%B5%81%E7%AD%96%E7%95%A5%E9%83%BD%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87redis%E5%AE%9E%E7%8E%B0/">
-          
-          
-            
-          
-          引言
-在web开发中功能是基石，除了功能以外运维和防护就是重头菜了。因为在网站运行期间可能会因为突然的访问量导致业务异常、也有可能遭受别人恶意攻击
-所以我们的接口需要对流量进行限制。俗称的QPS也是对流量的一种描述
-针对限流现在大多应该是令牌桶算法，因为它能保证更多的吞吐量。除了令牌桶算法还有他的前身漏桶算法和简单的计数算法
-下面我们来看看这四种算法
-
-固定时间窗口算法
-固定时间窗口算法也可以叫做
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-30 20:10" pubdate>
-              2021-05-30
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/redis/">redis</a>
-            
-              <a href="/blog/tags/%E9%99%90%E6%B5%81/">限流</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/30/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/29/">29</a><a class="page-number" href="/blog/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/blog/page/32/">32</a><a class="page-number" href="/blog/page/33/">33</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/61/">61</a><a class="extend next" rel="next" href="/blog/page/32/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/30/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/29/">29</a><a class="page-number" href="/blog/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/blog/page/32/">32</a><a class="page-number" href="/blog/page/33/">33</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/62/">62</a><a class="extend next" rel="next" href="/blog/page/32/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
