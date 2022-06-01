@@ -186,6 +186,98 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/05/26/%E5%B8%B8%E7%94%A8%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">常用消息中间件</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/05/26/%E5%B8%B8%E7%94%A8%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+          
+          
+            
+          
+          你们公司生产环境用的是什么消息中间件？
+这个首先你可以说下你们公司选用的是什么消息中间件，比如用的是RabbitMQ，然后可以初步给一些你对不同MQ中间件技术的选型分析。
+举个例子：比如说ActiveMQ是老牌的消息中间件，国内很多公司过去运用的还是非常广泛的，功能很强大。
+但是问题在于没法确认ActiveMQ可以支撑互联网公司的高并发、高负载以及高吞吐的复杂场景，在国内互联网公司落地较少。而且使
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-26 21:00" pubdate>
+              2022-05-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/RabbitMQ/">RabbitMQ</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2022/05/23/Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E7%AE%97%E6%B3%95/">Nginx负载均衡的算法</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/05/23/Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E7%AE%97%E6%B3%95/">
+          
+          
+            
+          
+          Nginx负载均衡的算法怎么实现的?策略有哪些?
+为了避免服务器崩溃，大家会通过负载均衡的方式来分担服务器压力。将对台服务器组成一个集群，当用户访问时，先访问到一个转发服务器，再由转发服务器将访问分发到压力更小的服务器。
+Nginx负载均衡实现的策略有以下五种：
+
+1 轮询(默认)
+每个请求按时间顺序逐一分配到不同的后端服务器，如果后端某个服务器宕机，能自动剔除故障系统。
+
+12345upstre
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-23 21:00" pubdate>
+              2022-05-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Nginx/">Nginx</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/05/22/%E6%BC%8F%E6%A1%B6%E6%B5%81%E7%AE%97%E6%B3%95%E5%92%8C%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95/">漏桶流算法和令牌桶算法</a>
       </h1>
 
@@ -215,47 +307,6 @@
             <i class="iconfont icon-category"></i>
             
               <a href="/blog/categories/Nginx/">Nginx</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/05/20/%E5%89%AF%E6%9C%AC/"></a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/05/20/%E5%89%AF%E6%9C%AC/">
-          
-          
-            
-          
-          
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-20 21:00" pubdate>
-              2022-05-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/RabbitMQ/">RabbitMQ</a>
             
           </div>
         
@@ -350,68 +401,6 @@ MQ的优点
 流量削锋 - 可以通过消息队列长度控制请求量；可以缓解短时间内的高并发请求。
 日志处理 - 解决大量日志传输。
 消息通讯 - 消息队列一般都内置了高效的通信机制，因此也可以用在纯的消息通讯。比如
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-20 21:00" pubdate>
-              2022-05-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/RabbitMQ/">RabbitMQ</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/05/20/MQ%20%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">MQ 有哪些常见问题</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/05/20/MQ%20%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">
-          
-          
-            
-          
-          MQ 有哪些常见问题？如何解决这些问题？
-MQ 的常见问题有：
-消息的顺序问题
-消息的重复问题
-
-
-
-消息的顺序问题
-
-消息有序指的是可以按照消息的发送顺序来消费。
-假如生产者产生了 2 条消息：M1、M2，假定 M1 发送到 S1，M2 发送到 S2，如果要保证 M1 先于 M2 被消费，怎么做？
-
-
-
-解决方案：
-保证生产者 - MQServer - 消费者是一对一对一的关系
-
-
-
-
-
-缺陷：
         </a>
       </p>
 
