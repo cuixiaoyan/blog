@@ -186,6 +186,51 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/06/03/Dubbo%E7%9A%84%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/">Dubbo的整体架构</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/06/03/Dubbo%E7%9A%84%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/">
+          
+          
+            
+          
+          Dubbo 的整体架构设计有哪些分层?
+
+接口服务层（Service）：该层与业务逻辑相关，根据 provider 和 consumer 的业务设计对应的接口和实现
+配置层（Config）：对外配置接口，以 ServiceConfig 和 ReferenceConfig 为中心
+服务代理层（Proxy）：服务接口透明代理，生成服务的客户端 Stub 和 服务端的 Skeleton，以 Servic
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-06-03 21:00" pubdate>
+              2022-06-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Dubbo/">Dubbo</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/06/01/%E5%89%AF%E6%9C%AC/"></a>
       </h1>
 
@@ -344,52 +389,6 @@ transaction机制就是说：发送消息前，开启事务（channel.txSelect()
             <i class="iconfont icon-date"></i>
             <time datetime="2022-05-29 21:00" pubdate>
               2022-05-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/RabbitMQ/">RabbitMQ</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/05/28/RabbitMQ%E6%B6%88%E6%81%AF%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%80%A7/">RabbitMQ消息的顺序性</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/05/28/RabbitMQ%E6%B6%88%E6%81%AF%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%80%A7/">
-          
-          
-            
-          
-          如何保证RabbitMQ消息的顺序性？
-拆分多个 queue(消息队列)，每个 queue(消息队列) 一个 consumer(消费者)，就是多一些 queue (消息队列)而已，确实是麻烦点；
-或者就一个 queue (消息队列)但是对应一个 consumer(消费者)，然后这个 consumer(消费者)内部用内存队列做排队，然后分发给底层不同的 worker 来处理。
-
-消息如何分发？
-若该
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-28 21:00" pubdate>
-              2022-05-28
             </time>
           </div>
         

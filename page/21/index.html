@@ -186,6 +186,63 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/09/08/synchronized%E5%92%8Cvolatile%E7%9A%84%E5%8C%BA%E5%88%AB/">synchronized和volatile的区别</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/09/08/synchronized%E5%92%8Cvolatile%E7%9A%84%E5%8C%BA%E5%88%AB/">
+          
+          
+            
+          
+          synchronized 和 volatile 的区别是什么？
+synchronized 表示只有一个线程可以获取作用对象的锁，执行代码，阻塞其他线程。
+volatile 表示变量在 CPU 的寄存器中是不确定的，必须从主存中读取。保证多线程环境下变量的可见性；禁止指令重排序。
+
+区别
+
+volatile 是变量修饰符；synchronized 可以修饰类、方法、变量。
+volatile 仅能实现
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-09-08 21:00" pubdate>
+              2021-09-08
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/synchronized/">synchronized</a>
+            
+              <a href="/blog/tags/volatile/">volatile</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/09/06/%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E6%97%8B/">什么是自旋</a>
       </h1>
 
@@ -390,61 +447,6 @@ Jav
               <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
             
               <a href="/blog/tags/%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/">构造方法</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/09/01/%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95%E5%92%8C%E5%90%8C%E6%AD%A5%E5%9D%97/">同步方法和同步块</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/09/01/%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95%E5%92%8C%E5%90%8C%E6%AD%A5%E5%9D%97/">
-          
-          
-            
-          
-          同步方法和同步块，哪个是更好的选择？
-同步块是更好的选择，因为它不会锁住整个对象（当然你也可以让它锁住整个对象）。同步方法会锁住整个对象，哪怕这个类中有多个不相关联的同步块，这通常会导致他们停止执行并需要等待获得这个对象上的锁。
-同步块更要符合开放调用的原则，只在需要锁住的代码块锁住相应的对象，这样从侧面来说也可以避免死锁。
-
-1请知道一条原则：同步的范围越小越好。
-什么是线程同步和线程互斥，有哪
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-01 21:00" pubdate>
-              2021-09-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
-            
-              <a href="/blog/tags/%E5%90%8C%E6%AD%A5/">同步</a>
             
           </div>
         
