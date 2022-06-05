@@ -41,7 +41,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"cuixiaoyan.gitee.io","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/blog/js/utils.js" ></script>
   <script  src="/blog/js/color-schema.js" ></script>
@@ -179,6 +179,59 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/07/08/%E5%85%AD%E7%A7%8D%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%96%B9%E6%A1%88/">六种分布式事务方案</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/07/08/%E5%85%AD%E7%A7%8D%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%96%B9%E6%A1%88/">
+          
+          
+            
+          
+          介绍在分布式系统、微服务架构大行其道的今天，服务间互相调用出现失败已经成为常态。如何处理异常，如何保证数据一致性，成为微服务设计过程中，绕不开的一个难题。
+在不同的业务场景下，解决方案会有所差异，常见的方式有：
+
+阻塞式重试；
+2PC、3PC 传统事务；
+使用队列，后台异步处理；
+TCC 补偿事务；
+本地消息表（异步确保）；
+MQ 事务。
+
+本文侧重于其他几项，关于 2PC、3PC 传统事务，网上
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-08 10:00" pubdate>
+              2021-07-08
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+            
+              <a href="/blog/tags/%E4%BA%8B%E5%8A%A1/">事务</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
   <div class="row mx-auto index-card">
     
@@ -359,52 +412,6 @@ Stream将要处理的元素集合看作一种流，在流的过程中，借助St
               <a href="/blog/tags/1-8/">1.8</a>
             
               <a href="/blog/tags/JavaStream/">JavaStream</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/07/02/%E4%B9%A6%E5%86%99%E9%AB%98%E8%B4%A8%E9%87%8FSQL%E7%9A%8430%E6%9D%A1%E5%BB%BA%E8%AE%AE/">书写高质量SQL的30条建议</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/07/02/%E4%B9%A6%E5%86%99%E9%AB%98%E8%B4%A8%E9%87%8FSQL%E7%9A%8430%E6%9D%A1%E5%BB%BA%E8%AE%AE/">
-          
-          
-            
-          
-          1、查询SQL尽量不要使用select *，而是select具体字段。12345- 反例子：- select * from employee;- 正例子：- select id，name from employee;
-理由：
-只取需要的字段，节省资源、减少网络开销。 select * 进行查询时，很可能就不会使用到覆盖索引了，就会造成回表查询。
-2、如果知道查询结果只有一条或者只要最大/最小一条记
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-02 20:00" pubdate>
-              2021-07-02
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/sql/">sql</a>
-            
-              <a href="/blog/tags/%E5%BB%BA%E8%AE%AE/">建议</a>
             
           </div>
         

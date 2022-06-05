@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="cuixiaoyan">
   <meta name="keywords" content="">
-  <title>标签 - Redis - 崔笑颜的博客</title>
+  <title>标签 - redis - 崔笑颜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -41,7 +41,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"cuixiaoyan.gitee.io","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/blog/js/utils.js" ></script>
   <script  src="/blog/js/color-schema.js" ></script>
@@ -155,7 +155,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="标签 - Redis">
+            <span class="h2" id="subtitle" title="标签 - redis">
               
             </span>
 
@@ -184,7 +184,7 @@
                 
 
 <div class="list-group">
-  <p class="h4">共计 3 篇文章</p>
+  <p class="h4">共计 1 篇文章</p>
   <hr>
   
   
@@ -192,21 +192,9 @@
       
       <p class="h5">2021</p>
     
-    <a href="/blog/2021/12/02/%E4%BB%80%E4%B9%88%E6%98%AFRedis/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">什么是Redis</span>
-      <time style="float: right;">12-02</time>
-    </a>
-  
-    
-    <a href="/blog/2021/05/23/Redis%E4%B8%8EMySQL%E5%8F%8C%E5%86%99%E4%B8%80%E8%87%B4%E6%80%A7%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Redis与MySQL双写一致性如何保证</span>
-      <time style="float: right;">05-23</time>
-    </a>
-  
-    
-    <a href="/blog/2021/02/05/SpringBoot%E6%95%B4%E5%90%88Redis/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">SpringBoot整合Redis</span>
-      <time style="float: right;">02-05</time>
+    <a href="/blog/2021/05/30/%E4%B8%BB%E6%B5%81%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%99%90%E6%B5%81%E7%AD%96%E7%95%A5%E9%83%BD%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87redis%E5%AE%9E%E7%8E%B0/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">主流的四种限流策略都可以通过redis实现</span>
+      <time style="float: right;">05-30</time>
     </a>
   
 </div>
@@ -354,6 +342,37 @@
   <script  src="/blog/js/local-search.js" ></script>
   <script>
     (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
+   (function () {
       var path = "/blog/local-search.xml";
       var inputArea = document.querySelector("#local-search-input");
       inputArea.onclick = function () {

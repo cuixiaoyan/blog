@@ -41,7 +41,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"gitee.com","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"cuixiaoyan.gitee.io","root":"/blog/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/blog/js/utils.js" ></script>
   <script  src="/blog/js/color-schema.js" ></script>
@@ -179,6 +179,61 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2021/10/17/Spring%E6%B3%A8%E8%A7%A3/">Spring注解</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/10/17/Spring%E6%B3%A8%E8%A7%A3/">
+          
+          
+            
+          
+          Spring注解什么是基于Java的Spring注解配置? 给一些注解的例子
+基于Java的配置，允许你在少量的Java注解的帮助下，进行你的大部分Spring配置而非通过XML文件。
+
+以@Configuration 注解为例，它用来标记类可以当做一个bean的定义，被Spring IOC容器使用。
+
+另一个例子是@Bean注解，它表示此方法将要返回一个对象，作为一个bean注册进Spring应
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-17 21:00" pubdate>
+              2021-10-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Spring/">Spring</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E6%B3%A8%E8%A7%A3/">注解</a>
+            
+              <a href="/blog/tags/Spring/">Spring</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
   <div class="row mx-auto index-card">
     
@@ -386,60 +441,6 @@ Spring beans 是那些形成Spring应用的主干的java对象。它们被Spring
               <a href="/blog/tags/Spring/">Spring</a>
             
               <a href="/blog/tags/Beans/">Beans</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/10/09/Spring%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E5%AE%B9%E5%99%A8/">Spring如何设计容器</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/10/09/Spring%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E5%AE%B9%E5%99%A8/">
-          
-          
-            
-          
-          Spring 如何设计容器的，BeanFactory和ApplicationContext的关系详解
-Spring 作者 Rod Johnson 设计了两个接口用以表示容器。
-BeanFactory
-ApplicationContext
-
-
-BeanFactory 简单粗暴，可以理解为就是个 HashMap，Key 是 BeanName，Value 是 Bean 实例。通常只提供注册（put），获
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-09 21:00" pubdate>
-              2021-10-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Spring/">Spring</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E5%AE%B9%E5%99%A8/">设计容器</a>
             
           </div>
         
