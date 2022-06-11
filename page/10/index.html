@@ -186,6 +186,51 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/02/20/%E6%98%A0%E5%B0%84%E5%99%A8/">映射器</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/02/20/%E6%98%A0%E5%B0%84%E5%99%A8/">
+          
+          
+            
+          
+          映射器#{}和${}的区别
+#{}是占位符，预编译处理；${}是拼接符，字符串替换，没有预编译处理。
+Mybatis在处理#{}时，#{}传入参数是以字符串传入，会将SQL中的#{}替换为?号，调用PreparedStatement的set方法来赋值。
+#{} 可以有效的防止SQL注入，提高系统安全性；${} 不能防止SQL 注入
+#{} 的变量替换是在DBMS 中；${} 的变量替换是在 DBM
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-02-20 21:00" pubdate>
+              2022-02-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/MyBatis/">MyBatis</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/02/08/MyBatis%E7%9A%84%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%9E%84%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84/">MyBatis的功能架构是怎样的</a>
       </h1>
 
@@ -370,71 +415,11 @@ MyBatis 可以使用 XML 或注解来配置和映射原生信息，将 POJO 映�
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/12/19/Redis%E5%85%B6%E4%BB%96%E9%97%AE%E9%A2%98/">Redis其他问题</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/12/19/Redis%E5%85%B6%E4%BB%96%E9%97%AE%E9%A2%98/">
-          
-          
-            
-          
-          Redis与Memcached的区别
-两者都是非关系型内存键值数据库，现在公司一般都是用 Redis 来实现缓存，而且 Redis 自身也越来越强大了！Redis 与 Memcached 主要有以下不同：
-
-
-
-
-
-对比参数
-Redis
-Memcached
-
-
-
-类型
-1. 支持内存 2. 非关系型数据库
-1. 支持内存 2. 键值对形式 3. 缓存形式
-
-
-数据存储类型
-1. String 2.
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-19 21:00" pubdate>
-              2021-12-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Redis/">Redis</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/9/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/8/">8</a><a class="page-number" href="/blog/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/blog/page/11/">11</a><a class="page-number" href="/blog/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/62/">62</a><a class="extend next" rel="next" href="/blog/page/11/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/9/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/8/">8</a><a class="page-number" href="/blog/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/blog/page/11/">11</a><a class="page-number" href="/blog/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/63/">63</a><a class="extend next" rel="next" href="/blog/page/11/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
