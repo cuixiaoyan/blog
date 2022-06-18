@@ -186,6 +186,67 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/05/20/%E9%99%90%E6%B5%81%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84/">限流怎么做的</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/05/20/%E9%99%90%E6%B5%81%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84/">
+          
+          
+            
+          
+          限流怎么做的？
+Nginx限流就是限制用户请求速度，防止服务器受不了
+限流有3种
+正常限制访问频率（正常流量）
+突发限制访问频率（突发流量）
+限制并发连接数
+
+
+Nginx的限流都是基于漏桶流算法，底下会说道什么是桶铜流
+
+实现三种限流算法
+1、正常限制访问频率（正常流量）：
+限制一个用户发送的请求，我Nginx多久接收一个请求。
+Nginx中使用ngx_http_limit_req_module
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-20 21:00" pubdate>
+              2022-05-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Nginx/">Nginx</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/%E9%99%90%E6%B5%81/">限流</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/05/20/%E4%BB%80%E4%B9%88%E6%98%AFMQ/">什么是MQ</a>
       </h1>
 
@@ -377,73 +438,6 @@ Nginx是一个 轻量级/高性能的反向代理Web服务器，他实现非常�
             <i class="iconfont icon-category"></i>
             
               <a href="/blog/categories/Nginx/">Nginx</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/05/16/%E5%B8%B8%E7%94%A8HTTP%E7%8A%B6%E6%80%81%E7%A0%81/">常用HTTP状态码</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/05/16/%E5%B8%B8%E7%94%A8HTTP%E7%8A%B6%E6%80%81%E7%A0%81/">
-          
-          
-            
-          
-          常用HTTP状态码是怎么分类的，有哪些常见的状态码？
-HTTP状态码表示客户端HTTP请求的返回结果、标识服务器处理是否正常、表明请求出现的错误等。
-状态码的类别：
-
-
-
-
-
-类别
-描述
-
-
-
-1xx：
-指示信息–表示请求已接收，正在处理
-
-
-2xx：
-成功–表示请求已被成功接收、理解、接受
-
-
-3xx：
-重定向–要完成请求必须进行更进一步的操作
-
-
-4xx：
-客户端错误–请求有语法错误或请求无法
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-16 21:00" pubdate>
-              2022-05-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">网络编程</a>
             
           </div>
         
