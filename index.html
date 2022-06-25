@@ -186,6 +186,52 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/06/25/ZookeeperWatcher%E6%9C%BA%E5%88%B6/">ZookeeperWatcher机制</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/06/25/ZookeeperWatcher%E6%9C%BA%E5%88%B6/">
+          
+          
+            
+          
+          Zookeeper Watcher 机制 – 数据变更通知
+Zookeeper 允许客户端向服务端的某个 Znode 注册一个 Watcher 监听，当服务端的一些指定事件触发了这个 Watcher，服务端会向指定客户端发送一个事件通知来实现分布式的通知功能，然后客户端根据 Watcher 通知状态和事件类型做出业务上的改变。
+
+工作机制：
+（1）客户端注册 watcher
+（2）服务端处理 wa
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-06-25 21:00" pubdate>
+              2022-06-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/ZooKeeper/">ZooKeeper</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/06/20/%E5%89%AF%E6%9C%AC/"></a>
       </h1>
 
@@ -344,48 +390,6 @@ SOAP是一种数据交换协议规范,是一种轻量的、简单的、基于XML
             <i class="iconfont icon-date"></i>
             <time datetime="2022-06-12 21:00" pubdate>
               2022-06-12
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Dubbo/">Dubbo</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/06/11/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89RPC/">为什么要有RPC</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/06/11/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89RPC/">
-          
-          
-            
-          
-          为什么要有RPC
-http接口是在接口不多、系统与系统交互较少的情况下，解决信息孤岛初期常使用的一种通信手段；优点就是简单、直接、开发方便。利用现成的http协议进行传输。但是如果是一个大型的网站，内部子系统较多、接口非常多的情况下，RPC框架的好处就显示出来了，首先就是长链接，不必每次通信都要像http一样去3次握手什么的，减少了网络开销；其次就是RPC框架一般都有注册中心，有丰富的监控管理；发
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-06-11 21:00" pubdate>
-              2022-06-11
             </time>
           </div>
         
