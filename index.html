@@ -186,6 +186,99 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/07/02/Zookeeper%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/">Zookeeper数据同步</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/07/02/Zookeeper%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/">
+          
+          
+            
+          
+          数据同步
+整个集群完成 Leader 选举之后，Learner（Follower 和 Observer 的统称）回向Leader 服务器进行注册。当 Learner 服务器想 Leader 服务器完成注册后，进入数据同步环节。
+
+数据同步流程：（均以消息传递的方式进行）
+
+Learner 向 Learder 注册
+数据同步
+同步确认
+
+
+Zookeeper 的数据同步通常分为四类：
+（1）直接差异
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-02 21:00" pubdate>
+              2022-07-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/ZooKeeper/">ZooKeeper</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/2022/07/01/%E5%89%AF%E6%9C%AC/"></a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/07/01/%E5%89%AF%E6%9C%AC/">
+          
+          
+            
+          
+          
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-01 21:00" pubdate>
+              2022-07-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/ZooKeeper/">ZooKeeper</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/06/25/ZookeeperWatcher%E6%9C%BA%E5%88%B6/">ZookeeperWatcher机制</a>
       </h1>
 
@@ -210,47 +303,6 @@ Zookeeper 允许客户端向服务端的某个 Znode 注册一个 Watcher 监听
             <i class="iconfont icon-date"></i>
             <time datetime="2022-06-25 21:00" pubdate>
               2022-06-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/ZooKeeper/">ZooKeeper</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/06/20/%E5%89%AF%E6%9C%AC/"></a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/06/20/%E5%89%AF%E6%9C%AC/">
-          
-          
-            
-          
-          
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-06-20 21:00" pubdate>
-              2022-06-20
             </time>
           </div>
         
@@ -360,57 +412,11 @@ ZooKeeper 的目标就是封装好复杂易出错的关键服务，将简单易�
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/06/12/RPC%E5%92%8CSOA%E7%9A%84%E5%8C%BA%E5%88%AB/">RPC和SOA的区别</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/06/12/RPC%E5%92%8CSOA%E7%9A%84%E5%8C%BA%E5%88%AB/">
-          
-          
-            
-          
-          RPC和SOA、SOAP、REST的区别
-1、REST
-可以看着是HTTP协议的一种直接应用，默认基于JSON作为传输格式,使用简单,学习成本低效率高,但是安全性较低。
-
-2、SOAP
-SOAP是一种数据交换协议规范,是一种轻量的、简单的、基于XML的协议的规范。而SOAP可以看着是一个重量级的协议，基于XML、SOAP在安全方面是通过使用XML-Security和XML-Signature两个规
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-06-12 21:00" pubdate>
-              2022-06-12
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Dubbo/">Dubbo</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/63/">63</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/64/">64</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
