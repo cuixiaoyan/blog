@@ -186,6 +186,53 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/05/31/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84RabbitMQ%E7%9A%84%E9%9B%86%E7%BE%A4/">如何保证高可用的RabbitMQ的集群</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/05/31/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84RabbitMQ%E7%9A%84%E9%9B%86%E7%BE%A4/">
+          
+          
+            
+          
+          如何保证高可用的？RabbitMQ 的集群
+RabbitMQ 是比较有代表性的，因为是基于主从（非分布式）做高可用性的，我们就以 RabbitMQ 为例子讲解第一种 MQ 的高可用性怎么实现。RabbitMQ 有三种模式：单机模式、普通集群模式、镜像集群模式。
+
+
+单机模式，就是 Demo 级别的，一般就是你本地启动了玩玩儿的?，没人生产用单机模式
+普通集群模式：
+意思就是在多台机器上启动多个 R
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-31 21:00" pubdate>
+              2022-05-31
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/RabbitMQ/">RabbitMQ</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/05/29/RabbitMQ%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93/">RabbitMQ消息的可靠传输</a>
       </h1>
 
@@ -349,49 +396,6 @@ Nginx负载均衡实现的策略有以下五种：
             <i class="iconfont icon-date"></i>
             <time datetime="2022-05-23 21:00" pubdate>
               2022-05-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Nginx/">Nginx</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/05/22/%E6%BC%8F%E6%A1%B6%E6%B5%81%E7%AE%97%E6%B3%95%E5%92%8C%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95/">漏桶流算法和令牌桶算法</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/05/22/%E6%BC%8F%E6%A1%B6%E6%B5%81%E7%AE%97%E6%B3%95%E5%92%8C%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95/">
-          
-          
-            
-          
-          漏桶算法
-漏桶算法是网络世界中流量整形或速率限制时经常使用的一种算法，它的主要目的是控制数据注入到网络的速率，平滑网络上的突发流量。漏桶算法提供了一种机制，通过它，突发流量可以被整形以便为网络提供一个稳定的流量。也就是我们刚才所讲的情况。漏桶算法提供的机制实际上就是刚才的案例：
-突发流量会进入到一个漏桶，漏桶会按照我们定义的速率依次处理请求，如果水流过大也就是突发流量过大就会直接溢出，则多余的请求
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-22 21:00" pubdate>
-              2022-05-22
             </time>
           </div>
         
