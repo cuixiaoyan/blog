@@ -186,6 +186,62 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/07/11/Linux%20%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/">Linux 开机启动过程</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/07/11/Linux%20%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/">
+          
+          
+            
+          
+          Linux 开机启动过程？
+了解即可。
+
+
+1、主机加电自检，加载 BIOS 硬件信息。
+2、读取 MBR 的引导文件(GRUB、LILO)。
+3、引导 Linux 内核。
+4、运行第一个进程 init (进程号永远为 1 )。
+5、进入相应的运行级别。
+6、运行终端，输入用户名和密码。
+
+Linux系统缺省的运行级别？
+关机。
+单机用户模式。
+字符界面的多用户模式(不支持网络)。
+字符界面的多用
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-11 21:00" pubdate>
+              2022-07-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/linux/">linux</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/07/10/%E5%89%AF%E6%9C%AC/"></a>
       </h1>
 
@@ -338,58 +394,6 @@ chubby 是 google 的，完全实现 paxos 算法，不开源。zookeeper 是 ch
             <i class="iconfont icon-date"></i>
             <time datetime="2022-07-03 21:00" pubdate>
               2022-07-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/ZooKeeper/">ZooKeeper</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/07/02/Zookeeper%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/">Zookeeper数据同步</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/07/02/Zookeeper%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/">
-          
-          
-            
-          
-          数据同步
-整个集群完成 Leader 选举之后，Learner（Follower 和 Observer 的统称）回向Leader 服务器进行注册。当 Learner 服务器想 Leader 服务器完成注册后，进入数据同步环节。
-
-数据同步流程：（均以消息传递的方式进行）
-
-Learner 向 Learder 注册
-数据同步
-同步确认
-
-
-Zookeeper 的数据同步通常分为四类：
-（1）直接差异
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-02 21:00" pubdate>
-              2022-07-02
             </time>
           </div>
         

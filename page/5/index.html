@@ -186,6 +186,54 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/05/23/Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E7%AE%97%E6%B3%95/">Nginx负载均衡的算法</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/05/23/Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E7%AE%97%E6%B3%95/">
+          
+          
+            
+          
+          Nginx负载均衡的算法怎么实现的?策略有哪些?
+为了避免服务器崩溃，大家会通过负载均衡的方式来分担服务器压力。将对台服务器组成一个集群，当用户访问时，先访问到一个转发服务器，再由转发服务器将访问分发到压力更小的服务器。
+Nginx负载均衡实现的策略有以下五种：
+
+1 轮询(默认)
+每个请求按时间顺序逐一分配到不同的后端服务器，如果后端某个服务器宕机，能自动剔除故障系统。
+
+12345upstre
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-23 21:00" pubdate>
+              2022-05-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Nginx/">Nginx</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/05/22/%E6%BC%8F%E6%A1%B6%E6%B5%81%E7%AE%97%E6%B3%95%E5%92%8C%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95/">漏桶流算法和令牌桶算法</a>
       </h1>
 
@@ -388,54 +436,6 @@ MQ 的常见问题有：
             <i class="iconfont icon-category"></i>
             
               <a href="/blog/categories/RabbitMQ/">RabbitMQ</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/05/18/Nginx%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E6%80%8E%E4%B9%88%E9%85%8D%E7%BD%AE/">Nginx虚拟主机怎么配置</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/05/18/Nginx%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E6%80%8E%E4%B9%88%E9%85%8D%E7%BD%AE/">
-          
-          
-            
-          
-          Nginx虚拟主机怎么配置?
-1、基于域名的虚拟主机，通过域名来区分虚拟主机——应用：外部网站
-2、基于端口的虚拟主机，通过端口来区分虚拟主机——应用：公司内部网站，外部网站的管理后台
-3、基于ip的虚拟主机。
-
-基于虚拟主机配置域名
-需要建立/data/www /data/bbs目录，windows本地hosts添加虚拟机ip地址对应的域名解析；对应域名网站目录下新增index.html文件；
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-18 21:00" pubdate>
-              2022-05-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Nginx/">Nginx</a>
             
           </div>
         
