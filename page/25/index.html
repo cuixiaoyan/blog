@@ -186,6 +186,59 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84%20sleep()%E6%96%B9%E6%B3%95%E5%92%8C%20yield/">线程的sleep()方法和yield()</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2021/08/31/%E7%BA%BF%E7%A8%8B%E7%9A%84%20sleep()%E6%96%B9%E6%B3%95%E5%92%8C%20yield/">
+          
+          
+            
+          
+          线程的 sleep()方法和 yield()方法有什么区别？
+（1） sleep()方法给其他线程运行机会时不考虑线程的优先级，因此会给低优先级的线程以运行的机会；yield()方法只会给相同优先级或更高优先级的线程以运行的机会；
+（2） 线程执行 sleep()方法后转入阻塞（blocked）状态，而执行 yield()方法后转入就绪（ready）状态；
+（3）sleep()方法声明抛出 Int
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-31 20:00" pubdate>
+              2021-08-31
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/sleep/">sleep</a>
+            
+              <a href="/blog/tags/yield/">yield</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2021/08/29/%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81/">线程的状态</a>
       </h1>
 
@@ -394,69 +447,11 @@ BIO是阻塞的
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2021/08/13/IO%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E8%AE%B2%E8%A7%A3/">IO基本操作讲解</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2021/08/13/IO%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E8%AE%B2%E8%A7%A3/">
-          
-          
-            
-          
-          IO基本操作讲解
-这里的基本操作就是普通的读取操作，如果想要跟深入的了解不同的IO开发场景必须先了解IO的基本操作
-
-1 按字符流读取文件1.1 按字符流的·节点流方式读取
-如果我们要取的数据基本单位是字符，那么用（字符流）这种方法读取文件就比较适合。比如：读取test.txt文件
-
-注释：
-
-字符流：以字符为单位，每次次读入或读出是16位数据。其只能读取字符类型数据。 (Java代码接收数据为一
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-13 20:00" pubdate>
-              2021-08-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/JavaIO/">JavaIO</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/IO/">IO</a>
-            
-              <a href="/blog/tags/%E5%9F%BA%E6%9C%AC/">基本</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/blog/page/24/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/23/">23</a><a class="page-number" href="/blog/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/blog/page/26/">26</a><a class="page-number" href="/blog/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/64/">64</a><a class="extend next" rel="next" href="/blog/page/26/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/blog/page/24/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/23/">23</a><a class="page-number" href="/blog/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/blog/page/26/">26</a><a class="page-number" href="/blog/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/65/">65</a><a class="extend next" rel="next" href="/blog/page/26/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
