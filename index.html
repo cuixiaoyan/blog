@@ -186,6 +186,56 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/07/24/%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%92%8C%E8%BD%AF%E9%93%BE%E6%8E%A5/"></a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/07/24/%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%92%8C%E8%BD%AF%E9%93%BE%E6%8E%A5/">
+          
+          
+            
+          
+          什么是硬链接和软链接？
+硬链接：由于 Linux 下的文件是通过索引节点(inode)来识别文件，硬链接可以认为是一个指针，指向文件索引节点的指针，系统并不为它重新分配 inode 。每添加一个一个硬链接，文件的链接数就加 1 。
+不足：
+不可以在不同文件系统的文件间建立链接；
+只有超级用户才可以为目录创建硬链接。
+
+
+
+
+软链接：软链接克服了硬链接的不足，没有任何文件系统的限制，任何用户可以创建
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-24 21:00" pubdate>
+              2022-07-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/linux/">linux</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/07/23/Linux%E7%9A%84GUI/">Linux的GUI</a>
       </h1>
 
@@ -356,50 +406,6 @@ Linux是一套免费使用和自由传播的类似Unix操作系统，一般的WE
             <i class="iconfont icon-category"></i>
             
               <a href="/blog/categories/linux/">linux</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/07/06/Zookeeper%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD/">Zookeeper都有哪些功能</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/07/06/Zookeeper%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD/">
-          
-          
-            
-          
-          Zookeeper 都有哪些功能？
-集群管理：监控节点存活状态、运行请求等；
-主节点选举：主节点挂掉了之后可以从备用的节点开始新一轮选主，主节点选举说的就是这个选举的过程，使用 Zookeeper 可以协助完成这个过程；
-分布式锁：Zookeeper 提供两种锁：独占锁、共享锁。独占锁即一次只能有一个线程使用资源，共享锁是读锁共享，读写互斥，即可以有多线线程同时读同一个资源，如果要使用写锁也只能有
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-06 21:00" pubdate>
-              2022-07-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/ZooKeeper/">ZooKeeper</a>
             
           </div>
         
