@@ -186,6 +186,53 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/05/29/RabbitMQ%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93/">RabbitMQ消息的可靠传输</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/05/29/RabbitMQ%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93/">
+          
+          
+            
+          
+          如何保证RabbitMQ消息的可靠传输？
+消息不可靠的情况可能是消息丢失，劫持等原因；
+丢失又分为：生产者丢失消息、消息列表丢失消息、消费者丢失消息；
+
+
+生产者丢失消息：从生产者弄丢数据这个角度来看，RabbitMQ提供transaction和confirm模式来确保生产者不丢消息；
+transaction机制就是说：发送消息前，开启事务（channel.txSelect()）,然后发送消息，如
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-29 21:00" pubdate>
+              2022-05-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/RabbitMQ/">RabbitMQ</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/05/28/RabbitMQ%E6%B6%88%E6%81%AF%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%80%A7/">RabbitMQ消息的顺序性</a>
       </h1>
 
@@ -356,67 +403,6 @@ Nginx负载均衡实现的策略有以下五种：
             
           </div>
         
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/05/20/%E9%99%90%E6%B5%81%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84/">限流怎么做的</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/05/20/%E9%99%90%E6%B5%81%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84/">
-          
-          
-            
-          
-          限流怎么做的？
-Nginx限流就是限制用户请求速度，防止服务器受不了
-限流有3种
-正常限制访问频率（正常流量）
-突发限制访问频率（突发流量）
-限制并发连接数
-
-
-Nginx的限流都是基于漏桶流算法，底下会说道什么是桶铜流
-
-实现三种限流算法
-1、正常限制访问频率（正常流量）：
-限制一个用户发送的请求，我Nginx多久接收一个请求。
-Nginx中使用ngx_http_limit_req_module
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-20 21:00" pubdate>
-              2022-05-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/Nginx/">Nginx</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/blog/tags/%E9%99%90%E6%B5%81/">限流</a>
-            
-          </div>
         
       </div>
     </article>
