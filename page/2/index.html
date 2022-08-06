@@ -186,6 +186,62 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/blog/2022/07/11/Linux%20%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/">Linux 开机启动过程</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/blog/2022/07/11/Linux%20%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/">
+          
+          
+            
+          
+          Linux 开机启动过程？
+了解即可。
+
+
+1、主机加电自检，加载 BIOS 硬件信息。
+2、读取 MBR 的引导文件(GRUB、LILO)。
+3、引导 Linux 内核。
+4、运行第一个进程 init (进程号永远为 1 )。
+5、进入相应的运行级别。
+6、运行终端，输入用户名和密码。
+
+Linux系统缺省的运行级别？
+关机。
+单机用户模式。
+字符界面的多用户模式(不支持网络)。
+字符界面的多用
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-11 21:00" pubdate>
+              2022-07-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/blog/categories/linux/">linux</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/blog/2022/07/10/Linux%20%E6%A6%82%E8%BF%B0/">Linux 概述</a>
       </h1>
 
@@ -349,52 +405,6 @@ Zookeeper 的数据同步通常分为四类：
             <i class="iconfont icon-date"></i>
             <time datetime="2022-07-02 21:00" pubdate>
               2022-07-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/blog/categories/ZooKeeper/">ZooKeeper</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/blog/2022/06/25/ZookeeperWatcher%E6%9C%BA%E5%88%B6/">ZookeeperWatcher机制</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/blog/2022/06/25/ZookeeperWatcher%E6%9C%BA%E5%88%B6/">
-          
-          
-            
-          
-          Zookeeper Watcher 机制 – 数据变更通知
-Zookeeper 允许客户端向服务端的某个 Znode 注册一个 Watcher 监听，当服务端的一些指定事件触发了这个 Watcher，服务端会向指定客户端发送一个事件通知来实现分布式的通知功能，然后客户端根据 Watcher 通知状态和事件类型做出业务上的改变。
-
-工作机制：
-（1）客户端注册 watcher
-（2）服务端处理 wa
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-06-25 21:00" pubdate>
-              2022-06-25
             </time>
           </div>
         
